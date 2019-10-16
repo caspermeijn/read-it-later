@@ -1,0 +1,79 @@
+{
+    "app-id": "com.belmoussaoui.ReadingListDevel",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "master",
+    "sdk" : "org.gnome.Sdk",
+    "sdk-extensions" : [
+        "org.freedesktop.Sdk.Extension.rust-nightly"
+    ],
+    "command" : "reading-list",
+    "tags" : [
+        "nightly"
+    ],
+    "desktop-file-name-suffix" : " (Devel)",
+    "finish-args" : [
+        "--filesystem=xdg-run/dconf",
+        "--filesystem=~/.config/dconf:ro",
+        "--filesystem=xdg-music",
+        "--talk-name=ca.desrt.dconf",
+        "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
+        "--share=ipc",
+        "--socket=x11",
+        "--socket=wayland",
+        "--device=dri"
+    ],
+    "build-options" : {
+        "append-path" : "/usr/lib/sdk/rust-nightly/bin",
+        "build-args" : [
+            "--share=network"
+        ],
+        "env" : {
+            "RUSTFLAGS" : "--remap-path-prefix =../",
+            "CARGO_HOME" : "/run/build/reading-list/cargo",
+            "RUST_BACKTRACE" : "1",
+            "RUST_LOG" : "reading_list=info"
+        }
+    },
+    "modules" : [
+
+        {
+            "name" : "libhandy",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dintrospection=disabled",
+                "-Dgtk_doc=false",
+                "-Dtests=false",
+                "-Dexamples=false",
+                "-Dvapi=false",
+                "-Dglade_catalog=disabled"
+
+            ],
+            "cleanup" : [
+                "/include",
+                "/lib/pkgconfig"
+            ],
+            "sources" : [
+                {
+                    "type": "git",
+                    "url": "https://source.puri.sm/Librem5/libhandy.git"
+
+                }
+            ]
+        },
+
+        {
+            "name" : "reading-list",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dprofile=development"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/bilelmoussaoui/reading-list.git"
+                }
+            ]
+        }
+    ]
+}
+
