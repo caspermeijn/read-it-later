@@ -11,10 +11,10 @@ flatpak:
     image: "registry.gitlab.gnome.org/gnome/gnome-runtime-images/rust_bundle:master"
     extends: '.flatpak'
     variables:
-        MANIFEST_PATH: "build-aux/com.belmoussaoui.ReadingListDevel.json"
-        FLATPAK_MODULE: "reading-list"
+        MANIFEST_PATH: "build-aux/com.belmoussaoui.ReadItLaterDevel.json"
+        FLATPAK_MODULE: "read-it-later"
         MESON_ARGS: "-Dprofile=development"
-        APP_ID: "com.belmoussaoui.ReadingListDevel"
+        APP_ID: "com.belmoussaoui.ReadItLaterDevel"
 
 review:
     dependencies:

@@ -1,10 +1,10 @@
-<a href="https://flathub.org/apps/details/com.belmoussaoui.ReadingList">
+<a href="https://flathub.org/apps/details/com.belmoussaoui.ReadItLater">
 <img src="https://flathub.org/assets/badges/flathub-badge-i-en.png" width="190px" />
 </a>
 
-# Reading List (WIP)
+# Read It Later (WIP)
 
-<img src="https://gitlab.gnome.org/bilelmoussaoui/reading-list/raw/master/data/icons/com.belmoussaoui.ReadingList.svg" width="128" height="128" />
+<img src="https://gitlab.gnome.org/bilelmoussaoui/read-it-later/raw/master/data/icons/com.belmoussaoui.ReadItLater.svg" width="128" height="128" />
 
 An Instapaper frontend using GTK & Rust
 
@@ -15,7 +15,7 @@ An Instapaper frontend using GTK & Rust
 ![screenshot](data/resources/screenshots/screenshot1.png)
 </div>
 
-## Hack on Reading List
+## Hack on Read It Later
 To build the development version of Contrast and hack on the code
 see the [general guide](https://wiki.gnome.org/Newcomers/BuildProject)
 for building GNOME apps with Flatpak and GNOME Builder.

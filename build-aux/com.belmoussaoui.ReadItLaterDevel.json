@@ -1,12 +1,12 @@
 {
-    "app-id": "com.belmoussaoui.ReadingListDevel",
+    "app-id": "com.belmoussaoui.ReadItLaterDevel",
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "master",
     "sdk" : "org.gnome.Sdk",
     "sdk-extensions" : [
         "org.freedesktop.Sdk.Extension.rust-nightly"
     ],
-    "command" : "reading-list",
+    "command" : "read-it-later",
     "tags" : [
         "nightly"
     ],
@@ -70,7 +70,7 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "https://gitlab.gnome.org/bilelmoussaoui/reading-list.git"
+                    "url" : "https://gitlab.gnome.org/bilelmoussaoui/read-it-later.git"
                 }
             ]
         }

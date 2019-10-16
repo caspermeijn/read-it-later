@@ -5,7 +5,7 @@ desktop_conf.set('icon', application_id)
 desktop_file = i18n.merge_file (
   type: 'desktop',
   input: configure_file(
-    input: 'com.belmoussaoui.ReadingList.desktop.in.in',
+    input: 'com.belmoussaoui.ReadItLater.desktop.in.in',
     output: '@BASENAME@',
     configuration: desktop_conf
   ),
@@ -31,7 +31,7 @@ appdata_conf.set('app-id', application_id)
 appdata_conf.set('gettext-package', gettext_package)
 appdata_file = i18n.merge_file (
   input: configure_file(
-    input: 'com.belmoussaoui.ReadingList.metainfo.xml.in.in',
+    input: 'com.belmoussaoui.ReadItLater.metainfo.xml.in.in',
     output: '@BASENAME@',
     configuration: appdata_conf
   ),
@@ -55,7 +55,7 @@ gschema_conf = configuration_data()
 gschema_conf.set('app-id', application_id)
 gschema_conf.set('gettext-package', gettext_package)
 configure_file(
-    input: 'com.belmoussaoui.ReadingList.gschema.xml.in',
+    input: 'com.belmoussaoui.ReadItLater.gschema.xml.in',
     output: '@0@.gschema.xml'.format(application_id),
     configuration: gschema_conf,
     install: true,

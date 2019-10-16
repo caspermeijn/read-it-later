@@ -6,7 +6,7 @@
     <property name="can_focus">False</property>
     <property name="modal">True</property>
     <property name="type_hint">dialog</property>
-    <property name="program_name">Reading List@name-suffix@</property>
+    <property name="program_name">Read It Later@name-suffix@</property>
     <property name="version">@version@</property>
     <property name="website">https://gitlab.gnome.org/bilelmoussaoui/reading-list/</property>
     <property name="authors">Bilal Elmoussaoui</property>

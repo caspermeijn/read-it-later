@@ -3,7 +3,7 @@ use gtk::prelude::*;
 use std::env;
 
 use crate::config;
-use crate::window::Window;
+use crate::widgets::Window;
 
 pub struct Application {
     app: gtk::Application,
@@ -15,7 +15,7 @@ impl Application {
         let app = gtk::Application::new(Some(config::APP_ID), gio::ApplicationFlags::FLAGS_NONE).unwrap();
         let window = Window::new();
 
-        let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadingList/shortcuts.ui");
+        let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/shortcuts.ui");
         let dialog: gtk::ShortcutsWindow = builder.get_object("shortcuts").unwrap();
         window.widget.set_help_overlay(Some(&dialog));
 
@@ -36,7 +36,7 @@ impl Application {
         // About
         let weak_window = self.window.widget.downgrade();
         self.add_gaction("about", move |_, _| {
-            let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadingList/about_dialog.ui");
+            let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/about_dialog.ui");
             let about_dialog: gtk::AboutDialog = builder.get_object("about_dialog").unwrap();
             if let Some(window) = weak_window.upgrade() {
                 about_dialog.set_transient_for(Some(&window));
@@ -68,18 +68,18 @@ impl Application {
 
     pub fn setup_css(&self) {
         if let Some(theme) = gtk::IconTheme::get_default() {
-            theme.add_resource_path("/com/belmoussaoui/ReadingList/icons");
+            theme.add_resource_path("/com/belmoussaoui/ReadItLater/icons");
         }
 
         let p = gtk::CssProvider::new();
-        gtk::CssProvider::load_from_resource(&p, "/com/belmoussaoui/ReadingList/style.css");
+        gtk::CssProvider::load_from_resource(&p, "/com/belmoussaoui/ReadItLater/style.css");
         if let Some(screen) = gdk::Screen::get_default() {
             gtk::StyleContext::add_provider_for_screen(&screen, &p, 500);
         }
     }
 
     pub fn run(&self) {
-        info!("Reading List{} ({})", config::NAME_SUFFIX, config::APP_ID);
+        info!("Read It Later{} ({})", config::NAME_SUFFIX, config::APP_ID);
         info!("Version: {} ({})", config::VERSION, config::PROFILE);
         info!("Datadir: {}", config::PKGDATADIR);
 

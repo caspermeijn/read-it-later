@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=Reading List
+Name=Read It Later
 Comment=A GTK + Rust application boilerplate template
 Type=Application
-Exec=reading-list
+Exec=read-it-later
 Terminal=false
 Categories=GNOME;GTK;
 Keywords=Gnome;GTK;

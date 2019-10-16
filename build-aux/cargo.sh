@@ -10,11 +10,11 @@ then
     echo "DEBUG MODE"
     cargo build --manifest-path \
         "$MESON_SOURCE_ROOT"/Cargo.toml --verbose && \
-        cp "$CARGO_TARGET_DIR"/debug/reading-list $3
+        cp "$CARGO_TARGET_DIR"/debug/read-it-later $3
 else
     echo "RELEASE MODE"
     cargo build --manifest-path \
         "$MESON_SOURCE_ROOT"/Cargo.toml --release && \
-        cp "$CARGO_TARGET_DIR"/release/reading-list $3
+        cp "$CARGO_TARGET_DIR"/release/read-it-later $3
 fi
 

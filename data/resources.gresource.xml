@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/com/belmoussaoui/ReadingList/">
+  <gresource prefix="/com/belmoussaoui/ReadItLater/">
       <file compressed="true" preprocess="xml-stripblanks">about_dialog.ui</file>
       <file compressed="true" preprocess="xml-stripblanks" alias="shortcuts.ui">resources/ui/shortcuts.ui</file>
       <file compressed="true" preprocess="xml-stripblanks" alias="menu.ui">resources/ui/menu.ui</file>
@@ -8,7 +8,7 @@
 
       <file compressed="true" alias="style.css">resources/style.css</file>
   </gresource>
-  <gresource prefix="/com/belmoussaoui/ReadingList/icons/">
+  <gresource prefix="/com/belmoussaoui/ReadItLater/icons/">
       <file alias="archive-symbolic.svg">resources/icons/archive-symbolic.svg</file>
       <file alias="favorites-symbolic.svg">resources/icons/favorites-symbolic.svg</file>
       <file alias="unread-symbolic.svg">resources/icons/unread-symbolic.svg</file>

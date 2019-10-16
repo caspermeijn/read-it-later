@@ -1,4 +1,4 @@
-project('reading-list', 'rust',
+project('read-it-later', 'rust',
   version: '0.0.1',
   license: 'GPL3',
 	meson_version : '>= 0.50'
@@ -53,7 +53,7 @@ else
   version_suffix = ''
 endif
 
-application_id = 'com.belmoussaoui.ReadingList@0@'.format(profile)
+application_id = 'com.belmoussaoui.ReadItLater@0@'.format(profile)
 
 
 subdir('po')

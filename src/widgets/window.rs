@@ -12,7 +12,7 @@ pub struct Window {
 impl Window {
     pub fn new() -> Self {
         let settings = gio::Settings::new(APP_ID);
-        let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadingList/window.ui");
+        let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/window.ui");
         let window_widget: gtk::ApplicationWindow = builder.get_object("window").unwrap();
 
         if PROFILE == "Devel" {
@@ -30,7 +30,7 @@ impl Window {
 
     pub fn init(&self, settings: gio::Settings) {
         // setup app menu
-        let menu_builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadingList/menu.ui");
+        let menu_builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/menu.ui");
         let popover_menu: gtk::PopoverMenu = menu_builder.get_object("popover_menu").unwrap();
         let appmenu_btn: gtk::MenuButton = self.builder.get_object("appmenu_button").unwrap();
         appmenu_btn.set_popover(Some(&popover_menu));

@@ -36,11 +36,12 @@ run_command(
 )
 
 sources = files(
+  'widgets/mod.rs',
+  'widgets/window.rs',
   'application.rs',
   'config.rs',
   'main.rs',
   'static_resources.rs',
-  'window.rs',
   'window_state.rs',
 )
 

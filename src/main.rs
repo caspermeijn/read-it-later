@@ -7,7 +7,7 @@ use libhandy::Column;
 mod application;
 mod config;
 mod static_resources;
-mod window;
+mod widgets;
 mod window_state;
 
 use application::Application;
@@ -21,8 +21,8 @@ fn main() {
 
     static_resources::init().expect("Failed to initialize the resource file.");
 
-    glib::set_application_name(&format!("Reading List{}", config::NAME_SUFFIX));
-    glib::set_prgname(Some("reading-list"));
+    glib::set_application_name(&format!("Read It Later{}", config::NAME_SUFFIX));
+    glib::set_prgname(Some("read-it-later"));
     Column::new();
     let app = Application::new();
     app.run();
