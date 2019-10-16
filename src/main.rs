@@ -1,11 +1,8 @@
 #[macro_use]
 extern crate log;
 
-extern crate gio;
-extern crate glib;
-extern crate gtk;
-
 use gettextrs::*;
+use libhandy::Column;
 
 mod application;
 mod config;
@@ -26,7 +23,7 @@ fn main() {
 
     glib::set_application_name(&format!("Reading List{}", config::NAME_SUFFIX));
     glib::set_prgname(Some("reading-list"));
-
+    Column::new();
     let app = Application::new();
     app.run();
 }

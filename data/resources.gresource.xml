@@ -8,4 +8,9 @@
 
       <file compressed="true" alias="style.css">resources/style.css</file>
   </gresource>
+  <gresource prefix="/com/belmoussaoui/ReadingList/icons/">
+      <file alias="archive-symbolic.svg">resources/icons/archive-symbolic.svg</file>
+      <file alias="favorites-symbolic.svg">resources/icons/favorites-symbolic.svg</file>
+      <file alias="unread-symbolic.svg">resources/icons/unread-symbolic.svg</file>
+  </gresource>
 </gresources>

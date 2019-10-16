@@ -67,9 +67,15 @@ impl Application {
     }
 
     pub fn setup_css(&self) {
+        if let Some(theme) = gtk::IconTheme::get_default() {
+            theme.add_resource_path("/com/belmoussaoui/ReadingList/icons");
+        }
+
         let p = gtk::CssProvider::new();
         gtk::CssProvider::load_from_resource(&p, "/com/belmoussaoui/ReadingList/style.css");
-        gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &p, 500);
+        if let Some(screen) = gdk::Screen::get_default() {
+            gtk::StyleContext::add_provider_for_screen(&screen, &p, 500);
+        }
     }
 
     pub fn run(&self) {

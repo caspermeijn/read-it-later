@@ -1,20 +1,31 @@
-project('reading-list',
-        'rust',
-        version: '0.0.1',
-        license: 'GPL3',
-	meson_version : '>= 0.50')
+project('reading-list', 'rust',
+  version: '0.0.1',
+  license: 'GPL3',
+	meson_version : '>= 0.50'
+)
+
+i18n = import('i18n')
+gnome = import('gnome')
 
 dependency('glib-2.0', version: '>= 2.56')
 dependency('gio-2.0', version: '>= 2.56')
 dependency('gdk-pixbuf-2.0')
 dependency('gtk+-3.0', version: '>= 3.24.7')
-
+dependency('libhandy-0.0', version: '>= 0.0.10')
 
 version = meson.project_version()
 version_array = version.split('.')
 major_version = version_array[0].to_int()
 minor_version = version_array[1].to_int()
 version_micro = version_array[2].to_int()
+
+find_program('cargo', required: false)
+find_program('glib-compile-resources', required: true)
+
+glib_compile_schemas = find_program('glib-compile-schemas', required: true)
+desktop_file_validate = find_program('desktop-file-validate', required: false)
+appstream_util = find_program('appstream-util', required: false)
+cargo_script = find_program('build-aux/cargo.sh')
 
 prefix = get_option('prefix')
 bindir = prefix / get_option('bindir')
@@ -29,7 +40,7 @@ gettext_package = meson.project_name()
 
 if get_option('profile') == 'development'
   profile = 'Devel'
-  name_suffix = ' (Devel)'
+  name_suffix = ' (Development)'
   vcs_tag = run_command('git', 'rev-parse', '--short', 'HEAD').stdout().strip()
   if vcs_tag == ''
     version_suffix = '-devel'
@@ -45,16 +56,8 @@ endif
 application_id = 'com.belmoussaoui.ReadingList@0@'.format(profile)
 
 
-i18n = import('i18n')
-gnome = import('gnome')
-
 subdir('po')
 subdir('data')
-
-cargo = find_program('cargo', required: false)
-gresource = find_program('glib-compile-resources', required: true)
-cargo_script = find_program('build-aux/cargo.sh')
-
 subdir('src')
 
 meson.add_dist_script(

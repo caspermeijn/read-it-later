@@ -15,7 +15,6 @@ desktop_file = i18n.merge_file (
   install_dir: datadir / 'applications'
 )
 # Validate Desktop file
-desktop_file_validate = find_program('desktop-file-validate', required: false)
 if desktop_file_validate.found()
   test(
     'validate-desktop',
@@ -42,7 +41,6 @@ appdata_file = i18n.merge_file (
   install_dir: datadir / 'metainfo'
 )
 # Validate Appdata
-appstream_util = find_program('appstream-util', required: false)
 if appstream_util.found()
   test(
     'validate-appdata', appstream_util,
@@ -64,10 +62,21 @@ configure_file(
     install_dir: datadir / 'glib-2.0' / 'schemas'
 )
 
+# Validata GSchema
+if glib_compile_schemas.found()
+  test(
+    'validate-gschema', glib_compile_schemas,
+    args: [
+      '--strict', '--dry-run', meson.current_source_dir()
+    ]
+  )
+endif
+
 # Resources
 ui_config = configuration_data()
 ui_config.set('app-id', application_id)
 ui_config.set('version', meson.project_version() + version_suffix)
+ui_config.set('name-suffix', name_suffix)
 ui_preconfigured_files = files(
   'resources/ui/about_dialog.ui.in',
   'resources/ui/window.ui.in',
