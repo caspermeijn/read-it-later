@@ -11,8 +11,9 @@
     <property name="website">https://gitlab.gnome.org/bilelmoussaoui/reading-list/</property>
     <property name="authors">Bilal Elmoussaoui</property>
     <property name="translator_credits" translatable="yes">translator-credits</property>
+    <property name="artists">Tobias Bernard</property>
     <property name="logo_icon_name">@app-id@</property>
-    <property name="license_type">mit-x11</property>
+    <property name="license_type">gpl-3-0</property>
     <child type="titlebar">
       <placeholder/>
     </child>

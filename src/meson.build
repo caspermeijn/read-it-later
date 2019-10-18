@@ -36,11 +36,28 @@ run_command(
 )
 
 sources = files(
+  'models/article.rs',
+  'models/articles.rs',
+  'models/client_manager.rs',
+  'models/mod.rs',
+  'views/archive.rs',
+  'views/favorites.rs',
+  'views/login.rs',
+  'views/mod.rs',
+  'views/syncing.rs',
+  'views/unread.rs',
+  'widgets/articles/index.rs',
+  'widgets/articles/list.rs',
+  'widgets/articles/mod.rs',
+  'widgets/login.rs',
   'widgets/mod.rs',
+  'widgets/settings.rs',
   'widgets/window.rs',
   'application.rs',
   'config.rs',
+  'database.rs',
   'main.rs',
+  'schema.rs',
   'static_resources.rs',
   'window_state.rs',
 )

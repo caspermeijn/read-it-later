@@ -105,7 +105,6 @@
           <object class="HdyColumn">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="border_width">18</property>
             <property name="maximum_width">800</property>
             <property name="linear_growth_width">800</property>
             <child>

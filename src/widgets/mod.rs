@@ -1,3 +1,5 @@
+mod login;
 mod window;
 
-pub use window::Window;
+pub use login::LoginWidget;
+pub use window::{View, Window};

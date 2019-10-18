@@ -14,13 +14,13 @@
     "finish-args" : [
         "--filesystem=xdg-run/dconf",
         "--filesystem=~/.config/dconf:ro",
-        "--filesystem=xdg-music",
         "--talk-name=ca.desrt.dconf",
         "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
         "--share=ipc",
         "--socket=x11",
         "--socket=wayland",
-        "--device=dri"
+        "--device=dri",
+        "--share=network"
     ],
     "build-options" : {
         "append-path" : "/usr/lib/sdk/rust-nightly/bin",
@@ -29,9 +29,9 @@
         ],
         "env" : {
             "RUSTFLAGS" : "--remap-path-prefix =../",
-            "CARGO_HOME" : "/run/build/reading-list/cargo",
+            "CARGO_HOME" : "/run/build/read-it-later/cargo",
             "RUST_BACKTRACE" : "1",
-            "RUST_LOG" : "reading_list=info"
+            "RUST_LOG" : "read_it_later=info"
         }
     },
     "modules" : [
