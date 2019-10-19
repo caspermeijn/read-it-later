@@ -41,7 +41,7 @@ impl ArticleRow {
         }
 
         let content_label: gtk::Label = self.builder.get_object("content_label").expect("Failed to retrieve content_label");
-        if let Ok(Some(mut preview)) = self.article.get_preview() {
+        if let Ok(Some(preview)) = self.article.get_preview() {
             content_label.set_markup(&preview);
         }
 

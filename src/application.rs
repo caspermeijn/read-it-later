@@ -1,10 +1,11 @@
+use chrono::{TimeZone, Utc};
 use gio::prelude::*;
+use gio::SettingsExt;
+use glib::{Receiver, Sender};
 use gtk::prelude::*;
 use std::env;
-use wallabag_api::types::User;
-
-use glib::{Receiver, Sender};
 use std::{cell::RefCell, rc::Rc};
+use wallabag_api::types::User;
 
 use crate::config;
 use crate::models::{Article, ClientManager};
@@ -15,6 +16,7 @@ use wallabag_api::types::Config;
 pub enum Action {
     SetClientConfig(Config),
     LoadArticle(Article),
+    AddArticle(Article),
     PreviousView,
     SetUser(User),
 }
@@ -41,10 +43,10 @@ impl Application {
         let application = Rc::new(Self {
             app,
             window,
+            client: RefCell::new(ClientManager::new(sender.clone())),
             sender,
             receiver,
             settings,
-            client: RefCell::new(ClientManager::new()),
         });
 
         application.setup_gactions();
@@ -75,6 +77,9 @@ impl Application {
                     self.do_action(Action::SetUser(user));
                 }
             }
+            Action::AddArticle(article) => {
+                self.window.add_article(article);
+            }
             Action::LoadArticle(article) => {
                 self.window.load_article(article);
             }
@@ -82,8 +87,17 @@ impl Application {
                 self.window.set_view(View::Unread);
             }
             Action::SetUser(user) => {
-                println!("{:#?}", user);
+                let mut since = Utc.timestamp(0, 0);
+                let last_sync = self.settings.get_int("latest-sync");
+                if last_sync != 0 {
+                    // since =  Utc.timestamp(last_sync.into(), 0);
+                }
+                self.settings.set_int("latest-sync", (Utc::now().timestamp() as i32));
                 self.window.set_view(View::Syncing);
+                {
+                    self.client.borrow_mut().sync(since);
+                    self.window.set_view(View::Unread);
+                }
             }
         };
         glib::Continue(true)
@@ -152,7 +166,8 @@ impl Application {
 
     fn setup_client(&self) {
         if let Some(logged_username) = self.settings.get_string("username") {
-            match self.client.borrow_mut().set_username(logged_username.to_string()) {
+            let user = self.client.borrow_mut().set_username(logged_username.to_string());
+            match user {
                 Ok(user) => {
                     self.do_action(Action::SetUser(user));
                 }

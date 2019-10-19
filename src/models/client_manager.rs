@@ -1,52 +1,69 @@
 use crate::models::Article;
+use chrono::DateTime;
 use failure::Error;
-use wallabag_api::types::{Config, User};
+use glib::Sender;
+use std::cell::RefCell;
+use wallabag_api::types::{Config, EntriesFilter, SortBy, SortOrder, User};
 use wallabag_api::Client;
+
+use crate::application::Action;
 
 extern crate secret_service;
 use secret_service::EncryptionType;
 use secret_service::SecretService;
 
 pub struct ClientManager {
-    client: Option<Client>,
+    client: Option<RefCell<Client>>,
     secret_service: SecretService,
+    sender: Sender<Action>,
 }
 
 impl ClientManager {
-    pub fn new() -> Self {
+    pub fn new(sender: Sender<Action>) -> Self {
         // Check if we have a client stored in our secrets
 
         // Try to create a client from env variables
 
         // Fallback to nothing until the user logs in
-        let client = None;
+        let client: Option<RefCell<Client>> = None;
 
         // initialize secret service (dbus connection and encryption session)
         let ss = SecretService::new(EncryptionType::Dh).unwrap();
 
-        let manager = Self { client, secret_service: ss };
+        let manager = Self {
+            client,
+            secret_service: ss,
+            sender,
+        };
         manager
     }
 
-    pub fn sync(&mut self) {
-        match self.client.as_mut() {
-            Some(client) => {
-                info!("Fetching the latest entries");
-                if let Ok(entries) = client.get_entries() {
-                    println!("{:#?}", entries);
-                    for entry in entries.into_iter() {
-                        let article = Article::from(entry);
-                        println!("{:#?}", article);
-                        article.insert();
-                    }
+    pub fn sync(&self, since: DateTime<chrono::Utc>) {
+        /*
+            let current_time = Utc::now();
+            let time_diff = current_time.checked_sub_signed(since);
+        */
+        let filter = EntriesFilter {
+            archive: None,
+            starred: None,
+            sort: SortBy::Created,
+            order: SortOrder::Desc,
+            tags: vec![],
+            since: since.timestamp(),
+            public: None,
+        };
+        if let Some(client) = &self.client {
+            if let Ok(entries) = client.borrow_mut().get_entries_with_filter(&filter) {
+                for entry in entries.into_iter() {
+                    let article = Article::from(entry);
+                    article.insert();
+                    self.sender.send(Action::AddArticle(article));
                 }
             }
-            None => warn!("You have to be logged in in order to sync"),
         }
     }
 
     pub fn set_username(&mut self, username: String) -> Result<User, Error> {
-        println!("{:#?}", username);
         if self.is_user_logged_in(username.clone()) {
             let stored_config = Config {
                 client_id: self
@@ -79,22 +96,24 @@ impl ClientManager {
 
         let mut client = Client::new(config);
         if let Ok(user) = client.get_user() {
-            // get default collection
-            let collection = self.secret_service.get_default_collection().unwrap();
+            // Store oauth required info if it wasn't saved before
+            if !self.is_user_logged_in(user.username.clone()) {
+                let collection = self.secret_service.get_default_collection().unwrap();
 
-            for (attr, val) in attrs.into_iter() {
-                collection
-                    .create_item(
-                        &format!("Read It Later account: {}", user.username),
-                        vec![("wallabag_username", &user.username), ("attr", attr)],
-                        &val.clone().into_bytes(),
-                        false,
-                        "text/plain",
-                    )
-                    .unwrap();
+                for (attr, val) in attrs.into_iter() {
+                    collection
+                        .create_item(
+                            &format!("Read It Later account: {}", user.username),
+                            vec![("wallabag_username", &user.username), ("attr", attr)],
+                            &val.clone().into_bytes(),
+                            false,
+                            "text/plain",
+                        )
+                        .unwrap();
+                }
             }
 
-            self.client.replace(client);
+            self.client.replace(RefCell::new(client));
             return Ok(user);
         }
         bail!("Failed to log in");

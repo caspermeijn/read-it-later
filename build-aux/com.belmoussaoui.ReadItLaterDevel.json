@@ -31,7 +31,7 @@
         "env" : {
             "RUSTFLAGS" : "--remap-path-prefix =../",
             "CARGO_HOME" : "/run/build/read-it-later/cargo",
-            "RUST_BACKTRACE" : "1",
+            "RUST_BACKTRACE" : "full",
             "RUST_LOG" : "read_it_later=info"
         }
     },

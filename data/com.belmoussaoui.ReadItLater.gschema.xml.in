@@ -25,5 +25,9 @@
       <default>''</default>
       <summary>Logged in username</summary>
     </key>
+    <key name="latest-sync" type="i">
+      <default>0</default>
+      <summary>Latest successful sync in ms</summary>
+    </key>
   </schema>
 </schemalist>

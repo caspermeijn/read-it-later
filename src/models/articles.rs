@@ -43,7 +43,7 @@ impl ArticlesModel {
         }
     }
 
-    fn add_article(&self, article: &Article) {
+    pub fn add_article(&self, article: &Article) {
         let object = ObjectWrapper::new(Box::new(article));
         self.model.append(&object);
     }

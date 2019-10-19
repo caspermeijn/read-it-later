@@ -2,7 +2,6 @@ use diesel::RunQueryDsl;
 use failure::Error;
 use gdk_pixbuf::Pixbuf;
 use html2pango::markup_html;
-use sanitize_html::rules;
 use sanitize_html::rules::Element;
 use sanitize_html::sanitize_str;
 use wallabag_api::types::Entry;
@@ -16,9 +15,9 @@ use crate::schema::articles;
 pub struct Article {
     id: i32,
     pub title: Option<String>,
-    is_archived: bool,
+    pub is_archived: bool,
     is_public: bool,
-    is_starred: bool,
+    pub is_starred: bool,
     mimetype: Option<String>,
     language: Option<String>,
     pub preview_picture: Option<String>,

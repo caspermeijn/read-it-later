@@ -2,7 +2,7 @@ use glib::Sender;
 use gtk::prelude::*;
 use webkit2gtk::UserContentManager;
 use webkit2gtk::WebViewExtManual;
-use webkit2gtk::{SettingsExt, WebContext, WebContextExt, WebView, WebViewExt};
+use webkit2gtk::{WebContext, WebView, WebViewExt};
 
 use crate::application::Action;
 use crate::models::Article;
@@ -32,8 +32,10 @@ impl ArticleWidget {
     }
 
     fn init(&self) {
+        let article_container: gtk::Box = self.builder.get_object("article_container").expect("Failed to retrieve article_container");
+
         self.webview.set_property_height_request(130);
-        self.widget.pack_start(&self.webview, true, true, 0);
+        article_container.pack_start(&self.webview, true, true, 0);
         self.webview.show();
     }
 

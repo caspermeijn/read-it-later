@@ -3,8 +3,20 @@
   font-weight: bold;
 }
 
-.articles-list {
-	border-radius: 18px
+.lg .articles-list {
+  margin-top: 40px;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-bottom: 24px;
+	border-radius: 18px;
+}
+.sm .articles-list,
+.md .articles-list {
+  margin-top:0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  border-radius: 0;
 }
 
 .article-row-title {
@@ -24,7 +36,10 @@
   border-radius: 18px;
   padding: 24px;
 }
-.article-title{
-  font-size: 28px;
+.article * {
+background: white;
 }
-
+.article-title{
+font-size: 38px;
+font-weight: 700;
+}

@@ -47,6 +47,10 @@ impl UnreadView {
         widget.upcast::<gtk::Widget>()
     }
 
+    pub fn add(&self, article: Article) {
+        self.model.add_article(&article);
+    }
+
     fn init(&self) {
         let sender = self.sender.clone();
         self.widget.bind_model(&self.model.model, move |article| {

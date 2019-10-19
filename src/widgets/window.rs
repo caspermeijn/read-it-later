@@ -23,6 +23,9 @@ pub struct Window {
     builder: gtk::Builder,
     sender: Sender<Action>,
     article_view: ArticleView,
+    unread_view: UnreadView,
+    favorites_view: FavoritesView,
+    archive_view: ArchiveView,
 }
 
 impl Window {
@@ -38,12 +41,25 @@ impl Window {
             widget,
             builder,
             article_view: ArticleView::new(sender.clone()),
+            unread_view: UnreadView::new(sender.clone()),
+            favorites_view: FavoritesView::new(sender.clone()),
+            archive_view: ArchiveView::new(sender.clone()),
             sender,
         };
 
         window.init(settings);
         window.init_views();
         window
+    }
+
+    pub fn add_article(&self, article: Article) {
+        if article.is_starred {
+            // self.favorites_view.add(article);
+        } else if article.is_archived {
+            // self.archive_view.add(article);
+        } else {
+            self.unread_view.add(article);
+        }
     }
 
     pub fn load_article(&self, article: Article) {
@@ -74,7 +90,21 @@ impl Window {
         let title_narrow_switcher: libhandy::ViewSwitcher = self.builder.get_object("title_narrow_switcher").unwrap();
         let title_label: gtk::Label = self.builder.get_object("title_label").unwrap();
 
-        self.widget.connect_size_allocate(move |_, allocation| {
+        self.widget.connect_size_allocate(move |widget, allocation| {
+            if allocation.width <= 450 {
+                widget.get_style_context().add_class("sm");
+                widget.get_style_context().remove_class("md");
+                widget.get_style_context().remove_class("lg");
+            } else if allocation.width <= 850 {
+                widget.get_style_context().add_class("md");
+                widget.get_style_context().remove_class("sm");
+                widget.get_style_context().remove_class("lg");
+            } else {
+                widget.get_style_context().add_class("lg");
+                widget.get_style_context().remove_class("sm");
+                widget.get_style_context().remove_class("md");
+            }
+
             if headerbar_stack.get_visible_child_name() == Some("articles".into()) {
                 squeezer.set_child_enabled(&title_wide_switcher, allocation.width > 600);
                 squeezer.set_child_enabled(&title_label, allocation.width <= 450);
@@ -97,19 +127,16 @@ impl Window {
         main_stack.add_named(&syncing_view.get_widget(), &syncing_view.name);
 
         // Unread View
-        let unread_view = UnreadView::new(self.sender.clone());
-        main_stack.add_titled(&unread_view.get_widget(), &unread_view.name, &unread_view.title);
-        main_stack.set_child_icon_name(&unread_view.get_widget(), Some(&unread_view.icon));
+        main_stack.add_titled(&self.unread_view.get_widget(), &self.unread_view.name, &self.unread_view.title);
+        main_stack.set_child_icon_name(&self.unread_view.get_widget(), Some(&self.unread_view.icon));
 
         // Favorites View
-        let favorites_view = FavoritesView::new(self.sender.clone());
-        main_stack.add_titled(&favorites_view.get_widget(), &favorites_view.name, &favorites_view.title);
-        main_stack.set_child_icon_name(&favorites_view.get_widget(), Some(&favorites_view.icon));
+        main_stack.add_titled(&self.favorites_view.get_widget(), &self.favorites_view.name, &self.favorites_view.title);
+        main_stack.set_child_icon_name(&self.favorites_view.get_widget(), Some(&self.favorites_view.icon));
 
         // Archive View
-        let archive_view = ArchiveView::new(self.sender.clone());
-        main_stack.add_titled(&archive_view.get_widget(), &archive_view.name, &archive_view.title);
-        main_stack.set_child_icon_name(&archive_view.get_widget(), Some(&archive_view.icon));
+        main_stack.add_titled(&self.archive_view.get_widget(), &self.archive_view.name, &self.archive_view.title);
+        main_stack.set_child_icon_name(&self.archive_view.get_widget(), Some(&self.archive_view.icon));
 
         // Article View
         main_stack.add_named(&self.article_view.get_widget(), &self.article_view.name);
