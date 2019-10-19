@@ -2,7 +2,9 @@ use glib::Sender;
 use gtk::prelude::*;
 use libhandy::prelude::*;
 
+use super::row::ArticleRow;
 use crate::application::Action;
+use crate::models::{Article, ObjectWrapper};
 
 pub struct ArticlesListWidget {
     pub widget: libhandy::Column,
@@ -32,11 +34,18 @@ impl ArticlesListWidget {
         })));
     }
 
-    pub fn bind_model<F>(&self, model: &gio::ListStore, callback: F)
-    where
-        for<'r> F: std::ops::Fn(&'r glib::Object) -> gtk::Widget + 'static,
-    {
+    pub fn bind_model(&self, model: &gio::ListStore) {
         let listbox: gtk::ListBox = self.builder.get_object("articles_listbox").expect("Failed to retrieve articles_listbox");
-        listbox.bind_model(Some(model), callback);
+        let sender = self.sender.clone();
+        listbox.bind_model(Some(model), move |article| {
+            let article: Article = article.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
+            let row = ArticleRow::new(article.clone(), sender.clone());
+            let sender = sender.clone();
+            row.set_on_click_callback(move |_, _| {
+                sender.send(Action::LoadArticle(article.clone())).unwrap();
+                gtk::Inhibit(false)
+            });
+            row.widget.upcast::<gtk::Widget>()
+        });
     }
 }

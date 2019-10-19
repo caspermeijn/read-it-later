@@ -52,15 +52,6 @@ impl ArchiveView {
 
     fn init(&self) {
         let sender = self.sender.clone();
-        self.widget.bind_model(&self.model.model, move |article| {
-            let article: Article = article.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
-            let row = ArticleRow::new(article.clone(), sender.clone());
-            let sender = sender.clone();
-            row.set_on_click_callback(move |_, _| {
-                sender.send(Action::LoadArticle(article.clone())).unwrap();
-                gtk::Inhibit(false)
-            });
-            row.widget.upcast::<gtk::Widget>()
-        });
+        self.widget.bind_model(&self.model.model);
     }
 }
