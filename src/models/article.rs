@@ -1,5 +1,10 @@
 use diesel::RunQueryDsl;
+use failure::Error;
 use gdk_pixbuf::Pixbuf;
+use html2pango::markup_html;
+use sanitize_html::rules;
+use sanitize_html::rules::Element;
+use sanitize_html::sanitize_str;
 use wallabag_api::types::Entry;
 
 use super::preview_image::PreviewImage;
@@ -51,5 +56,23 @@ impl Article {
             let preview_image = PreviewImage::new(preview_picture.to_string());
         }
         None
+    }
+
+    pub fn get_preview(&self) -> Result<Option<String>, Error> {
+        match &self.content {
+            Some(content) => {
+                let rules = sanitize_html::rules::Rules::new()
+                    .allow_comments(false)
+                    .element(Element::new("br"))
+                    .element(Element::new("a"));
+
+                let mut preview = sanitize_str(&rules, &content)?;
+                preview.truncate(300);
+
+                let preview_markup = markup_html(&preview)?;
+                Ok(Some(preview_markup))
+            }
+            None => Ok(None),
+        }
     }
 }

@@ -1,6 +1,7 @@
 use gio::prelude::*;
 use gtk::prelude::*;
 use std::env;
+use wallabag_api::types::User;
 
 use glib::{Receiver, Sender};
 use std::{cell::RefCell, rc::Rc};
@@ -15,6 +16,7 @@ pub enum Action {
     SetClientConfig(Config),
     LoadArticle(Article),
     PreviousView,
+    SetUser(User),
 }
 
 pub struct Application {
@@ -23,10 +25,12 @@ pub struct Application {
     sender: Sender<Action>,
     receiver: RefCell<Option<Receiver<Action>>>,
     client: RefCell<ClientManager>,
+    settings: gio::Settings,
 }
 
 impl Application {
     pub fn new() -> Rc<Self> {
+        let settings = gio::Settings::new(config::APP_ID);
         let app = gtk::Application::new(Some(config::APP_ID), gio::ApplicationFlags::FLAGS_NONE).unwrap();
 
         let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
@@ -39,6 +43,7 @@ impl Application {
             window,
             sender,
             receiver,
+            settings,
             client: RefCell::new(ClientManager::new()),
         });
 
@@ -65,14 +70,20 @@ impl Application {
     fn do_action(&self, action: Action) -> glib::Continue {
         match action {
             Action::SetClientConfig(config) => {
-                self.client.borrow_mut().set_config(config);
-                self.window.set_view(View::Syncing);
+                if let Ok(user) = self.client.borrow_mut().set_config(config) {
+                    self.settings.set_string("username", &user.username);
+                    self.do_action(Action::SetUser(user));
+                }
             }
             Action::LoadArticle(article) => {
                 self.window.load_article(article);
             }
             Action::PreviousView => {
                 self.window.set_view(View::Unread);
+            }
+            Action::SetUser(user) => {
+                println!("{:#?}", user);
+                self.window.set_view(View::Syncing);
             }
         };
         glib::Continue(true)
@@ -102,7 +113,7 @@ impl Application {
         self.add_gaction("back", move |_, _| {
             sender.send(Action::PreviousView).expect("Failed to trigger previous view action");
         });
-        self.app.set_accels_for_action("app.back", &["escape"]);
+        self.app.set_accels_for_action("app.back", &["Escape"]);
     }
 
     fn setup_signals(&self) {
@@ -140,14 +151,15 @@ impl Application {
     }
 
     fn setup_client(&self) {
-        /*
-        let client_config = Config {
-            client_id: env::var("WALLABAG_CLIENT_ID").expect("WALLABAG_CLIENT_ID not set"),
-            client_secret: env::var("WALLABAG_CLIENT_SECRET").expect("WALLABAG_CLIENT_SECRET not set"),
-            username: env::var("WALLABAG_USERNAME").expect("WALLABAG_USERNAME not set"),
-            password: env::var("WALLABAG_PASSWORD").expect("WALLABAG_PASSWORD not set"),
-            base_url: env::var("WALLABAG_URL").expect("WALLABAG_URL not set"),
-        };
-        */
+        if let Some(logged_username) = self.settings.get_string("username") {
+            match self.client.borrow_mut().set_username(logged_username.to_string()) {
+                Ok(user) => {
+                    self.do_action(Action::SetUser(user));
+                }
+                Err(_) => {
+                    // Failed to log in error message
+                }
+            }
+        }
     }
 }

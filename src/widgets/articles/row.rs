@@ -2,9 +2,6 @@ use crate::application::Action;
 use crate::models::Article;
 use glib::Sender;
 use gtk::prelude::*;
-use webkit2gtk::UserContentManager;
-use webkit2gtk::WebViewExtManual;
-use webkit2gtk::{SettingsExt, WebContext, WebContextExt, WebView, WebViewExt};
 
 pub struct ArticleRow {
     pub widget: gtk::ListBoxRow,
@@ -38,22 +35,15 @@ impl ArticleRow {
     }
 
     fn init(&self) {
-        let content_box: gtk::Box = self.builder.get_object("content_box").expect("failed to retrieve content_box");
         let title_label: gtk::Label = self.builder.get_object("title_label").expect("Failed to retrieve title_label");
-
         if let Some(title) = &self.article.title {
             title_label.set_text(&title);
         }
 
-        let info_label: gtk::Label = self.builder.get_object("info_label").expect("Failed to retrieve info_label");
-        let context = WebContext::get_default().unwrap();
-        let webview = WebView::new_with_context_and_user_content_manager(&context, &UserContentManager::new());
-        if let Some(content) = &self.article.content {
-            webview.load_html(&content, None);
+        let content_label: gtk::Label = self.builder.get_object("content_label").expect("Failed to retrieve content_label");
+        if let Ok(Some(mut preview)) = self.article.get_preview() {
+            content_label.set_markup(&preview);
         }
-        webview.set_property_height_request(130);
-        content_box.add(&webview);
-        webview.show();
 
         let preview_image: gtk::Image = self.builder.get_object("preview_image").expect("Failed to retrieve preview_image");
         if let Some(pixbuf) = &self.article.get_preview_pixbuf() {

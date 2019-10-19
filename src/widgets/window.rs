@@ -68,16 +68,21 @@ impl Window {
 
         let squeezer: libhandy::Squeezer = self.builder.get_object("squeezer").unwrap();
         let switcher_bar: libhandy::ViewSwitcherBar = self.builder.get_object("switcher_bar").unwrap();
+        let headerbar_stack: gtk::Stack = self.builder.get_object("headerbar_stack").expect("Failed to retrieve headerbar_stack");
 
         let title_wide_switcher: libhandy::ViewSwitcher = self.builder.get_object("title_wide_switcher").unwrap();
         let title_narrow_switcher: libhandy::ViewSwitcher = self.builder.get_object("title_narrow_switcher").unwrap();
         let title_label: gtk::Label = self.builder.get_object("title_label").unwrap();
 
         self.widget.connect_size_allocate(move |_, allocation| {
-            squeezer.set_child_enabled(&title_wide_switcher, allocation.width > 600);
-            squeezer.set_child_enabled(&title_label, allocation.width <= 450);
-            squeezer.set_child_enabled(&title_narrow_switcher, allocation.width > 450);
-            switcher_bar.set_reveal(allocation.width <= 450);
+            if headerbar_stack.get_visible_child_name() == Some("articles".into()) {
+                squeezer.set_child_enabled(&title_wide_switcher, allocation.width > 600);
+                squeezer.set_child_enabled(&title_label, allocation.width <= 450);
+                squeezer.set_child_enabled(&title_narrow_switcher, allocation.width > 450);
+                switcher_bar.set_reveal(allocation.width <= 450);
+            } else {
+                switcher_bar.set_reveal(false);
+            }
         });
     }
 
@@ -109,7 +114,7 @@ impl Window {
         // Article View
         main_stack.add_named(&self.article_view.get_widget(), &self.article_view.name);
 
-        self.set_view(View::Unread);
+        self.set_view(View::Login);
     }
 
     pub fn set_view(&self, view: View) {
@@ -141,9 +146,7 @@ impl Window {
             View::Error => (),
             View::Login => {
                 main_stack.set_visible_child_name("login");
-
-                squeezer.set_child_enabled(&title_label, true);
-                switcher_bar.set_reveal(false);
+                headerbar_stack.set_visible_child_name("login");
             }
             View::Syncing => {
                 main_stack.set_visible_child_name("syncing");

@@ -162,6 +162,21 @@
                 <property name="position">1</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">center</property>
+                <property name="label">Read It Later@name-suffix@</property>
+                <style>
+                  <class name="title"/>
+                </style>
+              </object>
+              <packing>
+                <property name="name">login</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
           </object>
         </child>
         <child>

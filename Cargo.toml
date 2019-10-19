@@ -25,3 +25,6 @@ failure = "0.1"
 webkit2gtk = { version = "0.8", features = ["v2_6"] }
 reqwest = { version = "0.9" }
 futures = "0.1"
+sanitize_html = "0.5"
+html2pango = "0.3"
+secret-service = "1.0"

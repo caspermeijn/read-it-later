@@ -8,8 +8,16 @@
 }
 
 .article-row-title {
-  font-size: 18px;
+  font-weight:600;
+  font-size: 20px;
 }
+
+.article-row-content {
+  padding-left:6px;
+  padding-bottom:6px;
+  padding-right:6px;
+}
+
 
 .article {
   background-color: white;
@@ -19,3 +27,4 @@
 .article-title{
   font-size: 28px;
 }
+
