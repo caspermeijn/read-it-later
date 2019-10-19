@@ -14,7 +14,7 @@ use crate::schema::articles;
 #[derive(Insertable, Queryable, PartialEq, Debug, Clone, Serialize, Deserialize)]
 #[table_name = "articles"]
 pub struct Article {
-    id: i32,
+    pub id: i32,
     pub title: Option<String>,
     pub is_archived: bool,
     is_public: bool,
@@ -60,7 +60,7 @@ impl Article {
             published_by,
             published_at,
             reading_time: entry.reading_time.clone() as i32,
-            base_url: entry.origin_url.clone(),
+            base_url: entry.domain_name.clone(),
         }
     }
 
@@ -82,11 +82,11 @@ impl Article {
                 let mut dest_height = pixbuf.get_height();
                 match img_type {
                     PreviewImageType::Small => {
-                        if dest_width > 150 {
-                            dest_width = 150;
+                        if dest_width > 200 {
+                            dest_width = 200;
                         }
-                        if dest_height > 150 {
-                            dest_height = 150;
+                        if dest_height > 200 {
+                            dest_height = 200;
                         }
                     }
                     PreviewImageType::Large => {
@@ -103,6 +103,20 @@ impl Article {
             }
         }
         None
+    }
+
+    pub fn get_info(&self) -> String {
+        let mut article_info = String::from("");
+        if let Some(base_url) = &self.base_url {
+            article_info.push_str(&format!("{} | ", base_url));
+        }
+        if let Some(authors) = &self.published_by {
+            article_info.push_str(&format!("by {} ", authors));
+        }
+        if let Some(published_date) = &self.published_at {
+            article_info.push_str(&format!("on {} ", published_date));
+        }
+        article_info
     }
 
     pub fn get_preview(&self) -> Result<Option<String>, Error> {

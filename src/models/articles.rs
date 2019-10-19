@@ -45,7 +45,6 @@ impl ArticlesModel {
     fn init(&self) {
         // fill in the articles from the database
         if let Ok(articles) = get_articles(&self.filter) {
-            println!("{:#?}", self.filter);
             for article in articles.into_iter() {
                 self.add_article(&article);
             }
@@ -53,8 +52,22 @@ impl ArticlesModel {
     }
 
     pub fn add_article(&self, article: &Article) {
-        let object = ObjectWrapper::new(Box::new(article));
-        self.model.insert(0, &object);
+        if !self.index(&article).is_some() {
+            let object = ObjectWrapper::new(Box::new(article));
+            self.model.insert(0, &object);
+        }
+    }
+
+    fn index(&self, article: &Article) -> Option<u32> {
+        for i in 0..self.get_count() {
+            let gobject = self.model.get_object(i).unwrap();
+            let a: Article = gobject.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
+
+            if article.id == a.id {
+                return Some(i);
+            }
+        }
+        None
     }
 
     pub fn get_count(&self) -> u32 {

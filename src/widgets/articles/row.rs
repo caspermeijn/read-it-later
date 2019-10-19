@@ -39,6 +39,13 @@ impl ArticleRow {
         if let Some(title) = &self.article.title {
             title_label.set_text(&title);
         }
+        let info_label: gtk::Label = self.builder.get_object("info_label").expect("Failed to retrieve info_label");
+        if &self.article.get_info() != "" {
+            info_label.set_text(&self.article.get_info());
+        } else {
+            info_label.set_no_show_all(false);
+            info_label.hide();
+        }
 
         let content_label: gtk::Label = self.builder.get_object("content_label").expect("Failed to retrieve content_label");
         if let Ok(Some(preview)) = self.article.get_preview() {

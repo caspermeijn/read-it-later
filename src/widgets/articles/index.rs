@@ -6,7 +6,7 @@ use glib::Sender;
 use gtk::prelude::*;
 use webkit2gtk::UserContentManager;
 use webkit2gtk::WebViewExtManual;
-use webkit2gtk::{WebContext, WebView, WebViewExt};
+use webkit2gtk::{SettingsExt, WebContext, WebView, WebViewExt};
 
 pub struct ArticleWidget {
     pub widget: gtk::Box,
@@ -33,6 +33,11 @@ impl ArticleWidget {
     }
 
     fn init(&self) {
+        let webview_settings = webkit2gtk::Settings::new();
+        webview_settings.set_auto_load_images(true);
+        webview_settings.set_enable_developer_extras(true);
+        self.webview.set_settings(&webview_settings);
+
         self.widget.pack_start(&self.webview, true, true, 0);
         self.webview.show();
     }
@@ -45,6 +50,8 @@ impl ArticleWidget {
             if let Some(title) = &article.title {
                 article_content = article_content.replace("{title}", title);
             }
+
+            article_content = article_content.replace("{article_info}", &article.get_info());
 
             let layout_css = gio::File::new_for_uri("resource:///com/belmoussaoui/ReadItLater/layout.css.in");
             if let Ok((v, _)) = layout_css.load_bytes(gio::NONE_CANCELLABLE) {

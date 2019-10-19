@@ -19,6 +19,11 @@
   border-radius: 0;
 }
 
+.article-row{
+  padding:0;
+  margin:0;
+}
+
 .article-row-title {
   font-weight:600;
   font-size: 20px;
