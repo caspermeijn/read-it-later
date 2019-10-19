@@ -14,14 +14,19 @@ pub fn get_articles(filter: &EntriesFilter) -> Result<Vec<Article>, Error> {
     let db = database::connection();
     let conn = db.get()?;
 
-    let mut items = articles::table;
     if let Some(starred) = &filter.starred {
-        items.filter(articles::is_starred.eq(starred));
+        return articles::table
+            .filter(articles::is_starred.eq(starred))
+            .load::<Article>(&conn)
+            .map_err(From::from);
+    } else if let Some(archived) = &filter.archive {
+        return articles::table
+            .filter(articles::is_archived.eq(archived))
+            .load::<Article>(&conn)
+            .map_err(From::from);
+    } else {
+        return articles::table.load::<Article>(&conn).map_err(From::from);
     }
-    if let Some(archived) = &filter.archive {
-        items.filter(articles::is_archived.eq(archived));
-    }
-    items.load::<Article>(&conn).map_err(From::from)
 }
 
 pub struct ArticlesModel {
@@ -40,6 +45,7 @@ impl ArticlesModel {
     fn init(&self) {
         // fill in the articles from the database
         if let Ok(articles) = get_articles(&self.filter) {
+            println!("{:#?}", self.filter);
             for article in articles.into_iter() {
                 self.add_article(&article);
             }

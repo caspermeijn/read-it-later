@@ -18,7 +18,7 @@ pub struct FavoritesView {
 impl FavoritesView {
     pub fn new(sender: Sender<Action>) -> Self {
         let favorites_filter = EntriesFilter {
-            archive: Some(false),
+            archive: None,
             starred: Some(true),
             sort: SortBy::Created,
             order: SortOrder::Desc,

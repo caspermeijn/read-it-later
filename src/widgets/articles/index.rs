@@ -33,7 +33,6 @@ impl ArticleWidget {
     }
 
     fn init(&self) {
-        self.webview.set_property_height_request(130);
         self.widget.pack_start(&self.webview, true, true, 0);
         self.webview.show();
     }
