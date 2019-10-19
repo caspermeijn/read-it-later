@@ -13,6 +13,8 @@
       <file compressed="true" preprocess="xml-stripblanks" alias="shortcuts.ui">resources/ui/shortcuts.ui</file>
       <file compressed="true" preprocess="xml-stripblanks" alias="menu.ui">resources/ui/menu.ui</file>
 
+      <file compressed="true" alias="layout.css.in">resources/article/layout.css</file>
+      <file alias="layout.html.in">resources/article/layout.html</file>
       <file compressed="true" alias="style.css">resources/style.css</file>
   </gresource>
   <gresource prefix="/com/belmoussaoui/ReadItLater/icons/">

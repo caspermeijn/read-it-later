@@ -1,0 +1,16 @@
+ body {
+  background-color: white;
+}
+img {
+  width: 100%;
+}
+.container {
+  height: 90%;
+  width: 50%;
+  max-width: 50%;
+  margin: auto;
+}
+.title h1 {
+  font-size: 42px;
+  font-weight: bold;
+}

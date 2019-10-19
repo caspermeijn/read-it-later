@@ -72,7 +72,8 @@ impl Application {
     fn do_action(&self, action: Action) -> glib::Continue {
         match action {
             Action::SetClientConfig(config) => {
-                if let Ok(user) = self.client.borrow_mut().set_config(config) {
+                let user = self.client.borrow_mut().set_config(config);
+                if let Ok(user) = user {
                     self.settings.set_string("username", &user.username);
                     self.do_action(Action::SetUser(user));
                 }
@@ -92,7 +93,7 @@ impl Application {
                 if last_sync != 0 {
                     // since =  Utc.timestamp(last_sync.into(), 0);
                 }
-                self.settings.set_int("latest-sync", (Utc::now().timestamp() as i32));
+                self.settings.set_int("latest-sync", Utc::now().timestamp() as i32);
                 self.window.set_view(View::Syncing);
                 {
                     self.client.borrow_mut().sync(since);

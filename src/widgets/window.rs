@@ -54,9 +54,9 @@ impl Window {
 
     pub fn add_article(&self, article: Article) {
         if article.is_starred {
-            // self.favorites_view.add(article);
+            self.favorites_view.add(article);
         } else if article.is_archived {
-            // self.archive_view.add(article);
+            self.archive_view.add(article);
         } else {
             self.unread_view.add(article);
         }

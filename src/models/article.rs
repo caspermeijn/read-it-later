@@ -1,3 +1,4 @@
+use diesel::sql_types::Timestamp;
 use diesel::RunQueryDsl;
 use failure::Error;
 use gdk_pixbuf::Pixbuf;
@@ -6,7 +7,7 @@ use sanitize_html::rules::Element;
 use sanitize_html::sanitize_str;
 use wallabag_api::types::Entry;
 
-use super::preview_image::PreviewImage;
+use super::preview_image::{PreviewImage, PreviewImageType};
 use crate::database;
 use crate::schema::articles;
 
@@ -22,10 +23,30 @@ pub struct Article {
     language: Option<String>,
     pub preview_picture: Option<String>,
     pub content: Option<String>,
+    pub published_by: Option<String>,
+    pub published_at: Option<chrono::NaiveDateTime>,
+    pub reading_time: i32,
+    pub base_url: Option<String>,
 }
 
 impl Article {
     pub fn from(entry: Entry) -> Self {
+        let published_by = match entry.published_by.clone() {
+            Some(published_by) => Some(
+                published_by
+                    .iter()
+                    .filter(|author| author.is_some())
+                    .map(|author| author.clone().unwrap())
+                    .collect::<Vec<String>>()
+                    .join(", "),
+            ),
+            None => None,
+        };
+        let published_at = match entry.published_at.clone() {
+            Some(datetime) => Some(datetime.naive_utc()),
+            None => None,
+        };
+
         Article {
             id: (entry.id.as_int()) as i32,
             title: entry.title.clone(),
@@ -36,6 +57,10 @@ impl Article {
             language: entry.language.clone(),
             preview_picture: entry.preview_picture.clone(),
             content: entry.content.clone(),
+            published_by,
+            published_at,
+            reading_time: entry.reading_time.clone() as i32,
+            base_url: entry.origin_url.clone(),
         }
     }
 
@@ -49,10 +74,33 @@ impl Article {
         Ok(())
     }
 
-    pub fn get_preview_pixbuf(&self) -> Option<Pixbuf> {
+    pub fn get_preview_pixbuf(&self, img_type: PreviewImageType) -> Option<Pixbuf> {
         if let Some(preview_picture) = &self.preview_picture {
-            println!("{:#?}", preview_picture);
             let preview_image = PreviewImage::new(preview_picture.to_string());
+            if let Ok(pixbuf) = gdk_pixbuf::Pixbuf::new_from_file(preview_image.get_cache_path()) {
+                let mut dest_width = pixbuf.get_width();
+                let mut dest_height = pixbuf.get_height();
+                match img_type {
+                    PreviewImageType::Small => {
+                        if dest_width > 150 {
+                            dest_width = 150;
+                        }
+                        if dest_height > 150 {
+                            dest_height = 150;
+                        }
+                    }
+                    PreviewImageType::Large => {
+                        if dest_width > 500 {
+                            dest_width = 800;
+                        }
+                        if dest_height > 360 {
+                            dest_height = 360;
+                        }
+                    }
+                }
+                let scaled_pixbuf = pixbuf.scale_simple(dest_width, dest_height, gdk_pixbuf::InterpType::Bilinear);
+                return scaled_pixbuf;
+            }
         }
         None
     }

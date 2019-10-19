@@ -9,5 +9,10 @@ CREATE TABLE `articles` (
     `mimetype` VARCHAR DEFAULT `text/html`,
     `language` VARCHAR DEFAULT `en_US`,
     `preview_picture` TEXT NOT NULL,
-    `content` LONG_TEXT NOT NULL
+    `content` LONG_TEXT NOT NULL,
+    `published_by` VARCHAR NULL,
+    `published_at` TIMESTAMP NULL,
+    `reading_time` INTEGER DEFAULT 0,
+    `base_url` VARCHAR NULL
 )
+

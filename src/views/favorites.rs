@@ -3,7 +3,8 @@ use glib::Sender;
 use wallabag_api::types::{EntriesFilter, SortBy, SortOrder};
 
 use crate::application::Action;
-use crate::widgets::articles::ArticlesListWidget;
+use crate::models::{Article, ArticlesModel, ObjectWrapper};
+use crate::widgets::articles::{ArticleRow, ArticlesListWidget};
 
 pub struct FavoritesView {
     widget: ArticlesListWidget,
@@ -11,6 +12,7 @@ pub struct FavoritesView {
     pub title: String,
     pub icon: String,
     sender: Sender<Action>,
+    model: ArticlesModel,
 }
 
 impl FavoritesView {
@@ -26,10 +28,12 @@ impl FavoritesView {
         };
 
         let widget = ArticlesListWidget::new(sender.clone());
+        let model = ArticlesModel::new(favorites_filter);
 
         let favorites_view = Self {
             widget,
             sender,
+            model,
             name: "favorites".to_string(),
             title: "Favorites".to_string(),
             icon: "favorites-symbolic".to_string(),
@@ -42,6 +46,21 @@ impl FavoritesView {
         let widget = self.widget.widget.clone();
         widget.upcast::<gtk::Widget>()
     }
+    pub fn add(&self, article: Article) {
+        self.model.add_article(&article);
+    }
 
-    fn init(&self) {}
+    fn init(&self) {
+        let sender = self.sender.clone();
+        self.widget.bind_model(&self.model.model, move |article| {
+            let article: Article = article.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
+            let row = ArticleRow::new(article.clone(), sender.clone());
+            let sender = sender.clone();
+            row.set_on_click_callback(move |_, _| {
+                sender.send(Action::LoadArticle(article.clone())).unwrap();
+                gtk::Inhibit(false)
+            });
+            row.widget.upcast::<gtk::Widget>()
+        });
+    }
 }

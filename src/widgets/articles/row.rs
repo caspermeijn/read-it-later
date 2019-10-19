@@ -1,5 +1,5 @@
 use crate::application::Action;
-use crate::models::Article;
+use crate::models::{Article, PreviewImageType};
 use glib::Sender;
 use gtk::prelude::*;
 
@@ -46,8 +46,8 @@ impl ArticleRow {
         }
 
         let preview_image: gtk::Image = self.builder.get_object("preview_image").expect("Failed to retrieve preview_image");
-        if let Some(pixbuf) = &self.article.get_preview_pixbuf() {
-            //            preview_image.
+        if let Some(pixbuf) = &self.article.get_preview_pixbuf(PreviewImageType::Small) {
+            preview_image.set_from_pixbuf(Some(&pixbuf));
         } else {
             preview_image.set_no_show_all(false);
             preview_image.hide();

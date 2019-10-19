@@ -30,16 +30,3 @@
   padding-right:6px;
 }
 
-
-.article {
-  background-color: white;
-  border-radius: 18px;
-  padding: 24px;
-}
-.article * {
-background: white;
-}
-.article-title{
-font-size: 38px;
-font-weight: 700;
-}

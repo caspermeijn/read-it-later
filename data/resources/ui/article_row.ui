@@ -60,7 +60,6 @@
                     <property name="use_markup">True</property>
                     <property name="justify">fill</property>
                     <property name="wrap">True</property>
-                    <property name="selectable">True</property>
                     <property name="ellipsize">end</property>
                     <property name="lines">4</property>
                     <property name="xalign">0</property>

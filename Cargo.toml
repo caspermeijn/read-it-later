@@ -7,7 +7,7 @@ edition = "2018"
 [dependencies]
 gtk = { version = "0.7", features = ["v3_22"] }
 glib = { version = "0.8", features = ["subclassing"] }
-gio = { version = "0.7", features = ["v2_50"] }
+gio = { version = "0.7", features = ["v2_56"] }
 gdk = "0.11"
 gdk-pixbuf = "0.7"
 log = "0.4"
@@ -19,7 +19,7 @@ serde_json = "1.0"
 serde_derive = "1.0"
 wallabag-api = { git= "https://github.com/swalladge/wallabag-rs.git" }
 pretty_env_logger = "0.3"
-diesel = { version = "1.4", features = ["sqlite", "r2d2"] }
+diesel = { version = "1.4", features = ["sqlite", "r2d2", "chrono"] }
 diesel_migrations = {  version = "1.4" , features = ["sqlite"] }
 failure = "0.1"
 webkit2gtk = { version = "0.8", features = ["v2_6"] }
@@ -29,3 +29,4 @@ sanitize_html = "0.5"
 html2pango = "0.3"
 secret-service = "1.0"
 chrono = "0.4"
+base64 = "0.10"

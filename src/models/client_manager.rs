@@ -121,7 +121,6 @@ impl ClientManager {
 
     fn is_user_logged_in(&self, username: String) -> bool {
         let search_items = self.secret_service.search_items(vec![("wallabag_username", &username)]).unwrap();
-        println!("{:#?}", search_items);
         search_items.len() == 5
     }
 
