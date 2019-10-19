@@ -2,3 +2,20 @@
   font-size: 28px;
   font-weight: bold;
 }
+
+.articles-list {
+	border-radius: 18px
+}
+
+.article-row-title {
+  font-size: 18px;
+}
+
+.article {
+  background-color: white;
+  border-radius: 18px;
+  padding: 24px;
+}
+.article-title{
+  font-size: 28px;
+}

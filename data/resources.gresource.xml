@@ -5,6 +5,9 @@
       <file compressed="true" preprocess="xml-stripblanks">about_dialog.ui</file>
       <file compressed="true" preprocess="xml-stripblanks">window.ui</file>
 
+      <file compressed="true" preprocess="xml-stripblanks" alias="article.ui">resources/ui/article.ui</file>
+      <file compressed="true" preprocess="xml-stripblanks" alias="articles_list.ui">resources/ui/articles_list.ui</file>
+      <file compressed="true" preprocess="xml-stripblanks" alias="article_row.ui">resources/ui/article_row.ui</file>
       <file compressed="true" preprocess="xml-stripblanks" alias="login.ui">resources/ui/login.ui</file>
       <file compressed="true" preprocess="xml-stripblanks" alias="syncing.ui">resources/ui/syncing.ui</file>
       <file compressed="true" preprocess="xml-stripblanks" alias="shortcuts.ui">resources/ui/shortcuts.ui</file>

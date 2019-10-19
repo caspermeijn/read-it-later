@@ -1,5 +1,4 @@
 use crate::models::Article;
-use std::cell::RefCell;
 use wallabag_api::Client;
 
 pub struct ClientManager {

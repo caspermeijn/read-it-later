@@ -11,6 +11,10 @@ extern crate diesel_migrations;
 extern crate diesel;
 #[macro_use]
 extern crate serde_derive;
+#[macro_use]
+extern crate glib;
+
+extern crate webkit2gtk;
 
 use gettextrs::*;
 use libhandy::Column;

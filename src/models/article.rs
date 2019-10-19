@@ -1,23 +1,23 @@
-use crate::database;
-use crate::database::Insert;
-use crate::schema::articles;
-use diesel::prelude::*;
 use diesel::RunQueryDsl;
-use failure::Error;
+use gdk_pixbuf::Pixbuf;
 use wallabag_api::types::Entry;
+
+use super::preview_image::PreviewImage;
+use crate::database;
+use crate::schema::articles;
 
 #[derive(Insertable, Queryable, PartialEq, Debug, Clone, Serialize, Deserialize)]
 #[table_name = "articles"]
 pub struct Article {
     id: i32,
-    title: Option<String>,
+    pub title: Option<String>,
     is_archived: bool,
     is_public: bool,
     is_starred: bool,
     mimetype: Option<String>,
     language: Option<String>,
-    preview_picture: Option<String>,
-    content: Option<String>,
+    pub preview_picture: Option<String>,
+    pub content: Option<String>,
 }
 
 impl Article {
@@ -43,5 +43,13 @@ impl Article {
         diesel::insert_into(articles::table).values(self).execute(&conn)?;
 
         Ok(())
+    }
+
+    pub fn get_preview_pixbuf(&self) -> Option<Pixbuf> {
+        if let Some(preview_picture) = &self.preview_picture {
+            println!("{:#?}", preview_picture);
+            let preview_image = PreviewImage::new(preview_picture.to_string());
+        }
+        None
     }
 }

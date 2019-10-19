@@ -6,13 +6,15 @@ use glib::{Receiver, Sender};
 use std::{cell::RefCell, rc::Rc};
 
 use crate::config;
-use crate::models::ClientManager;
+use crate::models::{Article, ClientManager};
 use crate::widgets::{View, Window};
 
 use wallabag_api::types::Config;
 
 pub enum Action {
     SetClientConfig(Config),
+    LoadArticle(Article),
+    PreviousView,
 }
 
 pub struct Application {
@@ -66,6 +68,12 @@ impl Application {
                 self.client.borrow_mut().set_config(config);
                 self.window.set_view(View::Syncing);
             }
+            Action::LoadArticle(article) => {
+                self.window.load_article(article);
+            }
+            Action::PreviousView => {
+                self.window.set_view(View::Unread);
+            }
         };
         glib::Continue(true)
     }
@@ -89,6 +97,12 @@ impl Application {
             about_dialog.show();
         });
         self.app.set_accels_for_action("app.about", &["<primary>comma"]);
+
+        let sender = self.sender.clone();
+        self.add_gaction("back", move |_, _| {
+            sender.send(Action::PreviousView).expect("Failed to trigger previous view action");
+        });
+        self.app.set_accels_for_action("app.back", &["escape"]);
     }
 
     fn setup_signals(&self) {

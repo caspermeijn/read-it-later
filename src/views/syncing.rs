@@ -3,7 +3,6 @@ use glib::Sender;
 use gtk::prelude::*;
 
 use crate::application::Action;
-use std::rc::Rc;
 
 pub struct SyncingView {
     widget: gtk::Box,
