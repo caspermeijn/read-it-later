@@ -18,8 +18,8 @@ pub struct UnreadView {
 impl UnreadView {
     pub fn new(sender: Sender<Action>) -> Self {
         let unread_filter = EntriesFilter {
-            archive: Some(false),
-            starred: Some(false),
+            archive: None,
+            starred: None,
             sort: SortBy::Created,
             order: SortOrder::Desc,
             tags: vec![],

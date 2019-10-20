@@ -17,7 +17,6 @@ pub struct ArticlePreviewImage {
     pub widget: gtk::Box,
     builder: gtk::Builder,
     image: gtk::DrawingArea,
-    stack: gtk::Stack,
     pixbuf: Rc<RefCell<Option<Pixbuf>>>,
     image_type: RefCell<ArticlePreviewImageType>,
 }
@@ -27,15 +26,12 @@ impl ArticlePreviewImage {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/article_preview.ui");
         get_widget!(builder, gtk::Box, article_preview);
         get_widget!(builder, gtk::DrawingArea, image);
-        get_widget!(builder, gtk::Stack, stack);
-
         let pixbuf = Rc::new(RefCell::new(None));
 
         let favicon = Rc::new(Self {
             widget: article_preview,
             builder,
             image,
-            stack,
             pixbuf,
             image_type: RefCell::new(image_type.clone()),
         });
@@ -68,11 +64,6 @@ impl ArticlePreviewImage {
     pub fn set_pixbuf(&self, pixbuf: Pixbuf) {
         *self.pixbuf.borrow_mut() = Some(pixbuf);
         self.image.queue_draw();
-        self.stack.set_visible_child_name("image");
-    }
-
-    pub fn reset(&self) {
-        self.stack.set_visible_child_name("placeholder");
     }
 
     fn get_mask(&self) -> cairo::ImageSurface {

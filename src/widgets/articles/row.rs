@@ -44,37 +44,37 @@ impl ArticleRow {
         get_widget!(self.builder, gtk::Box, content_box);
         article_container.pack_start(&self.preview_image.widget, false, false, 0);
         if let Some(pixbuf) = self.article.get_preview_pixbuf() {
+            let preview_image = self.preview_image.clone();
+            self.widget.connect_size_allocate(move |_, allocation| {
+                if allocation.width > 700 {
+                    article_container.set_orientation(gtk::Orientation::Horizontal);
+                    article_container.reorder_child(&preview_image.widget, 1);
+                    preview_image.set_image_type(ArticlePreviewImageType::Thumbnail);
+                    // The size of thumbnail
+                    let mut height = 200;
+                    if allocation.height < 200 {
+                        height = allocation.height;
+                    }
+                    preview_image.set_size(200, height);
+                    content_box.set_property_margin(12);
+                } else {
+                    article_container.set_orientation(gtk::Orientation::Vertical);
+                    article_container.reorder_child(&preview_image.widget, 0);
+                    preview_image.set_image_type(ArticlePreviewImageType::Cover);
+                    let mut width = 340;
+                    if allocation.width > 360 {
+                        width = allocation.width - 25;
+                    }
+
+                    preview_image.set_size(width, 200);
+                    content_box.set_property_margin(0);
+                }
+            });
             self.preview_image.set_pixbuf(pixbuf);
         } else {
             self.preview_image.widget.set_no_show_all(false);
             self.preview_image.widget.hide();
         }
-        let preview_image = self.preview_image.clone();
-        self.widget.connect_size_allocate(move |_, allocation| {
-            if allocation.width > 700 {
-                article_container.set_orientation(gtk::Orientation::Horizontal);
-                article_container.reorder_child(&preview_image.widget, 1);
-                preview_image.set_image_type(ArticlePreviewImageType::Thumbnail);
-                // The size of thumbnail
-                let mut height = 200;
-                if allocation.height < 200 {
-                    height = allocation.height;
-                }
-                preview_image.set_size(200, height);
-                content_box.set_property_margin(12);
-            } else {
-                article_container.set_orientation(gtk::Orientation::Vertical);
-                article_container.reorder_child(&preview_image.widget, 0);
-                preview_image.set_image_type(ArticlePreviewImageType::Cover);
-                let mut width = 340;
-                if allocation.width > 360 {
-                    width = allocation.width - 25;
-                }
-
-                preview_image.set_size(width, 200);
-                content_box.set_property_margin(0);
-            }
-        });
 
         get_widget!(self.builder, gtk::Label, title_label);
         if let Some(title) = &self.article.title {
