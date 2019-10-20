@@ -1,6 +1,5 @@
 use glib::Sender;
 use gtk::prelude::*;
-use libhandy::prelude::*;
 
 use super::row::ArticleRow;
 use crate::application::Action;

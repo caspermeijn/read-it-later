@@ -1,4 +1,3 @@
-use diesel::sql_types::Timestamp;
 use diesel::RunQueryDsl;
 use failure::Error;
 use gdk_pixbuf::Pixbuf;

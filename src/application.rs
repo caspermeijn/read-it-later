@@ -87,15 +87,17 @@ impl Application {
             Action::PreviousView => {
                 self.window.set_view(View::Unread);
             }
-            Action::SetUser(user) => {
+            Action::SetUser(_) => {
                 let mut since = Utc.timestamp(0, 0);
                 let last_sync = self.settings.get_int("latest-sync");
                 if last_sync != 0 {
-                    // since =  Utc.timestamp(last_sync.into(), 0);
+                    since = Utc.timestamp(last_sync.into(), 0);
                 }
+                info!("Last sync was at {}", since);
                 self.settings.set_int("latest-sync", Utc::now().timestamp() as i32);
                 self.window.set_view(View::Syncing);
                 {
+                    info!("Starting a new sync");
                     self.client.borrow_mut().sync(since);
                     self.window.set_view(View::Unread);
                 }

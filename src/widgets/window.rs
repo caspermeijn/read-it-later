@@ -148,11 +148,6 @@ impl Window {
         let main_stack: gtk::Stack = self.builder.get_object("main_stack").expect("Failed to retrieve main_stack");
         let headerbar_stack: gtk::Stack = self.builder.get_object("headerbar_stack").expect("Failed to retrieve headerbar_stack");
 
-        let squeezer: libhandy::Squeezer = self.builder.get_object("squeezer").unwrap();
-        let switcher_bar: libhandy::ViewSwitcherBar = self.builder.get_object("switcher_bar").unwrap();
-
-        let title_label: gtk::Label = self.builder.get_object("title_label").unwrap();
-
         match view {
             View::Article => {
                 main_stack.set_visible_child_name("article");

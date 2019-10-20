@@ -1,4 +1,4 @@
-use base64::{decode, encode};
+use base64::encode;
 use reqwest::r#async::Client;
 use std::fs::File;
 use std::io;

@@ -7,7 +7,7 @@ use crate::diesel::ExpressionMethods;
 use crate::diesel::RunQueryDsl;
 use gio::prelude::*;
 use glib::prelude::*;
-use wallabag_api::types::{EntriesFilter, SortBy, SortOrder};
+use wallabag_api::types::EntriesFilter;
 
 pub fn get_articles(filter: &EntriesFilter) -> Result<Vec<Article>, Error> {
     use crate::schema::*;

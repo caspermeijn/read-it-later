@@ -1,6 +1,5 @@
 use crate::application::Action;
-use crate::models::{Article, PreviewImageType};
-use gio::prelude::*;
+use crate::models::Article;
 use gio::FileExt;
 use glib::Sender;
 use gtk::prelude::*;

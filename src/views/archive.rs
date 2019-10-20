@@ -3,8 +3,8 @@ use glib::Sender;
 use wallabag_api::types::{EntriesFilter, SortBy, SortOrder};
 
 use crate::application::Action;
-use crate::models::{Article, ArticlesModel, ObjectWrapper};
-use crate::widgets::articles::{ArticleRow, ArticlesListWidget};
+use crate::models::{Article, ArticlesModel};
+use crate::widgets::articles::ArticlesListWidget;
 
 pub struct ArchiveView {
     widget: ArticlesListWidget,
@@ -51,7 +51,6 @@ impl ArchiveView {
     }
 
     fn init(&self) {
-        let sender = self.sender.clone();
         self.widget.bind_model(&self.model.model);
     }
 }
