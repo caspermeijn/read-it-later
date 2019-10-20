@@ -51,6 +51,7 @@ sources = files(
   'widgets/articles/index.rs',
   'widgets/articles/list.rs',
   'widgets/articles/mod.rs',
+  'widgets/articles/preview.rs',
   'widgets/articles/row.rs',
   'widgets/login.rs',
   'widgets/mod.rs',
@@ -62,6 +63,7 @@ sources = files(
   'main.rs',
   'schema.rs',
   'static_resources.rs',
+  'utils.rs',
   'window_state.rs',
 )
 

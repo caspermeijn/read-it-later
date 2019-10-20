@@ -8,6 +8,7 @@ edition = "2018"
 gtk = { version = "0.7", features = ["v3_22"] }
 glib = { version = "0.8", features = ["subclassing"] }
 gio = { version = "0.7", features = ["v2_56"] }
+cairo-rs = "0.7"
 gdk = "0.11"
 gdk-pixbuf = "0.7"
 log = "0.4"

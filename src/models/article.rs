@@ -6,7 +6,7 @@ use sanitize_html::rules::Element;
 use sanitize_html::sanitize_str;
 use wallabag_api::types::Entry;
 
-use super::preview_image::{PreviewImage, PreviewImageType};
+use super::preview_image::PreviewImage;
 use crate::database;
 use crate::schema::articles;
 
@@ -73,32 +73,11 @@ impl Article {
         Ok(())
     }
 
-    pub fn get_preview_pixbuf(&self, img_type: PreviewImageType) -> Option<Pixbuf> {
+    pub fn get_preview_pixbuf(&self) -> Option<Pixbuf> {
         if let Some(preview_picture) = &self.preview_picture {
             let preview_image = PreviewImage::new(preview_picture.to_string());
             if let Ok(pixbuf) = gdk_pixbuf::Pixbuf::new_from_file(preview_image.get_cache_path()) {
-                let mut dest_width = pixbuf.get_width();
-                let mut dest_height = pixbuf.get_height();
-                match img_type {
-                    PreviewImageType::Small => {
-                        if dest_width > 200 {
-                            dest_width = 200;
-                        }
-                        if dest_height > 200 {
-                            dest_height = 200;
-                        }
-                    }
-                    PreviewImageType::Large => {
-                        if dest_width > 500 {
-                            dest_width = 800;
-                        }
-                        if dest_height > 360 {
-                            dest_height = 360;
-                        }
-                    }
-                }
-                let scaled_pixbuf = pixbuf.scale_simple(dest_width, dest_height, gdk_pixbuf::InterpType::Bilinear);
-                return scaled_pixbuf;
+                return Some(pixbuf);
             }
         }
         None

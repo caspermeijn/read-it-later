@@ -67,6 +67,38 @@ impl Window {
         self.set_view(View::Article);
     }
 
+    pub fn set_view(&self, view: View) {
+        let main_stack: gtk::Stack = self.builder.get_object("main_stack").expect("Failed to retrieve main_stack");
+        let headerbar_stack: gtk::Stack = self.builder.get_object("headerbar_stack").expect("Failed to retrieve headerbar_stack");
+
+        match view {
+            View::Article => {
+                main_stack.set_visible_child_name("article");
+                headerbar_stack.set_visible_child_name("article");
+            }
+            View::Archive => {
+                main_stack.set_visible_child_name("archive");
+                headerbar_stack.set_visible_child_name("articles");
+            }
+            View::Favorites => {
+                main_stack.set_visible_child_name("favorites");
+                headerbar_stack.set_visible_child_name("articles");
+            }
+            View::Unread => {
+                main_stack.set_visible_child_name("unread");
+                headerbar_stack.set_visible_child_name("articles");
+            }
+            View::Error => (),
+            View::Login => {
+                main_stack.set_visible_child_name("login");
+                headerbar_stack.set_visible_child_name("login");
+            }
+            View::Syncing => {
+                main_stack.set_visible_child_name("syncing");
+            }
+        }
+    }
+
     fn init(&self, settings: gio::Settings) {
         // setup app menu
         let menu_builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/menu.ui");
@@ -142,37 +174,5 @@ impl Window {
         main_stack.add_named(&self.article_view.get_widget(), &self.article_view.name);
 
         self.set_view(View::Login);
-    }
-
-    pub fn set_view(&self, view: View) {
-        let main_stack: gtk::Stack = self.builder.get_object("main_stack").expect("Failed to retrieve main_stack");
-        let headerbar_stack: gtk::Stack = self.builder.get_object("headerbar_stack").expect("Failed to retrieve headerbar_stack");
-
-        match view {
-            View::Article => {
-                main_stack.set_visible_child_name("article");
-                headerbar_stack.set_visible_child_name("article");
-            }
-            View::Archive => {
-                main_stack.set_visible_child_name("archive");
-                headerbar_stack.set_visible_child_name("articles");
-            }
-            View::Favorites => {
-                main_stack.set_visible_child_name("favorites");
-                headerbar_stack.set_visible_child_name("articles");
-            }
-            View::Unread => {
-                main_stack.set_visible_child_name("unread");
-                headerbar_stack.set_visible_child_name("articles");
-            }
-            View::Error => (),
-            View::Login => {
-                main_stack.set_visible_child_name("login");
-                headerbar_stack.set_visible_child_name("login");
-            }
-            View::Syncing => {
-                main_stack.set_visible_child_name("syncing");
-            }
-        }
     }
 }

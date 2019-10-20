@@ -26,6 +26,8 @@ mod models;
 mod schema;
 mod static_resources;
 mod views;
+#[macro_use]
+mod utils;
 mod widgets;
 mod window_state;
 

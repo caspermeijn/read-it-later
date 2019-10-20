@@ -8,11 +8,6 @@ lazy_static! {
     static ref CACHE_DIR: PathBuf = glib::get_user_cache_dir().unwrap().join("read-it-later");
 }
 
-pub enum PreviewImageType {
-    Small,
-    Large,
-}
-
 pub struct PreviewImage {
     pub url: String,
     cache: PathBuf,
@@ -20,7 +15,9 @@ pub struct PreviewImage {
 
 impl PreviewImage {
     pub fn new(url: String) -> Self {
-        let cache: PathBuf = CACHE_DIR.join(encode(&url));
+        let mut cache_file = encode(&url);
+        cache_file.truncate(50);
+        let cache: PathBuf = CACHE_DIR.join(&cache_file);
 
         let image = Self { url, cache };
         image.download_cache();

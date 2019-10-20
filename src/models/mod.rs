@@ -8,4 +8,4 @@ pub use article::Article;
 pub use articles::ArticlesModel;
 pub use client_manager::ClientManager;
 pub use object_wrapper::ObjectWrapper;
-pub use preview_image::{PreviewImage, PreviewImageType};
+pub use preview_image::PreviewImage;
