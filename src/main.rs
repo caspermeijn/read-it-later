@@ -40,10 +40,10 @@ fn main() {
     bindtextdomain(config::GETTEXT_PACKAGE, config::LOCALEDIR);
     textdomain(config::GETTEXT_PACKAGE);
 
-    static_resources::init().expect("Failed to initialize the resource file.");
-
-    glib::set_application_name(&format!("Read It Later{}", config::NAME_SUFFIX));
     glib::set_prgname(Some("read-it-later"));
+    glib::set_application_name(&format!("Read It Later{}", config::NAME_SUFFIX));
+
+    static_resources::init().expect("Failed to initialize the resource file.");
     Column::new();
     let app = Application::new();
     app.run(app.clone());
