@@ -15,7 +15,7 @@
         <property name="valign">start</property>
         <property name="selection_mode">none</property>
         <style>
-          <class name="frame"/>
+          <class name="transparent"/>
           <class name="articles-list"/>
         </style>
       </object>

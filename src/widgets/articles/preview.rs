@@ -8,10 +8,9 @@ use std::f64;
 use std::rc::Rc;
 
 #[derive(Clone, Copy, PartialEq)]
-pub enum ArticlePreviewImageSize {
-    Mini = 100,
-    Small = 150,
-    Big = 200,
+pub enum ArticlePreviewImageType {
+    Cover,
+    Thumbnail,
 }
 
 pub struct ArticlePreviewImage {
@@ -20,11 +19,11 @@ pub struct ArticlePreviewImage {
     image: gtk::DrawingArea,
     stack: gtk::Stack,
     pixbuf: Rc<RefCell<Option<Pixbuf>>>,
-    size: RefCell<ArticlePreviewImageSize>,
+    image_type: RefCell<ArticlePreviewImageType>,
 }
 
 impl ArticlePreviewImage {
-    pub fn new(size: ArticlePreviewImageSize) -> Self {
+    pub fn new(image_type: ArticlePreviewImageType) -> Rc<Self> {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/article_preview.ui");
         get_widget!(builder, gtk::Box, article_preview);
         get_widget!(builder, gtk::DrawingArea, image);
@@ -32,38 +31,37 @@ impl ArticlePreviewImage {
 
         let pixbuf = Rc::new(RefCell::new(None));
 
-        let favicon = Self {
+        let favicon = Rc::new(Self {
             widget: article_preview,
             builder,
             image,
             stack,
             pixbuf,
-            size: RefCell::new(size.clone()),
-        };
-        favicon.set_size(size);
-        favicon.setup_signals();
+            image_type: RefCell::new(image_type.clone()),
+        });
+        favicon.setup_signals(favicon.clone());
+        favicon.set_image_type(image_type);
         favicon
     }
 
-    pub fn set_size(&self, size: ArticlePreviewImageSize) {
-        get_widget!(self.builder, gtk::Image, placeholder);
-        self.image.set_size_request(size as i32, size as i32);
-        placeholder.set_pixel_size(((size as i32) as f64 * 0.5) as i32);
-
+    pub fn set_image_type(&self, image_type: ArticlePreviewImageType) {
         let ctx = self.widget.get_style_context();
-        match size {
-            ArticlePreviewImageSize::Mini => {
-                ctx.add_class("preview-image-mini");
+        match image_type {
+            ArticlePreviewImageType::Thumbnail => {
+                ctx.add_class("preview-thumbnail");
+                ctx.remove_class("preview-cover");
             }
-            ArticlePreviewImageSize::Small => {
-                ctx.add_class("preview-image-small");
-            }
-            ArticlePreviewImageSize::Big => {
-                ctx.add_class("preview-image-big");
+            ArticlePreviewImageType::Cover => {
+                ctx.add_class("preview-cover");
+                ctx.remove_class("preview-thumbnail");
             }
         };
+        self.image_type.replace(image_type);
+        self.image.queue_draw();
+    }
 
-        self.size.replace(size);
+    pub fn set_size(&self, width: i32, height: i32) {
+        self.image.set_size_request(width as i32, height as i32);
         self.image.queue_draw();
     }
 
@@ -77,57 +75,22 @@ impl ArticlePreviewImage {
         self.stack.set_visible_child_name("placeholder");
     }
 
-    // Based on the custom drawing by GNOME Games
-    // https://gitlab.gnome.org/GNOME/gnome-games/blob/de7e39e6c75423fe7357cdba48c1c3d73a2eea03/src/ui/savestate-listbox-row.vala#L106
-    pub fn draw_image(image: &gtk::DrawingArea, cr: &Context, pixbuf: Rc<RefCell<Option<Pixbuf>>>, size: ArticlePreviewImageSize) -> gtk::Inhibit {
-        let scale_factor = image.get_scale_factor() as f64;
-
-        let width = image.get_allocated_width();
-        let height = image.get_allocated_height();
-
-        let style = image.get_style_context();
-        gtk::render_background(&style, cr, 0.0, 0.0, width.into(), height.into());
-        gtk::render_frame(&style, cr, 0.0, 0.0, width.into(), height.into());
-
-        match &*pixbuf.borrow() {
-            Some(pixbuf) => {
-                cr.save();
-                cr.scale(1.0 / scale_factor, 1.0 / scale_factor);
-
-                let mask = Self::get_mask(image.clone(), size.clone());
-                let x_offset = (width as f64 * scale_factor - pixbuf.get_width() as f64) / 2.0;
-                let y_offset = (height as f64 * scale_factor - pixbuf.get_height() as f64) / 2.0;
-
-                cr.set_source_pixbuf(&pixbuf, x_offset, y_offset);
-                cr.mask_surface(&mask, 0.0, 0.0);
-                cr.restore();
-                gtk::Inhibit(false)
-            }
-            None => return gtk::Inhibit(false),
-        }
-    }
-
-    fn get_mask(image: gtk::DrawingArea, size: ArticlePreviewImageSize) -> cairo::ImageSurface {
-        let width = image.get_allocated_width() as f64;
-        let height = image.get_allocated_height() as f64;
-        let scale_factor = image.get_scale_factor() as f64;
+    fn get_mask(&self) -> cairo::ImageSurface {
+        let width = self.image.get_allocated_width() as f64;
+        let height = self.image.get_allocated_height() as f64;
+        let scale_factor = self.image.get_scale_factor() as f64;
 
         let mask = cairo::ImageSurface::create(cairo::Format::A8, (width * scale_factor) as i32, (height * scale_factor) as i32).unwrap();
-
-        let mut border_radius = 8.0;
-        if size == ArticlePreviewImageSize::Mini {
-            border_radius = 0.0;
-        }
-
+        let border_radius = 5.0;
         let cr = Context::new(&mask);
         cr.scale(scale_factor.into(), scale_factor.into());
-        Self::rounded_rectangle(cr.clone(), 0.0, 0.0, width, height, border_radius, size.clone());
+        self.rounded_rectangle(cr.clone(), 0.0, 0.0, width, height, border_radius);
         cr.fill();
 
         return mask;
     }
 
-    fn rounded_rectangle(cr: Context, x: f64, y: f64, width: f64, height: f64, radius: f64, size: ArticlePreviewImageSize) {
+    fn rounded_rectangle(&self, cr: Context, x: f64, y: f64, width: f64, height: f64, radius: f64) {
         let arc0: f64 = 0.0;
         let arc1: f64 = f64::consts::PI * 0.5;
         let arc2: f64 = f64::consts::PI;
@@ -135,18 +98,57 @@ impl ArticlePreviewImage {
 
         cr.new_sub_path();
 
-        cr.arc(x + width, y, 0.0, arc3, arc0);
-        cr.arc(x + width, y + height, 0.0, arc0, arc1);
+        match *self.image_type.borrow() {
+            ArticlePreviewImageType::Cover => {
+                cr.arc(x + width - radius, y + radius, radius, arc3, arc0);
+                cr.arc(x + width, y + height, 0.0, arc0, arc1);
 
-        cr.arc(x, y + height, 0.0, arc1, arc2);
-        cr.arc(x, y, 0.0, arc2, arc3);
+                cr.arc(x, y + height, 0.0, arc1, arc2);
+                cr.arc(x + radius, y + radius, radius, arc2, arc3);
+            }
+            ArticlePreviewImageType::Thumbnail => {
+                cr.arc(x + width - radius, y + radius, radius, arc3, arc0);
+                cr.arc(x + width - radius, y + height - radius, radius, arc0, arc1);
+
+                cr.arc(x, y + height, 0.0, arc1, arc2);
+                cr.arc(x, y, 0.0, arc2, arc3);
+            }
+        };
         cr.close_path();
     }
 
-    fn setup_signals(&self) {
-        let pixbuf = self.pixbuf.clone();
-        let size = self.size.clone();
-        self.image
-            .connect_draw(move |dr, ctx| Self::draw_image(dr, ctx, pixbuf.clone(), *size.borrow()));
+    fn setup_signals(&self, d: Rc<Self>) {
+        self.image.connect_draw(move |dr, ctx| {
+            let scale_factor = dr.get_scale_factor() as f64;
+
+            let width = dr.get_allocated_width();
+            let height = dr.get_allocated_height();
+
+            let style = dr.get_style_context();
+            gtk::render_background(&style, ctx, 0.0, 0.0, width.into(), height.into());
+            gtk::render_frame(&style, ctx, 0.0, 0.0, width.into(), height.into());
+
+            match &*d.pixbuf.borrow() {
+                Some(pixbuf) => {
+                    ctx.save();
+                    let mask = d.get_mask();
+                    match &*d.image_type.borrow() {
+                        ArticlePreviewImageType::Cover => {
+                            ctx.set_source_pixbuf(&pixbuf, 0.0, 0.0);
+                        }
+                        ArticlePreviewImageType::Thumbnail => {
+                            let x_offset = (width as f64 * scale_factor - pixbuf.get_width() as f64) / 2.0;
+                            let y_offset = (height as f64 * scale_factor - pixbuf.get_height() as f64) / 2.0;
+                            ctx.set_source_pixbuf(&pixbuf, x_offset, y_offset);
+                        }
+                    };
+                    ctx.scale(1.0 / scale_factor, 1.0 / scale_factor);
+                    ctx.mask_surface(&mask, 0.0, 0.0);
+                    ctx.restore();
+                    gtk::Inhibit(false)
+                }
+                None => return gtk::Inhibit(false),
+            }
+        });
     }
 }

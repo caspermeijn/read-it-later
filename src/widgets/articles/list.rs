@@ -23,7 +23,7 @@ impl ArticlesListWidget {
     }
 
     fn init(&self) {
-        let listbox: gtk::ListBox = self.builder.get_object("articles_listbox").expect("Failed to retrieve articles_listbox");
+        /*let listbox: gtk::ListBox = self.builder.get_object("articles_listbox").expect("Failed to retrieve articles_listbox");
         listbox.set_header_func(Some(Box::new(move |row1, row2| {
             if let Some(_) = row2 {
                 let separator = gtk::Separator::new(gtk::Orientation::Horizontal);
@@ -31,6 +31,7 @@ impl ArticlesListWidget {
                 separator.show();
             }
         })));
+        */
     }
 
     pub fn bind_model(&self, model: &gio::ListStore) {
