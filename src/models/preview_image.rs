@@ -1,5 +1,4 @@
 use base64::encode;
-use reqwest::r#async::Client;
 use std::fs::File;
 use std::path::PathBuf;
 use std::{fs, io};
