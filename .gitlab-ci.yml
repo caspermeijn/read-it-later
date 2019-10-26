@@ -5,7 +5,7 @@ stages:
   - deploy
 
 variables:
-    BUNDLE: "contrast-nightly.flatpak"
+    BUNDLE: "read-it-nightly.flatpak"
 
 flatpak:
     image: "registry.gitlab.gnome.org/gnome/gnome-runtime-images/rust_bundle:master"

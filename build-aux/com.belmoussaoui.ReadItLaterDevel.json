@@ -63,7 +63,7 @@
         },
 
         {
-            "name" : "reading-list",
+            "name" : "read-it-later",
             "buildsystem" : "meson",
             "config-opts" : [
                 "-Dprofile=development"
