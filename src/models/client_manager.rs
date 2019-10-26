@@ -3,7 +3,8 @@ use chrono::DateTime;
 use failure::Error;
 use glib::Sender;
 use std::cell::RefCell;
-use wallabag_api::types::{Config, EntriesFilter, SortBy, SortOrder, User};
+use url::Url;
+use wallabag_api::types::{Config, EntriesFilter, NewEntry, SortBy, SortOrder, User};
 use wallabag_api::Client;
 
 use crate::application::Action;
@@ -38,11 +39,18 @@ impl ClientManager {
         manager
     }
 
+    pub fn save_url(&self, url: Url) {
+        if let Some(client) = &self.client {
+            let new_entry = NewEntry::new_with_url(url.into_string());
+            if let Ok(entry) = client.borrow_mut().create_entry(&new_entry) {
+                let article = Article::from(entry);
+                article.insert();
+                self.sender.send(Action::AddArticle(article));
+            }
+        }
+    }
+
     pub fn sync(&self, since: DateTime<chrono::Utc>) {
-        /*
-            let current_time = Utc::now();
-            let time_diff = current_time.checked_sub_signed(since);
-        */
         let filter = EntriesFilter {
             archive: None,
             starred: None,

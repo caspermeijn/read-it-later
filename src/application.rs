@@ -17,6 +17,8 @@ pub enum Action {
     SetClientConfig(Config),
     LoadArticle(Article),
     AddArticle(Article),
+    NewArticle,     // Display the widget
+    SaveNewArticle, // Save the pasted url
     PreviousView,
     SetUser(User),
 }
@@ -78,6 +80,15 @@ impl Application {
                     self.do_action(Action::SetUser(user));
                 }
             }
+            Action::SaveNewArticle => {
+                if let Some(article_url) = self.window.get_new_article_url() {
+                    self.client.borrow_mut().save_url(article_url);
+                    self.window.set_view(View::Unread);
+                }
+            }
+            Action::NewArticle => {
+                self.window.set_view(View::NewArticle);
+            }
             Action::AddArticle(article) => {
                 self.window.add_article(article);
             }
@@ -125,6 +136,16 @@ impl Application {
             about_dialog.show();
         });
         self.app.set_accels_for_action("app.about", &["<primary>comma"]);
+
+        let sender = self.sender.clone();
+        self.add_gaction("new-article", move |_, _| {
+            sender.send(Action::NewArticle).expect("Failed to send new article action");
+        });
+
+        let sender = self.sender.clone();
+        self.add_gaction("add-article", move |_, _| {
+            sender.send(Action::SaveNewArticle).expect("Failed to send save new article action");
+        });
 
         let sender = self.sender.clone();
         self.add_gaction("back", move |_, _| {

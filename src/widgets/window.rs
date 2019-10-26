@@ -1,6 +1,7 @@
 use glib::Sender;
 use gtk::prelude::*;
 use libhandy::prelude::*;
+use url::Url;
 
 use crate::application::Action;
 use crate::config::{APP_ID, PROFILE};
@@ -9,13 +10,14 @@ use crate::views::{ArchiveView, ArticleView, FavoritesView, LoginView, SyncingVi
 use crate::window_state;
 
 pub enum View {
-    Article,   // Article
-    Login,     // Sign in
-    Error,     // Network & other errors
-    Unread,    // Unread articles
-    Archive,   // Archived articles
-    Favorites, // Favorites articles
-    Syncing,   // During sync
+    Article,    // Article
+    Login,      // Sign in
+    Error,      // Network & other errors
+    Unread,     // Unread articles
+    Archive,    // Archived articles
+    Favorites,  // Favorites articles
+    Syncing,    // During sync
+    NewArticle, // New Article
 }
 
 pub struct Window {
@@ -67,6 +69,15 @@ impl Window {
         self.set_view(View::Article);
     }
 
+    pub fn get_new_article_url(&self) -> Option<Url> {
+        get_widget!(self.builder, gtk::Entry, article_url_entry);
+
+        if let Ok(url) = Url::parse(&article_url_entry.get_text().unwrap()) {
+            return Some(url);
+        }
+        return None;
+    }
+
     pub fn set_view(&self, view: View) {
         let main_stack: gtk::Stack = self.builder.get_object("main_stack").expect("Failed to retrieve main_stack");
         let headerbar_stack: gtk::Stack = self.builder.get_object("headerbar_stack").expect("Failed to retrieve headerbar_stack");
@@ -95,6 +106,9 @@ impl Window {
             }
             View::Syncing => {
                 main_stack.set_visible_child_name("syncing");
+            }
+            View::NewArticle => {
+                headerbar_stack.set_visible_child_name("new-article");
             }
         }
     }
