@@ -1,6 +1,6 @@
-extern crate pretty_env_logger;
 #[macro_use]
 extern crate log;
+extern crate pretty_env_logger;
 #[macro_use]
 extern crate failure;
 #[macro_use]
@@ -13,6 +13,8 @@ extern crate diesel;
 extern crate serde_derive;
 #[macro_use]
 extern crate glib;
+#[macro_use]
+extern crate strum_macros;
 
 extern crate webkit2gtk;
 
@@ -24,6 +26,7 @@ mod config;
 mod database;
 mod models;
 mod schema;
+mod settings;
 mod static_resources;
 mod views;
 #[macro_use]

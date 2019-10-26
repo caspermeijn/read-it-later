@@ -9,11 +9,13 @@ use wallabag_api::types::User;
 
 use crate::config;
 use crate::models::{Article, ClientManager};
-use crate::widgets::{View, Window};
+use crate::settings::{Key, SettingsManager};
+use crate::widgets::{SettingsWidget, View, Window};
 
 use wallabag_api::types::Config;
 
 pub enum Action {
+    SettingsKeyChanged(Key),
     SetClientConfig(Config),
     LoadArticle(Article),
     AddArticle(Article),
@@ -73,6 +75,10 @@ impl Application {
 
     fn do_action(&self, action: Action) -> glib::Continue {
         match action {
+            Action::SettingsKeyChanged(key) => match key {
+                Key::DarkMode => {}
+                _ => (),
+            },
             Action::SetClientConfig(config) => {
                 let user = self.client.borrow_mut().set_config(config);
                 if let Ok(user) = user {
@@ -122,7 +128,18 @@ impl Application {
         let app = self.app.clone();
         self.add_gaction("quit", move |_, _| app.quit());
         self.app.set_accels_for_action("app.quit", &["<primary>q"]);
-
+        // Settings
+        let weak_window = self.window.widget.downgrade();
+        self.add_gaction("settings", move |_, _| {
+            let settings_widget = SettingsWidget::new();
+            if let Some(window) = weak_window.upgrade() {
+                settings_widget.widget.set_transient_for(Some(&window));
+                let size = window.get_size();
+                settings_widget.widget.resize(size.0, size.1);
+            }
+            settings_widget.widget.show();
+        });
+        self.app.set_accels_for_action("app.about", &["<primary>comma"]);
         // About
         let weak_window = self.window.widget.downgrade();
         self.add_gaction("about", move |_, _| {
@@ -141,6 +158,7 @@ impl Application {
         self.add_gaction("new-article", move |_, _| {
             sender.send(Action::NewArticle).expect("Failed to send new article action");
         });
+        self.app.set_accels_for_action("app.new-article", &["<primary>N"]);
 
         let sender = self.sender.clone();
         self.add_gaction("add-article", move |_, _| {
@@ -165,6 +183,10 @@ impl Application {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/shortcuts.ui");
         let dialog: gtk::ShortcutsWindow = builder.get_object("shortcuts").unwrap();
         self.window.widget.set_help_overlay(Some(&dialog));
+
+        if let Some(gtk_settings) = gtk::Settings::get_default() {
+            SettingsManager::bind_property(Key::DarkMode, &gtk_settings, "gtk-application-prefer-dark-theme");
+        }
     }
 
     fn add_gaction<F>(&self, name: &str, action: F)

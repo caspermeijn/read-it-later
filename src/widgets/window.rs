@@ -79,9 +79,11 @@ impl Window {
     }
 
     pub fn set_view(&self, view: View) {
-        let main_stack: gtk::Stack = self.builder.get_object("main_stack").expect("Failed to retrieve main_stack");
-        let headerbar_stack: gtk::Stack = self.builder.get_object("headerbar_stack").expect("Failed to retrieve headerbar_stack");
+        get_widget!(self.builder, gtk::Stack, main_stack);
+        get_widget!(self.builder, gtk::HeaderBar, headerbar);
+        get_widget!(self.builder, gtk::Stack, headerbar_stack);
 
+        headerbar.set_show_close_button(true);
         match view {
             View::Article => {
                 main_stack.set_visible_child_name("article");
@@ -109,6 +111,7 @@ impl Window {
             }
             View::NewArticle => {
                 headerbar_stack.set_visible_child_name("new-article");
+                headerbar.set_show_close_button(false);
             }
         }
     }
@@ -186,6 +189,7 @@ impl Window {
 
         // Article View
         main_stack.add_named(&self.article_view.get_widget(), &self.article_view.name);
+        self.widget.insert_action_group("article", self.article_view.get_actions());
 
         self.set_view(View::Login);
     }

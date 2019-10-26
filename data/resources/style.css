@@ -37,13 +37,15 @@ margin:0;
 
 .article-row-title {
   font-weight:600;
-  font-size: 20px;
+  font-size:16px;
+}
+
+.article-row-info {
+  font-size: 14px;
 }
 
 .article-row-content {
-  padding-left:6px;
-  padding-bottom:6px;
-  padding-right:6px;
+  font-size:14px;
 }
 
 
@@ -55,6 +57,6 @@ margin:0;
 .sm .article-row .article-row-title,
 .sm .article-row .article-row-content,
 .sm .article-row .article-row-info{
-  padding-left:6px;
+  padding-left:0px;
 }
 

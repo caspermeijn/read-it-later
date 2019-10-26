@@ -1,0 +1,10 @@
+body {
+  background-color: #2D2D2D;
+}
+pre {
+  background-color: #353535;
+
+}
+a, body, pre {
+ color: rgb(238, 238, 236);
+}

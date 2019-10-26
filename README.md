@@ -6,13 +6,14 @@
 
 <img src="https://gitlab.gnome.org/bilelmoussaoui/read-it-later/raw/master/data/icons/com.belmoussaoui.ReadItLater.svg" width="128" height="128" />
 
-An Instapaper frontend using GTK & Rust
+A Wallabag frontend using GTK & Rust
 
 
 ## Screenshots
 
 <div align="center">
 ![screenshot](data/resources/screenshots/screenshot1.png)
+![screenshot](data/resources/screenshots/screenshot2.png)
 </div>
 
 ## Hack on Read It Later

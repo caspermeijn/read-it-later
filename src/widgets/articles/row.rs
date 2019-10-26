@@ -1,4 +1,4 @@
-use super::preview::{ArticlePreviewImage, ArticlePreviewImageType};
+use super::preview::{ArticlePreviewImage, PreviewImageSize};
 use crate::application::Action;
 use crate::models::Article;
 use glib::Sender;
@@ -17,7 +17,7 @@ impl ArticleRow {
     pub fn new(article: Article, sender: Sender<Action>) -> Self {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/article_row.ui");
         let widget: gtk::ListBoxRow = builder.get_object("article_row").expect("Failed to retrieve article_row");
-        let preview_image = ArticlePreviewImage::new(ArticlePreviewImageType::Thumbnail);
+        let preview_image = ArticlePreviewImage::new(PreviewImageSize::Small);
 
         let row = Self {
             widget,
@@ -46,28 +46,10 @@ impl ArticleRow {
         if let Some(pixbuf) = self.article.get_preview_pixbuf() {
             let preview_image = self.preview_image.clone();
             self.widget.connect_size_allocate(move |_, allocation| {
-                if allocation.width > 700 {
-                    article_container.set_orientation(gtk::Orientation::Horizontal);
-                    article_container.reorder_child(&preview_image.widget, 1);
-                    preview_image.set_image_type(ArticlePreviewImageType::Thumbnail);
-                    // The size of thumbnail
-                    let mut height = 200;
-                    if allocation.height < 200 {
-                        height = allocation.height;
-                    }
-                    preview_image.set_size(200, height);
-                    content_box.set_property_margin(12);
+                if allocation.width <= 450 {
+                    preview_image.set_size(PreviewImageSize::Small);
                 } else {
-                    article_container.set_orientation(gtk::Orientation::Vertical);
-                    article_container.reorder_child(&preview_image.widget, 0);
-                    preview_image.set_image_type(ArticlePreviewImageType::Cover);
-                    let mut width = 340;
-                    if allocation.width > 360 {
-                        width = allocation.width - 25;
-                    }
-
-                    preview_image.set_size(width, 200);
-                    content_box.set_property_margin(0);
+                    preview_image.set_size(PreviewImageSize::Big);
                 }
             });
             self.preview_image.set_pixbuf(pixbuf);
@@ -82,8 +64,15 @@ impl ArticleRow {
         }
 
         get_widget!(self.builder, gtk::Label, info_label);
-        if &self.article.get_info() != "" {
-            info_label.set_text(&self.article.get_info());
+        let mut article_info = String::from("");
+        if let Some(base_url) = &self.article.base_url {
+            article_info.push_str(&format!("{} | ", base_url));
+        }
+        if let Some(authors) = &self.article.published_by {
+            article_info.push_str(&format!("by {} ", authors));
+        }
+        if &article_info != "" {
+            info_label.set_text(&article_info);
         } else {
             info_label.set_no_show_all(false);
             info_label.hide();

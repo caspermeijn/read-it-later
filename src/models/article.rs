@@ -83,30 +83,13 @@ impl Article {
         None
     }
 
-    pub fn get_info(&self) -> String {
-        let mut article_info = String::from("");
-        if let Some(base_url) = &self.base_url {
-            article_info.push_str(&format!("{} | ", base_url));
-        }
-        if let Some(authors) = &self.published_by {
-            article_info.push_str(&format!("by {} ", authors));
-        }
-        if let Some(published_date) = &self.published_at {
-            article_info.push_str(&format!("on {} ", published_date));
-        }
-        article_info
-    }
-
     pub fn get_preview(&self) -> Result<Option<String>, Error> {
         match &self.content {
             Some(content) => {
-                let rules = sanitize_html::rules::Rules::new()
-                    .allow_comments(false)
-                    .element(Element::new("br"))
-                    .element(Element::new("a"));
+                let rules = sanitize_html::rules::Rules::new().allow_comments(false);
 
                 let mut preview = sanitize_str(&rules, &content)?;
-                preview.truncate(300);
+                preview.truncate(150);
 
                 let preview_markup = markup_html(&preview)?;
                 Ok(Some(preview_markup))

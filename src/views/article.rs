@@ -25,6 +25,10 @@ impl ArticleView {
         article_view
     }
 
+    pub fn get_actions(&self) -> Option<&gio::SimpleActionGroup> {
+        Some(&self.widget.actions)
+    }
+
     pub fn get_widget(&self) -> gtk::Widget {
         let widget = self.widget.widget.clone();
         widget.upcast::<gtk::Widget>()

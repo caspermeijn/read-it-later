@@ -8,11 +8,13 @@ use webkit2gtk::{SettingsExt, WebContext, WebView, WebViewExt};
 
 use crate::application::Action;
 use crate::models::Article;
+use crate::settings::{Key, SettingsManager};
 
 pub struct ArticleWidget {
     pub widget: gtk::Box,
     builder: gtk::Builder,
     sender: Sender<Action>,
+    pub actions: gio::SimpleActionGroup,
     webview: WebView,
     article: Rc<RefCell<Option<Article>>>,
 }
@@ -24,9 +26,13 @@ impl ArticleWidget {
 
         let context = WebContext::get_default().unwrap();
         let webview = WebView::new_with_context_and_user_content_manager(&context, &UserContentManager::new());
+
+        let actions = gio::SimpleActionGroup::new();
+
         let article_widget = Self {
             widget,
             builder,
+            actions,
             sender,
             webview,
             article: Rc::new(RefCell::new(None)),
@@ -47,8 +53,6 @@ impl ArticleWidget {
     }
 
     fn setup_actions(&self) {
-        let actions = gio::SimpleActionGroup::new();
-
         // Delete article
         let delete_article = gio::SimpleAction::new("delete", None);
         let weak_article = Rc::downgrade(&self.article);
@@ -57,7 +61,7 @@ impl ArticleWidget {
                 // icon.copy_name();
             }
         });
-        actions.add_action(&delete_article);
+        self.actions.add_action(&delete_article);
         // Search article
         let search_article = gio::SimpleAction::new("search", None);
         let weak_article = Rc::downgrade(&self.article);
@@ -66,7 +70,7 @@ impl ArticleWidget {
                 // icon.copy_name();
             }
         });
-        actions.add_action(&search_article);
+        self.actions.add_action(&search_article);
         // Share article
         let share_article = gio::SimpleAction::new("share", None);
         let weak_article = Rc::downgrade(&self.article);
@@ -75,7 +79,7 @@ impl ArticleWidget {
                 // icon.copy_name();
             }
         });
-        actions.add_action(&share_article);
+        self.actions.add_action(&share_article);
         // Archive article
         let archive_article = gio::SimpleAction::new("archive", None);
         let weak_article = Rc::downgrade(&self.article);
@@ -84,7 +88,7 @@ impl ArticleWidget {
                 // icon.copy_name();
             }
         });
-        actions.add_action(&archive_article);
+        self.actions.add_action(&archive_article);
         // Favorite article
         let favorite_article = gio::SimpleAction::new("favorite", None);
         let weak_article = Rc::downgrade(&self.article);
@@ -93,14 +97,13 @@ impl ArticleWidget {
                 // icon.copy_name();
             }
         });
-        actions.add_action(&favorite_article);
-        self.widget.insert_action_group("article", Some(&actions));
+        self.actions.add_action(&favorite_article);
     }
 
     pub fn load_article(&self, article: Article) {
         self.article.replace(Some(article.clone()));
 
-        let layout_html = gio::File::new_for_uri("resource:///com/belmoussaoui/ReadItLater/layout.html.in");
+        let layout_html = gio::File::new_for_uri("resource:///com/belmoussaoui/ReadItLater/layout.html");
 
         if let Ok((v, _)) = layout_html.load_bytes(gio::NONE_CANCELLABLE) {
             let mut article_content = String::from_utf8(v.to_vec()).unwrap();
@@ -108,11 +111,29 @@ impl ArticleWidget {
                 article_content = article_content.replace("{title}", title);
             }
 
-            article_content = article_content.replace("{article_info}", &article.get_info());
+            let mut article_info = String::from("");
+            if let Some(base_url) = &article.base_url {
+                article_info.push_str(&format!("{} | ", base_url));
+            }
+            if let Some(authors) = &article.published_by {
+                article_info.push_str(&format!("by {} ", authors));
+            }
+            if let Some(published_date) = &article.published_at {
+                article_info.push_str(&format!("on {} ", published_date));
+            }
+            article_content = article_content.replace("{article_info}", &article_info);
 
-            let layout_css = gio::File::new_for_uri("resource:///com/belmoussaoui/ReadItLater/layout.css.in");
+            let layout_css = gio::File::new_for_uri("resource:///com/belmoussaoui/ReadItLater/layout.css");
             if let Ok((v, _)) = layout_css.load_bytes(gio::NONE_CANCELLABLE) {
-                let css_content = String::from_utf8(v.to_vec()).unwrap();
+                let mut css_content = String::from_utf8(v.to_vec()).unwrap();
+
+                if SettingsManager::get_boolean(Key::DarkMode) {
+                    let layout_css = gio::File::new_for_uri("resource:///com/belmoussaoui/ReadItLater/layout-dark.css");
+                    if let Ok((v, _)) = layout_css.load_bytes(gio::NONE_CANCELLABLE) {
+                        css_content.push_str(&String::from_utf8(v.to_vec()).unwrap());
+                    }
+                }
+
                 article_content = article_content.replace("{css}", &css_content);
             }
 

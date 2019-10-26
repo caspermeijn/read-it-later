@@ -29,5 +29,9 @@
       <default>0</default>
       <summary>Latest successful sync in ms</summary>
     </key>
+    <key name="dark-mode" type="b">
+      <default>false</default>
+      <summary>Whether we should use a dark theme or not</summary>
+    </key>
   </schema>
 </schemalist>

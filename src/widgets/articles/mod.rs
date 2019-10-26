@@ -5,5 +5,5 @@ mod row;
 
 pub use index::ArticleWidget;
 pub use list::ArticlesListWidget;
-pub use preview::{ArticlePreviewImage, ArticlePreviewImageType};
+pub use preview::{ArticlePreviewImage, PreviewImageSize};
 pub use row::ArticleRow;
