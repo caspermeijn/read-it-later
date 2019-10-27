@@ -13,6 +13,7 @@ CREATE TABLE `articles` (
     `published_by` VARCHAR NULL,
     `published_at` TIMESTAMP NULL,
     `reading_time` INTEGER DEFAULT 0,
-    `base_url` VARCHAR NULL
+    `base_url` VARCHAR NULL,
+    `url` VARCHAR NULL
 )
 

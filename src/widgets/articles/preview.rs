@@ -1,4 +1,3 @@
-use cairo::Context;
 use gdk::ContextExt;
 use gdk_pixbuf::Pixbuf;
 use gtk::prelude::*;
@@ -40,20 +39,14 @@ impl ArticlePreviewImage {
     }
 
     pub fn set_size(&self, size: PreviewImageSize) {
-        let ctx = self.widget.get_style_context();
-        let mut width = 0;
-        let mut height = 0;
         match size {
             PreviewImageSize::Small => {
-                width = 75;
-                height = 75;
+                self.image.set_size_request(75, 75);
             }
             PreviewImageSize::Big => {
-                width = 150;
-                height = 150;
+                self.image.set_size_request(150, 150);
             }
         };
-        self.image.set_size_request(width, height);
         self.size.replace(size);
         self.image.queue_draw();
     }
@@ -76,15 +69,16 @@ impl ArticlePreviewImage {
 
             match &*d.pixbuf.borrow() {
                 Some(pixbuf) => {
-                    let x_offset = (width as f64 * scale_factor - pixbuf.get_width() as f64) / 2.0;
-                    let y_offset = (height as f64 * scale_factor - pixbuf.get_height() as f64) / 2.0;
-
+                    if pixbuf.get_width() > width {
+                        let old_pixbuf = pixbuf;
+                        let pixbuf = pixbuf.scale_simple(width, height, gdk_pixbuf::InterpType::Bilinear).unwrap();
+                        ctx.set_source_pixbuf(&pixbuf, 0.0, 0.0);
+                    } else if pixbuf.get_width() < width {
+                        ctx.set_source_pixbuf(&pixbuf, (width - pixbuf.get_width()) as f64, 0.0);
+                    } else {
+                        ctx.set_source_pixbuf(&pixbuf, 0.0, 0.0);
+                    }
                     //ctx.scale(1.0 / scale_factor, 1.0 / scale_factor);
-                    ctx.scale(width as f64 / pixbuf.get_width() as f64, height as f64 / pixbuf.get_height() as f64);
-                    //ctx.translate(x_offset, y_offset);
-
-                    ctx.set_source_pixbuf(&pixbuf, 0.0, 0.0);
-
                     ctx.paint();
 
                     gtk::Inhibit(false)

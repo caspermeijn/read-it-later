@@ -72,14 +72,16 @@ impl ArticleWidget {
         });
         self.actions.add_action(&search_article);
         // Share article
-        let share_article = gio::SimpleAction::new("share", None);
+        let open_article = gio::SimpleAction::new("open", None);
         let weak_article = Rc::downgrade(&self.article);
-        share_article.connect_activate(move |_, _| {
+        open_article.connect_activate(move |_, _| {
             if let Some(article) = weak_article.upgrade() {
+                let article_url = article.borrow_mut().take().unwrap().url;
+                gtk::show_uri(Some(&gdk::Screen::get_default().unwrap()), &article_url.unwrap(), 0);
                 // icon.copy_name();
             }
         });
-        self.actions.add_action(&share_article);
+        self.actions.add_action(&open_article);
         // Archive article
         let archive_article = gio::SimpleAction::new("archive", None);
         let weak_article = Rc::downgrade(&self.article);

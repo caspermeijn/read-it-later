@@ -1,8 +1,6 @@
 use diesel::RunQueryDsl;
 use failure::Error;
 use gdk_pixbuf::Pixbuf;
-use html2pango::markup_html;
-use sanitize_html::rules::Element;
 use sanitize_html::sanitize_str;
 use wallabag_api::types::Entry;
 
@@ -26,6 +24,7 @@ pub struct Article {
     pub published_at: Option<chrono::NaiveDateTime>,
     pub reading_time: i32,
     pub base_url: Option<String>,
+    pub url: Option<String>,
 }
 
 impl Article {
@@ -60,6 +59,7 @@ impl Article {
             published_at,
             reading_time: entry.reading_time.clone() as i32,
             base_url: entry.domain_name.clone(),
+            url: entry.url.clone(),
         }
     }
 
@@ -86,13 +86,16 @@ impl Article {
     pub fn get_preview(&self) -> Result<Option<String>, Error> {
         match &self.content {
             Some(content) => {
-                let rules = sanitize_html::rules::Rules::new().allow_comments(false);
-
-                let mut preview = sanitize_str(&rules, &content)?;
+                let rules = sanitize_html::rules::Rules::new()
+                    .delete("a")
+                    .delete("br")
+                    .delete("img")
+                    .delete("figcaption")
+                    .allow_comments(false);
+                let mut preview = sanitize_str(&rules, &content)?.trim().to_string();
                 preview.truncate(150);
 
-                let preview_markup = markup_html(&preview)?;
-                Ok(Some(preview_markup))
+                Ok(Some(preview))
             }
             None => Ok(None),
         }

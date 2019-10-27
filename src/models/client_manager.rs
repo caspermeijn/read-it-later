@@ -44,8 +44,10 @@ impl ClientManager {
             let new_entry = NewEntry::new_with_url(url.into_string());
             if let Ok(entry) = client.borrow_mut().create_entry(&new_entry) {
                 let article = Article::from(entry);
-                article.insert();
-                self.sender.send(Action::AddArticle(article));
+                match article.insert() {
+                    Ok(_) => self.sender.send(Action::AddArticle(article)),
+                    Err(_) => self.sender.send(Action::Notify("Couldn't save the article".into())),
+                };
             }
         }
     }
@@ -64,10 +66,19 @@ impl ClientManager {
             if let Ok(entries) = client.borrow_mut().get_entries_with_filter(&filter) {
                 for entry in entries.into_iter() {
                     let article = Article::from(entry);
-                    article.insert();
-                    self.sender.send(Action::AddArticle(article));
+                    match article.insert() {
+                        Ok(_) => self.sender.send(Action::AddArticle(article)),
+                        Err(_) => self.sender.send(Action::Notify("Couldn't save the article".into())),
+                    };
                 }
             }
+        }
+    }
+
+    pub fn get_user(&mut self) -> Option<Result<User, wallabag_api::errors::ClientError>> {
+        match &self.client {
+            Some(client) => Some(client.borrow_mut().get_user()),
+            None => None,
         }
     }
 

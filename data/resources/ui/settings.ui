@@ -31,6 +31,76 @@
         </child>
       </object>
     </child>
+    <child>
+      <object class="HdyPreferencesPage">
+        <property name="icon_name">user-info-symbolic</property>
+        <property name="title">Account</property>
+        <property name="visible">True</property>
+        <child>
+          <object class="HdyPreferencesGroup">
+            <property name="title" translatable="yes">Account Settings</property>
+            <property name="visible">True</property>
+            <child>
+              <object class="HdyActionRow">
+                <property name="title" translatable="yes">Username</property>
+                <property name="visible">True</property>
+                <child type="action">
+                  <object class="GtkEntry" id="username_entry">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="valign">center</property>
+                    <property name="halign">end</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="title" translatable="yes">Email</property>
+                <property name="visible">True</property>
+                <child type="action">
+                  <object class="GtkEntry" id="email_entry">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="valign">center</property>
+                    <property name="halign">end</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="title" translatable="yes">Created At</property>
+                <property name="visible">True</property>
+                <child type="action">
+                  <object class="GtkLabel" id="created_at_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="wrap">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="title" translatable="yes">Updated At</property>
+                <property name="visible">True</property>
+                <child type="action">
+                  <object class="GtkLabel" id="updated_at_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label"></property>
+                    <property name="halign">start</property>
+                    <property name="wrap">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
   </object>
 </interface>
 

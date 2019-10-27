@@ -21,8 +21,8 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="action_name">article.share</property>
-            <property name="text" translatable="yes">Share...</property>
+            <property name="action_name">article.open</property>
+            <property name="text" translatable="yes">Open Website</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -227,7 +227,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkToggleButton">
+                  <object class="GtkToggleButton" id="favorite_togglebtn">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -248,7 +248,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkToggleButton">
+                  <object class="GtkToggleButton" id="archive_togglebtn">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -376,6 +376,29 @@
           </packing>
         </child>
         <child>
+          <object class="GtkRevealer" id="notification">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="notification_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">center</property>
+                <property name="valign">start</property>
+                <style>
+                  <class name="osd"/>
+                  <class name="notification"/>
+                </style>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkScrolledWindow">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -404,7 +427,7 @@
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="position">2</property>
           </packing>
         </child>
         <child>
@@ -416,7 +439,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">2</property>
+            <property name="position">3</property>
           </packing>
         </child>
       </object>

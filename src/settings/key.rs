@@ -2,7 +2,9 @@
 #[strum(serialize_all = "kebab_case")]
 pub enum Key {
     /* User Interface */
-    DarkMode,
+    DarkMode, // dark-mode
+    Username, // username
+
     WindowWidth,
     WindowHeight,
     ViewSorting,

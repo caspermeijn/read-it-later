@@ -65,6 +65,12 @@ impl Window {
     }
 
     pub fn load_article(&self, article: Article) {
+        get_widget!(self.builder, gtk::ToggleButton, archive_togglebtn);
+        get_widget!(self.builder, gtk::ToggleButton, favorite_togglebtn);
+
+        archive_togglebtn.set_active(article.is_archived);
+        favorite_togglebtn.set_active(article.is_starred);
+
         self.article_view.load(article);
         self.set_view(View::Article);
     }
@@ -76,6 +82,14 @@ impl Window {
             return Some(url);
         }
         return None;
+    }
+
+    pub fn notify(&self, message: String) {
+        get_widget!(self.builder, gtk::Revealer, notification);
+        get_widget!(self.builder, gtk::Label, notification_label);
+
+        notification_label.set_text(&message);
+        notification.set_reveal_child(true);
     }
 
     pub fn set_view(&self, view: View) {

@@ -54,8 +54,8 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="action_name">app.account-settings</property>
-            <property name="text" translatable="yes">Account Settings</property>
+            <property name="action_name">app.logout</property>
+            <property name="text" translatable="yes">Logout</property>
           </object>
           <packing>
             <property name="expand">False</property>

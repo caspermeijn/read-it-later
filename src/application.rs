@@ -23,6 +23,8 @@ pub enum Action {
     SaveNewArticle, // Save the pasted url
     PreviousView,
     SetUser(User),
+    Notify(String), // Notification message?
+    Logout,
 }
 
 pub struct Application {
@@ -30,7 +32,7 @@ pub struct Application {
     window: Window,
     sender: Sender<Action>,
     receiver: RefCell<Option<Receiver<Action>>>,
-    client: RefCell<ClientManager>,
+    client: Rc<RefCell<ClientManager>>,
     settings: gio::Settings,
 }
 
@@ -47,7 +49,7 @@ impl Application {
         let application = Rc::new(Self {
             app,
             window,
-            client: RefCell::new(ClientManager::new(sender.clone())),
+            client: Rc::new(RefCell::new(ClientManager::new(sender.clone()))),
             sender,
             receiver,
             settings,
@@ -92,6 +94,10 @@ impl Application {
                     self.window.set_view(View::Unread);
                 }
             }
+            Action::Logout => {
+                SettingsManager::set_string(Key::Username, "".into());
+                self.window.set_view(View::Login);
+            }
             Action::NewArticle => {
                 self.window.set_view(View::NewArticle);
             }
@@ -104,7 +110,7 @@ impl Application {
             Action::PreviousView => {
                 self.window.set_view(View::Unread);
             }
-            Action::SetUser(_) => {
+            Action::SetUser(user) => {
                 let mut since = Utc.timestamp(0, 0);
                 let last_sync = self.settings.get_int("latest-sync");
                 if last_sync != 0 {
@@ -113,12 +119,14 @@ impl Application {
                 info!("Last sync was at {}", since);
                 self.settings.set_int("latest-sync", Utc::now().timestamp() as i32);
                 self.window.set_view(View::Syncing);
+                println!("{:#?}", user);
                 {
                     info!("Starting a new sync");
                     self.client.borrow_mut().sync(since);
                     self.window.set_view(View::Unread);
                 }
             }
+            Action::Notify(err_msg) => self.window.notify(err_msg),
         };
         glib::Continue(true)
     }
@@ -130,8 +138,10 @@ impl Application {
         self.app.set_accels_for_action("app.quit", &["<primary>q"]);
         // Settings
         let weak_window = self.window.widget.downgrade();
+        let client = self.client.clone();
         self.add_gaction("settings", move |_, _| {
-            let settings_widget = SettingsWidget::new();
+            let user = client.borrow_mut().get_user();
+            let settings_widget = SettingsWidget::new(user);
             if let Some(window) = weak_window.upgrade() {
                 settings_widget.widget.set_transient_for(Some(&window));
                 let size = window.get_size();
@@ -163,6 +173,11 @@ impl Application {
         let sender = self.sender.clone();
         self.add_gaction("add-article", move |_, _| {
             sender.send(Action::SaveNewArticle).expect("Failed to send save new article action");
+        });
+
+        let sender = self.sender.clone();
+        self.add_gaction("logout", move |_, _| {
+            sender.send(Action::Logout).expect("Failed to trigger logout action");
         });
 
         let sender = self.sender.clone();
@@ -211,15 +226,14 @@ impl Application {
     }
 
     fn setup_client(&self) {
-        if let Some(logged_username) = self.settings.get_string("username") {
-            let user = self.client.borrow_mut().set_username(logged_username.to_string());
-            match user {
-                Ok(user) => {
-                    self.do_action(Action::SetUser(user));
-                }
-                Err(_) => {
-                    // Failed to log in error message
-                }
+        let logged_username = SettingsManager::get_string(Key::Username);
+        let user = self.client.borrow_mut().set_username(logged_username.to_string());
+        match user {
+            Ok(user) => {
+                self.do_action(Action::SetUser(user));
+            }
+            Err(_) => {
+                // Failed to log in error message
             }
         }
     }

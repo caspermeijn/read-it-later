@@ -13,5 +13,6 @@ table! {
         published_at -> Nullable<Timestamp>,
         reading_time -> Integer,
         base_url -> Nullable<Text>,
+        url -> Nullable<Text>,
     }
 }

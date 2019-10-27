@@ -16,11 +16,11 @@ pub struct ArticleRow {
 impl ArticleRow {
     pub fn new(article: Article, sender: Sender<Action>) -> Self {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/article_row.ui");
-        let widget: gtk::ListBoxRow = builder.get_object("article_row").expect("Failed to retrieve article_row");
+        get_widget!(builder, gtk::ListBoxRow, article_row);
         let preview_image = ArticlePreviewImage::new(PreviewImageSize::Small);
 
         let row = Self {
-            widget,
+            widget: article_row,
             builder,
             sender,
             article,
@@ -42,7 +42,7 @@ impl ArticleRow {
     fn init(&self) {
         get_widget!(self.builder, gtk::Box, article_container);
         get_widget!(self.builder, gtk::Box, content_box);
-        article_container.pack_start(&self.preview_image.widget, false, false, 0);
+        article_container.pack_end(&self.preview_image.widget, false, false, 0);
         if let Some(pixbuf) = self.article.get_preview_pixbuf() {
             let preview_image = self.preview_image.clone();
             self.widget.connect_size_allocate(move |_, allocation| {
@@ -80,7 +80,7 @@ impl ArticleRow {
 
         get_widget!(self.builder, gtk::Label, content_label);
         if let Ok(Some(preview)) = self.article.get_preview() {
-            content_label.set_markup(&preview);
+            content_label.set_text(&preview);
         }
     }
 }
