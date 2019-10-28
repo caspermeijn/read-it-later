@@ -41,7 +41,6 @@ impl ArticleRow {
 
     fn init(&self) {
         get_widget!(self.builder, gtk::Box, article_container);
-        get_widget!(self.builder, gtk::Box, content_box);
         article_container.pack_end(&self.preview_image.widget, false, false, 0);
         if let Some(pixbuf) = self.article.get_preview_pixbuf() {
             let preview_image = self.preview_image.clone();

@@ -12,7 +12,7 @@ A Wallabag frontend using GTK & Rust
 ## Screenshots
 
 <div align="center">
-![screenshot](data/resources/screenshots/screenshot1.png) ![screenshot](data/resources/screenshots/screenshot2.png)
+![screenshot](data/resources/screenshots/screenshot1.png)![screenshot](data/resources/screenshots/screenshot2.png)
 </div>
 
 ## Hack on Read It Later

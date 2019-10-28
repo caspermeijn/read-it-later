@@ -86,13 +86,17 @@ impl Article {
     pub fn get_preview(&self) -> Result<Option<String>, Error> {
         match &self.content {
             Some(content) => {
+                // Regex to remove duplicate spaces
+                let re = regex::Regex::new(r"\s+").unwrap();
+
                 let rules = sanitize_html::rules::Rules::new()
-                    .delete("a")
                     .delete("br")
                     .delete("img")
                     .delete("figcaption")
                     .allow_comments(false);
+
                 let mut preview = sanitize_str(&rules, &content)?.trim().to_string();
+                preview = re.replace_all(&preview, " ").to_string(); // Remove duplicate space
                 preview.truncate(150);
 
                 Ok(Some(preview))

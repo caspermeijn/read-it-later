@@ -48,6 +48,19 @@ impl ArticleWidget {
         webview_settings.set_enable_developer_extras(true);
         self.webview.set_settings(&webview_settings);
 
+        // Progress bar
+        get_widget!(self.builder, gtk::Revealer, revealer);
+        get_widget!(self.builder, gtk::ProgressBar, progressbar);
+
+        self.webview.connect_property_estimated_load_progress_notify(move |webview| {
+            let progress = webview.get_estimated_load_progress();
+
+            progressbar.set_fraction(progress);
+            if progress == 1.0 {
+                revealer.set_reveal_child(false);
+            }
+        });
+
         self.widget.pack_start(&self.webview, true, true, 0);
         self.webview.show();
     }
@@ -77,8 +90,9 @@ impl ArticleWidget {
         open_article.connect_activate(move |_, _| {
             if let Some(article) = weak_article.upgrade() {
                 let article_url = article.borrow_mut().take().unwrap().url;
-                gtk::show_uri(Some(&gdk::Screen::get_default().unwrap()), &article_url.unwrap(), 0);
-                // icon.copy_name();
+                if let Err(err_msg) = gtk::show_uri(Some(&gdk::Screen::get_default().unwrap()), &article_url.unwrap(), 0) {
+                    error!("Failed to open the uri {} in the default browser", err_msg);
+                }
             }
         });
         self.actions.add_action(&open_article);
@@ -104,6 +118,9 @@ impl ArticleWidget {
 
     pub fn load_article(&self, article: Article) {
         self.article.replace(Some(article.clone()));
+        // Progress Bar Revealer
+        get_widget!(self.builder, gtk::Revealer, revealer);
+        revealer.set_reveal_child(true);
 
         let layout_html = gio::File::new_for_uri("resource:///com/belmoussaoui/ReadItLater/layout.html");
 
