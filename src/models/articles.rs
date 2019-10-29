@@ -2,31 +2,26 @@ use super::article::Article;
 use super::object_wrapper::ObjectWrapper;
 use crate::database;
 use crate::database::Error;
-use crate::diesel::query_dsl::filter_dsl::FilterDsl;
-use crate::diesel::ExpressionMethods;
-use crate::diesel::RunQueryDsl;
 use gio::prelude::*;
 use glib::prelude::*;
 use wallabag_api::types::EntriesFilter;
 
 pub fn get_articles(filter: &EntriesFilter) -> Result<Vec<Article>, Error> {
-    use crate::schema::*;
+    use crate::schema::articles::dsl::*;
+    use diesel::prelude::*;;
     let db = database::connection();
+
     let conn = db.get()?;
 
+    let mut query = articles.order(published_at.desc()).into_boxed();
+
     if let Some(starred) = &filter.starred {
-        return articles::table
-            .filter(articles::is_starred.eq(starred))
-            .load::<Article>(&conn)
-            .map_err(From::from);
-    } else if let Some(archived) = &filter.archive {
-        return articles::table
-            .filter(articles::is_archived.eq(archived))
-            .load::<Article>(&conn)
-            .map_err(From::from);
-    } else {
-        return articles::table.load::<Article>(&conn).map_err(From::from);
+        query = query.filter(is_starred.eq(starred));
     }
+    if let Some(archived) = &filter.archive {
+        query = query.filter(is_archived.eq(archived));
+    }
+    query.get_results::<Article>(&conn).map_err(From::from)
 }
 
 pub struct ArticlesModel {
@@ -51,7 +46,15 @@ impl ArticlesModel {
         }
     }
 
+    pub fn remove_article(&self, article: &Article) {
+        match self.index(&article) {
+            Some(pos) => self.model.remove(pos),
+            None => (),
+        };
+    }
+
     pub fn add_article(&self, article: &Article) {
+        println!("{:#?}", article);
         if !self.index(&article).is_some() {
             let object = ObjectWrapper::new(Box::new(article));
             self.model.insert(0, &object);

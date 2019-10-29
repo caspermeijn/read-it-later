@@ -18,6 +18,9 @@ pub enum Action {
     SettingsKeyChanged(Key),
     SetClientConfig(Config),
     LoadArticle(Article),
+    ArchiveArticle(Article),
+    FavoriteArticle(Article),
+    DeleteArticle(Article),
     AddArticle(Article),
     NewArticle,     // Display the widget
     SaveNewArticle, // Save the pasted url
@@ -77,10 +80,7 @@ impl Application {
 
     fn do_action(&self, action: Action) -> glib::Continue {
         match action {
-            Action::SettingsKeyChanged(key) => match key {
-                Key::DarkMode => {}
-                _ => (),
-            },
+            Action::SettingsKeyChanged(key) => (),
             Action::SetClientConfig(config) => {
                 let user = self.client.borrow_mut().set_config(config);
                 if let Ok(user) = user {
@@ -98,18 +98,42 @@ impl Application {
                 SettingsManager::set_string(Key::Username, "".into());
                 self.window.set_view(View::Login);
             }
-            Action::NewArticle => {
-                self.window.set_view(View::NewArticle);
+            Action::NewArticle => self.window.set_view(View::NewArticle),
+            Action::AddArticle(article) => self.window.add_article(article),
+            Action::ArchiveArticle(article) => {
+                match self.window.archive_article(article) {
+                    Err(_) => {
+                        self.sender
+                            .send(Action::Notify("Failed to archive the article".to_string()))
+                            .expect("Failed to send a notification");
+                    }
+                    Ok(_) => (),
+                };
             }
-            Action::AddArticle(article) => {
-                self.window.add_article(article);
+            Action::FavoriteArticle(article) => {
+                match self.window.favorite_article(article) {
+                    Err(_) => {
+                        self.sender
+                            .send(Action::Notify("Failed to favorite the article".to_string()))
+                            .expect("Failed to send a notification");
+                    }
+                    Ok(_) => (),
+                };
             }
-            Action::LoadArticle(article) => {
-                self.window.load_article(article);
+            Action::DeleteArticle(article) => {
+                match self.window.delete_article(article) {
+                    Err(_) => {
+                        self.sender
+                            .send(Action::Notify("Failed to delete the article".to_string()))
+                            .expect("Failed to send a notification");
+                    }
+                    Ok(_) => {
+                        self.sender.send(Action::PreviousView).expect("Failed to return the previous view");
+                    }
+                };
             }
-            Action::PreviousView => {
-                self.window.set_view(View::Unread);
-            }
+            Action::LoadArticle(article) => self.window.load_article(article),
+            Action::PreviousView => self.window.set_view(View::Unread),
             Action::SetUser(user) => {
                 let mut since = Utc.timestamp(0, 0);
                 let last_sync = self.settings.get_int("latest-sync");
@@ -119,7 +143,6 @@ impl Application {
                 info!("Last sync was at {}", since);
                 self.settings.set_int("latest-sync", Utc::now().timestamp() as i32);
                 self.window.set_view(View::Syncing);
-                println!("{:#?}", user);
                 {
                     info!("Starting a new sync");
                     self.client.borrow_mut().sync(since);
@@ -149,7 +172,7 @@ impl Application {
             }
             settings_widget.widget.show();
         });
-        self.app.set_accels_for_action("app.about", &["<primary>comma"]);
+        self.app.set_accels_for_action("app.settings", &["<primary>?"]);
         // About
         let weak_window = self.window.widget.downgrade();
         self.add_gaction("about", move |_, _| {
@@ -168,7 +191,6 @@ impl Application {
         self.add_gaction("new-article", move |_, _| {
             sender.send(Action::NewArticle).expect("Failed to send new article action");
         });
-        self.app.set_accels_for_action("app.new-article", &["<primary>N"]);
 
         let sender = self.sender.clone();
         self.add_gaction("add-article", move |_, _| {
@@ -185,6 +207,14 @@ impl Application {
             sender.send(Action::PreviousView).expect("Failed to trigger previous view action");
         });
         self.app.set_accels_for_action("app.back", &["Escape"]);
+
+        // Articles
+        self.app.set_accels_for_action("app.new-article", &["<primary>N"]);
+        self.app.set_accels_for_action("article.delete", &["DEL"]);
+        self.app.set_accels_for_action("article.favorite", &["<primary><secondary>F"]);
+        self.app.set_accels_for_action("article.archive", &["<primary><secondary>A"]);
+        self.app.set_accels_for_action("article.open", &["<primary>O"]);
+        self.app.set_accels_for_action("article.search", &["<primary>F"]);
     }
 
     fn setup_signals(&self) {

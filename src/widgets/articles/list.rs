@@ -1,3 +1,4 @@
+use gio::prelude::*;
 use glib::Sender;
 use gtk::prelude::*;
 
@@ -34,10 +35,30 @@ impl ArticlesListWidget {
         */
     }
 
-    pub fn bind_model(&self, model: &gio::ListStore) {
-        let listbox: gtk::ListBox = self.builder.get_object("articles_listbox").expect("Failed to retrieve articles_listbox");
+    pub fn bind_model(&self, model: &gio::ListStore, icon: &str, empty_msg: &str) {
+        get_widget!(self.builder, gtk::Label, empty_label);
+        get_widget!(self.builder, gtk::Image, empty_image);
+
+        empty_label.set_text(empty_msg);
+        empty_image.set_from_icon_name(Some(icon), gtk::IconSize::Dialog);
+
+        get_widget!(self.builder, gtk::Stack, stack);
+        if model.get_n_items() == 0 {
+            stack.set_visible_child_name("empty");
+        } else {
+            stack.set_visible_child_name("articles");
+        }
+        model.connect_items_changed(move |model, _, _, _| {
+            println!("{:#?}", model.get_n_items());
+            if model.get_n_items() == 0 {
+                stack.set_visible_child_name("empty");
+            } else {
+                stack.set_visible_child_name("articles");
+            }
+        });
+        get_widget!(self.builder, gtk::ListBox, articles_listbox);
         let sender = self.sender.clone();
-        listbox.bind_model(Some(model), move |article| {
+        articles_listbox.bind_model(Some(model), move |article| {
             let article: Article = article.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
             let row = ArticleRow::new(article.clone(), sender.clone());
             let sender = sender.clone();

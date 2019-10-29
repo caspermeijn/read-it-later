@@ -1,3 +1,5 @@
+use failure::Error;
+use gio::prelude::*;
 use glib::Sender;
 use gtk::prelude::*;
 use libhandy::prelude::*;
@@ -28,6 +30,7 @@ pub struct Window {
     unread_view: UnreadView,
     favorites_view: FavoritesView,
     archive_view: ArchiveView,
+    actions: gio::SimpleActionGroup,
 }
 
 impl Window {
@@ -38,6 +41,7 @@ impl Window {
         if PROFILE == "Devel" {
             widget.get_style_context().add_class("devel");
         }
+        let actions = gio::SimpleActionGroup::new();
 
         let window = Window {
             widget,
@@ -47,10 +51,12 @@ impl Window {
             favorites_view: FavoritesView::new(sender.clone()),
             archive_view: ArchiveView::new(sender.clone()),
             sender,
+            actions,
         };
 
         window.init(settings);
         window.init_views();
+        window.setup_actions();
         window
     }
 
@@ -64,12 +70,62 @@ impl Window {
         }
     }
 
+    pub fn delete_article(&self, article: Article) -> Result<(), Error> {
+        if article.is_starred {
+            self.favorites_view.delete(article.clone());
+        } else if article.is_archived {
+            self.archive_view.delete(article.clone());
+        } else {
+            self.unread_view.delete(article.clone());
+        }
+        Ok(article.delete()?)
+    }
+
+    pub fn favorite_article(&self, mut article: Article) -> Result<(), Error> {
+        article.toggle_favorite()?;
+        if !article.is_starred {
+            if !article.is_archived {
+                self.unread_view.add(article.clone());
+            }
+            self.favorites_view.delete(article.clone());
+        } else {
+            self.favorites_view.add(article.clone());
+            self.unread_view.delete(article.clone());
+        }
+        Ok(())
+    }
+
+    pub fn archive_article(&self, mut article: Article) -> Result<(), Error> {
+        article.toggle_archive()?;
+        if !article.is_archived {
+            if !article.is_starred {
+                self.unread_view.add(article.clone());
+            }
+            self.archive_view.delete(article.clone());
+        } else {
+            self.archive_view.add(article.clone());
+            self.unread_view.delete(article.clone());
+        }
+        Ok(())
+    }
+
     pub fn load_article(&self, article: Article) {
         get_widget!(self.builder, gtk::ToggleButton, archive_togglebtn);
         get_widget!(self.builder, gtk::ToggleButton, favorite_togglebtn);
 
-        archive_togglebtn.set_active(article.is_archived);
-        favorite_togglebtn.set_active(article.is_starred);
+        if let Some(article_view_actions) = self.article_view.get_actions() {
+            let archive_action = article_view_actions.lookup_action("archive").unwrap().downcast::<gio::SimpleAction>().unwrap();
+            let favorite_action = article_view_actions.lookup_action("favorite").unwrap().downcast::<gio::SimpleAction>().unwrap();
+
+            archive_action.set_enabled(false);
+            favorite_action.set_enabled(false);
+
+            archive_togglebtn.set_active(article.is_archived);
+            favorite_togglebtn.set_active(article.is_starred);
+
+            archive_action.set_enabled(true);
+            favorite_action.set_enabled(true);
+        }
 
         self.article_view.load(article);
         self.set_view(View::Article);
@@ -90,6 +146,11 @@ impl Window {
 
         notification_label.set_text(&message);
         notification.set_reveal_child(true);
+
+        gtk::timeout_add_seconds(3, move || {
+            notification.set_reveal_child(false);
+            glib::Continue(false)
+        });
     }
 
     pub fn set_view(&self, view: View) {
@@ -98,10 +159,12 @@ impl Window {
         get_widget!(self.builder, gtk::Stack, headerbar_stack);
 
         headerbar.set_show_close_button(true);
+
         match view {
             View::Article => {
                 main_stack.set_visible_child_name("article");
                 headerbar_stack.set_visible_child_name("article");
+                self.widget.insert_action_group("article", self.article_view.get_actions());
             }
             View::Archive => {
                 main_stack.set_visible_child_name("archive");
@@ -206,5 +269,16 @@ impl Window {
         self.widget.insert_action_group("article", self.article_view.get_actions());
 
         self.set_view(View::Login);
+    }
+
+    fn setup_actions(&self) {
+        get_widget!(self.builder, gtk::Revealer, notification);
+        let simple_action = gio::SimpleAction::new("close-notification", None);
+        simple_action.connect_activate(move |_, _| {
+            notification.set_reveal_child(false);
+        });
+        self.actions.add_action(&simple_action);
+
+        self.widget.insert_action_group("win", Some(&self.actions));
     }
 }

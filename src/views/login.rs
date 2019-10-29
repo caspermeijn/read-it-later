@@ -1,6 +1,5 @@
 use glib::object::Cast;
 use glib::Sender;
-use gtk::prelude::*;
 
 use std::rc::Rc;
 

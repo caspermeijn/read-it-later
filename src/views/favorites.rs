@@ -11,13 +11,13 @@ pub struct FavoritesView {
     pub name: String,
     pub title: String,
     pub icon: String,
-    sender: Sender<Action>,
     model: ArticlesModel,
+    sender: Sender<Action>,
 }
 
 impl FavoritesView {
     pub fn new(sender: Sender<Action>) -> Self {
-        let favorites_filter = EntriesFilter {
+        let unread_filter = EntriesFilter {
             archive: None,
             starred: Some(true),
             sort: SortBy::Created,
@@ -28,7 +28,7 @@ impl FavoritesView {
         };
 
         let widget = ArticlesListWidget::new(sender.clone());
-        let model = ArticlesModel::new(favorites_filter);
+        let model = ArticlesModel::new(unread_filter);
 
         let favorites_view = Self {
             widget,
@@ -46,11 +46,15 @@ impl FavoritesView {
         let widget = self.widget.widget.clone();
         widget.upcast::<gtk::Widget>()
     }
+
     pub fn add(&self, article: Article) {
         self.model.add_article(&article);
     }
 
+    pub fn delete(&self, article: Article) {
+        self.model.remove_article(&article);
+    }
     fn init(&self) {
-        self.widget.bind_model(&self.model.model);
+        self.widget.bind_model(&self.model.model, &self.icon, "Save your favorites articles!");
     }
 }

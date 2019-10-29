@@ -16,11 +16,11 @@ pub struct ArticleWidget {
     sender: Sender<Action>,
     pub actions: gio::SimpleActionGroup,
     webview: WebView,
-    article: Rc<RefCell<Option<Article>>>,
+    article: RefCell<Option<Article>>,
 }
 
 impl ArticleWidget {
-    pub fn new(sender: Sender<Action>) -> Self {
+    pub fn new(sender: Sender<Action>) -> Rc<Self> {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/article.ui");
         let widget: gtk::Box = builder.get_object("article").expect("Failed to retrieve article");
 
@@ -29,23 +29,25 @@ impl ArticleWidget {
 
         let actions = gio::SimpleActionGroup::new();
 
-        let article_widget = Self {
+        let article_widget = Rc::new(Self {
             widget,
             builder,
             actions,
             sender,
             webview,
-            article: Rc::new(RefCell::new(None)),
-        };
+            article: RefCell::new(None),
+        });
         article_widget.init();
-        article_widget.setup_actions();
+        article_widget.setup_actions(article_widget.clone());
         article_widget
     }
 
     fn init(&self) {
         let webview_settings = webkit2gtk::Settings::new();
         webview_settings.set_auto_load_images(true);
-        webview_settings.set_enable_developer_extras(true);
+        // webview_settings.set_enable_javascript(false);
+        webview_settings.set_allow_modal_dialogs(false);
+        webview_settings.set_enable_developer_extras(false);
         self.webview.set_settings(&webview_settings);
 
         // Progress bar
@@ -65,31 +67,29 @@ impl ArticleWidget {
         self.webview.show();
     }
 
-    fn setup_actions(&self) {
+    fn setup_actions(&self, aw: Rc<Self>) {
         // Delete article
         let delete_article = gio::SimpleAction::new("delete", None);
-        let weak_article = Rc::downgrade(&self.article);
+        let article_widget = aw.clone();
+        let sender = self.sender.clone();
         delete_article.connect_activate(move |_, _| {
-            if let Some(article) = weak_article.upgrade() {
-                // icon.copy_name();
+            if let Some(article) = article_widget.article.borrow().clone() {
+                sender.send(Action::DeleteArticle(article)).expect("Failed to delete the article");
             }
         });
         self.actions.add_action(&delete_article);
         // Search article
         let search_article = gio::SimpleAction::new("search", None);
-        let weak_article = Rc::downgrade(&self.article);
-        search_article.connect_activate(move |_, _| {
-            if let Some(article) = weak_article.upgrade() {
-                // icon.copy_name();
-            }
-        });
+        let article_widget = aw.clone();
+        let sender = self.sender.clone();
+        search_article.connect_activate(move |_, _| if let Some(article) = article_widget.article.borrow().clone() {});
         self.actions.add_action(&search_article);
         // Share article
         let open_article = gio::SimpleAction::new("open", None);
-        let weak_article = Rc::downgrade(&self.article);
+        let article_widget = aw.clone();
         open_article.connect_activate(move |_, _| {
-            if let Some(article) = weak_article.upgrade() {
-                let article_url = article.borrow_mut().take().unwrap().url;
+            if let Some(article) = article_widget.article.borrow().clone() {
+                let article_url = article.url;
                 if let Err(err_msg) = gtk::show_uri(Some(&gdk::Screen::get_default().unwrap()), &article_url.unwrap(), 0) {
                     error!("Failed to open the uri {} in the default browser", err_msg);
                 }
@@ -98,19 +98,22 @@ impl ArticleWidget {
         self.actions.add_action(&open_article);
         // Archive article
         let archive_article = gio::SimpleAction::new("archive", None);
-        let weak_article = Rc::downgrade(&self.article);
+
+        let article_widget = aw.clone();
+        let sender = self.sender.clone();
         archive_article.connect_activate(move |_, _| {
-            if let Some(article) = weak_article.upgrade() {
-                // icon.copy_name();
+            if let Some(article) = article_widget.article.borrow().clone() {
+                sender.send(Action::ArchiveArticle(article)).expect("Failed to archive the article");
             }
         });
         self.actions.add_action(&archive_article);
         // Favorite article
         let favorite_article = gio::SimpleAction::new("favorite", None);
-        let weak_article = Rc::downgrade(&self.article);
+        let article_widget = aw.clone();
+        let sender = self.sender.clone();
         favorite_article.connect_activate(move |_, _| {
-            if let Some(article) = weak_article.upgrade() {
-                // icon.copy_name();
+            if let Some(article) = article_widget.article.borrow().clone() {
+                sender.send(Action::FavoriteArticle(article)).expect("Failed to favorite the article");
             }
         });
         self.actions.add_action(&favorite_article);

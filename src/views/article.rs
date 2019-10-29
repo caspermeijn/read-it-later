@@ -7,7 +7,7 @@ use crate::widgets::articles::ArticleWidget;
 use crate::application::Action;
 
 pub struct ArticleView {
-    widget: ArticleWidget,
+    widget: std::rc::Rc<ArticleWidget>,
     pub name: String,
     sender: Sender<Action>,
 }

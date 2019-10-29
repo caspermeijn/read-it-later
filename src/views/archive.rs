@@ -11,8 +11,8 @@ pub struct ArchiveView {
     pub name: String,
     pub title: String,
     pub icon: String,
-    sender: Sender<Action>,
     model: ArticlesModel,
+    sender: Sender<Action>,
 }
 
 impl ArchiveView {
@@ -26,6 +26,7 @@ impl ArchiveView {
             since: 0,
             public: None,
         };
+
         let widget = ArticlesListWidget::new(sender.clone());
         let model = ArticlesModel::new(archive_filter);
 
@@ -50,7 +51,11 @@ impl ArchiveView {
         self.model.add_article(&article);
     }
 
+    pub fn delete(&self, article: Article) {
+        self.model.remove_article(&article);
+    }
+
     fn init(&self) {
-        self.widget.bind_model(&self.model.model);
+        self.widget.bind_model(&self.model.model, &self.icon, "Pretty clean!");
     }
 }

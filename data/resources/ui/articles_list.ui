@@ -9,15 +9,73 @@
     <property name="maximum_width">1000</property>
     <property name="linear_growth_width">1000</property>
     <child>
-      <object class="GtkListBox" id="articles_listbox">
+      <object class="GtkStack" id="stack">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="valign">start</property>
-        <property name="selection_mode">none</property>
-        <style>
-          <class name="transparent"/>
-          <class name="articles-list"/>
-        </style>
+        <property name="hhomogeneous">False</property>
+        <property name="vhomogeneous">False</property>
+        <property name="transition_duration">150</property>
+        <property name="transition_type">slide-left-right</property>
+        <child>
+          <object class="GtkListBox" id="articles_listbox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="valign">start</property>
+            <property name="selection_mode">none</property>
+            <style>
+              <class name="transparent"/>
+              <class name="articles-list"/>
+            </style>
+          </object>
+          <packing>
+            <property name="name">articles</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkImage" id="empty_image">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="pixel_size">128</property>
+                <property name="icon_name">dialog-missing-symbolic</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="empty_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">No articles found</property>
+                <style>
+                  <class name="head-title"/>
+                </style>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <style>
+              <class name="dim-label"/>
+            </style>
+          </object>
+          <packing>
+            <property name="name">empty</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
       </object>
     </child>
   </object>

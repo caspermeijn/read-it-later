@@ -18,8 +18,8 @@ pub struct UnreadView {
 impl UnreadView {
     pub fn new(sender: Sender<Action>) -> Self {
         let unread_filter = EntriesFilter {
-            archive: None,
-            starred: None,
+            archive: Some(false),
+            starred: Some(false),
             sort: SortBy::Created,
             order: SortOrder::Desc,
             tags: vec![],
@@ -51,7 +51,10 @@ impl UnreadView {
         self.model.add_article(&article);
     }
 
+    pub fn delete(&self, article: Article) {
+        self.model.remove_article(&article);
+    }
     fn init(&self) {
-        self.widget.bind_model(&self.model.model);
+        self.widget.bind_model(&self.model.model, &self.icon, "Get some articles");
     }
 }

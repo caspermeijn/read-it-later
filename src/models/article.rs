@@ -1,3 +1,5 @@
+use crate::diesel::ExpressionMethods;
+use diesel::query_dsl::filter_dsl::FilterDsl;
 use diesel::RunQueryDsl;
 use failure::Error;
 use gdk_pixbuf::Pixbuf;
@@ -67,9 +69,42 @@ impl Article {
         let db = database::connection();
         let conn = db.get()?;
 
-        println!("{:#?}", self.title);
         diesel::insert_into(articles::table).values(self).execute(&conn)?;
 
+        Ok(())
+    }
+
+    pub fn delete(&self) -> Result<(), database::Error> {
+        let db = database::connection();
+        let conn = db.get()?;
+        use crate::schema::articles::dsl::*;
+
+        diesel::delete(articles.filter(id.eq(&self.id))).execute(&conn)?;
+
+        Ok(())
+    }
+
+    pub fn toggle_favorite(&mut self) -> Result<(), database::Error> {
+        let db = database::connection();
+        let conn = db.get()?;
+        use crate::schema::articles::dsl::*;
+
+        let target = articles.filter(id.eq(&self.id));
+        diesel::update(target).set(is_starred.eq(!self.is_starred)).execute(&conn)?;
+
+        self.is_starred = !self.is_starred;
+        Ok(())
+    }
+
+    pub fn toggle_archive(&mut self) -> Result<(), database::Error> {
+        let db = database::connection();
+        let conn = db.get()?;
+        use crate::schema::articles::dsl::*;
+
+        let target = articles.filter(id.eq(&self.id));
+        diesel::update(target).set(is_archived.eq(!self.is_archived)).execute(&conn)?;
+
+        self.is_archived = !self.is_archived;
         Ok(())
     }
 
