@@ -47,7 +47,6 @@ sources = files(
   'settings/settings_manager.rs',
   'views/archive.rs',
   'views/article.rs',
-  'views/articles.rs',
   'views/favorites.rs',
   'views/login.rs',
   'views/mod.rs',

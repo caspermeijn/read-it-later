@@ -78,12 +78,6 @@ impl ArticleWidget {
             }
         });
         self.actions.add_action(&delete_article);
-        // Search article
-        let search_article = gio::SimpleAction::new("search", None);
-        let article_widget = aw.clone();
-        let sender = self.sender.clone();
-        search_article.connect_activate(move |_, _| if let Some(article) = article_widget.article.borrow().clone() {});
-        self.actions.add_action(&search_article);
         // Share article
         let open_article = gio::SimpleAction::new("open", None);
         let article_widget = aw.clone();

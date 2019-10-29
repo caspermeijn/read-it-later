@@ -3,6 +3,7 @@ use gio::prelude::*;
 use glib::Sender;
 use gtk::prelude::*;
 use libhandy::prelude::*;
+use libhandy::SearchBarExt;
 use std::cell::RefCell;
 use std::rc::Rc;
 use url::Url;
@@ -260,6 +261,20 @@ impl Window {
                 switcher_bar.set_reveal(false);
             }
         });
+
+        get_widget!(self.builder, libhandy::SearchBar, searchbar);
+        get_widget!(self.builder, gtk::ModelButton, search_button);
+        let search_bar = searchbar.clone();
+        search_button.connect_clicked(move |_| {
+            search_bar.set_search_mode(true);
+        });
+
+        get_widget!(self.builder, gtk::ToggleButton, search_togglebutton);
+        searchbar
+            .bind_property("search-mode-enabled", &search_togglebutton, "active")
+            .flags(glib::BindingFlags::SYNC_CREATE)
+            .flags(glib::BindingFlags::BIDIRECTIONAL)
+            .build();
     }
 
     fn init_views(&self, win: Rc<Self>) {

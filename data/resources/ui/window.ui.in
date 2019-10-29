@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.22.1 -->
 <interface>
-  <requires lib="gtk+" version="3.20"/>
-  <requires lib="libhandy" version="0.0"/>
+  <requires lib="gtk+" version="3.20" />
+  <requires lib="libhandy" version="0.0" />
   <object class="GtkPopover" id="article_popover">
     <property name="can_focus">False</property>
     <property name="relative_to">articlemenu_button</property>
@@ -31,11 +31,10 @@
           </packing>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="GtkModelButton" id="search_button">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="action_name">article.search</property>
             <property name="text" translatable="yes">Search Article</property>
           </object>
           <packing>
@@ -94,7 +93,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
-                  <object class="GtkToggleButton">
+                  <object class="GtkToggleButton" id="search_togglebutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -145,6 +144,7 @@
                         <property name="ellipsize">end</property>
                         <style>
                           <class name="title"/>
+
                         </style>
                       </object>
                     </child>
@@ -282,6 +282,7 @@
                 <property name="label">Read It Later@name-suffix@</property>
                 <style>
                   <class name="title"/>
+
                 </style>
               </object>
               <packing>
@@ -365,9 +366,28 @@
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="HdySearchBar">
+          <object class="HdySearchBar" id="searchbar">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <child>
+              <object class="HdyColumn">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">fill</property>
+                <property name="valign">start</property>
+                <property name="maximum_width">600</property>
+                <property name="linear_growth_width">600</property>
+                <child>
+                  <object class="GtkSearchEntry" id="search_entry">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="primary_icon_name">edit-find-symbolic</property>
+                    <property name="primary_icon_activatable">False</property>
+                    <property name="primary_icon_sensitive">False</property>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -415,6 +435,7 @@
                     </child>
                     <style>
                       <class name="flat"/>
+
                     </style>
                   </object>
                   <packing>
@@ -425,8 +446,8 @@
                   </packing>
                 </child>
                 <style>
-                  <class name="osd"/>
-                  <class name="notification"/>
+                  <class name="osd"/><class name="notification"/>
+
                 </style>
               </object>
             </child>
@@ -456,7 +477,7 @@
                     <property name="vhomogeneous">False</property>
                     <property name="transition_type">slide-left-right</property>
                     <child>
-                      <placeholder/>
+                      <placeholder />
                     </child>
                   </object>
                 </child>
