@@ -157,8 +157,11 @@ impl Window {
 
         headerbar.set_show_close_button(true);
 
+        self.article_view.set_enable_actions(false);
+
         match view {
             View::Article => {
+                self.article_view.set_enable_actions(true);
                 main_stack.set_visible_child_name("article");
                 headerbar_stack.set_visible_child_name("article");
                 self.widget.insert_action_group("article", self.article_view.get_actions());

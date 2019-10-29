@@ -49,7 +49,6 @@ impl ArticlesListWidget {
             stack.set_visible_child_name("articles");
         }
         model.connect_items_changed(move |model, _, _, _| {
-            println!("{:#?}", model.get_n_items());
             if model.get_n_items() == 0 {
                 stack.set_visible_child_name("empty");
             } else {

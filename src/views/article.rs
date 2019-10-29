@@ -1,3 +1,4 @@
+use gio::prelude::*;
 use glib::object::Cast;
 use glib::Sender;
 
@@ -27,6 +28,14 @@ impl ArticleView {
 
     pub fn get_actions(&self) -> Option<&gio::SimpleActionGroup> {
         Some(&self.widget.actions)
+    }
+
+    pub fn set_enable_actions(&self, state: bool) {
+        let actions = &self.widget.actions;
+        actions.list_actions().iter().map(|action_name| {
+            let action = actions.lookup_action(action_name.as_str()).unwrap().downcast::<gio::SimpleAction>().unwrap();
+            action.set_enabled(state);
+        });
     }
 
     pub fn get_widget(&self) -> gtk::Widget {

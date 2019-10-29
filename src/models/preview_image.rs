@@ -32,7 +32,6 @@ impl PreviewImage {
                 let mut resp = reqwest::get(&self.url).expect("request failed");
 
                 let raw_content_type = resp.headers().get("content-type");
-                println!("{:#?}", raw_content_type);
 
                 let mut out = File::create(self.cache.clone()).expect("failed to create file");
                 io::copy(&mut resp, &mut out).expect("failed to copy content");
