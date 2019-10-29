@@ -71,12 +71,15 @@ impl Window {
     }
 
     pub fn delete_article(&self, article: Article) -> Result<(), Error> {
-        if article.is_starred {
-            self.favorites_view.delete(article.clone());
-        } else if article.is_archived {
-            self.archive_view.delete(article.clone());
-        } else {
+        if !article.is_starred && !article.is_archived {
             self.unread_view.delete(article.clone());
+        } else {
+            if article.is_starred {
+                self.favorites_view.delete(article.clone());
+            }
+            if article.is_archived {
+                self.archive_view.delete(article.clone());
+            }
         }
         Ok(article.delete()?)
     }
@@ -117,14 +120,8 @@ impl Window {
             let archive_action = article_view_actions.lookup_action("archive").unwrap().downcast::<gio::SimpleAction>().unwrap();
             let favorite_action = article_view_actions.lookup_action("favorite").unwrap().downcast::<gio::SimpleAction>().unwrap();
 
-            archive_action.set_enabled(false);
-            favorite_action.set_enabled(false);
-
-            archive_togglebtn.set_active(article.is_archived);
-            favorite_togglebtn.set_active(article.is_starred);
-
-            archive_action.set_enabled(true);
-            favorite_action.set_enabled(true);
+            favorite_action.set_state(&article.is_starred.to_variant());
+            archive_action.set_state(&article.is_archived.to_variant());
         }
 
         self.article_view.load(article);
@@ -279,6 +276,6 @@ impl Window {
         });
         self.actions.add_action(&simple_action);
 
-        self.widget.insert_action_group("win", Some(&self.actions));
+        self.widget.insert_action_group("window", Some(&self.actions));
     }
 }

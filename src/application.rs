@@ -172,7 +172,7 @@ impl Application {
             }
             settings_widget.widget.show();
         });
-        self.app.set_accels_for_action("app.settings", &["<primary>?"]);
+        self.app.set_accels_for_action("app.settings", &["<primary>comma"]);
         // About
         let weak_window = self.window.widget.downgrade();
         self.add_gaction("about", move |_, _| {
@@ -185,7 +185,6 @@ impl Application {
             about_dialog.connect_response(|dialog, _| dialog.destroy());
             about_dialog.show();
         });
-        self.app.set_accels_for_action("app.about", &["<primary>comma"]);
 
         let sender = self.sender.clone();
         self.add_gaction("new-article", move |_, _| {
@@ -210,9 +209,9 @@ impl Application {
 
         // Articles
         self.app.set_accels_for_action("app.new-article", &["<primary>N"]);
-        self.app.set_accels_for_action("article.delete", &["DEL"]);
-        self.app.set_accels_for_action("article.favorite", &["<primary><secondary>F"]);
-        self.app.set_accels_for_action("article.archive", &["<primary><secondary>A"]);
+        self.app.set_accels_for_action("article.delete", &["Delete"]);
+        self.app.set_accels_for_action("article.favorite", &["<primary><alt>F"]);
+        self.app.set_accels_for_action("article.archive", &["<primary><alt>A"]);
         self.app.set_accels_for_action("article.open", &["<primary>O"]);
         self.app.set_accels_for_action("article.search", &["<primary>F"]);
     }
@@ -228,6 +227,7 @@ impl Application {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/shortcuts.ui");
         let dialog: gtk::ShortcutsWindow = builder.get_object("shortcuts").unwrap();
         self.window.widget.set_help_overlay(Some(&dialog));
+        self.app.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
 
         if let Some(gtk_settings) = gtk::Settings::get_default() {
             SettingsManager::bind_property(Key::DarkMode, &gtk_settings, "gtk-application-prefer-dark-theme");

@@ -97,21 +97,32 @@ impl ArticleWidget {
         });
         self.actions.add_action(&open_article);
         // Archive article
-        let archive_article = gio::SimpleAction::new("archive", None);
-
+        let is_archived = false; // false by default
+        let archive_article = gio::SimpleAction::new_stateful("archive", None, &is_archived.to_variant());
         let article_widget = aw.clone();
         let sender = self.sender.clone();
-        archive_article.connect_activate(move |_, _| {
+        archive_article.connect_activate(move |action, _| {
+            let state = action.get_state().unwrap();
+            let action_state: bool = state.get().unwrap();
+            let is_archived = !action_state;
+            action.set_state(&is_archived.to_variant());
+
             if let Some(article) = article_widget.article.borrow().clone() {
                 sender.send(Action::ArchiveArticle(article)).expect("Failed to archive the article");
             }
         });
         self.actions.add_action(&archive_article);
         // Favorite article
-        let favorite_article = gio::SimpleAction::new("favorite", None);
+        let is_starred = false; // false by default
+        let favorite_article = gio::SimpleAction::new_stateful("favorite", None, &is_starred.to_variant());
         let article_widget = aw.clone();
         let sender = self.sender.clone();
-        favorite_article.connect_activate(move |_, _| {
+        favorite_article.connect_activate(move |action, _| {
+            let state = action.get_state().unwrap();
+            let action_state: bool = state.get().unwrap();
+            let is_starred = !action_state;
+            action.set_state(&is_starred.to_variant());
+
             if let Some(article) = article_widget.article.borrow().clone() {
                 sender.send(Action::FavoriteArticle(article)).expect("Failed to favorite the article");
             }

@@ -54,7 +54,6 @@ impl ArticlesModel {
     }
 
     pub fn add_article(&self, article: &Article) {
-        println!("{:#?}", article);
         if !self.index(&article).is_some() {
             let object = ObjectWrapper::new(Box::new(article));
             self.model.insert(0, &object);
