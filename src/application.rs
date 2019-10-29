@@ -32,7 +32,7 @@ pub enum Action {
 
 pub struct Application {
     app: gtk::Application,
-    window: Window,
+    window: Rc<Window>,
     sender: Sender<Action>,
     receiver: RefCell<Option<Receiver<Action>>>,
     client: Rc<RefCell<ClientManager>>,
@@ -85,13 +85,13 @@ impl Application {
                 let user = self.client.borrow_mut().set_config(config);
                 if let Ok(user) = user {
                     self.settings.set_string("username", &user.username);
-                    self.do_action(Action::SetUser(user));
+                    self.sender.send(Action::SetUser(user)).unwrap();
                 }
             }
             Action::SaveNewArticle => {
                 if let Some(article_url) = self.window.get_new_article_url() {
                     self.client.borrow_mut().save_url(article_url);
-                    self.window.set_view(View::Unread);
+                    self.sender.send(Action::PreviousView).unwrap();
                 }
             }
             Action::Logout => {
@@ -133,7 +133,7 @@ impl Application {
                 };
             }
             Action::LoadArticle(article) => self.window.load_article(article),
-            Action::PreviousView => self.window.set_view(View::Unread),
+            Action::PreviousView => self.window.previous_view(),
             Action::SetUser(user) => {
                 let mut since = Utc.timestamp(0, 0);
                 let last_sync = self.settings.get_int("latest-sync");
@@ -260,7 +260,7 @@ impl Application {
         let user = self.client.borrow_mut().set_username(logged_username.to_string());
         match user {
             Ok(user) => {
-                self.do_action(Action::SetUser(user));
+                self.sender.send(Action::SetUser(user)).unwrap();
             }
             Err(_) => {
                 // Failed to log in error message

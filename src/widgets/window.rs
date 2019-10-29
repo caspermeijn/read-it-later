@@ -3,6 +3,8 @@ use gio::prelude::*;
 use glib::Sender;
 use gtk::prelude::*;
 use libhandy::prelude::*;
+use std::cell::RefCell;
+use std::rc::Rc;
 use url::Url;
 
 use crate::application::Action;
@@ -11,6 +13,7 @@ use crate::models::Article;
 use crate::views::{ArchiveView, ArticleView, FavoritesView, LoginView, SyncingView, UnreadView};
 use crate::window_state;
 
+#[derive(Copy, Clone, Debug)]
 pub enum View {
     Article,    // Article
     Login,      // Sign in
@@ -26,6 +29,7 @@ pub struct Window {
     pub widget: gtk::ApplicationWindow,
     builder: gtk::Builder,
     sender: Sender<Action>,
+    pub view_history: Rc<RefCell<Vec<View>>>,
     article_view: ArticleView,
     unread_view: UnreadView,
     favorites_view: FavoritesView,
@@ -34,7 +38,7 @@ pub struct Window {
 }
 
 impl Window {
-    pub fn new(sender: Sender<Action>) -> Self {
+    pub fn new(sender: Sender<Action>) -> Rc<Self> {
         let settings = gio::Settings::new(APP_ID);
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/window.ui");
         let widget: gtk::ApplicationWindow = builder.get_object("window").expect("Failed to retrieve Window");
@@ -43,19 +47,20 @@ impl Window {
         }
         let actions = gio::SimpleActionGroup::new();
 
-        let window = Window {
+        let window = Rc::new(Window {
             widget,
             builder,
+            view_history: Rc::new(RefCell::new(vec![View::Login])),
             article_view: ArticleView::new(sender.clone()),
             unread_view: UnreadView::new(sender.clone()),
             favorites_view: FavoritesView::new(sender.clone()),
             archive_view: ArchiveView::new(sender.clone()),
             sender,
             actions,
-        };
+        });
 
         window.init(settings);
-        window.init_views();
+        window.init_views(window.clone());
         window.setup_actions();
         window
     }
@@ -191,6 +196,19 @@ impl Window {
                 headerbar.set_show_close_button(false);
             }
         }
+        if self.view_history.borrow().len() == 3 {
+            self.view_history.borrow_mut().remove(0); // remove the oldest element
+        }
+        self.view_history.borrow_mut().push(view);
+    }
+
+    pub fn previous_view(&self) {
+        // We support only one step back in time
+        let view_history = self.view_history.borrow().clone();
+        let total_views = view_history.len();
+        if let Some(view) = view_history.get(total_views - 2) {
+            self.set_view(*view);
+        }
     }
 
     fn init(&self, settings: gio::Settings) {
@@ -242,7 +260,7 @@ impl Window {
         });
     }
 
-    fn init_views(&self) {
+    fn init_views(&self, win: Rc<Self>) {
         let main_stack: gtk::Stack = self.builder.get_object("main_stack").expect("Failed to retrieve main_stack");
         // Login Form
         let login_view = LoginView::new(self.sender.clone());
@@ -268,7 +286,18 @@ impl Window {
         main_stack.add_named(&self.article_view.get_widget(), &self.article_view.name);
         self.widget.insert_action_group("article", self.article_view.get_actions());
 
-        self.set_view(View::Login);
+        // hackish way to sync unread/favorites/archive with view history :p
+        main_stack.connect_property_visible_child_name_notify(move |stack| {
+            if let Some(view_name) = stack.get_visible_child_name() {
+                if view_name == "unread" {
+                    win.set_view(View::Unread);
+                } else if view_name == "favorites" {
+                    win.set_view(View::Favorites);
+                } else if view_name == "archive" {
+                    win.set_view(View::Archive);
+                }
+            }
+        });
     }
 
     fn setup_actions(&self) {
