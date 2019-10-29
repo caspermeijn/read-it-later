@@ -193,7 +193,9 @@ impl Window {
             }
             View::NewArticle => {
                 headerbar_stack.set_visible_child_name("new-article");
+                get_widget!(self.builder, gtk::Entry, article_url_entry);
                 headerbar.set_show_close_button(false);
+                article_url_entry.grab_focus_without_selecting();
             }
         }
         if self.view_history.borrow().len() == 3 {
