@@ -130,9 +130,18 @@ impl Article {
                     .delete("figcaption")
                     .allow_comments(false);
 
-                let mut preview = sanitize_str(&rules, &content)?.trim().to_string();
-                preview = re.replace_all(&preview, " ").to_string(); // Remove duplicate space
-                preview.truncate(150);
+                let preview = sanitize_str(&rules, &content)?.trim().to_string();
+                let mut preview_content = Vec::new();
+                let mut counter = 0;
+                for line in preview.lines() {
+                    preview_content.push(line);
+                    counter = counter + 1;
+                    if counter == 1 {
+                        // Two lines length for the preview
+                        break;
+                    }
+                }
+                let preview = re.replace_all(&preview_content.concat(), " ").to_string(); // Remove duplicate space
 
                 Ok(Some(preview))
             }

@@ -100,26 +100,8 @@ impl Application {
             }
             Action::NewArticle => self.window.set_view(View::NewArticle),
             Action::AddArticle(article) => self.window.add_article(article),
-            Action::ArchiveArticle(article) => {
-                match self.window.archive_article(article) {
-                    Err(_) => {
-                        self.sender
-                            .send(Action::Notify("Failed to archive the article".to_string()))
-                            .expect("Failed to send a notification");
-                    }
-                    Ok(_) => (),
-                };
-            }
-            Action::FavoriteArticle(article) => {
-                match self.window.favorite_article(article) {
-                    Err(_) => {
-                        self.sender
-                            .send(Action::Notify("Failed to favorite the article".to_string()))
-                            .expect("Failed to send a notification");
-                    }
-                    Ok(_) => (),
-                };
-            }
+            Action::ArchiveArticle(article) => self.window.archive_article(article),
+            Action::FavoriteArticle(article) => self.window.favorite_article(article),
             Action::DeleteArticle(article) => {
                 match self.window.delete_article(article) {
                     Err(_) => {

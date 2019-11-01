@@ -90,8 +90,7 @@ impl Window {
         Ok(article.delete()?)
     }
 
-    pub fn favorite_article(&self, mut article: Article) -> Result<(), Error> {
-        article.toggle_favorite()?;
+    pub fn favorite_article(&self, article: Article) {
         if !article.is_starred {
             if !article.is_archived {
                 self.unread_view.add(article.clone());
@@ -101,11 +100,9 @@ impl Window {
             self.favorites_view.add(article.clone());
             self.unread_view.delete(article.clone());
         }
-        Ok(())
     }
 
-    pub fn archive_article(&self, mut article: Article) -> Result<(), Error> {
-        article.toggle_archive()?;
+    pub fn archive_article(&self, article: Article) {
         if !article.is_archived {
             if !article.is_starred {
                 self.unread_view.add(article.clone());
@@ -115,7 +112,6 @@ impl Window {
             self.archive_view.add(article.clone());
             self.unread_view.delete(article.clone());
         }
-        Ok(())
     }
 
     pub fn load_article(&self, article: Article) {
@@ -275,6 +271,13 @@ impl Window {
             .flags(glib::BindingFlags::SYNC_CREATE)
             .flags(glib::BindingFlags::BIDIRECTIONAL)
             .build();
+
+        get_widget!(self.builder, gtk::SearchEntry, search_entry);
+        searchbar.connect_property_search_mode_enabled_notify(move |search_bar| {
+            if search_bar.get_search_mode() {
+                search_entry.grab_focus_without_selecting();
+            }
+        });
     }
 
     fn init_views(&self, win: Rc<Self>) {

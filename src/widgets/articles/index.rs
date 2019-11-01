@@ -100,9 +100,11 @@ impl ArticleWidget {
             let action_state: bool = state.get().unwrap();
             let is_archived = !action_state;
             action.set_state(&is_archived.to_variant());
-
-            if let Some(article) = article_widget.article.borrow().clone() {
-                sender.send(Action::ArchiveArticle(article)).expect("Failed to archive the article");
+            if let Some(mut article) = article_widget.article.borrow_mut().clone() {
+                match article.toggle_archive() {
+                    Ok(_) => sender.send(Action::ArchiveArticle(article)).expect("Failed to archive the article"),
+                    Err(_) => sender.send(Action::Notify("Failed to archive the article".to_string())).unwrap(),
+                };
             }
         });
         self.actions.add_action(&archive_article);
@@ -117,8 +119,11 @@ impl ArticleWidget {
             let is_starred = !action_state;
             action.set_state(&is_starred.to_variant());
 
-            if let Some(article) = article_widget.article.borrow().clone() {
-                sender.send(Action::FavoriteArticle(article)).expect("Failed to favorite the article");
+            if let Some(mut article) = article_widget.article.borrow_mut().clone() {
+                match article.toggle_favorite() {
+                    Ok(_) => sender.send(Action::FavoriteArticle(article)).expect("Failed to favorite the article"),
+                    Err(_) => sender.send(Action::Notify("Failed to archive the article".to_string())).unwrap(),
+                };
             }
         });
         self.actions.add_action(&favorite_article);
