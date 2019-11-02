@@ -49,7 +49,7 @@ fn main() {
     glib::set_application_name(&format!("Read It Later{}", config::NAME_SUFFIX));
 
     static_resources::init().expect("Failed to initialize the resource file.");
-    Column::new();
+    Column::new(); // Due to libhandy not having a main func :(
     let app = Application::new();
     app.run(app.clone());
 }

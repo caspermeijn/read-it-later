@@ -4,7 +4,7 @@ use gtk::prelude::*;
 use std::{cell::RefCell, rc::Rc};
 use webkit2gtk::UserContentManager;
 use webkit2gtk::WebViewExtManual;
-use webkit2gtk::{SettingsExt, WebContext, WebView, WebViewExt};
+use webkit2gtk::{ContextMenuExt, ContextMenuItemExt, SettingsExt, WebContext, WebView, WebViewExt};
 
 use crate::application::Action;
 use crate::models::Article;
@@ -45,10 +45,42 @@ impl ArticleWidget {
     fn init(&self) {
         let webview_settings = webkit2gtk::Settings::new();
         webview_settings.set_auto_load_images(true);
-        // webview_settings.set_enable_javascript(false);
+        webview_settings.set_enable_javascript(false);
         webview_settings.set_allow_modal_dialogs(false);
         webview_settings.set_enable_developer_extras(false);
+        webview_settings.set_enable_smooth_scrolling(true);
+        webview_settings.set_default_charset("UTF-8");
+        webview_settings.set_enable_fullscreen(false);
+        webview_settings.set_enable_html5_database(false);
+        webview_settings.set_enable_html5_local_storage(false);
+        webview_settings.set_enable_java(false);
+        webview_settings.set_enable_media_stream(false);
+        webview_settings.set_enable_offline_web_application_cache(false);
+        webview_settings.set_enable_page_cache(false);
+        webview_settings.set_enable_plugins(false);
+
         self.webview.set_settings(&webview_settings);
+        // Right/Left Click context menu
+        let forbidden_actions = vec![
+            webkit2gtk::ContextMenuAction::OpenLink,
+            webkit2gtk::ContextMenuAction::GoBack,
+            webkit2gtk::ContextMenuAction::GoForward,
+            webkit2gtk::ContextMenuAction::Stop,
+            webkit2gtk::ContextMenuAction::Reload,
+            webkit2gtk::ContextMenuAction::InspectElement,
+        ];
+
+        self.webview.connect_context_menu(move |webview, context_menu, _, _| {
+            for menu_item in context_menu.get_items() {
+                let action = menu_item.get_stock_action();
+
+                if forbidden_actions.contains(&action) {
+                    // Remove forbidden actions
+                    context_menu.remove(&menu_item);
+                }
+            }
+            false
+        });
 
         // Progress bar
         get_widget!(self.builder, gtk::Revealer, revealer);
