@@ -7,4 +7,4 @@ src/config.rs
 src/static_resources.rs
 *.ui.in~
 *.ui~
-
+*.ui*#

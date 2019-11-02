@@ -14,7 +14,7 @@ use crate::models::Article;
 use crate::views::{ArchiveView, ArticleView, FavoritesView, LoginView, SyncingView, UnreadView};
 use crate::window_state;
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, PartialEq)]
 pub enum View {
     Article,    // Article
     Login,      // Sign in
@@ -51,7 +51,7 @@ impl Window {
         let window = Rc::new(Window {
             widget,
             builder,
-            view_history: Rc::new(RefCell::new(vec![View::Login])),
+            view_history: Rc::new(RefCell::new(vec![])),
             article_view: ArticleView::new(sender.clone()),
             unread_view: UnreadView::new(sender.clone()),
             favorites_view: FavoritesView::new(sender.clone()),
@@ -154,10 +154,7 @@ impl Window {
 
     pub fn set_view(&self, view: View) {
         get_widget!(self.builder, gtk::Stack, main_stack);
-        get_widget!(self.builder, gtk::HeaderBar, headerbar);
         get_widget!(self.builder, gtk::Stack, headerbar_stack);
-
-        headerbar.set_show_close_button(true);
 
         self.article_view.set_enable_actions(false);
 
@@ -191,21 +188,35 @@ impl Window {
             View::NewArticle => {
                 headerbar_stack.set_visible_child_name("new-article");
                 get_widget!(self.builder, gtk::Entry, article_url_entry);
-                headerbar.set_show_close_button(false);
                 article_url_entry.grab_focus_without_selecting();
             }
         }
-        if self.view_history.borrow().len() == 3 {
-            self.view_history.borrow_mut().remove(0); // remove the oldest element
+        // Store the view in history
+        match view {
+            View::Article | View::Unread | View::Favorites | View::Archive | View::NewArticle => {
+                let view_history = self.view_history.borrow().clone();
+                match view_history.last() {
+                    Some(v) => {
+                        if v != &view {
+                            // Avoid saving the same view twice
+                            self.view_history.borrow_mut().push(view);
+                        }
+                    }
+                    _ => self.view_history.borrow_mut().push(view),
+                }
+            }
+            _ => (),
         }
-        self.view_history.borrow_mut().push(view);
     }
 
     pub fn previous_view(&self) {
-        // We support only one step back in time
-        let view_history = self.view_history.borrow().clone();
-        let total_views = view_history.len();
-        if let Some(view) = view_history.get(total_views - 2) {
+        let total_views = self.view_history.borrow().len();
+        if total_views == 1 {
+            return; // No previous view available
+        }
+        self.view_history.borrow_mut().pop(); // Remove current view from history
+        let new_view = self.view_history.borrow().clone();
+        if let Some(view) = new_view.get(new_view.len() - 1) {
             self.set_view(*view);
         }
     }
