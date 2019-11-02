@@ -1,17 +1,17 @@
 {
     "app-id": "com.belmoussaoui.ReadItLaterDevel",
-    "runtime" : "org.gnome.Platform",
-    "runtime-version" : "master",
-    "sdk" : "org.gnome.Sdk",
-    "sdk-extensions" : [
-        "org.freedesktop.Sdk.Extension.rust-stable"
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "master",
+    "sdk": "org.gnome.Sdk",
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Extension.rust-nightly"
     ],
-    "command" : "read-it-later",
-    "tags" : [
+    "command": "read-it-later",
+    "tags": [
         "nightly"
     ],
-    "desktop-file-name-suffix" : " (Devel)",
-    "finish-args" : [
+    "desktop-file-name-suffix": " (Devel)",
+    "finish-args": [
         "--filesystem=xdg-run/dconf",
         "--filesystem=~/.config/dconf:ro",
         "--talk-name=ca.desrt.dconf",
@@ -25,24 +25,24 @@
         "--talk-name=org.gtk.vfs", "--talk-name=org.gtk.vfs.*",
         "--filesystem=/tmp"
     ],
-    "build-options" : {
-        "append-path" : "/usr/lib/sdk/rust-stable/bin",
-        "build-args" : [
+    "build-options": {
+        "append-path": "/usr/lib/sdk/rust-nightly/bin",
+        "build-args": [
             "--share=network"
         ],
-        "env" : {
-            "RUSTFLAGS" : "--remap-path-prefix =../",
-            "CARGO_HOME" : "/run/build/read-it-later/cargo",
-            "RUST_BACKTRACE" : "full",
-            "RUST_LOG" : "read_it_later=info"
+        "env": {
+            "RUSTFLAGS": "--remap-path-prefix =../",
+            "CARGO_HOME": "/run/build/read-it-later/cargo",
+            "RUST_BACKTRACE": "full",
+            "RUST_LOG": "read_it_later=info"
         }
     },
-    "modules" : [
+    "modules": [
 
         {
-            "name" : "libhandy",
-            "buildsystem" : "meson",
-            "config-opts" : [
+            "name": "libhandy",
+            "buildsystem": "meson",
+            "config-opts": [
                 "-Dintrospection=disabled",
                 "-Dgtk_doc=false",
                 "-Dtests=false",
@@ -51,32 +51,27 @@
                 "-Dglade_catalog=disabled"
 
             ],
-            "cleanup" : [
+            "cleanup": [
                 "/include",
                 "/lib/pkgconfig"
             ],
-            "sources" : [
-                {
-                    "type": "git",
-                    "url": "https://source.puri.sm/Librem5/libhandy.git"
+            "sources": [{
+                "type": "git",
+                "url": "https://source.puri.sm/Librem5/libhandy.git"
 
-                }
-            ]
+            }]
         },
 
         {
-            "name" : "read-it-later",
-            "buildsystem" : "meson",
-            "config-opts" : [
+            "name": "read-it-later",
+            "buildsystem": "meson",
+            "config-opts": [
                 "-Dprofile=development"
             ],
-            "sources" : [
-                {
-                    "type" : "git",
-                    "url" : "https://gitlab.gnome.org/bilelmoussaoui/read-it-later.git"
-                }
-            ]
+            "sources": [{
+                "type": "git",
+                "url": "https://gitlab.gnome.org/bilelmoussaoui/read-it-later.git"
+            }]
         }
     ]
 }
-
