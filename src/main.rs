@@ -1,3 +1,4 @@
+#![feature(async_closure)]
 #[macro_use]
 extern crate log;
 extern crate pretty_env_logger;
@@ -21,6 +22,9 @@ extern crate webkit2gtk;
 use gettextrs::*;
 use libhandy::Column;
 
+#[macro_use]
+mod utils;
+
 mod application;
 mod config;
 mod database;
@@ -29,14 +33,13 @@ mod schema;
 mod settings;
 mod static_resources;
 mod views;
-#[macro_use]
-mod utils;
 mod widgets;
 mod window_state;
 
 use application::Application;
 
-fn main() {
+#[tokio::main]
+async fn main() {
     pretty_env_logger::init();
 
     gtk::init().expect("Unable to start GTK3");
@@ -50,6 +53,7 @@ fn main() {
 
     static_resources::init().expect("Failed to initialize the resource file.");
     Column::new(); // Due to libhandy not having a main func :(
+
     let app = Application::new();
     app.run(app.clone());
 }

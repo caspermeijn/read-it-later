@@ -12,7 +12,6 @@ pub struct UnreadView {
     pub title: String,
     pub icon: String,
     model: ArticlesModel,
-    sender: Sender<Action>,
 }
 
 impl UnreadView {
@@ -32,7 +31,6 @@ impl UnreadView {
 
         let unread_view = Self {
             widget,
-            sender,
             model,
             name: "unread".to_string(),
             title: "Unread".to_string(),

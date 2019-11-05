@@ -1,58 +1,50 @@
 use crate::models::Article;
 use chrono::DateTime;
 use failure::Error;
+use futures::lock::Mutex;
+use glib::futures::FutureExt;
 use glib::Sender;
-use std::cell::RefCell;
+use std::sync::Arc;
 use url::Url;
-use wallabag_api::types::{Config, EntriesFilter, NewEntry, SortBy, SortOrder, User};
+use wallabag_api::types::{EntriesFilter, NewEntry, SortBy, SortOrder, User};
 use wallabag_api::Client;
 
 use crate::application::Action;
 
-extern crate secret_service;
-use secret_service::EncryptionType;
-use secret_service::SecretService;
-
+#[derive(Clone, Debug)]
 pub struct ClientManager {
-    client: Option<RefCell<Client>>,
-    secret_service: SecretService,
+    client: Option<Arc<Mutex<Client>>>,
+    user: Option<Arc<Mutex<User>>>,
     sender: Sender<Action>,
 }
 
 impl ClientManager {
     pub fn new(sender: Sender<Action>) -> Self {
-        // Check if we have a client stored in our secrets
+        let client: Option<Arc<Mutex<Client>>> = None;
+        let user: Option<Arc<Mutex<User>>> = None;
 
-        // Try to create a client from env variables
-
-        // Fallback to nothing until the user logs in
-        let client: Option<RefCell<Client>> = None;
-
-        // initialize secret service (dbus connection and encryption session)
-        let ss = SecretService::new(EncryptionType::Dh).unwrap();
-
-        let manager = Self {
-            client,
-            secret_service: ss,
-            sender,
-        };
+        let manager = Self { client, sender, user };
         manager
     }
 
-    pub fn save_url(&self, url: Url) {
-        if let Some(client) = &self.client {
-            let new_entry = NewEntry::new_with_url(url.into_string());
-            if let Ok(entry) = client.borrow_mut().create_entry(&new_entry) {
-                let article = Article::from(entry);
-                match article.insert() {
-                    Ok(_) => self.sender.send(Action::AddArticle(article)),
-                    Err(_) => self.sender.send(Action::Notify("Couldn't save the article".into())),
-                };
-            }
+    pub async fn save_url(&self, url: Url) {
+        debug!("Saving url {}", url);
+        if let Some(client) = self.client.clone() {
+            let sender = self.sender.clone();
+            client
+                .lock()
+                .then(async move |mut guard| {
+                    let new_entry = NewEntry::new_with_url(url.into_string());
+                    if let Ok(entry) = guard.create_entry(&new_entry).await {
+                        let article = Article::from(entry);
+                        send!(sender, Action::AddArticle(article));
+                    }
+                })
+                .await;
         }
     }
 
-    pub fn sync(&self, since: DateTime<chrono::Utc>) {
+    pub async fn sync(&self, since: DateTime<chrono::Utc>) -> Result<(), Error> {
         let filter = EntriesFilter {
             archive: None,
             starred: None,
@@ -62,93 +54,54 @@ impl ClientManager {
             since: since.timestamp(),
             public: None,
         };
-        if let Some(client) = &self.client {
-            if let Ok(entries) = client.borrow_mut().get_entries_with_filter(&filter) {
-                for entry in entries.into_iter() {
-                    let article = Article::from(entry);
-                    match article.insert() {
-                        Ok(_) => self.sender.send(Action::AddArticle(article)),
-                        Err(_) => self.sender.send(Action::Notify("Couldn't save the article".into())),
+        if let Some(client) = self.client.clone() {
+            let sender = self.sender.clone();
+            let fut = client.lock().then(|mut guard| {
+                async move {
+                    let entries = guard.get_entries_with_filter(&filter).await;
+                    match entries {
+                        Ok(entries) => {
+                            entries.into_iter().for_each(|entry| {
+                                let article = Article::from(entry);
+                                if article.insert().is_ok() {
+                                    send!(sender, Action::AddArticle(article));
+                                }
+                            });
+                        }
+                        Err(_) => (),
                     };
                 }
-            }
+            });
+            fut.await;
+            return Ok(());
         }
+        bail!("No client set yet");
     }
 
-    pub fn get_user(&mut self) -> Option<Result<User, wallabag_api::errors::ClientError>> {
-        match &self.client {
-            Some(client) => Some(client.borrow_mut().get_user()),
-            None => None,
-        }
+    pub fn get_user(&self) -> Option<Arc<Mutex<User>>> {
+        let user = self.user.clone();
+        user
     }
 
-    pub fn set_username(&mut self, username: String) -> Result<User, Error> {
-        if self.is_user_logged_in(username.clone()) {
-            let stored_config = Config {
-                client_id: self
-                    .retrieve_secret(username.clone(), "WALLABAG_CLIENT_ID")
-                    .expect("Failed to retrieve WALLABAG_CLIENT_ID"),
-                client_secret: self
-                    .retrieve_secret(username.clone(), "WALLABAG_CLIENT_SECRET")
-                    .expect("Failed to retrieve WALLABAG_CLIENT_SECRET"),
-                username: self
-                    .retrieve_secret(username.clone(), "WALLABAG_USERNAME")
-                    .expect("Failed to retrieve WALLABAG_USERNAME"),
-                password: self
-                    .retrieve_secret(username.clone(), "WALLABAG_PASSWORD")
-                    .expect("Failed to retrieve WALLABAG_PASSWORD"),
-                base_url: self.retrieve_secret(username.clone(), "WALLABAG_URL").expect("Failed to retrieve WALLABAG_URL"),
-            };
-            return self.set_config(stored_config);
-        }
-        bail!("Username not found {}", username);
-    }
-
-    pub fn set_config(&mut self, config: wallabag_api::types::Config) -> Result<User, Error> {
-        let attrs = [
-            ("WALLABAG_CLIENT_ID", config.client_id.clone()),
-            ("WALLABAG_CLIENT_SECRET", config.client_secret.clone()),
-            ("WALLABAG_USERNAME", config.username.clone()),
-            ("WALLABAG_PASSWORD", config.password.clone()),
-            ("WALLABAG_URL", config.base_url.clone()),
-        ];
-
-        let mut client = Client::new(config);
-        if let Ok(user) = client.get_user() {
-            // Store oauth required info if it wasn't saved before
-            if !self.is_user_logged_in(user.username.clone()) {
-                let collection = self.secret_service.get_default_collection().unwrap();
-
-                for (attr, val) in attrs.into_iter() {
-                    collection
-                        .create_item(
-                            &format!("Read It Later account: {}", user.username),
-                            vec![("wallabag_username", &user.username), ("attr", attr)],
-                            &val.clone().into_bytes(),
-                            false,
-                            "text/plain",
-                        )
-                        .unwrap();
+    pub async fn fetch_user(&self) -> Result<User, Error> {
+        if let Some(client) = self.client.clone() {
+            let fut = client.lock().then(|mut target| {
+                async move {
+                    let user = target.get_user().await?;
+                    Ok(user) as Result<User, Error>
                 }
-            }
-
-            self.client.replace(RefCell::new(client));
-            return Ok(user);
+            });
+            return Ok(fut.await?);
         }
-        bail!("Failed to log in");
+        bail!("No client set yet");
     }
 
-    fn is_user_logged_in(&self, username: String) -> bool {
-        let search_items = self.secret_service.search_items(vec![("wallabag_username", &username)]).unwrap();
-        search_items.len() == 5
-    }
-
-    fn retrieve_secret(&self, username: String, attribute: &str) -> Result<String, Error> {
-        let search_items = self
-            .secret_service
-            .search_items(vec![("wallabag_username", &username), ("attr", attribute)])
-            .unwrap();
-        let item = search_items.get(0).unwrap();
-        Ok(String::from_utf8(item.get_secret().unwrap())?)
+    pub async fn set_config(&mut self, config: wallabag_api::types::Config) -> Result<(), Error> {
+        let client = Client::new(config);
+        self.client = Some(Arc::new(Mutex::new(client)));
+        if let Ok(user) = self.fetch_user().await {
+            self.user.replace(Arc::new(Mutex::new(user)));
+        }
+        Ok(())
     }
 }

@@ -12,7 +12,6 @@ pub struct ArchiveView {
     pub title: String,
     pub icon: String,
     model: ArticlesModel,
-    sender: Sender<Action>,
 }
 
 impl ArchiveView {
@@ -32,7 +31,6 @@ impl ArchiveView {
 
         let archive_view = Self {
             widget,
-            sender,
             model,
             name: "archive".to_string(),
             title: "Archive".to_string(),

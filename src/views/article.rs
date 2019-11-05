@@ -10,7 +10,6 @@ use crate::application::Action;
 pub struct ArticleView {
     widget: std::rc::Rc<ArticleWidget>,
     pub name: String,
-    sender: Sender<Action>,
 }
 
 impl ArticleView {
@@ -19,7 +18,6 @@ impl ArticleView {
 
         let article_view = Self {
             widget,
-            sender,
             name: "article".to_string(),
         };
         article_view.init();
@@ -32,8 +30,12 @@ impl ArticleView {
 
     pub fn set_enable_actions(&self, state: bool) {
         let actions = &self.widget.actions;
-        actions.list_actions().iter().map(|action_name| {
-            let action = actions.lookup_action(action_name.as_str()).unwrap().downcast::<gio::SimpleAction>().unwrap();
+        actions.list_actions().iter().for_each(|action_name| {
+            let action = actions
+                .lookup_action(action_name.as_str())
+                .unwrap()
+                .downcast::<gio::SimpleAction>()
+                .unwrap();
             action.set_enabled(state);
         });
     }
