@@ -69,3 +69,16 @@ margin:0;
   font-size: 24px;
   font-weight: 600;
 }
+
+/* Loading Progress Bar */
+@keyframes progressAnimationStrike {
+  0% { margin-left:0; margin-right: 160px; }
+  50% { margin-left: 160px; margin-right:0; }
+  100% { margin-left: 0; margin-right: 160px;}
+}
+
+.loading-progress trough{
+  border:0;
+  background-color: #3584E4;
+  animation: progressAnimationStrike 2s infinite;
+}

@@ -9,6 +9,7 @@ use webkit2gtk::{ContextMenuExt, ContextMenuItemExt, SettingsExt, WebContext, We
 use crate::application::Action;
 use crate::models::Article;
 use crate::settings::{Key, SettingsManager};
+use crate::utils;
 
 pub struct ArticleWidget {
     pub widget: gtk::Box,
@@ -22,15 +23,14 @@ pub struct ArticleWidget {
 impl ArticleWidget {
     pub fn new(sender: Sender<Action>) -> Rc<Self> {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/article.ui");
-        let widget: gtk::Box = builder.get_object("article").expect("Failed to retrieve article");
+        get_widget!(builder, gtk::Box, article);
 
         let context = WebContext::get_default().unwrap();
         let webview = WebView::new_with_context_and_user_content_manager(&context, &UserContentManager::new());
-
         let actions = gio::SimpleActionGroup::new();
 
         let article_widget = Rc::new(Self {
-            widget,
+            widget: article,
             builder,
             actions,
             sender,
@@ -45,9 +45,9 @@ impl ArticleWidget {
     fn init(&self) {
         let webview_settings = webkit2gtk::Settings::new();
         webview_settings.set_auto_load_images(true);
-        webview_settings.set_enable_javascript(false);
+        webview_settings.set_enable_javascript(true);
         webview_settings.set_allow_modal_dialogs(false);
-        webview_settings.set_enable_developer_extras(false);
+        webview_settings.set_enable_developer_extras(true);
         webview_settings.set_enable_smooth_scrolling(true);
         webview_settings.set_default_charset("UTF-8");
         webview_settings.set_enable_fullscreen(false);
@@ -70,7 +70,7 @@ impl ArticleWidget {
             webkit2gtk::ContextMenuAction::InspectElement,
         ];
 
-        self.webview.connect_context_menu(move |webview, context_menu, _, _| {
+        self.webview.connect_context_menu(move |_, context_menu, _, _| {
             for menu_item in context_menu.get_items() {
                 let action = menu_item.get_stock_action();
 
@@ -106,7 +106,7 @@ impl ArticleWidget {
         let sender = self.sender.clone();
         delete_article.connect_activate(move |_, _| {
             if let Some(article) = article_widget.article.borrow().clone() {
-                sender.send(Action::DeleteArticle(article)).expect("Failed to delete the article");
+                send!(sender, Action::DeleteArticle(article));
             }
         });
         self.actions.add_action(&delete_article);
@@ -116,7 +116,8 @@ impl ArticleWidget {
         open_article.connect_activate(move |_, _| {
             if let Some(article) = article_widget.article.borrow().clone() {
                 let article_url = article.url;
-                if let Err(err_msg) = gtk::show_uri(Some(&gdk::Screen::get_default().unwrap()), &article_url.unwrap(), 0) {
+                let screen = gdk::Screen::get_default().unwrap();
+                if let Err(err_msg) = gtk::show_uri(Some(&screen), &article_url.unwrap(), 0) {
                     error!("Failed to open the uri {} in the default browser", err_msg);
                 }
             }
@@ -134,8 +135,8 @@ impl ArticleWidget {
             action.set_state(&is_archived.to_variant());
             if let Some(mut article) = article_widget.article.borrow_mut().clone() {
                 match article.toggle_archive() {
-                    Ok(_) => sender.send(Action::ArchiveArticle(article)).expect("Failed to archive the article"),
-                    Err(_) => sender.send(Action::Notify("Failed to archive the article".to_string())).unwrap(),
+                    Ok(_) => send!(sender, Action::ArchiveArticle(article)),
+                    Err(_) => send!(sender, Action::Notify("Failed to archive the article".to_string())),
                 };
             }
         });
@@ -153,8 +154,8 @@ impl ArticleWidget {
 
             if let Some(mut article) = article_widget.article.borrow_mut().clone() {
                 match article.toggle_favorite() {
-                    Ok(_) => sender.send(Action::FavoriteArticle(article)).expect("Failed to favorite the article"),
-                    Err(_) => sender.send(Action::Notify("Failed to archive the article".to_string())).unwrap(),
+                    Ok(_) => send!(sender, Action::FavoriteArticle(article)),
+                    Err(_) => send!(sender, Action::Notify("Failed to archive the article".to_string())),
                 };
             }
         });
@@ -167,14 +168,10 @@ impl ArticleWidget {
         get_widget!(self.builder, gtk::Revealer, revealer);
         revealer.set_reveal_child(true);
 
-        let layout_html = gio::File::new_for_uri("resource:///com/belmoussaoui/ReadItLater/layout.html");
-
-        if let Ok((v, _)) = layout_html.load_bytes(gio::NONE_CANCELLABLE) {
-            let mut article_content = String::from_utf8(v.to_vec()).unwrap();
+        if let Ok(mut layout_html) = utils::load_resource("layout.html") {
             if let Some(title) = &article.title {
-                article_content = article_content.replace("{title}", title);
+                layout_html = layout_html.replace("{title}", title);
             }
-
             let mut article_info = String::from("");
             if let Some(base_url) = &article.base_url {
                 article_info.push_str(&format!("{} | ", base_url));
@@ -185,28 +182,21 @@ impl ArticleWidget {
             if let Some(published_date) = &article.published_at {
                 article_info.push_str(&format!("on {} ", published_date));
             }
-            article_content = article_content.replace("{article_info}", &article_info);
-
-            let layout_css = gio::File::new_for_uri("resource:///com/belmoussaoui/ReadItLater/layout.css");
-            if let Ok((v, _)) = layout_css.load_bytes(gio::NONE_CANCELLABLE) {
-                let mut css_content = String::from_utf8(v.to_vec()).unwrap();
-
-                if SettingsManager::get_boolean(Key::DarkMode) {
-                    let layout_css = gio::File::new_for_uri("resource:///com/belmoussaoui/ReadItLater/layout-dark.css");
-                    if let Ok((v, _)) = layout_css.load_bytes(gio::NONE_CANCELLABLE) {
-                        css_content.push_str(&String::from_utf8(v.to_vec()).unwrap());
-                    }
-                }
-
-                article_content = article_content.replace("{css}", &css_content);
-            }
+            layout_html = layout_html.replace("{article_info}", &article_info);
 
             if let Some(content) = &article.content {
-                article_content = article_content.replace("{content}", content);
+                layout_html = layout_html.replace("{content}", content);
             }
 
-            // Some(&article.base_url.unwrap())
-            self.webview.load_html(&article_content, None);
+            let mut layout_css = utils::load_resource("layout.css").unwrap();
+            if SettingsManager::get_boolean(Key::DarkMode) {
+                layout_css.push_str(&utils::load_resource("layout-dark.css").unwrap());
+            }
+            layout_html = layout_html.replace("{css}", &layout_css);
+
+            let layout_js = utils::load_resource("layout.js").unwrap();
+            layout_html = layout_html.replace("{js}", &layout_js);
+            self.webview.load_html(&layout_html, None);
         }
     }
 }

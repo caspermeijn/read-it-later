@@ -108,14 +108,22 @@ impl Article {
         Ok(())
     }
 
-    pub fn get_preview_pixbuf(&self) -> Option<Pixbuf> {
+    pub async fn download_preview_image(&self) -> Result<(), Error> {
         if let Some(preview_picture) = &self.preview_picture {
             let preview_image = PreviewImage::new(preview_picture.to_string());
-            if let Ok(pixbuf) = gdk_pixbuf::Pixbuf::new_from_file(preview_image.get_cache_path()) {
-                return Some(pixbuf);
-            }
+            preview_image.download().await?;
         }
-        None
+        Ok(())
+    }
+
+    pub fn get_preview_pixbuf(&self) -> Result<Pixbuf, Error> {
+        if let Some(preview_picture) = &self.preview_picture {
+            let cache_path = PreviewImage::get_cache_of(preview_picture.to_string());
+
+            let pixbuf = gdk_pixbuf::Pixbuf::new_from_file(cache_path)?;
+            return Ok(pixbuf);
+        }
+        bail!("Failed to generate a pixbuf preview");
     }
 
     pub fn get_preview(&self) -> Result<Option<String>, Error> {

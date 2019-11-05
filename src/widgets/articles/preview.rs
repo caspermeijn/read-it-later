@@ -14,7 +14,6 @@ pub enum PreviewImageSize {
 
 pub struct ArticlePreviewImage {
     pub widget: gtk::Box,
-    builder: gtk::Builder,
     image: gtk::DrawingArea,
     pixbuf: Rc<RefCell<Option<Pixbuf>>>,
     size: RefCell<PreviewImageSize>,
@@ -29,7 +28,6 @@ impl ArticlePreviewImage {
 
         let favicon = Rc::new(Self {
             widget: article_preview,
-            builder,
             image,
             pixbuf,
             size: RefCell::new(size.clone()),
@@ -58,8 +56,6 @@ impl ArticlePreviewImage {
 
     fn setup_signals(&self, d: Rc<Self>) {
         self.image.connect_draw(move |dr, ctx| {
-            let scale_factor = dr.get_scale_factor() as f64;
-
             let width = dr.get_allocated_width();
             let height = dr.get_allocated_height();
 
@@ -70,7 +66,6 @@ impl ArticlePreviewImage {
             match &*d.pixbuf.borrow() {
                 Some(pixbuf) => {
                     if pixbuf.get_width() > width {
-                        let old_pixbuf = pixbuf;
                         let pixbuf = pixbuf.scale_simple(width, height, gdk_pixbuf::InterpType::Bilinear).unwrap();
                         ctx.set_source_pixbuf(&pixbuf, 0.0, 0.0);
                     } else if pixbuf.get_width() < width {

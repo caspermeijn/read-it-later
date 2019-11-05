@@ -1,33 +1,34 @@
 use super::preview::{ArticlePreviewImage, PreviewImageSize};
-use crate::application::Action;
 use crate::models::Article;
-use glib::Sender;
+
 use gtk::prelude::*;
 use std::rc::Rc;
+
+enum ArticleRowAction {
+    ImageDownloaded,
+}
 
 pub struct ArticleRow {
     pub widget: gtk::ListBoxRow,
     builder: gtk::Builder,
-    sender: Sender<Action>,
     article: Article,
     preview_image: Rc<ArticlePreviewImage>,
 }
 
 impl ArticleRow {
-    pub fn new(article: Article, sender: Sender<Action>) -> Self {
+    pub fn new(article: Article) -> Rc<Self> {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/article_row.ui");
         get_widget!(builder, gtk::ListBoxRow, article_row);
         let preview_image = ArticlePreviewImage::new(PreviewImageSize::Small);
 
-        let row = Self {
+        let row = Rc::new(Self {
             widget: article_row,
             builder,
-            sender,
             article,
             preview_image,
-        };
+        });
 
-        row.init();
+        row.init(row.clone());
         row
     }
 
@@ -39,23 +40,35 @@ impl ArticleRow {
         event_box.connect_button_press_event(callback);
     }
 
-    fn init(&self) {
+    fn do_action(&self, action: ArticleRowAction) -> glib::Continue {
+        match action {
+            ArticleRowAction::ImageDownloaded => {
+                match self.article.get_preview_pixbuf() {
+                    Ok(pixbuf) => {
+                        let preview_image = self.preview_image.clone();
+                        self.widget.connect_size_allocate(move |_, allocation| {
+                            if allocation.width <= 450 {
+                                preview_image.set_size(PreviewImageSize::Small);
+                            } else {
+                                preview_image.set_size(PreviewImageSize::Big);
+                            }
+                        });
+                        self.preview_image.set_pixbuf(pixbuf);
+                        self.preview_image.widget.show();
+                        self.preview_image.widget.queue_allocate();
+                        self.widget.queue_allocate();
+                    }
+                    _ => self.preview_image.widget.hide(),
+                };
+            }
+        }
+
+        glib::Continue(true)
+    }
+
+    fn init(&self, row: Rc<Self>) {
         get_widget!(self.builder, gtk::Box, article_container);
         article_container.pack_end(&self.preview_image.widget, false, false, 0);
-        if let Some(pixbuf) = self.article.get_preview_pixbuf() {
-            let preview_image = self.preview_image.clone();
-            self.widget.connect_size_allocate(move |_, allocation| {
-                if allocation.width <= 450 {
-                    preview_image.set_size(PreviewImageSize::Small);
-                } else {
-                    preview_image.set_size(PreviewImageSize::Big);
-                }
-            });
-            self.preview_image.set_pixbuf(pixbuf);
-        } else {
-            self.preview_image.widget.set_no_show_all(false);
-            self.preview_image.widget.hide();
-        }
 
         get_widget!(self.builder, gtk::Label, title_label);
         if let Some(title) = &self.article.title {
@@ -81,5 +94,13 @@ impl ArticleRow {
         if let Ok(Some(preview)) = self.article.get_preview() {
             content_label.set_text(&preview);
         }
+
+        let (sender, receiver) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+        let article = self.article.clone();
+        spawn!(async move {
+            article.download_preview_image().await;
+            send!(sender, ArticleRowAction::ImageDownloaded);
+        });
+        receiver.attach(None, move |action| row.do_action(action));
     }
 }

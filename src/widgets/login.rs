@@ -10,19 +10,17 @@ pub struct LoginWidget {
 impl LoginWidget {
     pub fn new() -> Rc<Self> {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/login.ui");
-        let widget: gtk::ScrolledWindow = builder.get_object("login").expect("Failed to retrieve LoginWidget");
+        get_widget!(builder, gtk::ScrolledWindow, login);
 
-        let login_widget = Rc::new(Self { widget, builder });
-
-        login_widget
+        Rc::new(Self { widget: login, builder })
     }
 
     pub fn get_wallabag_client_config(&self) -> Option<Config> {
-        let instance_entry: gtk::Entry = self.builder.get_object("instance_entry").expect("Failed to retrieve instance_entry");
-        let client_id_entry: gtk::Entry = self.builder.get_object("client_id_entry").expect("Failed to retrieve client_id_entry");
-        let client_secret_entry: gtk::Entry = self.builder.get_object("client_secret_entry").expect("Failed to retrieve client_secret_entry");
-        let username_entry: gtk::Entry = self.builder.get_object("username_entry").expect("Failed to retrieve username_entry");
-        let password_entry: gtk::Entry = self.builder.get_object("password_entry").expect("Failed to retrieve password_entry");
+        get_widget!(self.builder, gtk::Entry, instance_entry);
+        get_widget!(self.builder, gtk::Entry, client_id_entry);
+        get_widget!(self.builder, gtk::Entry, client_secret_entry);
+        get_widget!(self.builder, gtk::Entry, username_entry);
+        get_widget!(self.builder, gtk::Entry, password_entry);
 
         Some(Config {
             client_id: client_id_entry.get_text()?.to_string(),
@@ -37,7 +35,7 @@ impl LoginWidget {
     where
         for<'r> F: std::ops::Fn(&'r gtk::Button) + 'static,
     {
-        let login_button: gtk::Button = self.builder.get_object("login_button").expect("Failed to retrieve login_button");
+        get_widget!(self.builder, gtk::Button, login_button);
 
         login_button.connect_clicked(callback);
     }

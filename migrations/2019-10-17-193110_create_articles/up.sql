@@ -8,7 +8,7 @@ CREATE TABLE `articles` (
     `is_starred` BOOLEAN DEFAULT 0,
     `mimetype` VARCHAR DEFAULT `text/html`,
     `language` VARCHAR DEFAULT `en_US`,
-    `preview_picture` TEXT NOT NULL,
+    `preview_picture` VARCHAR NULL,
     `content` LONG_TEXT NOT NULL,
     `published_by` VARCHAR NULL,
     `published_at` TIMESTAMP NULL,

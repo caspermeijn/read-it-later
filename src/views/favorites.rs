@@ -12,7 +12,6 @@ pub struct FavoritesView {
     pub title: String,
     pub icon: String,
     model: ArticlesModel,
-    sender: Sender<Action>,
 }
 
 impl FavoritesView {
@@ -32,7 +31,6 @@ impl FavoritesView {
 
         let favorites_view = Self {
             widget,
-            sender,
             model,
             name: "favorites".to_string(),
             title: "Favorites".to_string(),
@@ -55,6 +53,7 @@ impl FavoritesView {
         self.model.remove_article(&article);
     }
     fn init(&self) {
-        self.widget.bind_model(&self.model.model, &self.icon, "Save your favorites articles!");
+        self.widget
+            .bind_model(&self.model.model, &self.icon, "Save your favorites articles!");
     }
 }
