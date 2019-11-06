@@ -6,23 +6,16 @@ use std::cell::RefCell;
 use std::f64;
 use std::rc::Rc;
 
-#[derive(Clone, Copy, PartialEq)]
-pub enum PreviewImageSize {
-    Small,
-    Big,
-}
-
 pub struct ArticlePreviewImage {
-    pub widget: gtk::Box,
+    pub widget: gtk::Stack,
     image: gtk::DrawingArea,
     pixbuf: Rc<RefCell<Option<Pixbuf>>>,
-    size: RefCell<PreviewImageSize>,
 }
 
 impl ArticlePreviewImage {
-    pub fn new(size: PreviewImageSize) -> Rc<Self> {
+    pub fn new() -> Rc<Self> {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/article_preview.ui");
-        get_widget!(builder, gtk::Box, article_preview);
+        get_widget!(builder, gtk::Stack, article_preview);
         get_widget!(builder, gtk::DrawingArea, image);
         let pixbuf = Rc::new(RefCell::new(None));
 
@@ -30,31 +23,20 @@ impl ArticlePreviewImage {
             widget: article_preview,
             image,
             pixbuf,
-            size: RefCell::new(size.clone()),
         });
         favicon.setup_signals(favicon.clone());
         favicon
     }
 
-    pub fn set_size(&self, size: PreviewImageSize) {
-        match size {
-            PreviewImageSize::Small => {
-                self.image.set_size_request(75, 75);
-            }
-            PreviewImageSize::Big => {
-                self.image.set_size_request(150, 150);
-            }
-        };
-        self.size.replace(size);
-        self.image.queue_draw();
-    }
-
     pub fn set_pixbuf(&self, pixbuf: Pixbuf) {
         *self.pixbuf.borrow_mut() = Some(pixbuf);
         self.image.queue_draw();
+        self.widget.set_visible_child_name("image");
     }
 
     fn setup_signals(&self, d: Rc<Self>) {
+        self.widget.set_visible_child_name("loading");
+
         self.image.connect_draw(move |dr, ctx| {
             let width = dr.get_allocated_width();
             let height = dr.get_allocated_height();

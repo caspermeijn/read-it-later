@@ -2,21 +2,30 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkBox" id="article_preview">
+  <object class="GtkStack" id="article_preview">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="margin">12</property>
+    <property name="halign">end</property>
+    <property name="valign">start</property>
+    <property name="transition_type">crossfade</property>
     <child>
       <object class="GtkDrawingArea" id="image">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="halign">center</property>
-        <property name="valign">start</property>
       </object>
       <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">0</property>
+        <property name="name">image</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSpinner">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="active">True</property>
+      </object>
+      <packing>
+        <property name="name">loading</property>
+        <property name="position">1</property>
       </packing>
     </child>
   </object>
