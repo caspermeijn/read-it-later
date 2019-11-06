@@ -118,7 +118,7 @@ impl Article {
 
     pub fn get_preview_pixbuf(&self) -> Result<Pixbuf, Error> {
         if let Some(preview_picture) = &self.preview_picture {
-            let cache_path = PreviewImage::get_cache_of(preview_picture.to_string());
+            let cache_path = PreviewImage::get_cache_of(&preview_picture);
 
             let pixbuf = gdk_pixbuf::Pixbuf::new_from_file(cache_path)?;
             return Ok(pixbuf);
@@ -142,8 +142,11 @@ impl Article {
                 let mut preview_content = Vec::new();
                 let mut counter = 0;
                 for line in preview.lines() {
-                    preview_content.push(line);
-                    counter = counter + 1;
+                    if line.len() > 50 {
+                        // Ignore small lines
+                        preview_content.push(line);
+                        counter = counter + 1;
+                    }
                     if counter == 1 {
                         // Two lines length for the preview
                         break;

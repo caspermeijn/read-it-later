@@ -1,4 +1,4 @@
-use super::preview::{ArticlePreviewImage, PreviewImageSize};
+use super::preview::ArticlePreviewImage;
 use crate::models::Article;
 
 use gtk::prelude::*;
@@ -19,7 +19,7 @@ impl ArticleRow {
     pub fn new(article: Article) -> Rc<Self> {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/article_row.ui");
         get_widget!(builder, gtk::ListBoxRow, article_row);
-        let preview_image = ArticlePreviewImage::new(PreviewImageSize::Small);
+        let preview_image = ArticlePreviewImage::new();
 
         let row = Rc::new(Self {
             widget: article_row,
@@ -44,20 +44,7 @@ impl ArticleRow {
         match action {
             ArticleRowAction::ImageDownloaded => {
                 match self.article.get_preview_pixbuf() {
-                    Ok(pixbuf) => {
-                        let preview_image = self.preview_image.clone();
-                        self.widget.connect_size_allocate(move |_, allocation| {
-                            if allocation.width <= 450 {
-                                preview_image.set_size(PreviewImageSize::Small);
-                            } else {
-                                preview_image.set_size(PreviewImageSize::Big);
-                            }
-                        });
-                        self.preview_image.set_pixbuf(pixbuf);
-                        self.preview_image.widget.show();
-                        self.preview_image.widget.queue_allocate();
-                        self.widget.queue_allocate();
-                    }
+                    Ok(pixbuf) => self.preview_image.set_pixbuf(pixbuf),
                     _ => self.preview_image.widget.hide(),
                 };
             }

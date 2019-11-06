@@ -160,8 +160,6 @@ impl Window {
     pub fn set_view(&self, view: View) {
         get_widget!(self.builder, gtk::Stack, main_stack);
         get_widget!(self.builder, gtk::Stack, headerbar_stack);
-        get_widget!(self.builder, gtk::ProgressBar, loading_progress);
-
         self.article_view.set_enable_actions(false);
 
         match view {
@@ -171,14 +169,17 @@ impl Window {
                 headerbar_stack.set_visible_child_name("article");
             }
             View::Archive => {
+                self.archive_view.get_widget().queue_resize();
                 main_stack.set_visible_child_name("archive");
                 headerbar_stack.set_visible_child_name("articles");
             }
             View::Favorites => {
+                self.favorites_view.get_widget().queue_resize();
                 main_stack.set_visible_child_name("favorites");
                 headerbar_stack.set_visible_child_name("articles");
             }
             View::Unread => {
+                self.unread_view.get_widget().queue_resize();
                 main_stack.set_visible_child_name("unread");
                 headerbar_stack.set_visible_child_name("articles");
             }
@@ -187,7 +188,18 @@ impl Window {
                 headerbar_stack.set_visible_child_name("login");
             }
             View::Syncing(state) => {
+                get_widget!(self.builder, gtk::ProgressBar, loading_progress);
                 loading_progress.set_visible(state);
+                if !state {
+                    // If we hide the progress bar
+                    loading_progress.set_fraction(0.0); // Reset the fraction
+                } else {
+                    loading_progress.pulse();
+                    gtk::timeout_add(200, move || {
+                        loading_progress.pulse();
+                        glib::Continue(loading_progress.get_visible())
+                    });
+                }
             }
             View::NewArticle => {
                 headerbar_stack.set_visible_child_name("new-article");
@@ -222,7 +234,7 @@ impl Window {
         }
 
         let total_views = self.view_history.borrow().len();
-        if total_views == 1 {
+        if total_views < 2 {
             return; // No previous view available
         }
         let current_view = self.view_history.borrow_mut().pop(); // Remove current view from history
@@ -263,7 +275,7 @@ impl Window {
                 widget.get_style_context().add_class("sm");
                 widget.get_style_context().remove_class("md");
                 widget.get_style_context().remove_class("lg");
-            } else if allocation.width <= 850 {
+            } else if allocation.width <= 600 {
                 widget.get_style_context().add_class("md");
                 widget.get_style_context().remove_class("sm");
                 widget.get_style_context().remove_class("lg");

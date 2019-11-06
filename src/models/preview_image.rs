@@ -1,4 +1,6 @@
-use base64::encode;
+use crypto::digest::Digest;
+use crypto::sha1::Sha1;
+
 use failure::Error;
 use std::fs::File;
 use std::path::PathBuf;
@@ -17,15 +19,16 @@ pub struct PreviewImage {
 
 impl PreviewImage {
     pub fn new(url: String) -> Self {
-        let cache = PreviewImage::get_cache_of(url.clone());
+        let cache = PreviewImage::get_cache_of(&url);
         let image = Self { url, cache };
         image
     }
 
-    pub fn get_cache_of(url: String) -> PathBuf {
-        let mut cache_file = encode(&url);
-        cache_file.truncate(80);
-        let cache: PathBuf = CACHE_DIR.join(&cache_file);
+    pub fn get_cache_of(url: &str) -> PathBuf {
+        let mut hasher = Sha1::new();
+        hasher.input_str(url);
+
+        let cache: PathBuf = CACHE_DIR.join(&hasher.result_str());
         cache
     }
 
