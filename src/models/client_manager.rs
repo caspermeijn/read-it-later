@@ -27,8 +27,22 @@ impl ClientManager {
         manager
     }
 
+    pub async fn delete_entry(&self, entry_id: i32) {
+        debug!("[Client] Removing entry {}", entry_id);
+        if let Some(client) = self.client.clone() {
+            client
+                .lock()
+                .then(async move |mut guard| {
+                    if let Err(_) = guard.delete_entry(entry_id).await {
+                        warn!("[Client] Failed to delete the article {}", entry_id);
+                    }
+                })
+                .await;
+        }
+    }
+
     pub async fn save_url(&self, url: Url) {
-        debug!("Saving url {}", url);
+        debug!("[Client] Saving url {}", url);
         if let Some(client) = self.client.clone() {
             let sender = self.sender.clone();
             client

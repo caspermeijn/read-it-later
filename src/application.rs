@@ -108,9 +108,24 @@ impl Application {
             Action::ArchiveArticle(article) => self.window.archive_article(article),
             Action::FavoriteArticle(article) => self.window.favorite_article(article),
             Action::DeleteArticle(article) => {
+                send!(self.sender, Action::SetView(View::Syncing(true)));
+                let article_id: i32 = article.id;
                 match self.window.delete_article(article) {
                     Err(_) => send!(self.sender, Action::Notify("Failed to delete the article".to_string())),
-                    Ok(_) => send!(self.sender, Action::PreviousView),
+                    Ok(_) => {
+                        let sender = self.sender.clone();
+                        let client = self.client.clone();
+                        spawn!(async move {
+                            client
+                                .lock()
+                                .then(async move |guard| {
+                                    guard.delete_entry(article_id).await;
+                                    send!(sender, Action::SetView(View::Syncing(false)));
+                                    send!(sender, Action::PreviousView);
+                                })
+                                .await
+                        });
+                    }
                 };
             }
             Action::LoadArticle(article) => self.window.load_article(article),
