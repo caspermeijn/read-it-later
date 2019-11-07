@@ -13,7 +13,7 @@ pub fn get_articles(filter: &EntriesFilter) -> Result<Vec<Article>, Error> {
 
     let conn = db.get()?;
 
-    let mut query = articles.order(published_at.desc()).into_boxed();
+    let mut query = articles.order(published_at.asc()).into_boxed();
 
     if let Some(starred) = &filter.starred {
         query = query.filter(is_starred.eq(starred));

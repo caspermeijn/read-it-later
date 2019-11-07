@@ -1,39 +1,78 @@
+* {
+  max-width: 100%;
+  height: auto;
+}
+
+
 body {
-  background-color: white;
+  color: #333333;
+  background: #efefee;
+
   overflow-x:hidden;
-  font-size: 16px;
-  line-height: 1.5rem;
+  line-height: 1.45;
+  text-rendering: optimizeLegibility;
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-ul {
-  margin: 0;
+
+ul,
+ol {
   padding: 0;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  margin: auto;
+ul {
+  -webkit-padding-start: 30px;
+  list-style: disc;
 }
-a {
-  color: black;
+
+ol {
+  -webkit-padding-start: 30px;
+  list-style: decimal;
+}
+
+
+img {
+  margin: auto;
+  display: block;
+}
+
+.caption,
+.wp-caption-text,
+figcaption {
+  font-size: 0.9em;
+  font-style: italic;
+  text-align:center;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+  color: #0095dd;
 }
 
 .container {
-  margin: auto;
+  margin: 12px;
 }
+
 .title h1 {
   font-size: 24px;
-  line-height: 2.2rem;
+  line-height: 1.8rem;
   font-weight: bold;
+  margin: 0;
 }
 .container .info {
   color: #989A95;
   padding-bottom: 6px;
   font-size: 14px;
 }
+
+.container .content {
+  margin-top: 12px;
+  word-wrap: break-word;
+}
+
 pre {
 	width: 100%;
 	overflow: auto;
@@ -41,128 +80,131 @@ pre {
   font-family: Courier, Monaco, monospace;
 }
 
-code {
-  font-size: 16px;
-  line-height: 1.5rem;
+
+pre, code {
+  white-space: pre;
+  line-height: 1.3em;
+  padding: 0.5em;
+  font-size: 14px;
   font-family: Courier, Monaco, monospace;
 }
 
-
-@media screen and (min-width: 1000px) {
-  .container {
-    width: 60%;
-    max-width: 60%;
-  }
-  .title h1 {
-    margin-top: 36px;
-  }
+blockquote {
+  display: block;
+  border-width: 2px 0;
+  border-style: solid;
+  border-color: #666;
+  padding: 1.5em 0 0.5em;
+  margin: 1.5em 0;
+  position: relative;
 }
-@media screen and (max-width: 1000px) {
+blockquote:before {
+  content: '\201C';
+  position: absolute;
+  background: #efefee;
+  top: 0em;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 3rem;
+  height: 2rem;
+  font: 6em/1.08em sans-serif;
+  color: #666;
+  text-align: center;
+}
+
+hr {
+  border: 1px solid #666;
+}
+
+
+@media only screen and (min-width: 600px) {
+  .title h1 {
+    font-size: 30px;
+    line-height: 2rem;
+  }
   .container {
     width: 70%;
-    max-width: 70%;
+    margin: 24px auto;
   }
-
 }
-@media screen and (max-width: 800px) {
-  .container {
-    width: 80%;
-    max-width: 80%;
-  }
 
+
+@media only screen and (min-width: 1000px) {
   .title h1 {
-    margin-top: 24px;
-  }
-}
-
-
-@media screen and (max-width: 450px) {
-  body {
-    margin: 12px;
+    font-size: 36px;
+    line-height: 2.4rem;
   }
   .container {
-    width: 100%;
-    max-width: 100%;
-  }
-  .title h1 {
-    margin-top: 12px;
+    width: 60%;
+    margin: 30px auto;
   }
 }
-
 /*
-
-Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull <sourdrums@gmail.com>
-Source: https://github.com/highlightjs/highlight.js/blob/master/src/styles/solarized-light.css
+Atom One Light by Daniel Gamage
+Original One Light Syntax theme from https://github.com/atom/one-light-syntax
+Source: https://github.com/highlightjs/highlight.js/blob/master/src/styles/atom-one-light.css
 */
 
 .hljs {
-  overflow-x: auto;
-  padding: 0.5em;
-  background: #fdf6e3;
-  color: #657b83;
+  color: #383a42;
+  background: #fafafa;
 }
 
 .hljs-comment,
 .hljs-quote {
-  color: #93a1a1;
+  color: #a0a1a7;
+  font-style: italic;
 }
 
-/* Solarized Green */
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-addition {
-  color: #859900;
-}
-
-/* Solarized Cyan */
-.hljs-number,
-.hljs-string,
-.hljs-meta .hljs-meta-string,
-.hljs-literal,
 .hljs-doctag,
-.hljs-regexp {
-  color: #2aa198;
+.hljs-keyword,
+.hljs-formula {
+  color: #a626a4;
 }
 
-/* Solarized Blue */
-.hljs-title,
 .hljs-section,
 .hljs-name,
-.hljs-selector-id,
-.hljs-selector-class {
-  color: #268bd2;
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e45649;
 }
 
-/* Solarized Yellow */
+.hljs-literal {
+  color: #0184bb;
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
 .hljs-attribute,
+.hljs-meta-string {
+  color: #50a14f;
+}
+
+.hljs-built_in,
+.hljs-class .hljs-title {
+  color: #c18401;
+}
+
 .hljs-attr,
 .hljs-variable,
 .hljs-template-variable,
-.hljs-class .hljs-title,
-.hljs-type {
-  color: #b58900;
-}
-
-/* Solarized Orange */
-.hljs-symbol,
-.hljs-bullet,
-.hljs-subst,
-.hljs-meta,
-.hljs-meta .hljs-keyword,
+.hljs-type,
+.hljs-selector-class,
 .hljs-selector-attr,
 .hljs-selector-pseudo,
-.hljs-link {
-  color: #cb4b16;
+.hljs-number {
+  color: #986801;
 }
 
-/* Solarized Red */
-.hljs-built_in,
-.hljs-deletion {
-  color: #dc322f;
-}
-
-.hljs-formula {
-  background: #eee8d5;
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #4078f2;
 }
 
 .hljs-emphasis {
@@ -173,3 +215,6 @@ Source: https://github.com/highlightjs/highlight.js/blob/master/src/styles/solar
   font-weight: bold;
 }
 
+.hljs-link {
+  text-decoration: underline;
+}

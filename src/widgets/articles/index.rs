@@ -180,7 +180,8 @@ impl ArticleWidget {
                 article_info.push_str(&format!("by {} ", authors));
             }
             if let Some(published_date) = &article.published_at {
-                article_info.push_str(&format!("on {} ", published_date));
+                let formatted_date = published_date.format("%d %b %Y").to_string();
+                article_info.push_str(&format!("on {} ", formatted_date));
             }
             layout_html = layout_html.replace("{article_info}", &article_info);
 

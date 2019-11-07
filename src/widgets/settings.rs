@@ -38,6 +38,13 @@ impl SettingsWidget {
     }
 
     fn init(&self, settings: Rc<Self>, client: Arc<Mutex<ClientManager>>) {
+        self.widget.connect_key_press_event(|w, k| {
+            if k.get_keyval() == gdk::enums::key::Escape {
+                w.destroy();
+            }
+            gtk::Inhibit(false)
+        });
+
         let (sender, receiver) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
         receiver.attach(None, move |action| settings.do_action(action));
 
