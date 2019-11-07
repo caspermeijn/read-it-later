@@ -6,7 +6,7 @@ use glib::futures::FutureExt;
 use glib::Sender;
 use std::sync::Arc;
 use url::Url;
-use wallabag_api::types::{EntriesFilter, NewEntry, SortBy, SortOrder, User};
+use wallabag_api::types::{EntriesFilter, NewEntry, PatchEntry, SortBy, SortOrder, User};
 use wallabag_api::Client;
 
 use crate::application::Action;
@@ -27,6 +27,20 @@ impl ClientManager {
         manager
     }
 
+    pub async fn update_entry(&self, entry_id: i32, patch: PatchEntry) {
+        debug!("[Client] Updating entry {}", entry_id);
+        if let Some(client) = self.client.clone() {
+            client
+                .lock()
+                .then(async move |mut guard| {
+                    if let Err(_) = guard.update_entry(entry_id, &patch).await {
+                        warn!("[Client] Failed to update the entry {}", entry_id);
+                    }
+                })
+                .await;
+        }
+    }
+
     pub async fn delete_entry(&self, entry_id: i32) {
         debug!("[Client] Removing entry {}", entry_id);
         if let Some(client) = self.client.clone() {
@@ -34,7 +48,7 @@ impl ClientManager {
                 .lock()
                 .then(async move |mut guard| {
                     if let Err(_) = guard.delete_entry(entry_id).await {
-                        warn!("[Client] Failed to delete the article {}", entry_id);
+                        warn!("[Client] Failed to delete the entry {}", entry_id);
                     }
                 })
                 .await;
@@ -63,30 +77,30 @@ impl ClientManager {
             archive: None,
             starred: None,
             sort: SortBy::Created,
-            order: SortOrder::Desc,
+            order: SortOrder::Asc,
             tags: vec![],
             since: since.timestamp(),
             public: None,
         };
         if let Some(client) = self.client.clone() {
             let sender = self.sender.clone();
-            let fut = client.lock().then(|mut guard| {
-                async move {
-                    let entries = guard.get_entries_with_filter(&filter).await;
-                    match entries {
+            client
+                .lock()
+                .then(async move |mut guard| {
+                    match guard.get_entries_with_filter(&filter).await {
                         Ok(entries) => {
                             entries.into_iter().for_each(|entry| {
                                 let article = Article::from(entry);
-                                if article.insert().is_ok() {
-                                    send!(sender, Action::AddArticle(article));
-                                }
+                                match article.insert() {
+                                    Ok(_) => send!(sender, Action::AddArticle(article)),
+                                    Err(_) => send!(sender, Action::UpdateArticle(article)),
+                                };
                             });
                         }
                         Err(_) => (),
                     };
-                }
-            });
-            fut.await;
+                })
+                .await;
             return Ok(());
         }
         bail!("No client set yet");

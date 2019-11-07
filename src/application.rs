@@ -22,8 +22,8 @@ pub enum Action {
     FavoriteArticle(Article),
     DeleteArticle(Article),
     AddArticle(Article),
-    NewArticle,     // Display the widget
-    SaveNewArticle, // Save the pasted url
+    UpdateArticle(Article),
+    SaveArticle, // Save the pasted url
     PreviousView,
     SetView(View),
     Notify(String), // Notification message?
@@ -82,7 +82,7 @@ impl Application {
     fn do_action(&self, action: Action) -> glib::Continue {
         match action {
             Action::SetClientConfig(config) => self.set_client_config(config),
-            Action::SaveNewArticle => {
+            Action::SaveArticle => {
                 if let Some(article_url) = self.window.get_new_article_url() {
                     let client = self.client.clone();
                     let sender = self.sender.clone();
@@ -99,14 +99,44 @@ impl Application {
                     });
                 }
             }
+            Action::UpdateArticle(article) => self.window.update_article(article),
             Action::Logout => {
                 SettingsManager::set_string(Key::Username, "".into());
                 send!(self.sender, Action::SetView(View::Login));
             }
-            Action::NewArticle => self.window.set_view(View::NewArticle),
             Action::AddArticle(article) => self.window.add_article(article),
-            Action::ArchiveArticle(article) => self.window.archive_article(article),
-            Action::FavoriteArticle(article) => self.window.favorite_article(article),
+            Action::ArchiveArticle(article) => {
+                send!(self.sender, Action::SetView(View::Syncing(true)));
+                self.window.archive_article(article.clone());
+
+                let sender = self.sender.clone();
+                let client = self.client.clone();
+                spawn!(async move {
+                    client
+                        .lock()
+                        .then(async move |guard| {
+                            guard.update_entry(article.id, article.get_patch()).await;
+                            send!(sender, Action::SetView(View::Syncing(false)));
+                        })
+                        .await
+                });
+            }
+            Action::FavoriteArticle(article) => {
+                send!(self.sender, Action::SetView(View::Syncing(true)));
+                self.window.favorite_article(article.clone());
+
+                let sender = self.sender.clone();
+                let client = self.client.clone();
+                spawn!(async move {
+                    client
+                        .lock()
+                        .then(async move |guard| {
+                            guard.update_entry(article.id, article.get_patch()).await;
+                            send!(sender, Action::SetView(View::Syncing(false)));
+                        })
+                        .await
+                });
+            }
             Action::DeleteArticle(article) => {
                 send!(self.sender, Action::SetView(View::Syncing(true)));
                 let article_id: i32 = article.id;
@@ -206,8 +236,13 @@ impl Application {
             about_dialog.show();
         });
 
-        self.add_gaction("new-article", clone!(sender => move |_, _| send!(sender, Action::NewArticle)));
-        self.add_gaction("add-article", clone!(sender => move |_, _| send!(sender, Action::SaveNewArticle)));
+        self.add_gaction(
+            "new-article",
+            clone!(sender => move |_, _| {
+                send!(sender, Action::SetView(View::NewArticle));
+            }),
+        );
+        self.add_gaction("add-article", clone!(sender => move |_, _| send!(sender, Action::SaveArticle)));
         self.add_gaction("logout", clone!(sender => move |_, _| send!(sender, Action::Logout)));
         self.add_gaction("back", clone!(sender => move |_, _| send!(sender, Action::PreviousView)));
         self.app.set_accels_for_action("app.back", &["Escape"]);

@@ -76,6 +76,8 @@ impl Window {
         }
     }
 
+    pub fn update_article(&self, article: Article) {}
+
     pub fn delete_article(&self, article: Article) -> Result<(), Error> {
         if !article.is_starred && !article.is_archived {
             self.unread_view.delete(article.clone());
@@ -160,11 +162,8 @@ impl Window {
     pub fn set_view(&self, view: View) {
         get_widget!(self.builder, gtk::Stack, main_stack);
         get_widget!(self.builder, gtk::Stack, headerbar_stack);
-        self.article_view.set_enable_actions(false);
-
         match view {
             View::Article => {
-                self.article_view.set_enable_actions(true);
                 main_stack.set_visible_child_name("article");
                 headerbar_stack.set_visible_child_name("article");
             }
@@ -342,6 +341,8 @@ impl Window {
         self.widget.insert_action_group("article", self.article_view.get_actions());
 
         // hackish way to sync unread/favorites/archive with view history :p
+        let article_view = self.article_view.clone();
+
         main_stack.connect_property_visible_child_name_notify(move |stack| {
             if let Some(view_name) = stack.get_visible_child_name() {
                 if view_name == "unread" {
@@ -351,6 +352,7 @@ impl Window {
                 } else if view_name == "archive" {
                     win.set_view(View::Archive);
                 }
+                article_view.set_enable_actions(view_name == "article");
             }
         });
     }
