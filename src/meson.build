@@ -37,6 +37,7 @@ run_command(
 
 sources = files(
   'models/article.rs',
+  'models/article_filter.rs',
   'models/articles.rs',
   'models/client_manager.rs',
   'models/mod.rs',
@@ -46,12 +47,11 @@ sources = files(
   'settings/key.rs',
   'settings/mod.rs',
   'settings/settings_manager.rs',
-  'views/archive.rs',
   'views/article.rs',
-  'views/favorites.rs',
+  'views/articles.rs',
+  'views/articles_list.rs',
   'views/login.rs',
   'views/mod.rs',
-  'views/unread.rs',
   'widgets/articles/index.rs',
   'widgets/articles/list.rs',
   'widgets/articles/mod.rs',

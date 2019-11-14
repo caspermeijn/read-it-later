@@ -2,10 +2,8 @@ use gio::prelude::*;
 use glib::object::Cast;
 use glib::Sender;
 
-use crate::models::Article;
+use crate::models::{Article, ArticleAction};
 use crate::widgets::articles::ArticleWidget;
-
-use crate::application::Action;
 
 #[derive(Clone)]
 pub struct ArticleView {
@@ -14,7 +12,7 @@ pub struct ArticleView {
 }
 
 impl ArticleView {
-    pub fn new(sender: Sender<Action>) -> Self {
+    pub fn new(sender: Sender<ArticleAction>) -> Self {
         let widget = ArticleWidget::new(sender.clone());
 
         let article_view = Self {

@@ -182,7 +182,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="action_name">app.back</property>
+                <property name="action_name">article.close</property>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
@@ -280,11 +280,10 @@
             <property name="centering_policy">strict</property>
             <property name="has_subtitle">False</property>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="new_article_back_btn">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="action_name">app.back</property>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
@@ -315,12 +314,11 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="save_article_btn">
                 <property name="label" translatable="yes">Save</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="action_name">app.add-article</property>
               </object>
               <packing>
                 <property name="pack_type">end</property>

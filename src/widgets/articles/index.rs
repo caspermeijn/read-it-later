@@ -6,22 +6,21 @@ use webkit2gtk::UserContentManager;
 use webkit2gtk::WebViewExtManual;
 use webkit2gtk::{ContextMenuExt, ContextMenuItemExt, SettingsExt, WebContext, WebView, WebViewExt};
 
-use crate::application::Action;
-use crate::models::Article;
+use crate::models::{Article, ArticleAction};
 use crate::settings::{Key, SettingsManager};
 use crate::utils;
 
 pub struct ArticleWidget {
     pub widget: gtk::Box,
     builder: gtk::Builder,
-    sender: Sender<Action>,
+    sender: Sender<ArticleAction>,
     pub actions: gio::SimpleActionGroup,
     webview: WebView,
     article: RefCell<Option<Article>>,
 }
 
 impl ArticleWidget {
-    pub fn new(sender: Sender<Action>) -> Rc<Self> {
+    pub fn new(sender: Sender<ArticleAction>) -> Rc<Self> {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/article.ui");
         get_widget!(builder, gtk::Box, article);
 
@@ -101,64 +100,65 @@ impl ArticleWidget {
 
     fn setup_actions(&self, aw: Rc<Self>) {
         // Delete article
-        let delete_article = gio::SimpleAction::new("delete", None);
-        let article_widget = aw.clone();
         let sender = self.sender.clone();
-        delete_article.connect_activate(move |_, _| {
-            if let Some(article) = article_widget.article.borrow().clone() {
-                send!(sender, Action::DeleteArticle(article));
-            }
-        });
-        self.actions.add_action(&delete_article);
-        // Share article
-        let open_article = gio::SimpleAction::new("open", None);
-        let article_widget = aw.clone();
-        open_article.connect_activate(move |_, _| {
-            if let Some(article) = article_widget.article.borrow().clone() {
-                let article_url = article.url;
-                let screen = gdk::Screen::get_default().unwrap();
-                if let Err(err_msg) = gtk::show_uri(Some(&screen), &article_url.unwrap(), 0) {
-                    error!("Failed to open the uri {} in the default browser", err_msg);
+        action!(
+            self.actions,
+            "delete",
+            clone!(aw => move |_, _| {
+                if let Some(article) = aw.article.borrow().clone() {
+                    send!(sender, ArticleAction::Delete(article));
                 }
-            }
+            })
+        );
+        // Share article
+        action!(
+            self.actions,
+            "open",
+            clone!(aw => move |_, _| {
+                if let Some(article) = aw.article.borrow().clone() {
+                    let article_url = article.url;
+                    let screen = gdk::Screen::get_default().unwrap();
+                    if let Err(err_msg) = gtk::show_uri(Some(&screen), &article_url.unwrap(), 0) {
+                        error!("Failed to open the uri {} in the default browser", err_msg);
+                    }
+                }
+            })
+        );
+        // Close the article
+        let sender = self.sender.clone();
+        action!(self.actions, "close", move |_, _| {
+            send!(sender, ArticleAction::Close);
         });
-        self.actions.add_action(&open_article);
+
         // Archive article
         let is_archived = false; // false by default
         let archive_article = gio::SimpleAction::new_stateful("archive", None, &is_archived.to_variant());
-        let article_widget = aw.clone();
         let sender = self.sender.clone();
-        archive_article.connect_activate(move |action, _| {
+        archive_article.connect_activate(clone!(aw => move |action, _| {
             let state = action.get_state().unwrap();
             let action_state: bool = state.get().unwrap();
             let is_archived = !action_state;
             action.set_state(&is_archived.to_variant());
-            if let Some(mut article) = article_widget.article.borrow_mut().clone() {
-                match article.toggle_archive() {
-                    Ok(_) => send!(sender, Action::ArchiveArticle(article)),
-                    Err(_) => send!(sender, Action::Notify("Failed to archive the article".to_string())),
-                };
+            if let Some(article) = aw.article.borrow_mut().clone() {
+                send!(sender, ArticleAction::Archive(article));
             }
-        });
+        }));
         self.actions.add_action(&archive_article);
         // Favorite article
         let is_starred = false; // false by default
         let favorite_article = gio::SimpleAction::new_stateful("favorite", None, &is_starred.to_variant());
-        let article_widget = aw.clone();
         let sender = self.sender.clone();
-        favorite_article.connect_activate(move |action, _| {
+
+        favorite_article.connect_activate(clone!(aw => move |action, _| {
             let state = action.get_state().unwrap();
             let action_state: bool = state.get().unwrap();
             let is_starred = !action_state;
             action.set_state(&is_starred.to_variant());
 
-            if let Some(mut article) = article_widget.article.borrow_mut().clone() {
-                match article.toggle_favorite() {
-                    Ok(_) => send!(sender, Action::FavoriteArticle(article)),
-                    Err(_) => send!(sender, Action::Notify("Failed to archive the article".to_string())),
-                };
+            if let Some(article) = aw.article.borrow_mut().clone() {
+                send!(sender, ArticleAction::Favorite(article));
             }
-        });
+        }));
         self.actions.add_action(&favorite_article);
     }
 

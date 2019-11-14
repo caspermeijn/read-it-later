@@ -1,13 +1,11 @@
-use crate::diesel::ExpressionMethods;
-use diesel::query_dsl::filter_dsl::FilterDsl;
-use diesel::RunQueryDsl;
+use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
 use failure::Error;
 use gdk_pixbuf::Pixbuf;
 use sanitize_html::sanitize_str;
 use wallabag_api::types::{Entry, PatchEntry};
 
-use super::preview_image::PreviewImage;
 use crate::database;
+use crate::models::{ArticlesFilter, PreviewImage};
 use crate::schema::articles;
 
 #[derive(Insertable, Queryable, PartialEq, Debug, Clone, Serialize, Deserialize)]
@@ -30,6 +28,23 @@ pub struct Article {
 }
 
 impl Article {
+    pub fn load(filter: &ArticlesFilter) -> Result<Vec<Self>, Error> {
+        use crate::schema::articles::dsl::*;
+        let db = database::connection();
+
+        let conn = db.get()?;
+
+        let mut query = articles.order(published_at.asc()).into_boxed();
+
+        if let Some(starred) = &filter.starred {
+            query = query.filter(is_starred.eq(starred));
+        }
+        if let Some(archived) = &filter.archived {
+            query = query.filter(is_archived.eq(archived));
+        }
+        query.get_results::<Article>(&conn).map_err(From::from)
+    }
+
     pub fn from(entry: Entry) -> Self {
         let published_by = match entry.published_by.clone() {
             Some(published_by) => Some(

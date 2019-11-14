@@ -7,26 +7,22 @@ use gtk::prelude::*;
 use std::env;
 use std::sync::Arc;
 use std::{cell::RefCell, rc::Rc};
+use url::Url;
 
 use crate::config;
-use crate::models::{Article, ClientManager, SecretManager};
+use crate::models::{Article, ArticleAction, ClientManager, SecretManager};
 use crate::settings::{Key, SettingsManager};
 use crate::widgets::{SettingsWidget, View, Window};
 
 use wallabag_api::types::Config;
 
 pub enum Action {
-    SetClientConfig(Config),
-    LoadArticle(Article),
-    ArchiveArticle(Article),
-    FavoriteArticle(Article),
-    DeleteArticle(Article),
-    AddArticle(Article),
-    UpdateArticle(Article),
-    SaveArticle, // Save the pasted url
-    PreviousView,
+    Articles(ArticleAction),
+    SaveArticle(Url), // Save the pasted url
     SetView(View),
+    PreviousView,
     Notify(String), // Notification message?
+    SetClientConfig(Config),
     Login,
     Logout,
 }
@@ -81,138 +77,40 @@ impl Application {
 
     fn do_action(&self, action: Action) -> glib::Continue {
         match action {
-            Action::SetClientConfig(config) => self.set_client_config(config),
-            Action::SaveArticle => {
-                if let Some(article_url) = self.window.get_new_article_url() {
-                    let client = self.client.clone();
-                    let sender = self.sender.clone();
-                    send!(sender, Action::SetView(View::Syncing(true)));
-                    spawn!(async move {
-                        client
-                            .lock()
-                            .then(async move |guard| {
-                                guard.save_url(article_url).await;
-                                send!(sender, Action::SetView(View::Syncing(false)));
-                                send!(sender, Action::PreviousView);
-                            })
-                            .await
-                    });
-                }
-            }
-            Action::UpdateArticle(article) => self.window.update_article(article),
-            Action::Logout => {
-                SettingsManager::set_string(Key::Username, "".into());
-                send!(self.sender, Action::SetView(View::Login));
-            }
-            Action::AddArticle(article) => self.window.add_article(article),
-            Action::ArchiveArticle(article) => {
-                send!(self.sender, Action::SetView(View::Syncing(true)));
-                self.window.archive_article(article.clone());
-
-                let sender = self.sender.clone();
-                let client = self.client.clone();
-                spawn!(async move {
-                    client
-                        .lock()
-                        .then(async move |guard| {
-                            guard.update_entry(article.id, article.get_patch()).await;
-                            send!(sender, Action::SetView(View::Syncing(false)));
-                        })
-                        .await
-                });
-            }
-            Action::FavoriteArticle(article) => {
-                send!(self.sender, Action::SetView(View::Syncing(true)));
-                self.window.favorite_article(article.clone());
-
-                let sender = self.sender.clone();
-                let client = self.client.clone();
-                spawn!(async move {
-                    client
-                        .lock()
-                        .then(async move |guard| {
-                            guard.update_entry(article.id, article.get_patch()).await;
-                            send!(sender, Action::SetView(View::Syncing(false)));
-                        })
-                        .await
-                });
-            }
-            Action::DeleteArticle(article) => {
-                send!(self.sender, Action::SetView(View::Syncing(true)));
-                let article_id: i32 = article.id;
-                match self.window.delete_article(article) {
-                    Err(_) => send!(self.sender, Action::Notify("Failed to delete the article".to_string())),
-                    Ok(_) => {
-                        let sender = self.sender.clone();
-                        let client = self.client.clone();
-                        spawn!(async move {
-                            client
-                                .lock()
-                                .then(async move |guard| {
-                                    guard.delete_entry(article_id).await;
-                                    send!(sender, Action::SetView(View::Syncing(false)));
-                                    send!(sender, Action::PreviousView);
-                                })
-                                .await
-                        });
-                    }
-                };
-            }
-            Action::LoadArticle(article) => self.window.load_article(article),
-            Action::PreviousView => self.window.previous_view(),
+            /* Articles */
+            Action::Articles(article_action) => self.do_article_action(article_action),
+            Action::SaveArticle(url) => self.save_article(url),
+            /* UI */
             Action::SetView(view) => self.window.set_view(view),
-            Action::Login => self.login(),
+            Action::PreviousView => self.window.previous_view(),
             Action::Notify(err_msg) => self.window.notify(err_msg),
+            /* Auth */
+            Action::SetClientConfig(config) => self.set_client_config(config),
+            Action::Login => self.login(),
+            Action::Logout => self.logout(),
         };
         glib::Continue(true)
     }
 
-    fn login(&self) {
-        self.sync();
-        send!(self.sender, Action::SetView(View::Unread));
-    }
-
-    fn sync(&self) {
-        self.window.set_view(View::Syncing(true));
-        let mut since = Utc.timestamp(0, 0);
-        let last_sync = SettingsManager::get_integer(Key::LatestSync);
-        if last_sync != 0 {
-            since = Utc.timestamp(last_sync.into(), 0);
-        }
-        info!("Last sync was at {}", since);
-
-        let client = self.client.clone();
-        let sender = self.sender.clone();
-        spawn!(async move {
-            client
-                .lock()
-                .then(move |guard| {
-                    async move {
-                        info!("Starting a new sync");
-                        match guard.sync(since).await {
-                            Ok(_) => {
-                                let now = Utc::now().timestamp();
-                                SettingsManager::set_integer(Key::LatestSync, now as i32);
-                            }
-                            Err(err) => error!("Failed to sync {:#?}", err),
-                        };
-                        send!(sender, Action::SetView(View::Syncing(false)));
-                    }
-                })
-                .await;
-        });
+    fn do_article_action(&self, action: ArticleAction) {
+        match action {
+            ArticleAction::Open(article) => self.window.load_article(article),
+            ArticleAction::Delete(article) => self.delete_article(article),
+            ArticleAction::Archive(article) => self.archive_article(article),
+            ArticleAction::Favorite(article) => self.favorite_article(article),
+            _ => (),
+        };
     }
 
     fn setup_gactions(&self) {
         // Quit
         let app = self.app.clone();
         let sender = self.sender.clone();
-        self.add_gaction("quit", move |_, _| app.quit());
-        self.app.set_accels_for_action("app.quit", &["<primary>q"]);
+        action!(self.app, "quit", move |_, _| app.quit());
         // Settings
         let weak_window = self.window.widget.downgrade();
         let client = self.client.clone();
-        self.add_gaction("settings", move |_, _| {
+        action!(self.app, "settings", move |_, _| {
             let settings_widget = SettingsWidget::new(client.clone());
             if let Some(window) = weak_window.upgrade() {
                 settings_widget.widget.set_transient_for(Some(&window));
@@ -221,10 +119,9 @@ impl Application {
             }
             settings_widget.widget.show();
         });
-        self.app.set_accels_for_action("app.settings", &["<primary>comma"]);
         // About
         let weak_window = self.window.widget.downgrade();
-        self.add_gaction("about", move |_, _| {
+        action!(self.app, "about", move |_, _| {
             let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/about_dialog.ui");
             get_widget!(builder, gtk::AboutDialog, about_dialog);
 
@@ -235,19 +132,21 @@ impl Application {
             about_dialog.connect_response(|dialog, _| dialog.destroy());
             about_dialog.show();
         });
-
-        self.add_gaction(
+        action!(
+            self.app,
             "new-article",
             clone!(sender => move |_, _| {
                 send!(sender, Action::SetView(View::NewArticle));
-            }),
+            })
         );
-        self.add_gaction("add-article", clone!(sender => move |_, _| send!(sender, Action::SaveArticle)));
-        self.add_gaction("logout", clone!(sender => move |_, _| send!(sender, Action::Logout)));
-        self.add_gaction("back", clone!(sender => move |_, _| send!(sender, Action::PreviousView)));
+        action!(self.app, "logout", clone!(sender => move |_, _| send!(sender, Action::Logout)));
+        action!(self.app, "back", clone!(sender => move |_, _| send!(sender, Action::PreviousView)));
+
         self.app.set_accels_for_action("app.back", &["Escape"]);
-        // Articles
+        self.app.set_accels_for_action("app.quit", &["<primary>q"]);
+        self.app.set_accels_for_action("app.settings", &["<primary>comma"]);
         self.app.set_accels_for_action("app.new-article", &["<primary>N"]);
+        // Articles
         self.app.set_accels_for_action("article.delete", &["Delete"]);
         self.app.set_accels_for_action("article.favorite", &["<primary><alt>F"]);
         self.app.set_accels_for_action("article.archive", &["<primary><alt>A"]);
@@ -273,15 +172,6 @@ impl Application {
         }
     }
 
-    fn add_gaction<F>(&self, name: &str, action: F)
-    where
-        for<'r, 's> F: Fn(&'r gio::SimpleAction, Option<&'s glib::Variant>) + 'static,
-    {
-        let simple_action = gio::SimpleAction::new(name, None);
-        simple_action.connect_activate(action);
-        self.app.add_action(&simple_action);
-    }
-
     fn setup_css(&self) {
         if let Some(theme) = gtk::IconTheme::get_default() {
             theme.add_resource_path("/com/belmoussaoui/ReadItLater/icons");
@@ -294,12 +184,15 @@ impl Application {
         }
     }
 
+    /**
+     * Auth
+     */
     fn init_client(&self) {
         let username = SettingsManager::get_string(Key::Username);
         match SecretManager::is_logged(&username) {
             Some(config) => {
                 // Stored Config from Secret Service
-                send!(self.sender, Action::SetView(View::Unread));
+                send!(self.sender, Action::SetView(View::Articles));
                 self.set_client_config(config);
             }
             _ => send!(self.sender, Action::SetView(View::Login)),
@@ -315,25 +208,152 @@ impl Application {
         spawn!(async move {
             client
                 .lock()
-                .then(move |mut guard| {
-                    async move {
-                        if let Err(err) = guard.set_config(config.clone()).await {
-                            send!(sender, Action::SetView(View::Syncing(false)));
-                            error!("Failed to setup a new client from current config: {}", err);
+                .then(async move |mut guard| {
+                    if let Err(err) = guard.set_config(config.clone()).await {
+                        send!(sender, Action::SetView(View::Syncing(false)));
+                        error!("Failed to setup a new client from current config: {}", err);
+                    }
+                    if let Some(_) = guard.get_user() {
+                        if config.username != logged_username {
+                            SettingsManager::set_string(Key::Username, config.username.clone());
+                            SecretManager::store_from_config(config);
                         }
-                        if let Some(_) = guard.get_user() {
-                            if config.username != logged_username {
-                                SettingsManager::set_string(Key::Username, config.username.clone());
-                                SecretManager::store_from_config(config);
-                            }
-                            send!(sender, Action::Login);
-                        } else {
-                            send!(sender, Action::Notify("Failed to log in".into()));
-                            send!(sender, Action::SetView(View::Syncing(false)));
-                        }
+                        send!(sender, Action::Login);
+                    } else {
+                        send!(sender, Action::Notify("Failed to log in".into()));
+                        send!(sender, Action::SetView(View::Syncing(false)));
                     }
                 })
                 .await;
+        });
+    }
+
+    fn login(&self) {
+        self.sync();
+        send!(self.sender, Action::SetView(View::Articles));
+    }
+
+    fn logout(&self) {
+        SettingsManager::set_string(Key::Username, "".into());
+        send!(self.sender, Action::SetView(View::Login));
+    }
+
+    fn sync(&self) {
+        self.window.set_view(View::Syncing(true));
+        let mut since = Utc.timestamp(0, 0);
+        let last_sync = SettingsManager::get_integer(Key::LatestSync);
+        if last_sync != 0 {
+            since = Utc.timestamp(last_sync.into(), 0);
+        }
+        info!("Last sync was at {}", since);
+
+        let client = self.client.clone();
+        let sender = self.sender.clone();
+        spawn!(async move {
+            client
+                .lock()
+                .then(async move |guard| {
+                    info!("Starting a new sync");
+                    match guard.sync(since).await {
+                        Ok(entries) => {
+                            entries.into_iter().for_each(|entry| {
+                                let sender_clone = sender.clone();
+                                let article = Article::from(entry);
+                                gtk::idle_add(move || {
+                                    /*match article.insert() {
+                                        // Ok(_) => send!(sender_clone, Action::AddArticle(article.clone())),
+                                        // Err(_) => send!(sender_clone, Action::UpdateArticle(article.clone())),
+                                    };
+                                    */
+                                    glib::Continue(false)
+                                });
+                            });
+
+                            let now = Utc::now().timestamp();
+                            SettingsManager::set_integer(Key::LatestSync, now as i32);
+                        }
+                        Err(err) => error!("Failed to sync {:#?}", err),
+                    };
+                    send!(sender, Action::SetView(View::Syncing(false)));
+                })
+                .await;
+        });
+    }
+
+    /**
+     *   Articles
+     */
+
+    fn save_article(&self, url: Url) {
+        debug!("Saving new article \"{:#?}\"", url);
+        let client = self.client.clone();
+        let sender = self.sender.clone();
+        send!(sender, Action::SetView(View::Syncing(true)));
+        spawn!(async move {
+            client
+                .lock()
+                .then(async move |guard| {
+                    guard.save_url(url).await;
+                    send!(sender, Action::SetView(View::Syncing(false)));
+                    send!(sender, Action::PreviousView);
+                })
+                .await
+        });
+    }
+
+    fn archive_article(&self, article: Article) {
+        debug!("(Un)archiving the article \"{:#?}\" with ID: {}", article.title, article.id);
+        send!(self.sender, Action::SetView(View::Syncing(true)));
+        self.window.articles_view.archive(&article);
+
+        let sender = self.sender.clone();
+        let client = self.client.clone();
+        spawn!(async move {
+            client
+                .lock()
+                .then(async move |guard| {
+                    guard.update_entry(article.id, article.get_patch()).await;
+                    send!(sender, Action::SetView(View::Syncing(false)));
+                })
+                .await
+        });
+    }
+
+    fn favorite_article(&self, article: Article) {
+        debug!("(Un)favoriting the article \"{:#?}\" with ID: {}", article.title, article.id);
+        send!(self.sender, Action::SetView(View::Syncing(true)));
+        self.window.articles_view.favorite(&article);
+
+        let sender = self.sender.clone();
+        let client = self.client.clone();
+        spawn!(async move {
+            client
+                .lock()
+                .then(async move |guard| {
+                    guard.update_entry(article.id, article.get_patch()).await;
+                    send!(sender, Action::SetView(View::Syncing(false)));
+                })
+                .await
+        });
+    }
+
+    fn delete_article(&self, article: Article) {
+        debug!("Deleting the article \"{:#?}\" with ID: {}", article.title, article.id);
+        send!(self.sender, Action::SetView(View::Syncing(true)));
+        self.window.articles_view.delete(&article);
+
+        let sender = self.sender.clone();
+        let client = self.client.clone();
+        let article_id: i32 = article.id;
+        spawn!(async move {
+            client
+                .lock()
+                .then(async move |guard| {
+                    guard.delete_entry(article_id).await;
+                    send!(sender, Action::SetView(View::Syncing(false)));
+                    send!(sender, Action::PreviousView);
+                })
+                .await
         });
     }
 }

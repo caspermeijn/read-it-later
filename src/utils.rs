@@ -1,5 +1,5 @@
 use failure::Error;
-
+use gio::prelude::*;
 // Stolen from Shortwave
 macro_rules! get_widget {
     ($builder:expr, $wtype:ty, $name:ident) => {
@@ -25,6 +25,14 @@ macro_rules! send {
     };
 }
 
+macro_rules! action {
+    ($widget:expr, $name:expr, $callback:expr) => {
+        let simple_action = gio::SimpleAction::new($name, None);
+        simple_action.connect_activate($callback);
+        $widget.add_action(&simple_action);
+    };
+}
+
 // Source: https://github.com/gtk-rs/examples/
 // make moving clones into closures more convenient
 macro_rules! clone {
@@ -45,7 +53,6 @@ macro_rules! clone {
 }
 
 pub fn load_resource(file: &str) -> Result<String, Error> {
-    use gio::FileExt;
     let file = gio::File::new_for_uri(&format!("resource:///com/belmoussaoui/ReadItLater/{}", file));
     let (bytes, _) = file.load_bytes(gio::NONE_CANCELLABLE)?;
     String::from_utf8(bytes.to_vec()).map_err(From::from)

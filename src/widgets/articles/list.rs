@@ -3,17 +3,16 @@ use glib::Sender;
 use gtk::prelude::*;
 
 use super::row::ArticleRow;
-use crate::application::Action;
-use crate::models::{Article, ObjectWrapper};
+use crate::models::{Article, ArticleAction, ObjectWrapper};
 
 pub struct ArticlesListWidget {
     pub widget: libhandy::Column,
     builder: gtk::Builder,
-    sender: Sender<Action>,
+    sender: Sender<ArticleAction>,
 }
 
 impl ArticlesListWidget {
-    pub fn new(sender: Sender<Action>) -> Self {
+    pub fn new(sender: Sender<ArticleAction>) -> Self {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/articles_list.ui");
         get_widget!(builder, libhandy::Column, articles_list);
 
@@ -53,7 +52,7 @@ impl ArticlesListWidget {
             let row = ArticleRow::new(article.clone());
             let sender = sender.clone();
             row.set_on_click_callback(move |_, _| {
-                send!(sender, Action::LoadArticle(article.clone()));
+                send!(sender, ArticleAction::Open(article.clone()));
                 gtk::Inhibit(false)
             });
             let widget = row.widget.clone();

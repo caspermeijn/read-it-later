@@ -1,78 +1,88 @@
+use glib::{Receiver, Sender};
+use std::cell::RefCell;
+use std::rc::Rc;
+
 use super::article::Article;
-use super::object_wrapper::ObjectWrapper;
-use crate::database;
-use crate::database::Error;
-use gio::prelude::*;
-use glib::prelude::*;
-use wallabag_api::types::EntriesFilter;
+use crate::application::Action;
 
-pub fn get_articles(filter: &EntriesFilter) -> Result<Vec<Article>, Error> {
-    use crate::schema::articles::dsl::*;
-    use diesel::prelude::*;;
-    let db = database::connection();
-
-    let conn = db.get()?;
-
-    let mut query = articles.order(published_at.asc()).into_boxed();
-
-    if let Some(starred) = &filter.starred {
-        query = query.filter(is_starred.eq(starred));
-    }
-    if let Some(archived) = &filter.archive {
-        query = query.filter(is_archived.eq(archived));
-    }
-    query.get_results::<Article>(&conn).map_err(From::from)
+#[derive(Debug, PartialEq, Clone)]
+pub enum ArticleAction {
+    Delete(Article),
+    Archive(Article),
+    Favorite(Article),
+    Open(Article),
+    Close,
 }
 
-pub struct ArticlesModel {
-    pub model: gio::ListStore,
-    filter: EntriesFilter,
+pub struct ArticlesManager {
+    /*
+        Ensures that the articles are synced
+        between the local database and the server
+    */
+    main_sender: Sender<Action>,
+    pub sender: Sender<ArticleAction>,
+    receiver: RefCell<Option<Receiver<ArticleAction>>>,
 }
 
-impl ArticlesModel {
-    pub fn new(filter: EntriesFilter) -> Self {
-        let gio_model = gio::ListStore::new(ObjectWrapper::static_type());
-        let model = Self { model: gio_model, filter };
-        model.init();
-        model
+impl ArticlesManager {
+    pub fn new(main_sender: Sender<Action>) -> Rc<Self> {
+        let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+        let receiver = RefCell::new(Some(r));
+
+        let manager = Rc::new(Self {
+            main_sender,
+            sender,
+            receiver,
+        });
+
+        manager.init(manager.clone());
+        manager
     }
 
-    fn init(&self) {
-        // fill in the articles from the database
-        if let Ok(articles) = get_articles(&self.filter) {
-            for article in articles.into_iter() {
-                self.add_article(&article);
-            }
-        }
+    fn init(&self, manager: Rc<Self>) {
+        let receiver = self.receiver.borrow_mut().take().unwrap();
+        receiver.attach(None, move |action| manager.do_action(action));
     }
 
-    pub fn remove_article(&self, article: &Article) {
-        match self.index(&article) {
-            Some(pos) => self.model.remove(pos),
-            None => (),
+    fn do_action(&self, action: ArticleAction) -> glib::Continue {
+        match action {
+            ArticleAction::Delete(article) => self.delete(article),
+            ArticleAction::Open(article) => self.open(article),
+            ArticleAction::Archive(article) => self.archive(article),
+            ArticleAction::Favorite(article) => self.favorite(article),
+            ArticleAction::Close => send!(self.main_sender, Action::PreviousView),
         };
+        glib::Continue(true)
     }
 
-    pub fn add_article(&self, article: &Article) {
-        if !self.index(&article).is_some() {
-            let object = ObjectWrapper::new(Box::new(article));
-            self.model.insert(0, &object);
-        }
+    fn open(&self, article: Article) {
+        send!(self.main_sender, Action::Articles(ArticleAction::Open(article)));
     }
 
-    fn index(&self, article: &Article) -> Option<u32> {
-        for i in 0..self.get_count() {
-            let gobject = self.model.get_object(i).unwrap();
-            let a: Article = gobject.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
-
-            if article.id == a.id {
-                return Some(i);
+    fn archive(&self, mut article: Article) {
+        match article.toggle_archive() {
+            Ok(_) => {
+                send!(self.main_sender, Action::Articles(ArticleAction::Archive(article)));
             }
+            Err(_) => {}
         }
-        None
     }
 
-    pub fn get_count(&self) -> u32 {
-        self.model.get_n_items()
+    fn favorite(&self, mut article: Article) {
+        match article.toggle_favorite() {
+            Ok(_) => {
+                send!(self.main_sender, Action::Articles(ArticleAction::Favorite(article)));
+            }
+            Err(_) => {}
+        }
+    }
+
+    fn delete(&self, article: Article) {
+        match article.delete() {
+            Ok(_) => {
+                send!(self.main_sender, Action::Articles(ArticleAction::Delete(article)));
+            }
+            Err(_) => {}
+        }
     }
 }

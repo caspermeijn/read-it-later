@@ -6,7 +6,7 @@ use glib::futures::FutureExt;
 use glib::Sender;
 use std::sync::Arc;
 use url::Url;
-use wallabag_api::types::{EntriesFilter, NewEntry, PatchEntry, SortBy, SortOrder, User};
+use wallabag_api::types::{EntriesFilter, Entry, NewEntry, PatchEntry, SortBy, SortOrder, User};
 use wallabag_api::Client;
 
 use crate::application::Action;
@@ -65,14 +65,14 @@ impl ClientManager {
                     let new_entry = NewEntry::new_with_url(url.into_string());
                     if let Ok(entry) = guard.create_entry(&new_entry).await {
                         let article = Article::from(entry);
-                        send!(sender, Action::AddArticle(article));
+                        // send!(sender, Action::AddArticle(article));
                     }
                 })
                 .await;
         }
     }
 
-    pub async fn sync(&self, since: DateTime<chrono::Utc>) -> Result<(), Error> {
+    pub async fn sync(&self, since: DateTime<chrono::Utc>) -> Result<Vec<Entry>, Error> {
         let filter = EntriesFilter {
             archive: None,
             starred: None,
@@ -84,24 +84,11 @@ impl ClientManager {
         };
         if let Some(client) = self.client.clone() {
             let sender = self.sender.clone();
-            client
+            return client
                 .lock()
-                .then(async move |mut guard| {
-                    match guard.get_entries_with_filter(&filter).await {
-                        Ok(entries) => {
-                            entries.into_iter().for_each(|entry| {
-                                let article = Article::from(entry);
-                                match article.insert() {
-                                    Ok(_) => send!(sender, Action::AddArticle(article)),
-                                    Err(_) => send!(sender, Action::UpdateArticle(article)),
-                                };
-                            });
-                        }
-                        Err(_) => (),
-                    };
-                })
-                .await;
-            return Ok(());
+                .then(async move |mut guard| guard.get_entries_with_filter(&filter).await)
+                .await
+                .map_err(From::from);
         }
         bail!("No client set yet");
     }

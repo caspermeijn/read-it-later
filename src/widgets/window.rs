@@ -1,26 +1,22 @@
-use failure::Error;
 use gio::prelude::*;
 use glib::Sender;
 use gtk::prelude::*;
 use libhandy::prelude::*;
 use libhandy::SearchBarExt;
-use std::cell::RefCell;
 use std::rc::Rc;
 use url::Url;
 
 use crate::application::Action;
 use crate::config::{APP_ID, PROFILE};
-use crate::models::Article;
-use crate::views::{ArchiveView, ArticleView, FavoritesView, LoginView, UnreadView};
+use crate::models::{Article, ArticlesManager};
+use crate::views::{ArticleView, ArticlesView, LoginView};
 use crate::window_state;
 
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum View {
     Article,       // Article
     Login,         // Sign in
-    Unread,        // Unread articles
-    Archive,       // Archived articles
-    Favorites,     // Favorites articles
+    Articles,      // Unread articles
     Syncing(bool), // During sync
     NewArticle,    // New Article
 }
@@ -29,11 +25,9 @@ pub struct Window {
     pub widget: gtk::ApplicationWindow,
     builder: gtk::Builder,
     sender: Sender<Action>,
-    pub view_history: Rc<RefCell<Vec<View>>>,
     article_view: ArticleView,
-    unread_view: UnreadView,
-    favorites_view: FavoritesView,
-    archive_view: ArchiveView,
+    pub articles_view: ArticlesView,
+    login_view: LoginView,
     actions: gio::SimpleActionGroup,
 }
 
@@ -48,14 +42,14 @@ impl Window {
         }
         let actions = gio::SimpleActionGroup::new();
 
+        let articles_manager = ArticlesManager::new(sender.clone());
+
         let window_widget = Rc::new(Window {
             widget: window,
             builder,
-            view_history: Rc::new(RefCell::new(vec![])),
-            article_view: ArticleView::new(sender.clone()),
-            unread_view: UnreadView::new(sender.clone()),
-            favorites_view: FavoritesView::new(sender.clone()),
-            archive_view: ArchiveView::new(sender.clone()),
+            article_view: ArticleView::new(articles_manager.sender.clone()),
+            articles_view: ArticlesView::new(articles_manager.sender.clone()),
+            login_view: LoginView::new(sender.clone()),
             sender,
             actions,
         });
@@ -64,56 +58,6 @@ impl Window {
         window_widget.init_views(window_widget.clone());
         window_widget.setup_actions();
         window_widget
-    }
-
-    pub fn add_article(&self, article: Article) {
-        if article.is_starred {
-            self.favorites_view.add(article);
-        } else if article.is_archived {
-            self.archive_view.add(article);
-        } else {
-            self.unread_view.add(article);
-        }
-    }
-
-    pub fn update_article(&self, article: Article) {}
-
-    pub fn delete_article(&self, article: Article) -> Result<(), Error> {
-        if !article.is_starred && !article.is_archived {
-            self.unread_view.delete(article.clone());
-        } else {
-            if article.is_starred {
-                self.favorites_view.delete(article.clone());
-            }
-            if article.is_archived {
-                self.archive_view.delete(article.clone());
-            }
-        }
-        Ok(article.delete()?)
-    }
-
-    pub fn favorite_article(&self, article: Article) {
-        if !article.is_starred {
-            if !article.is_archived {
-                self.unread_view.add(article.clone());
-            }
-            self.favorites_view.delete(article.clone());
-        } else {
-            self.favorites_view.add(article.clone());
-            self.unread_view.delete(article.clone());
-        }
-    }
-
-    pub fn archive_article(&self, article: Article) {
-        if !article.is_archived {
-            if !article.is_starred {
-                self.unread_view.add(article.clone());
-            }
-            self.archive_view.delete(article.clone());
-        } else {
-            self.archive_view.add(article.clone());
-            self.unread_view.delete(article.clone());
-        }
     }
 
     pub fn load_article(&self, article: Article) {
@@ -137,15 +81,6 @@ impl Window {
         self.set_view(View::Article);
     }
 
-    pub fn get_new_article_url(&self) -> Option<Url> {
-        get_widget!(self.builder, gtk::Entry, article_url_entry);
-
-        if let Ok(url) = Url::parse(&article_url_entry.get_text().unwrap()) {
-            return Some(url);
-        }
-        return None;
-    }
-
     pub fn notify(&self, message: String) {
         get_widget!(self.builder, gtk::Revealer, notification);
         get_widget!(self.builder, gtk::Label, notification_label);
@@ -153,10 +88,14 @@ impl Window {
         notification_label.set_text(&message);
         notification.set_reveal_child(true);
 
-        gtk::timeout_add_seconds(3, move || {
+        gtk::timeout_add_seconds(5, move || {
             notification.set_reveal_child(false);
             glib::Continue(false)
         });
+    }
+
+    pub fn previous_view(&self) {
+        self.set_view(View::Articles);
     }
 
     pub fn set_view(&self, view: View) {
@@ -167,19 +106,8 @@ impl Window {
                 main_stack.set_visible_child_name("article");
                 headerbar_stack.set_visible_child_name("article");
             }
-            View::Archive => {
-                self.archive_view.get_widget().queue_resize();
-                main_stack.set_visible_child_name("archive");
-                headerbar_stack.set_visible_child_name("articles");
-            }
-            View::Favorites => {
-                self.favorites_view.get_widget().queue_resize();
-                main_stack.set_visible_child_name("favorites");
-                headerbar_stack.set_visible_child_name("articles");
-            }
-            View::Unread => {
-                self.unread_view.get_widget().queue_resize();
-                main_stack.set_visible_child_name("unread");
+            View::Articles => {
+                main_stack.set_visible_child_name("articles");
                 headerbar_stack.set_visible_child_name("articles");
             }
             View::Login => {
@@ -205,45 +133,6 @@ impl Window {
                 get_widget!(self.builder, gtk::Entry, article_url_entry);
                 article_url_entry.grab_focus_without_selecting();
             }
-        }
-        // Store the view in history
-        match view {
-            View::Article | View::Unread | View::Favorites | View::Archive | View::NewArticle => {
-                let view_history = self.view_history.borrow().clone();
-                match view_history.last() {
-                    Some(v) => {
-                        if v != &view {
-                            // Avoid saving the same view twice
-                            self.view_history.borrow_mut().push(view);
-                        }
-                    }
-                    _ => self.view_history.borrow_mut().push(view),
-                }
-            }
-            _ => (),
-        }
-    }
-
-    pub fn previous_view(&self) {
-        get_widget!(self.builder, libhandy::SearchBar, searchbar);
-        if searchbar.get_search_mode() {
-            // Just disable search
-            searchbar.set_search_mode(false);
-            return;
-        }
-
-        let total_views = self.view_history.borrow().len();
-        if total_views < 2 {
-            return; // No previous view available
-        }
-        let current_view = self.view_history.borrow_mut().pop(); // Remove current view from history
-        if current_view == Some(View::Article) {
-            searchbar.set_search_mode(false);
-        }
-
-        let new_view = self.view_history.borrow().clone();
-        if let Some(view) = new_view.get(new_view.len() - 1) {
-            self.set_view(*view);
         }
     }
 
@@ -317,42 +206,35 @@ impl Window {
     fn init_views(&self, win: Rc<Self>) {
         get_widget!(self.builder, gtk::Stack, main_stack);
         // Login Form
-        let login_view = LoginView::new(self.sender.clone());
-        main_stack.add_named(&login_view.get_widget(), &login_view.name);
+        main_stack.add_named(&self.login_view.get_widget(), &self.login_view.name);
 
-        // Unread View
-        main_stack.add_titled(&self.unread_view.get_widget(), &self.unread_view.name, &self.unread_view.title);
-        main_stack.set_child_icon_name(&self.unread_view.get_widget(), Some(&self.unread_view.icon));
+        // Articles
+        get_widget!(self.builder, libhandy::ViewSwitcher, title_wide_switcher);
+        get_widget!(self.builder, libhandy::ViewSwitcher, title_narrow_switcher);
+        get_widget!(self.builder, libhandy::ViewSwitcherBar, switcher_bar);
 
-        // Favorites View
-        main_stack.add_titled(
-            &self.favorites_view.get_widget(),
-            &self.favorites_view.name,
-            &self.favorites_view.title,
-        );
-        main_stack.set_child_icon_name(&self.favorites_view.get_widget(), Some(&self.favorites_view.icon));
-
-        // Archive View
-        main_stack.add_titled(&self.archive_view.get_widget(), &self.archive_view.name, &self.archive_view.title);
-        main_stack.set_child_icon_name(&self.archive_view.get_widget(), Some(&self.archive_view.icon));
+        main_stack.add_named(&self.articles_view.widget, "articles");
+        title_wide_switcher.set_stack(Some(&self.articles_view.widget));
+        title_narrow_switcher.set_stack(Some(&self.articles_view.widget));
+        switcher_bar.set_stack(Some(&self.articles_view.widget));
 
         // Article View
         main_stack.add_named(&self.article_view.get_widget(), &self.article_view.name);
         self.widget.insert_action_group("article", self.article_view.get_actions());
 
-        // hackish way to sync unread/favorites/archive with view history :p
         let article_view = self.article_view.clone();
-
         main_stack.connect_property_visible_child_name_notify(move |stack| {
             if let Some(view_name) = stack.get_visible_child_name() {
-                if view_name == "unread" {
-                    win.set_view(View::Unread);
-                } else if view_name == "favorites" {
-                    win.set_view(View::Favorites);
-                } else if view_name == "archive" {
-                    win.set_view(View::Archive);
-                }
                 article_view.set_enable_actions(view_name == "article");
+            }
+        });
+
+        let sender = self.sender.clone();
+        get_widget!(self.builder, gtk::Button, save_article_btn);
+        get_widget!(self.builder, gtk::Entry, article_url_entry);
+        save_article_btn.connect_clicked(move |_| {
+            if let Ok(url) = Url::parse(&article_url_entry.get_text().unwrap()) {
+                send!(sender, Action::SaveArticle(url));
             }
         });
     }
