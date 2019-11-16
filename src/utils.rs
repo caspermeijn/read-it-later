@@ -26,10 +26,18 @@ macro_rules! send {
 }
 
 macro_rules! action {
-    ($widget:expr, $name:expr, $callback:expr) => {
+    ($actions_group:expr, $name:expr, $callback:expr) => {
         let simple_action = gio::SimpleAction::new($name, None);
         simple_action.connect_activate($callback);
-        $widget.add_action(&simple_action);
+        $actions_group.add_action(&simple_action);
+    };
+}
+
+macro_rules! stateful_action {
+    ($actions_group:expr, $name:expr, $value:expr, $callback:expr) => {
+        let simple_action = gio::SimpleAction::new_stateful($name, None, &$value.to_variant());
+        simple_action.connect_activate($callback);
+        $actions_group.add_action(&simple_action);
     };
 }
 

@@ -1,4 +1,3 @@
-use crate::models::Article;
 use chrono::DateTime;
 use failure::Error;
 use futures::lock::Mutex;
@@ -10,6 +9,7 @@ use wallabag_api::types::{EntriesFilter, NewEntry, PatchEntry, SortBy, SortOrder
 use wallabag_api::Client;
 
 use crate::application::Action;
+use crate::models::{Article, ArticleAction};
 
 #[derive(Clone, Debug)]
 pub struct ClientManager {
@@ -65,7 +65,7 @@ impl ClientManager {
                     let new_entry = NewEntry::new_with_url(url.into_string());
                     if let Ok(entry) = guard.create_entry(&new_entry).await {
                         let article = Article::from(entry);
-                        // send!(sender, Action::AddArticle(article));
+                        send!(sender, Action::Articles(ArticleAction::Add(article)));
                     }
                 })
                 .await;
@@ -83,7 +83,6 @@ impl ClientManager {
             public: None,
         };
         if let Some(client) = self.client.clone() {
-            let sender = self.sender.clone();
             return client
                 .lock()
                 .then(async move |mut guard| {

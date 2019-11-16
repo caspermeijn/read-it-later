@@ -9,7 +9,6 @@ pub struct ArticlesView {
     unread_view: ArticlesListView,
     favorites_view: ArticlesListView,
     archive_view: ArticlesListView,
-    sender: Sender<ArticleAction>,
 }
 
 impl ArticlesView {
@@ -27,7 +26,6 @@ impl ArticlesView {
 
         let articles_view = Self {
             widget,
-            sender,
             archive_view,
             favorites_view,
             unread_view,

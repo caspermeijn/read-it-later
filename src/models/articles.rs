@@ -48,7 +48,7 @@ impl ArticlesManager {
 
     fn do_action(&self, action: ArticleAction) -> glib::Continue {
         match action {
-            ArticleAction::Add(article) => (), // Do nothing for now
+            ArticleAction::Add(_) => (), // Do nothing for now
             ArticleAction::Delete(article) => self.delete(article),
             ArticleAction::Open(article) => self.open(article),
             ArticleAction::Archive(article) => self.archive(article),
@@ -63,7 +63,7 @@ impl ArticlesManager {
         send!(self.main_sender, Action::Articles(ArticleAction::Open(article)));
     }
 
-    fn update(&self, mut article: Article) {
+    fn update(&self, article: Article) {
         send!(self.main_sender, Action::Articles(ArticleAction::Update(article)));
     }
 

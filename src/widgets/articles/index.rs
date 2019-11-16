@@ -126,43 +126,49 @@ impl ArticleWidget {
         );
         // Close the article
         let sender = self.sender.clone();
-        action!(self.actions, "close", move |_, _| {
-            send!(sender, ArticleAction::Close);
-        });
-
+        action!(
+            self.actions,
+            "close",
+            clone!(sender => move |_, _| {
+                send!(sender, ArticleAction::Close);
+            })
+        );
         // Archive article
-        let is_archived = false; // false by default
-        let archive_article = gio::SimpleAction::new_stateful("archive", None, &is_archived.to_variant());
-        let sender = self.sender.clone();
-        archive_article.connect_activate(clone!(aw => move |action, _| {
-            let state = action.get_state().unwrap();
-            let action_state: bool = state.get().unwrap();
-            let is_archived = !action_state;
-            action.set_state(&is_archived.to_variant());
-            if let Some(article) = aw.article.borrow_mut().clone() {
-                send!(sender, ArticleAction::Archive(article));
-            }
-        }));
-        self.actions.add_action(&archive_article);
+        stateful_action!(
+            self.actions,
+            "archive",
+            false,
+            clone!(aw => move |action, _|{
+                let state = action.get_state().unwrap();
+                let action_state: bool = state.get().unwrap();
+                let is_archived = !action_state;
+                action.set_state(&is_archived.to_variant());
+                if let Some(article) = aw.article.borrow_mut().clone() {
+                    send!(sender, ArticleAction::Archive(article));
+                }
+            })
+        );
         // Favorite article
-        let is_starred = false; // false by default
-        let favorite_article = gio::SimpleAction::new_stateful("favorite", None, &is_starred.to_variant());
         let sender = self.sender.clone();
+        stateful_action!(
+            self.actions,
+            "favorite",
+            false,
+            clone!(aw => move |action, _|{
+                let state = action.get_state().unwrap();
+                let action_state: bool = state.get().unwrap();
+                let is_starred = !action_state;
+                action.set_state(&is_starred.to_variant());
 
-        favorite_article.connect_activate(clone!(aw => move |action, _| {
-            let state = action.get_state().unwrap();
-            let action_state: bool = state.get().unwrap();
-            let is_starred = !action_state;
-            action.set_state(&is_starred.to_variant());
-
-            if let Some(article) = aw.article.borrow_mut().clone() {
-                send!(sender, ArticleAction::Favorite(article));
-            }
-        }));
-        self.actions.add_action(&favorite_article);
+                if let Some(article) = aw.article.borrow_mut().clone() {
+                    send!(sender, ArticleAction::Favorite(article));
+                }
+            })
+        );
     }
 
     pub fn load_article(&self, article: Article) {
+        info!("Loading the article {:#?}", article.title);
         self.article.replace(Some(article.clone()));
         // Progress Bar Revealer
         get_widget!(self.builder, gtk::Revealer, revealer);
@@ -189,13 +195,13 @@ impl ArticleWidget {
                 layout_html = layout_html.replace("{content}", content);
             }
 
-            let mut layout_css = utils::load_resource("layout.css").unwrap();
+            let mut layout_css = utils::load_resource("layout.css").expect("Couldn't find the article layout css");
             if SettingsManager::get_boolean(Key::DarkMode) {
-                layout_css.push_str(&utils::load_resource("layout-dark.css").unwrap());
+                layout_css.push_str(&utils::load_resource("layout-dark.css").expect("Couldn't find the article dark layout css"));
             }
             layout_html = layout_html.replace("{css}", &layout_css);
 
-            let layout_js = utils::load_resource("layout.js").unwrap();
+            let layout_js = utils::load_resource("layout.js").expect("Couldn't find the article layout js");
             layout_html = layout_html.replace("{js}", &layout_js);
             self.webview.load_html(&layout_html, None);
         }

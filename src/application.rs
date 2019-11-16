@@ -31,7 +31,7 @@ pub enum Action {
 
 pub struct Application {
     app: gtk::Application,
-    window: Rc<Window>,
+    window: Window,
     sender: Sender<Action>,
     receiver: RefCell<Option<Receiver<Action>>>,
     client: Arc<Mutex<ClientManager>>,
@@ -323,7 +323,7 @@ impl Application {
     fn archive_article(&self, article: Article) {
         info!("(Un)archiving the article \"{:#?}\" with ID: {}", article.title, article.id);
         send!(self.sender, Action::SetView(View::Syncing(true)));
-        self.window.articles_view.update(&article);
+        self.window.articles_view.archive(&article);
 
         let sender = self.sender.clone();
         let client = self.client.clone();
@@ -341,7 +341,7 @@ impl Application {
     fn favorite_article(&self, article: Article) {
         info!("(Un)favoriting the article \"{:#?}\" with ID: {}", article.title, article.id);
         send!(self.sender, Action::SetView(View::Syncing(true)));
-        self.window.articles_view.update(&article);
+        self.window.articles_view.favorite(&article);
 
         let sender = self.sender.clone();
         let client = self.client.clone();

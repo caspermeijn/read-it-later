@@ -3,7 +3,6 @@ use glib::Sender;
 use gtk::prelude::*;
 use libhandy::prelude::*;
 use libhandy::SearchBarExt;
-use std::rc::Rc;
 use url::Url;
 
 use crate::application::Action;
@@ -32,7 +31,7 @@ pub struct Window {
 }
 
 impl Window {
-    pub fn new(sender: Sender<Action>) -> Rc<Self> {
+    pub fn new(sender: Sender<Action>) -> Self {
         let settings = gio::Settings::new(APP_ID);
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/window.ui");
         get_widget!(builder, gtk::ApplicationWindow, window);
@@ -44,7 +43,7 @@ impl Window {
 
         let articles_manager = ArticlesManager::new(sender.clone());
 
-        let window_widget = Rc::new(Window {
+        let window_widget = Window {
             widget: window,
             builder,
             article_view: ArticleView::new(articles_manager.sender.clone()),
@@ -52,10 +51,10 @@ impl Window {
             login_view: LoginView::new(sender.clone()),
             sender,
             actions,
-        });
+        };
 
         window_widget.init(settings);
-        window_widget.init_views(window_widget.clone());
+        window_widget.init_views();
         window_widget.setup_actions();
         window_widget
     }
@@ -203,7 +202,7 @@ impl Window {
         });
     }
 
-    fn init_views(&self, win: Rc<Self>) {
+    fn init_views(&self) {
         get_widget!(self.builder, gtk::Stack, main_stack);
         // Login Form
         main_stack.add_named(&self.login_view.get_widget(), &self.login_view.name);
