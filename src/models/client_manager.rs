@@ -6,7 +6,7 @@ use glib::futures::FutureExt;
 use glib::Sender;
 use std::sync::Arc;
 use url::Url;
-use wallabag_api::types::{EntriesFilter, Entry, NewEntry, PatchEntry, SortBy, SortOrder, User};
+use wallabag_api::types::{EntriesFilter, NewEntry, PatchEntry, SortBy, SortOrder, User};
 use wallabag_api::Client;
 
 use crate::application::Action;
@@ -72,7 +72,7 @@ impl ClientManager {
         }
     }
 
-    pub async fn sync(&self, since: DateTime<chrono::Utc>) -> Result<Vec<Entry>, Error> {
+    pub async fn sync(&self, since: DateTime<chrono::Utc>) -> Result<Vec<Article>, Error> {
         let filter = EntriesFilter {
             archive: None,
             starred: None,
@@ -86,7 +86,11 @@ impl ClientManager {
             let sender = self.sender.clone();
             return client
                 .lock()
-                .then(async move |mut guard| guard.get_entries_with_filter(&filter).await)
+                .then(async move |mut guard| {
+                    let entries = guard.get_entries_with_filter(&filter).await?;
+                    let articles = entries.into_iter().map(|entry| Article::from(entry)).collect::<Vec<Article>>();
+                    Ok(articles) as Result<Vec<Article>, Error>
+                })
                 .await
                 .map_err(From::from);
         }

@@ -48,6 +48,13 @@
                         <child>
                             <object class="GtkShortcutsShortcut">
                                 <property name="visible">True</property>
+                                <property name="title" translatable="yes" context="shortcut window">Synchronize</property>
+                                <property name="accelerator">F5</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkShortcutsShortcut">
+                                <property name="visible">True</property>
                                 <property name="title" translatable="yes" context="shortcut window">New Article</property>
                                 <property name="accelerator">&lt;Primary&gt;N</property>
                             </object>

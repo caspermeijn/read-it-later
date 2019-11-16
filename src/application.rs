@@ -23,6 +23,8 @@ pub enum Action {
     PreviousView,
     Notify(String), // Notification message?
     SetClientConfig(Config),
+    LoadArticles(Vec<Article>), // Post sync action
+    Sync,
     Login,
     Logout,
 }
@@ -80,12 +82,14 @@ impl Application {
             /* Articles */
             Action::Articles(article_action) => self.do_article_action(article_action),
             Action::SaveArticle(url) => self.save_article(url),
+            Action::LoadArticles(articles) => self.load_articles(articles),
             /* UI */
             Action::SetView(view) => self.window.set_view(view),
             Action::PreviousView => self.window.previous_view(),
             Action::Notify(err_msg) => self.window.notify(err_msg),
             /* Auth */
             Action::SetClientConfig(config) => self.set_client_config(config),
+            Action::Sync => self.sync(),
             Action::Login => self.login(),
             Action::Logout => self.logout(),
         };
@@ -94,10 +98,12 @@ impl Application {
 
     fn do_article_action(&self, action: ArticleAction) {
         match action {
+            ArticleAction::Add(article) => self.add_article(article),
             ArticleAction::Open(article) => self.window.load_article(article),
             ArticleAction::Delete(article) => self.delete_article(article),
             ArticleAction::Archive(article) => self.archive_article(article),
             ArticleAction::Favorite(article) => self.favorite_article(article),
+            ArticleAction::Update(article) => self.update_article(article),
             _ => (),
         };
     }
@@ -141,12 +147,15 @@ impl Application {
         );
         action!(self.app, "logout", clone!(sender => move |_, _| send!(sender, Action::Logout)));
         action!(self.app, "back", clone!(sender => move |_, _| send!(sender, Action::PreviousView)));
+        action!(self.app, "sync", clone!(sender => move |_, _| send!(sender, Action::Sync)));
 
         self.app.set_accels_for_action("app.back", &["Escape"]);
         self.app.set_accels_for_action("app.quit", &["<primary>q"]);
         self.app.set_accels_for_action("app.settings", &["<primary>comma"]);
         self.app.set_accels_for_action("app.new-article", &["<primary>N"]);
+        self.app.set_accels_for_action("app.sync", &["F5"]);
         // Articles
+
         self.app.set_accels_for_action("article.delete", &["Delete"]);
         self.app.set_accels_for_action("article.favorite", &["<primary><alt>F"]);
         self.app.set_accels_for_action("article.archive", &["<primary><alt>A"]);
@@ -239,7 +248,7 @@ impl Application {
     }
 
     fn sync(&self) {
-        self.window.set_view(View::Syncing(true));
+        send!(self.sender, Action::SetView(View::Syncing(true)));
         let mut since = Utc.timestamp(0, 0);
         let last_sync = SettingsManager::get_integer(Key::LatestSync);
         if last_sync != 0 {
@@ -255,20 +264,8 @@ impl Application {
                 .then(async move |guard| {
                     info!("Starting a new sync");
                     match guard.sync(since).await {
-                        Ok(entries) => {
-                            entries.into_iter().for_each(|entry| {
-                                let sender_clone = sender.clone();
-                                let article = Article::from(entry);
-                                gtk::idle_add(move || {
-                                    /*match article.insert() {
-                                        // Ok(_) => send!(sender_clone, Action::AddArticle(article.clone())),
-                                        // Err(_) => send!(sender_clone, Action::UpdateArticle(article.clone())),
-                                    };
-                                    */
-                                    glib::Continue(false)
-                                });
-                            });
-
+                        Ok(articles) => {
+                            send!(sender, Action::LoadArticles(articles));
                             let now = Utc::now().timestamp();
                             SettingsManager::set_integer(Key::LatestSync, now as i32);
                         }
@@ -284,8 +281,29 @@ impl Application {
      *   Articles
      */
 
+    fn add_article(&self, article: Article) {
+        self.window.articles_view.add(&article);
+    }
+
+    fn load_articles(&self, articles: Vec<Article>) {
+        let sender = self.sender.clone();
+        articles.into_iter().for_each(move |article| {
+            gtk::idle_add(clone!(sender => move || {
+                match article.insert() {
+                    Ok(_) => send!(sender, Action::Articles(ArticleAction::Add(article.clone()))),
+                    Err(_) => send!(sender, Action::Articles(ArticleAction::Update(article.clone()))),
+                };
+                glib::Continue(false)
+            }));
+        });
+    }
+
+    fn update_article(&self, article: Article) {
+        self.window.articles_view.update(&article);
+    }
+
     fn save_article(&self, url: Url) {
-        debug!("Saving new article \"{:#?}\"", url);
+        info!("Saving new article \"{:#?}\"", url);
         let client = self.client.clone();
         let sender = self.sender.clone();
         send!(sender, Action::SetView(View::Syncing(true)));
@@ -296,15 +314,16 @@ impl Application {
                     guard.save_url(url).await;
                     send!(sender, Action::SetView(View::Syncing(false)));
                     send!(sender, Action::PreviousView);
+                    send!(sender, Action::Sync);
                 })
                 .await
         });
     }
 
     fn archive_article(&self, article: Article) {
-        debug!("(Un)archiving the article \"{:#?}\" with ID: {}", article.title, article.id);
+        info!("(Un)archiving the article \"{:#?}\" with ID: {}", article.title, article.id);
         send!(self.sender, Action::SetView(View::Syncing(true)));
-        self.window.articles_view.archive(&article);
+        self.window.articles_view.update(&article);
 
         let sender = self.sender.clone();
         let client = self.client.clone();
@@ -320,9 +339,9 @@ impl Application {
     }
 
     fn favorite_article(&self, article: Article) {
-        debug!("(Un)favoriting the article \"{:#?}\" with ID: {}", article.title, article.id);
+        info!("(Un)favoriting the article \"{:#?}\" with ID: {}", article.title, article.id);
         send!(self.sender, Action::SetView(View::Syncing(true)));
-        self.window.articles_view.favorite(&article);
+        self.window.articles_view.update(&article);
 
         let sender = self.sender.clone();
         let client = self.client.clone();
@@ -338,7 +357,7 @@ impl Application {
     }
 
     fn delete_article(&self, article: Article) {
-        debug!("Deleting the article \"{:#?}\" with ID: {}", article.title, article.id);
+        info!("Deleting the article \"{:#?}\" with ID: {}", article.title, article.id);
         send!(self.sender, Action::SetView(View::Syncing(true)));
         self.window.articles_view.delete(&article);
 

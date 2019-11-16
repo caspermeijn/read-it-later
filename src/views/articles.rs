@@ -1,4 +1,3 @@
-use failure::Error;
 use glib::Sender;
 use gtk::prelude::*;
 
@@ -75,20 +74,21 @@ impl ArticlesView {
         }
     }
 
-    pub fn update(&self, article: Article) {}
+    pub fn update(&self, article: &Article) {
+        self.remove_from_view(article);
+        self.add(article);
+    }
 
     pub fn delete(&self, article: &Article) {
         self.remove_from_view(article);
     }
 
     pub fn favorite(&self, article: &Article) {
-        self.remove_from_view(article);
-        self.add(article);
+        self.update(article);
     }
 
     pub fn archive(&self, article: &Article) {
-        self.remove_from_view(article);
-        self.add(article);
+        self.update(article);
     }
 
     fn remove_from_view(&self, article: &Article) {

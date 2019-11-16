@@ -7,10 +7,12 @@ use crate::application::Action;
 
 #[derive(Debug, PartialEq, Clone)]
 pub enum ArticleAction {
+    Add(Article),
     Delete(Article),
     Archive(Article),
     Favorite(Article),
     Open(Article),
+    Update(Article),
     Close,
 }
 
@@ -46,10 +48,12 @@ impl ArticlesManager {
 
     fn do_action(&self, action: ArticleAction) -> glib::Continue {
         match action {
+            ArticleAction::Add(article) => (), // Do nothing for now
             ArticleAction::Delete(article) => self.delete(article),
             ArticleAction::Open(article) => self.open(article),
             ArticleAction::Archive(article) => self.archive(article),
             ArticleAction::Favorite(article) => self.favorite(article),
+            ArticleAction::Update(article) => self.update(article), // Update article values by their ID.
             ArticleAction::Close => send!(self.main_sender, Action::PreviousView),
         };
         glib::Continue(true)
@@ -57,6 +61,10 @@ impl ArticlesManager {
 
     fn open(&self, article: Article) {
         send!(self.main_sender, Action::Articles(ArticleAction::Open(article)));
+    }
+
+    fn update(&self, mut article: Article) {
+        send!(self.main_sender, Action::Articles(ArticleAction::Update(article)));
     }
 
     fn archive(&self, mut article: Article) {
