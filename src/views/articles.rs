@@ -36,6 +36,8 @@ impl ArticlesView {
 
     fn init(&self) {
         self.widget.set_homogeneous(false);
+        self.widget.set_transition_duration(200);
+        self.widget.set_transition_type(gtk::StackTransitionType::SlideLeftRight);
 
         // Unread View
         self.widget

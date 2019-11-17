@@ -94,6 +94,7 @@ impl Window {
     }
 
     pub fn previous_view(&self) {
+        println!("Hey changing the view again");
         self.set_view(View::Articles);
     }
 
@@ -236,16 +237,24 @@ impl Window {
                 send!(sender, Action::SaveArticle(url));
             }
         });
+
+        self.set_view(View::Login);
     }
 
     fn setup_actions(&self) {
         get_widget!(self.builder, gtk::Revealer, notification);
-        let simple_action = gio::SimpleAction::new("close-notification", None);
-        simple_action.connect_activate(move |_, _| {
+
+        action!(self.actions, "close-notification", move |_, _| {
             notification.set_reveal_child(false);
         });
-        self.actions.add_action(&simple_action);
 
-        self.widget.insert_action_group("window", Some(&self.actions));
+        let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/shortcuts.ui");
+        get_widget!(builder, gtk::ShortcutsWindow, shortcuts);
+        self.widget.set_help_overlay(Some(&shortcuts));
+
+        let sender = self.sender.clone();
+        action!(self.actions, "previous", move |_, _| send!(sender, Action::PreviousView));
+
+        self.widget.insert_action_group("win", Some(&self.actions));
     }
 }

@@ -146,10 +146,11 @@ impl Application {
             })
         );
         action!(self.app, "logout", clone!(sender => move |_, _| send!(sender, Action::Logout)));
-        action!(self.app, "back", clone!(sender => move |_, _| send!(sender, Action::PreviousView)));
         action!(self.app, "sync", clone!(sender => move |_, _| send!(sender, Action::Sync)));
 
-        self.app.set_accels_for_action("app.back", &["Escape"]);
+        self.app.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
+        self.app.set_accels_for_action("win.previous", &["Escape"]);
+
         self.app.set_accels_for_action("app.quit", &["<primary>q"]);
         self.app.set_accels_for_action("app.settings", &["<primary>comma"]);
         self.app.set_accels_for_action("app.new-article", &["<primary>N"]);
@@ -170,11 +171,6 @@ impl Application {
             app.add_window(&window);
             window.present();
         });
-
-        let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/shortcuts.ui");
-        get_widget!(builder, gtk::ShortcutsWindow, shortcuts);
-        self.window.widget.set_help_overlay(Some(&shortcuts));
-        self.app.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
 
         if let Some(gtk_settings) = gtk::Settings::get_default() {
             SettingsManager::bind_property(Key::DarkMode, &gtk_settings, "gtk-application-prefer-dark-theme");
@@ -200,7 +196,6 @@ impl Application {
         let username = SettingsManager::get_string(Key::Username);
         match SecretManager::is_logged(&username) {
             Some(config) => {
-                // Stored Config from Secret Service
                 send!(self.sender, Action::SetView(View::Articles));
                 self.set_client_config(config);
             }
@@ -243,6 +238,8 @@ impl Application {
     }
 
     fn logout(&self) {
+        let username = SettingsManager::get_string(Key::Username);
+        SecretManager::logout(&username);
         SettingsManager::set_string(Key::Username, "".into());
         send!(self.sender, Action::SetView(View::Login));
     }

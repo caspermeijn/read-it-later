@@ -87,6 +87,13 @@ impl Article {
         patch
     }
 
+    pub fn get_reading_time(&self) -> Option<String> {
+        if self.reading_time != 0 {
+            return Some(format!("{} minutes", self.reading_time));
+        }
+        None
+    }
+
     pub fn insert(&self) -> Result<(), database::Error> {
         let db = database::connection();
         let conn = db.get()?;

@@ -65,11 +65,15 @@ impl ArticleRow {
         get_widget!(self.builder, gtk::Label, info_label);
         let mut article_info = String::from("");
         if let Some(base_url) = &self.article.base_url {
-            article_info.push_str(&format!("{} | ", base_url));
+            article_info.push_str(&format!("{}", base_url));
         }
         if let Some(authors) = &self.article.published_by {
-            article_info.push_str(&format!("by {} ", authors));
+            article_info.push_str(&format!(" | by {} ", authors));
         }
+        if let Some(reading_time) = self.article.get_reading_time() {
+            article_info.push_str(&format!(" | {} ", reading_time));
+        }
+
         if &article_info != "" {
             info_label.set_text(&article_info);
         } else {

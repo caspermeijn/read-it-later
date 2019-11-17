@@ -13,14 +13,9 @@ pub enum ArticleAction {
     Favorite(Article),
     Open(Article),
     Update(Article),
-    Close,
 }
 
 pub struct ArticlesManager {
-    /*
-        Ensures that the articles are synced
-        between the local database and the server
-    */
     main_sender: Sender<Action>,
     pub sender: Sender<ArticleAction>,
     receiver: RefCell<Option<Receiver<ArticleAction>>>,
@@ -48,13 +43,12 @@ impl ArticlesManager {
 
     fn do_action(&self, action: ArticleAction) -> glib::Continue {
         match action {
-            ArticleAction::Add(_) => (), // Do nothing for now
             ArticleAction::Delete(article) => self.delete(article),
             ArticleAction::Open(article) => self.open(article),
             ArticleAction::Archive(article) => self.archive(article),
             ArticleAction::Favorite(article) => self.favorite(article),
             ArticleAction::Update(article) => self.update(article), // Update article values by their ID.
-            ArticleAction::Close => send!(self.main_sender, Action::PreviousView),
+            _ => (),                                                // Do nothing for now
         };
         glib::Continue(true)
     }
@@ -69,28 +63,22 @@ impl ArticlesManager {
 
     fn archive(&self, mut article: Article) {
         match article.toggle_archive() {
-            Ok(_) => {
-                send!(self.main_sender, Action::Articles(ArticleAction::Archive(article)));
-            }
-            Err(_) => {}
+            Ok(_) => send!(self.main_sender, Action::Articles(ArticleAction::Archive(article))),
+            Err(err) => error!("Failed to (un)archive the article {}", err),
         }
     }
 
     fn favorite(&self, mut article: Article) {
         match article.toggle_favorite() {
-            Ok(_) => {
-                send!(self.main_sender, Action::Articles(ArticleAction::Favorite(article)));
-            }
-            Err(_) => {}
+            Ok(_) => send!(self.main_sender, Action::Articles(ArticleAction::Favorite(article))),
+            Err(err) => error!("Failed to (un)favorite the article {}", err),
         }
     }
 
     fn delete(&self, article: Article) {
         match article.delete() {
-            Ok(_) => {
-                send!(self.main_sender, Action::Articles(ArticleAction::Delete(article)));
-            }
-            Err(_) => {}
+            Ok(_) => send!(self.main_sender, Action::Articles(ArticleAction::Delete(article))),
+            Err(err) => error!("Failed to delete the article {}", err),
         }
     }
 }

@@ -52,6 +52,19 @@ impl SecretManager {
             _ => None,
         }
     }
+
+    pub fn logout(username: &str) {
+        let service = Self::new();
+        let collection = service.service.get_default_collection().unwrap();
+        if let Ok(items) = collection.search_items(vec![("wallabag_username", &username)]) {
+            items.into_iter().for_each(|item| {
+                if let Err(err) = item.delete() {
+                    error!("Failed to remove a secret value from the keyring {}", err);
+                }
+            });
+        }
+    }
+
     fn insert(&self, key: String, attr: String, val: String) {
         let collection = self.service.get_default_collection().unwrap();
         collection

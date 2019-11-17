@@ -124,16 +124,8 @@ impl ArticleWidget {
                 }
             })
         );
-        // Close the article
-        let sender = self.sender.clone();
-        action!(
-            self.actions,
-            "close",
-            clone!(sender => move |_, _| {
-                send!(sender, ArticleAction::Close);
-            })
-        );
         // Archive article
+        let sender = self.sender.clone();
         stateful_action!(
             self.actions,
             "archive",
@@ -189,6 +181,11 @@ impl ArticleWidget {
                 let formatted_date = published_date.format("%d %b %Y").to_string();
                 article_info.push_str(&format!("on {} ", formatted_date));
             }
+
+            if let Some(reading_time) = article.get_reading_time() {
+                article_info.push_str(&format!("| {} ", reading_time));
+            }
+
             layout_html = layout_html.replace("{article_info}", &article_info);
 
             if let Some(content) = &article.content {
