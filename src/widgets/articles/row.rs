@@ -44,7 +44,7 @@ impl ArticleRow {
         match action {
             ArticleRowAction::ImageDownloaded => {
                 match self.article.get_preview_pixbuf() {
-                    Ok(pixbuf) => self.preview_image.set_pixbuf(pixbuf),
+                    Some(pixbuf) => self.preview_image.set_pixbuf(pixbuf),
                     _ => self.preview_image.widget.hide(),
                 };
             }
@@ -63,23 +63,13 @@ impl ArticleRow {
         }
 
         get_widget!(self.builder, gtk::Label, info_label);
-        let mut article_info = String::from("");
-        if let Some(base_url) = &self.article.base_url {
-            article_info.push_str(&format!("{}", base_url));
-        }
-        if let Some(authors) = &self.article.published_by {
-            article_info.push_str(&format!(" | by {} ", authors));
-        }
-        if let Some(reading_time) = self.article.get_reading_time() {
-            article_info.push_str(&format!(" | {} ", reading_time));
-        }
-
-        if &article_info != "" {
-            info_label.set_text(&article_info);
-        } else {
-            info_label.set_no_show_all(false);
-            info_label.hide();
-        }
+        match self.article.get_article_info(false) {
+            Some(article_info) => info_label.set_text(&article_info),
+            None => {
+                info_label.set_no_show_all(false);
+                info_label.hide();
+            }
+        };
 
         get_widget!(self.builder, gtk::Label, content_label);
         if let Ok(Some(preview)) = self.article.get_preview() {

@@ -1,5 +1,5 @@
+use anyhow::Result;
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
-use failure::Error;
 use gdk_pixbuf::Pixbuf;
 use sanitize_html::sanitize_str;
 use wallabag_api::types::{Entry, PatchEntry};
@@ -28,7 +28,7 @@ pub struct Article {
 }
 
 impl Article {
-    pub fn load(filter: &ArticlesFilter) -> Result<Vec<Self>, Error> {
+    pub fn load(filter: &ArticlesFilter) -> Result<Vec<Self>> {
         use crate::schema::articles::dsl::*;
         let db = database::connection();
 
@@ -87,6 +87,28 @@ impl Article {
         patch
     }
 
+    pub fn get_article_info(&self, display_date: bool) -> Option<String> {
+        let mut article_info = String::from("");
+        if let Some(base_url) = &self.base_url {
+            article_info.push_str(&format!("{}", base_url));
+        }
+        if let Some(authors) = &self.published_by {
+            article_info.push_str(&format!(" | by {} ", authors));
+        }
+
+        if display_date {
+            if let Some(published_date) = &self.published_at {
+                let formatted_date = published_date.format("%d %b %Y").to_string();
+                article_info.push_str(&format!(" | on {} ", formatted_date));
+            }
+        }
+
+        if let Some(reading_time) = self.get_reading_time() {
+            article_info.push_str(&format!(" | {} ", reading_time));
+        }
+        Some(article_info)
+    }
+
     pub fn get_reading_time(&self) -> Option<String> {
         if self.reading_time != 0 {
             return Some(format!("{} minutes", self.reading_time));
@@ -94,7 +116,7 @@ impl Article {
         None
     }
 
-    pub fn insert(&self) -> Result<(), database::Error> {
+    pub fn insert(&self) -> Result<()> {
         let db = database::connection();
         let conn = db.get()?;
 
@@ -103,7 +125,7 @@ impl Article {
         Ok(())
     }
 
-    pub fn delete(&self) -> Result<(), database::Error> {
+    pub fn delete(&self) -> Result<()> {
         let db = database::connection();
         let conn = db.get()?;
         use crate::schema::articles::dsl::*;
@@ -113,7 +135,7 @@ impl Article {
         Ok(())
     }
 
-    pub fn toggle_favorite(&mut self) -> Result<(), database::Error> {
+    pub fn toggle_favorite(&mut self) -> Result<()> {
         let db = database::connection();
         let conn = db.get()?;
         use crate::schema::articles::dsl::*;
@@ -125,7 +147,7 @@ impl Article {
         Ok(())
     }
 
-    pub fn toggle_archive(&mut self) -> Result<(), database::Error> {
+    pub fn toggle_archive(&mut self) -> Result<()> {
         let db = database::connection();
         let conn = db.get()?;
         use crate::schema::articles::dsl::*;
@@ -137,7 +159,7 @@ impl Article {
         Ok(())
     }
 
-    pub async fn download_preview_image(&self) -> Result<(), Error> {
+    pub async fn download_preview_image(&self) -> Result<()> {
         if let Some(preview_picture) = &self.preview_picture {
             let preview_image = PreviewImage::new(preview_picture.to_string());
             preview_image.download().await?;
@@ -145,21 +167,23 @@ impl Article {
         Ok(())
     }
 
-    pub fn get_preview_pixbuf(&self) -> Result<Pixbuf, Error> {
+    pub fn get_preview_pixbuf(&self) -> Option<Pixbuf> {
         if let Some(preview_picture) = &self.preview_picture {
             let cache_path = PreviewImage::get_cache_of(&preview_picture);
 
-            let pixbuf = gdk_pixbuf::Pixbuf::new_from_file(cache_path)?;
-            return Ok(pixbuf);
+            return match gdk_pixbuf::Pixbuf::new_from_file(cache_path) {
+                Ok(pixbuf) => Some(pixbuf),
+                Err(_) => None,
+            };
         }
-        bail!("Failed to generate a pixbuf preview");
+        None
     }
 
-    pub fn get_preview(&self) -> Result<Option<String>, Error> {
+    pub fn get_preview(&self) -> Result<Option<String>> {
         match &self.content {
             Some(content) => {
                 // Regex to remove duplicate spaces
-                let re = regex::Regex::new(r"\s+").unwrap();
+                let re = regex::Regex::new(r"\s+")?;
 
                 let rules = sanitize_html::rules::Rules::new()
                     .delete("br")

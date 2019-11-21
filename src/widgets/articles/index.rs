@@ -170,23 +170,10 @@ impl ArticleWidget {
             if let Some(title) = &article.title {
                 layout_html = layout_html.replace("{title}", title);
             }
-            let mut article_info = String::from("");
-            if let Some(base_url) = &article.base_url {
-                article_info.push_str(&format!("{} | ", base_url));
-            }
-            if let Some(authors) = &article.published_by {
-                article_info.push_str(&format!("by {} ", authors));
-            }
-            if let Some(published_date) = &article.published_at {
-                let formatted_date = published_date.format("%d %b %Y").to_string();
-                article_info.push_str(&format!("on {} ", formatted_date));
-            }
 
-            if let Some(reading_time) = article.get_reading_time() {
-                article_info.push_str(&format!("| {} ", reading_time));
+            if let Some(article_info) = article.get_article_info(true) {
+                layout_html = layout_html.replace("{article_info}", &article_info);
             }
-
-            layout_html = layout_html.replace("{article_info}", &article_info);
 
             if let Some(content) = &article.content {
                 layout_html = layout_html.replace("{content}", content);

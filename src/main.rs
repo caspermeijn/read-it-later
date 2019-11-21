@@ -1,9 +1,8 @@
 #![feature(async_closure)]
 #[macro_use]
 extern crate log;
-extern crate pretty_env_logger;
 #[macro_use]
-extern crate failure;
+extern crate anyhow;
 #[macro_use]
 extern crate lazy_static;
 #[macro_use]
@@ -17,6 +16,7 @@ extern crate glib;
 #[macro_use]
 extern crate strum_macros;
 
+extern crate pretty_env_logger;
 extern crate webkit2gtk;
 
 use gettextrs::*;

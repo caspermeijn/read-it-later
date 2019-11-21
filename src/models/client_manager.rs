@@ -1,5 +1,5 @@
+use anyhow::Result;
 use chrono::DateTime;
-use failure::Error;
 use futures::lock::Mutex;
 use glib::futures::FutureExt;
 use glib::Sender;
@@ -72,7 +72,7 @@ impl ClientManager {
         }
     }
 
-    pub async fn sync(&self, since: DateTime<chrono::Utc>) -> Result<Vec<Article>, Error> {
+    pub async fn sync(&self, since: DateTime<chrono::Utc>) -> Result<Vec<Article>> {
         let filter = EntriesFilter {
             archive: None,
             starred: None,
@@ -88,12 +88,12 @@ impl ClientManager {
                 .then(async move |mut guard| {
                     let entries = guard.get_entries_with_filter(&filter).await?;
                     let articles = entries.into_iter().map(|entry| Article::from(entry)).collect::<Vec<Article>>();
-                    Ok(articles) as Result<Vec<Article>, Error>
+                    Ok(articles) as Result<Vec<Article>>
                 })
                 .await
                 .map_err(From::from);
         }
-        bail!("No client set yet");
+        return Err(anyhow!("No client set yet"));
     }
 
     pub fn get_user(&self) -> Option<Arc<Mutex<User>>> {
@@ -101,12 +101,12 @@ impl ClientManager {
         user
     }
 
-    pub async fn fetch_user(&self) -> Result<User, Error> {
+    pub async fn fetch_user(&self) -> Result<User> {
         if let Some(client) = self.client.clone() {
             let fut = client.lock().then(|mut target| {
                 async move {
                     let user = target.get_user().await?;
-                    Ok(user) as Result<User, Error>
+                    Ok(user) as Result<User>
                 }
             });
             return Ok(fut.await?);
@@ -114,7 +114,7 @@ impl ClientManager {
         bail!("No client set yet");
     }
 
-    pub async fn set_config(&mut self, config: wallabag_api::types::Config) -> Result<(), Error> {
+    pub async fn set_config(&mut self, config: wallabag_api::types::Config) -> Result<()> {
         let client = Client::new(config);
         self.client = Some(Arc::new(Mutex::new(client)));
         if let Ok(user) = self.fetch_user().await {

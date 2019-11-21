@@ -43,7 +43,7 @@ sources = files(
   'models/mod.rs',
   'models/object_wrapper.rs',
   'models/preview_image.rs',
-  'models/secret_service.rs',
+  'models/secret.rs',
   'settings/key.rs',
   'settings/mod.rs',
   'settings/settings_manager.rs',

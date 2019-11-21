@@ -1,7 +1,7 @@
 use crypto::digest::Digest;
 use crypto::sha1::Sha1;
 
-use failure::Error;
+use anyhow::Result;
 use std::fs::File;
 use std::path::PathBuf;
 use std::{fs, io::Write};
@@ -32,24 +32,23 @@ impl PreviewImage {
         cache
     }
 
-    pub async fn download(&self) -> Result<(), Error> {
+    pub async fn download(&self) -> Result<()> {
         if !BLACK_LIST.contains(&self.url) && !self.cache.exists() {
             let cache_dir = &CACHE_DIR;
-            if let Ok(_) = fs::create_dir_all(&cache_dir.to_str().unwrap()) {
-                let resp = reqwest::get(&self.url).await?;
+            fs::create_dir_all(&cache_dir.to_str().unwrap())?;
+            let resp = reqwest::get(&self.url).await?;
 
-                let content = resp.bytes().await?;
-                if !content.is_empty() {
-                    let mut out = File::create(self.cache.clone())?;
+            let content = resp.bytes().await?;
+            if !content.is_empty() {
+                let mut out = File::create(self.cache.clone())?;
 
-                    let mut data: Vec<u8> = content.as_ref().iter().cloned().collect();
-                    out.write_all(&mut data)?;
-                }
-
-                info!("Downloading preview image {} into {:#?}", self.url, self.cache);
-                return Ok(());
+                let mut data: Vec<u8> = content.as_ref().iter().cloned().collect();
+                out.write_all(&mut data)?;
             }
+
+            info!("Downloading preview image {} into {:#?}", self.url, self.cache);
+            return Ok(());
         }
-        bail!("Failed to download {}", self.url);
+        return Err(anyhow!("Preview Image blacklisted or already exists"));
     }
 }
