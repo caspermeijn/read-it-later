@@ -22,12 +22,20 @@ impl LoginWidget {
         get_widget!(self.builder, gtk::Entry, username_entry);
         get_widget!(self.builder, gtk::Entry, password_entry);
 
+        let instance = instance_entry.get_text()?.to_string();
+        if let Err(err) = url::Url::parse(&instance) {
+            error!("The instance url is invalid {}", err);
+            instance_entry.get_style_context().add_class("error");
+            return None;
+        }
+        instance_entry.get_style_context().remove_class("erro");
+
         Some(Config {
             client_id: client_id_entry.get_text()?.to_string(),
             client_secret: client_secret_entry.get_text()?.to_string(),
             username: username_entry.get_text()?.to_string(),
             password: password_entry.get_text()?.to_string(),
-            base_url: instance_entry.get_text()?.to_string(),
+            base_url: instance,
         })
     }
 
