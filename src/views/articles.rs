@@ -74,6 +74,12 @@ impl ArticlesView {
         }
     }
 
+    pub fn clear(&self) {
+        self.unread_view.clear();
+        self.archive_view.clear();
+        self.favorites_view.clear();
+    }
+
     pub fn update(&self, article: &Article) {
         self.remove_from_view(article);
         self.add(article);

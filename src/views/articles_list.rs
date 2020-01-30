@@ -43,6 +43,10 @@ impl ArticlesListView {
         }
     }
 
+    pub fn clear(&self) {
+        self.model.remove_all();
+    }
+
     pub fn len(&self) -> u32 {
         self.model.get_n_items()
     }

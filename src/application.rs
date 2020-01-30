@@ -239,6 +239,7 @@ impl Application {
     fn logout(&self) {
         let username = SettingsManager::get_string(Key::Username);
         database::wipe();
+        self.window.articles_view.clear();
         SecretManager::logout(&username).and_then(|_| {
             SettingsManager::set_string(Key::Username, "".into());
             SettingsManager::set_integer(Key::LatestSync, 0);
