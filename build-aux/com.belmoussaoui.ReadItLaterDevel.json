@@ -60,7 +60,6 @@
                 "branch": "libhandy-0-0"
             }]
         },
-
         {
             "name": "read-it-later",
             "buildsystem": "meson",

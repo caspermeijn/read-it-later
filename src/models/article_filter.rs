@@ -30,7 +30,9 @@ impl ArticlesFilter {
     }
 
     pub fn unread() -> Self {
-        Self::default()
+        let mut filter = ArticlesFilter::default();
+        filter.archived = Some(false);
+        filter
     }
 }
 
