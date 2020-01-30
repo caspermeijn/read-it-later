@@ -30,20 +30,19 @@ pub struct Article {
 impl Article {
     pub fn load(filter: &ArticlesFilter) -> Result<Vec<Self>, Error> {
         use crate::schema::articles::dsl::*;
-        if let Some(db) = database::connection() {
-            let conn = db.get()?;
+        let db = database::connection();
 
-            let mut query = articles.order(published_at.asc()).into_boxed();
+        let conn = db.get()?;
 
-            if let Some(starred) = &filter.starred {
-                query = query.filter(is_starred.eq(starred));
-            }
-            if let Some(archived) = &filter.archived {
-                query = query.filter(is_archived.eq(archived));
-            }
-            return query.get_results::<Article>(&conn).map_err(From::from);
+        let mut query = articles.order(published_at.asc()).into_boxed();
+
+        if let Some(starred) = &filter.starred {
+            query = query.filter(is_starred.eq(starred));
         }
-        Ok(Vec::new())
+        if let Some(archived) = &filter.archived {
+            query = query.filter(is_archived.eq(archived));
+        }
+        query.get_results::<Article>(&conn).map_err(From::from)
     }
 
     pub fn from(entry: Entry) -> Self {
@@ -118,51 +117,46 @@ impl Article {
     }
 
     pub fn insert(&self) -> Result<(), Error> {
-        if let Some(db) = database::connection() {
-            let conn = db.get()?;
-            diesel::insert_into(articles::table).values(self).execute(&conn)?;
-            return Ok(());
-        }
-        bail!("Failed to retrieve a database, are you logged in?")
+        let db = database::connection();
+        let conn = db.get()?;
+
+        diesel::insert_into(articles::table).values(self).execute(&conn)?;
+
+        Ok(())
     }
 
     pub fn delete(&self) -> Result<(), Error> {
-        if let Some(db) = database::connection() {
-            let conn = db.get()?;
-            use crate::schema::articles::dsl::*;
+        let db = database::connection();
+        let conn = db.get()?;
+        use crate::schema::articles::dsl::*;
 
-            diesel::delete(articles.filter(id.eq(&self.id))).execute(&conn)?;
-            return Ok(());
-        }
-        bail!("Failed to retrieve a database, are you logged in?")
+        diesel::delete(articles.filter(id.eq(&self.id))).execute(&conn)?;
+
+        Ok(())
     }
 
     pub fn toggle_favorite(&mut self) -> Result<(), Error> {
-        if let Some(db) = database::connection() {
-            let conn = db.get()?;
-            use crate::schema::articles::dsl::*;
+        let db = database::connection();
+        let conn = db.get()?;
+        use crate::schema::articles::dsl::*;
 
-            let target = articles.filter(id.eq(&self.id));
-            diesel::update(target).set(is_starred.eq(!self.is_starred)).execute(&conn)?;
+        let target = articles.filter(id.eq(&self.id));
+        diesel::update(target).set(is_starred.eq(!self.is_starred)).execute(&conn)?;
 
-            self.is_starred = !self.is_starred;
-            return Ok(());
-        }
-        bail!("Failed to retrieve a database, are you logged in?")
+        self.is_starred = !self.is_starred;
+        Ok(())
     }
 
     pub fn toggle_archive(&mut self) -> Result<(), Error> {
-        if let Some(db) = database::connection() {
-            let conn = db.get()?;
-            use crate::schema::articles::dsl::*;
+        let db = database::connection();
+        let conn = db.get()?;
+        use crate::schema::articles::dsl::*;
 
-            let target = articles.filter(id.eq(&self.id));
-            diesel::update(target).set(is_archived.eq(!self.is_archived)).execute(&conn)?;
+        let target = articles.filter(id.eq(&self.id));
+        diesel::update(target).set(is_archived.eq(!self.is_archived)).execute(&conn)?;
 
-            self.is_archived = !self.is_archived;
-            return Ok(());
-        }
-        bail!("Failed to retrieve a database, are you logged in?")
+        self.is_archived = !self.is_archived;
+        Ok(())
     }
 
     pub async fn download_preview_image(&self) -> Result<(), Error> {

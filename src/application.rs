@@ -9,6 +9,7 @@ use std::{cell::RefCell, rc::Rc};
 use url::Url;
 
 use crate::config;
+use crate::database;
 use crate::models::{Article, ArticleAction, ClientManager, SecretManager};
 use crate::settings::{Key, SettingsManager};
 use crate::widgets::{SettingsWidget, View, Window};
@@ -237,6 +238,7 @@ impl Application {
 
     fn logout(&self) {
         let username = SettingsManager::get_string(Key::Username);
+        database::wipe();
         SecretManager::logout(&username).and_then(|_| {
             SettingsManager::set_string(Key::Username, "".into());
             SettingsManager::set_integer(Key::LatestSync, 0);
