@@ -2,7 +2,6 @@ use gio::prelude::*;
 use glib::Sender;
 use gtk::prelude::*;
 use libhandy::prelude::*;
-use libhandy::SearchBarExt;
 use url::Url;
 
 use crate::application::Action;
@@ -179,26 +178,6 @@ impl Window {
                 switcher_bar.set_reveal(allocation.width <= 450);
             } else {
                 switcher_bar.set_reveal(false);
-            }
-        });
-
-        get_widget!(self.builder, libhandy::SearchBar, searchbar);
-        get_widget!(self.builder, gtk::ModelButton, search_button);
-        search_button.connect_clicked(clone!(searchbar => move |_| {
-            searchbar.set_search_mode(true);
-        }));
-
-        get_widget!(self.builder, gtk::ToggleButton, search_togglebutton);
-        searchbar
-            .bind_property("search-mode-enabled", &search_togglebutton, "active")
-            .flags(glib::BindingFlags::SYNC_CREATE)
-            .flags(glib::BindingFlags::BIDIRECTIONAL)
-            .build();
-
-        get_widget!(self.builder, gtk::SearchEntry, search_entry);
-        searchbar.connect_property_search_mode_enabled_notify(move |search_bar| {
-            if search_bar.get_search_mode() {
-                search_entry.grab_focus_without_selecting();
             }
         });
     }

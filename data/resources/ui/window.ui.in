@@ -31,19 +31,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkModelButton" id="search_button">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="text" translatable="yes">Search Article</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -90,21 +77,6 @@
             <property name="show_close_button">True</property>
             <property name="centering_policy">strict</property>
             <property name="has_subtitle">False</property>
-            <child>
-              <object class="GtkToggleButton" id="search_togglebutton">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="halign">start</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="icon_name">edit-find-symbolic</property>
-                  </object>
-                </child>
-              </object>
-            </child>
             <child type="title">
               <object class="HdySqueezer" id="squeezer">
                 <property name="visible">True</property>
@@ -352,36 +324,6 @@
           <packing>
             <property name="expand">False</property>
             <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="HdySearchBar" id="searchbar">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="HdyColumn">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">fill</property>
-                <property name="valign">start</property>
-                <property name="maximum_width">600</property>
-                <property name="linear_growth_width">600</property>
-                <child>
-                  <object class="GtkSearchEntry" id="search_entry">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="primary_icon_name">edit-find-symbolic</property>
-                    <property name="primary_icon_activatable">False</property>
-                    <property name="primary_icon_sensitive">False</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
           </packing>
         </child>
         <child>
