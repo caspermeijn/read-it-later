@@ -74,10 +74,10 @@
           <object class="HdyHeaderBar">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="has_subtitle">False</property>
             <property name="show_close_button">True</property>
             <property name="centering_policy">strict</property>
-            <property name="has_subtitle">False</property>
-            <child type="title">
+            <child>
               <object class="HdySqueezer" id="squeezer">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -147,8 +147,8 @@
           <object class="GtkHeaderBar">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="show_close_button">True</property>
             <property name="has_subtitle">False</property>
+            <property name="show_close_button">True</property>
             <child>
               <object class="GtkButton">
                 <property name="visible">True</property>
@@ -188,6 +188,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">(Un)Favorite</property>
                 <property name="action_name">article.favorite</property>
                 <child>
                   <object class="GtkImage">
@@ -207,6 +208,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">(Un)Read</property>
                 <property name="action_name">article.archive</property>
                 <child>
                   <object class="GtkImage">
@@ -227,6 +229,7 @@
           </object>
           <packing>
             <property name="name">article</property>
+            <property name="position">1</property>
           </packing>
         </child>
         <child>
@@ -234,23 +237,23 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="title">Read It Later@name-suffix@</property>
-            <property name="show_close_button">True</property>
             <property name="has_subtitle">False</property>
+            <property name="show_close_button">True</property>
             <style>
               <class name="titlebar"/>
             </style>
           </object>
           <packing>
             <property name="name">login</property>
+            <property name="position">2</property>
           </packing>
         </child>
         <child>
           <object class="HdyHeaderBar">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="show_close_button">False</property>
-            <property name="centering_policy">strict</property>
             <property name="has_subtitle">False</property>
+            <property name="centering_policy">strict</property>
             <child>
               <object class="GtkButton" id="new_article_back_btn">
                 <property name="visible">True</property>
@@ -266,19 +269,19 @@
                 </child>
               </object>
             </child>
-            <child type="title">
+            <child>
               <object class="HdyColumn">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
                 <property name="maximum_width">500</property>
                 <property name="linear_growth_width">500</property>
-                <property name="hexpand">True</property>
                 <child>
                   <object class="GtkEntry" id="article_url_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="input_purpose">url</property>>
                     <property name="placeholder_text" translatable="yes">Paste the article url here</property>
+                    <property name="input_purpose">url</property>
                   </object>
                 </child>
               </object>
@@ -304,6 +307,7 @@
           </object>
           <packing>
             <property name="name">new-article</property>
+            <property name="position">3</property>
           </packing>
         </child>
       </object>
@@ -315,14 +319,15 @@
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkProgressBar" id="loading_progress">
-            <property name="visible">False</property>
+            <property name="can_focus">False</property>
             <property name="pulse_step">0.25</property>
             <style>
-              <class name="loading-progress" />
+              <class name="loading-progress"/>
             </style>
           </object>
           <packing>
             <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="position">0</property>
           </packing>
         </child>
