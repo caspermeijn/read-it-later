@@ -1,7 +1,7 @@
-use anyhow::Result;
 use diesel::prelude::*;
 use diesel::r2d2;
 use diesel::r2d2::ConnectionManager;
+use failure::Error;
 use std::path::PathBuf;
 use std::{fs, fs::File};
 
@@ -18,12 +18,12 @@ pub(crate) fn connection() -> Pool {
     POOL.clone()
 }
 
-fn run_migration_on(connection: &SqliteConnection) -> Result<()> {
+fn run_migration_on(connection: &SqliteConnection) -> Result<(), Error> {
     info!("Running DB Migrations...");
     embedded_migrations::run_with_output(connection, &mut std::io::stdout()).map_err(From::from)
 }
 
-fn init_pool() -> Result<Pool> {
+fn init_pool() -> Result<Pool, Error> {
     let db_path = &DB_PATH;
     fs::create_dir_all(&db_path.to_str().unwrap())?;
     let db_path = db_path.join("articles.db");

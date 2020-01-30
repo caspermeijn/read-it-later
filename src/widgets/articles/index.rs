@@ -2,9 +2,7 @@ use gio::prelude::*;
 use glib::Sender;
 use gtk::prelude::*;
 use std::{cell::RefCell, rc::Rc};
-use webkit2gtk::UserContentManager;
-use webkit2gtk::WebViewExtManual;
-use webkit2gtk::{ContextMenuExt, ContextMenuItemExt, SettingsExt, WebContext, WebView, WebViewExt};
+use webkit2gtk::{ContextMenuExt, ContextMenuItemExt, WebView, WebViewExt};
 
 use crate::models::{Article, ArticleAction};
 use crate::settings::{Key, SettingsManager};
@@ -15,7 +13,6 @@ pub struct ArticleWidget {
     builder: gtk::Builder,
     sender: Sender<ArticleAction>,
     pub actions: gio::SimpleActionGroup,
-    webview: WebView,
     article: RefCell<Option<Article>>,
 }
 
@@ -24,8 +21,6 @@ impl ArticleWidget {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/article.ui");
         get_widget!(builder, gtk::Box, article);
 
-        let context = WebContext::get_default().unwrap();
-        let webview = WebView::new_with_context_and_user_content_manager(&context, &UserContentManager::new());
         let actions = gio::SimpleActionGroup::new();
 
         let article_widget = Rc::new(Self {
@@ -33,7 +28,6 @@ impl ArticleWidget {
             builder,
             actions,
             sender,
-            webview,
             article: RefCell::new(None),
         });
         article_widget.init();
@@ -42,23 +36,6 @@ impl ArticleWidget {
     }
 
     fn init(&self) {
-        let webview_settings = webkit2gtk::Settings::new();
-        webview_settings.set_auto_load_images(true);
-        webview_settings.set_enable_javascript(true);
-        webview_settings.set_allow_modal_dialogs(false);
-        webview_settings.set_enable_developer_extras(true);
-        webview_settings.set_enable_smooth_scrolling(true);
-        webview_settings.set_default_charset("UTF-8");
-        webview_settings.set_enable_fullscreen(false);
-        webview_settings.set_enable_html5_database(false);
-        webview_settings.set_enable_html5_local_storage(false);
-        webview_settings.set_enable_java(false);
-        webview_settings.set_enable_media_stream(false);
-        webview_settings.set_enable_offline_web_application_cache(false);
-        webview_settings.set_enable_page_cache(false);
-        webview_settings.set_enable_plugins(false);
-
-        self.webview.set_settings(&webview_settings);
         // Right/Left Click context menu
         let forbidden_actions = vec![
             webkit2gtk::ContextMenuAction::OpenLink,
@@ -68,8 +45,9 @@ impl ArticleWidget {
             webkit2gtk::ContextMenuAction::Reload,
             webkit2gtk::ContextMenuAction::InspectElement,
         ];
+        get_widget!(self.builder, WebView, webview);
 
-        self.webview.connect_context_menu(move |_, context_menu, _, _| {
+        webview.connect_context_menu(move |_, context_menu, _, _| {
             for menu_item in context_menu.get_items() {
                 let action = menu_item.get_stock_action();
 
@@ -84,8 +62,7 @@ impl ArticleWidget {
         // Progress bar
         get_widget!(self.builder, gtk::Revealer, revealer);
         get_widget!(self.builder, gtk::ProgressBar, progressbar);
-
-        self.webview.connect_property_estimated_load_progress_notify(move |webview| {
+        webview.connect_property_estimated_load_progress_notify(move |webview| {
             let progress = webview.get_estimated_load_progress();
 
             progressbar.set_fraction(progress);
@@ -93,9 +70,6 @@ impl ArticleWidget {
                 revealer.set_reveal_child(false);
             }
         });
-
-        self.widget.pack_start(&self.webview, true, true, 0);
-        self.webview.show();
     }
 
     fn setup_actions(&self, aw: Rc<Self>) {
@@ -160,6 +134,7 @@ impl ArticleWidget {
     }
 
     pub fn load_article(&self, article: Article) {
+        get_widget!(self.builder, WebView, webview);
         info!("Loading the article {:#?}", article.title);
         self.article.replace(Some(article.clone()));
         // Progress Bar Revealer
@@ -187,7 +162,7 @@ impl ArticleWidget {
 
             let layout_js = utils::load_resource("layout.js").expect("Couldn't find the article layout js");
             layout_html = layout_html.replace("{js}", &layout_js);
-            self.webview.load_html(&layout_html, None);
+            webview.load_html(&layout_html, None);
         }
     }
 }

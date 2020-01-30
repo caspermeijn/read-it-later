@@ -1,5 +1,5 @@
-use anyhow::Result;
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
+use failure::Error;
 use gdk_pixbuf::Pixbuf;
 use sanitize_html::sanitize_str;
 use wallabag_api::types::{Entry, PatchEntry};
@@ -28,7 +28,7 @@ pub struct Article {
 }
 
 impl Article {
-    pub fn load(filter: &ArticlesFilter) -> Result<Vec<Self>> {
+    pub fn load(filter: &ArticlesFilter) -> Result<Vec<Self>, Error> {
         use crate::schema::articles::dsl::*;
         let db = database::connection();
 
@@ -116,7 +116,7 @@ impl Article {
         None
     }
 
-    pub fn insert(&self) -> Result<()> {
+    pub fn insert(&self) -> Result<(), Error> {
         let db = database::connection();
         let conn = db.get()?;
 
@@ -125,7 +125,7 @@ impl Article {
         Ok(())
     }
 
-    pub fn delete(&self) -> Result<()> {
+    pub fn delete(&self) -> Result<(), Error> {
         let db = database::connection();
         let conn = db.get()?;
         use crate::schema::articles::dsl::*;
@@ -135,7 +135,7 @@ impl Article {
         Ok(())
     }
 
-    pub fn toggle_favorite(&mut self) -> Result<()> {
+    pub fn toggle_favorite(&mut self) -> Result<(), Error> {
         let db = database::connection();
         let conn = db.get()?;
         use crate::schema::articles::dsl::*;
@@ -147,7 +147,7 @@ impl Article {
         Ok(())
     }
 
-    pub fn toggle_archive(&mut self) -> Result<()> {
+    pub fn toggle_archive(&mut self) -> Result<(), Error> {
         let db = database::connection();
         let conn = db.get()?;
         use crate::schema::articles::dsl::*;
@@ -159,7 +159,7 @@ impl Article {
         Ok(())
     }
 
-    pub async fn download_preview_image(&self) -> Result<()> {
+    pub async fn download_preview_image(&self) -> Result<(), Error> {
         if let Some(preview_picture) = &self.preview_picture {
             let preview_image = PreviewImage::new(preview_picture.to_string());
             preview_image.download().await?;
@@ -179,7 +179,7 @@ impl Article {
         None
     }
 
-    pub fn get_preview(&self) -> Result<Option<String>> {
+    pub fn get_preview(&self) -> Result<Option<String>, Error> {
         match &self.content {
             Some(content) => {
                 // Regex to remove duplicate spaces

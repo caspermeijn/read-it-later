@@ -1,7 +1,6 @@
 install_data(
-  'com.belmoussaoui.ReadItLater.svg',
-  install_dir: iconsdir / 'hicolor' / 'scalable' / 'apps',
-  rename: '@0@.svg'.format(application_id)
+  '@0@.svg'.format(application_id),
+  install_dir: iconsdir / 'hicolor' / 'scalable' / 'apps'
 )
 
 install_data(

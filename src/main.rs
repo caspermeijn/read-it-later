@@ -2,7 +2,7 @@
 #[macro_use]
 extern crate log;
 #[macro_use]
-extern crate anyhow;
+extern crate failure;
 #[macro_use]
 extern crate lazy_static;
 #[macro_use]
@@ -53,6 +53,7 @@ async fn main() {
 
     static_resources::init().expect("Failed to initialize the resource file.");
     Column::new(); // Due to libhandy not having a main func :(
+    webkit2gtk::WebView::new();
 
     let app = Application::new();
     app.run(app.clone());

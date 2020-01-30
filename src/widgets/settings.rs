@@ -1,10 +1,9 @@
 use crate::models::ClientManager;
 use crate::settings::{Key, SettingsManager};
-use futures::lock::Mutex;
-use glib::futures::FutureExt;
+use async_std::sync::{Arc, Mutex};
+use futures_util::future::FutureExt;
 use gtk::prelude::*;
 use std::rc::Rc;
-use std::sync::Arc;
 
 struct ClientInfo {
     pub username: String,

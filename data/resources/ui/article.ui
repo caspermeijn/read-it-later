@@ -2,6 +2,12 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
+  <requires lib="webkit2gtk" version="2.12"/>
+  <object class="WebKitSettings" id="settings1">
+    <property name="enable_java">False</property>
+    <property name="default_charset">UTF-8</property>
+    <property name="user_agent">Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15</property>
+  </object>
   <object class="GtkBox" id="article">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -17,7 +23,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <style>
-              <class name="loading-progress" />
+              <class name="loading-progress"/>
             </style>
           </object>
         </child>
@@ -26,6 +32,22 @@
         <property name="expand">False</property>
         <property name="fill">True</property>
         <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="WebKitWebView" id="webview">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="settings">settings1</property>
+        <property name="is_ephemeral">True</property>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">True</property>
+        <property name="fill">True</property>
+        <property name="position">1</property>
       </packing>
     </child>
     <style>

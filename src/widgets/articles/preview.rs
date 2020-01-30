@@ -1,7 +1,6 @@
-use gdk::ContextExt;
+use gdk::prelude::ContextExt;
 use gdk_pixbuf::Pixbuf;
 use gtk::prelude::*;
-
 use std::cell::RefCell;
 use std::f64;
 use std::rc::Rc;

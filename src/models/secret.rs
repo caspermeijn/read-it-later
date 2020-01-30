@@ -1,4 +1,4 @@
-use anyhow::Result;
+use failure::Error;
 use secret_service::EncryptionType;
 use secret_service::SecretService;
 use std::collections::HashMap;
@@ -16,7 +16,7 @@ impl SecretManager {
         Self { service }
     }
 
-    pub fn logout(username: &str) -> Result<()> {
+    pub fn logout(username: &str) -> Result<(), Error> {
         let service = Self::new();
         service.service.get_default_collection().and_then(|collection| {
             collection.search_items(vec![("wallabag_username", &username)]).and_then(|items| {
@@ -29,7 +29,7 @@ impl SecretManager {
         Ok(())
     }
 
-    pub fn store_from_config(config: Config) -> Result<()> {
+    pub fn store_from_config(config: Config) -> Result<(), Error> {
         let service = Self::new();
         service.service.get_default_collection().and_then(|collection| {
             let username = config.username.clone();

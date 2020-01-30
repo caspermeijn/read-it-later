@@ -1,11 +1,10 @@
+use async_std::sync::{Arc, Mutex};
 use chrono::{TimeZone, Utc};
-use futures::lock::Mutex;
+use futures_util::future::FutureExt;
 use gio::prelude::*;
-use glib::futures::FutureExt;
 use glib::{Receiver, Sender};
 use gtk::prelude::*;
 use std::env;
-use std::sync::Arc;
 use std::{cell::RefCell, rc::Rc};
 use url::Url;
 

@@ -1,4 +1,4 @@
-use anyhow::Result;
+use failure::Error;
 use gio::prelude::*;
 // Stolen from Shortwave
 macro_rules! get_widget {
@@ -60,7 +60,7 @@ macro_rules! clone {
     );
 }
 
-pub fn load_resource(file: &str) -> Result<String> {
+pub fn load_resource(file: &str) -> Result<String, Error> {
     let file = gio::File::new_for_uri(&format!("resource:///com/belmoussaoui/ReadItLater/{}", file));
     let (bytes, _) = file.load_bytes(gio::NONE_CANCELLABLE)?;
     String::from_utf8(bytes.to_vec()).map_err(From::from)

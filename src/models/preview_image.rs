@@ -1,7 +1,7 @@
 use crypto::digest::Digest;
 use crypto::sha1::Sha1;
 
-use anyhow::Result;
+use failure::Error;
 use std::fs::File;
 use std::path::PathBuf;
 use std::{fs, io::Write};
@@ -32,7 +32,7 @@ impl PreviewImage {
         cache
     }
 
-    pub async fn download(&self) -> Result<()> {
+    pub async fn download(&self) -> Result<(), Error> {
         if !BLACK_LIST.contains(&self.url) && !self.cache.exists() {
             let cache_dir = &CACHE_DIR;
             fs::create_dir_all(&cache_dir.to_str().unwrap())?;
@@ -49,6 +49,6 @@ impl PreviewImage {
             info!("Downloading preview image {} into {:#?}", self.url, self.cache);
             return Ok(());
         }
-        return Err(anyhow!("Preview Image blacklisted or already exists"));
+        bail!("Preview Image blacklisted or already exists")
     }
 }
