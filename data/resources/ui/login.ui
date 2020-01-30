@@ -130,7 +130,6 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="halign">end</property>
-                    <property name="text" translatable="yes">https://app.wallabag.it</property>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -142,7 +141,6 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="halign">end</property>
-                    <property name="text" translatable="yes">bilelmoussaoui</property>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -155,7 +153,6 @@
                     <property name="can_focus">True</property>
                     <property name="halign">end</property>
                     <property name="visibility">False</property>
-                    <property name="text" translatable="yes">7NHy5nU8q1x#3&amp;KpdtQnm35x6d9gIi6jya</property>
                     <property name="input_purpose">password</property>
                   </object>
                   <packing>
@@ -192,7 +189,6 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="halign">end</property>
-                    <property name="text" translatable="yes">7977_4mrojvb9zpgksc04sc800okcoc0swggko0kwk4c0s4wc4cswc</property>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -205,7 +201,6 @@
                     <property name="can_focus">True</property>
                     <property name="halign">end</property>
                     <property name="visibility">False</property>
-                    <property name="text" translatable="yes">3tjfw20yey4gw8g0wco80c48cs0804og04c8wcs0skcsscwwsc</property>
                     <property name="input_purpose">password</property>
                   </object>
                   <packing>
