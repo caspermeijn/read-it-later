@@ -238,8 +238,8 @@ impl Application {
     fn logout(&self) {
         let username = SettingsManager::get_string(Key::Username);
         SecretManager::logout(&username).and_then(|_| {
-            send!(self.sender, Action::Notify("Failed to logout".to_string()));
             SettingsManager::set_string(Key::Username, "".into());
+            SettingsManager::set_integer(Key::LatestSync, 0);
             send!(self.sender, Action::SetView(View::Login));
             Ok(())
         });
