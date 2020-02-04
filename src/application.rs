@@ -1,6 +1,5 @@
 use async_std::sync::{Arc, Mutex};
 use chrono::{TimeZone, Utc};
-use futures_util::future::FutureExt;
 use gio::prelude::*;
 use glib::{Receiver, Sender};
 use gtk::prelude::*;
@@ -228,25 +227,25 @@ impl Application {
         let logged_username = SettingsManager::get_string(Key::Username);
 
         spawn!(async move {
-            client
-                .lock()
-                .then(async move |mut guard| {
-                    if let Err(err) = guard.set_config(config.clone()).await {
-                        send!(sender, Action::SetView(View::Syncing(false)));
-                        error!("Failed to setup a new client from current config: {}", err);
-                    }
-                    if let Some(_) = guard.get_user() {
+            let mut client = client.lock().await;
+            match client.set_config(config.clone()).await {
+                Ok(_) => {
+                    if let Some(_) = client.get_user() {
                         if config.username != logged_username {
                             SettingsManager::set_string(Key::Username, config.username.clone());
-                            SecretManager::store_from_config(config);
                         }
+                        SecretManager::store_from_config(config);
                         send!(sender, Action::Login);
                     } else {
                         send!(sender, Action::Notify("Failed to log in".into()));
                         send!(sender, Action::SetView(View::Syncing(false)));
                     }
-                })
-                .await;
+                }
+                Err(err) => {
+                    send!(sender, Action::SetView(View::Syncing(false)));
+                    error!("Failed to setup a new client from current config: {}", err);
+                }
+            }
         });
     }
 
@@ -278,22 +277,18 @@ impl Application {
 
         let client = self.client.clone();
         let sender = self.sender.clone();
+        let now = Utc::now().timestamp();
         spawn!(async move {
-            client
-                .lock()
-                .then(async move |guard| {
-                    info!("Starting a new sync");
-                    match guard.sync(since).await {
-                        Ok(articles) => {
-                            send!(sender, Action::LoadArticles(articles));
-                            let now = Utc::now().timestamp();
-                            SettingsManager::set_integer(Key::LatestSync, now as i32);
-                        }
-                        Err(err) => error!("Failed to sync {:#?}", err),
-                    };
-                    send!(sender, Action::SetView(View::Syncing(false)));
-                })
-                .await;
+            let client = client.lock().await;
+            info!("Starting a new sync");
+            match client.sync(since).await {
+                Ok(articles) => {
+                    send!(sender, Action::LoadArticles(articles));
+                    SettingsManager::set_integer(Key::LatestSync, now as i32);
+                }
+                Err(err) => error!("Failed to sync {:#?}", err),
+            };
+            send!(sender, Action::SetView(View::Syncing(false)));
         });
     }
 
@@ -325,19 +320,15 @@ impl Application {
 
     fn save_article(&self, url: Url) {
         info!("Saving new article \"{:#?}\"", url);
+        send!(self.sender, Action::PreviousView);
         let client = self.client.clone();
         let sender = self.sender.clone();
         send!(sender, Action::SetView(View::Syncing(true)));
         spawn!(async move {
-            client
-                .lock()
-                .then(async move |guard| {
-                    guard.save_url(url).await;
-                    send!(sender, Action::SetView(View::Syncing(false)));
-                    send!(sender, Action::PreviousView);
-                    send!(sender, Action::Sync);
-                })
-                .await
+            let client = client.lock().await;
+            client.save_url(url).await;
+            send!(sender, Action::SetView(View::Syncing(false)));
+            send!(sender, Action::Sync);
         });
     }
 
@@ -349,13 +340,9 @@ impl Application {
         let sender = self.sender.clone();
         let client = self.client.clone();
         spawn!(async move {
-            client
-                .lock()
-                .then(async move |guard| {
-                    guard.update_entry(article.id, article.get_patch()).await;
-                    send!(sender, Action::SetView(View::Syncing(false)));
-                })
-                .await
+            let client = client.lock().await;
+            client.update_entry(article.id, article.get_patch()).await;
+            send!(sender, Action::SetView(View::Syncing(false)));
         });
     }
 
@@ -367,13 +354,9 @@ impl Application {
         let sender = self.sender.clone();
         let client = self.client.clone();
         spawn!(async move {
-            client
-                .lock()
-                .then(async move |guard| {
-                    guard.update_entry(article.id, article.get_patch()).await;
-                    send!(sender, Action::SetView(View::Syncing(false)));
-                })
-                .await
+            let client = client.lock().await;
+            client.update_entry(article.id, article.get_patch()).await;
+            send!(sender, Action::SetView(View::Syncing(false)));
         });
     }
 
@@ -386,14 +369,10 @@ impl Application {
         let client = self.client.clone();
         let article_id: i32 = article.id;
         spawn!(async move {
-            client
-                .lock()
-                .then(async move |guard| {
-                    guard.delete_entry(article_id).await;
-                    send!(sender, Action::SetView(View::Syncing(false)));
-                    send!(sender, Action::PreviousView);
-                })
-                .await
+            let client = client.lock().await;
+            client.delete_entry(article_id).await;
+            send!(sender, Action::SetView(View::Syncing(false)));
+            send!(sender, Action::PreviousView);
         });
     }
 }

@@ -50,11 +50,7 @@ impl ArticlesListWidget {
             Some(model),
             clone!(@strong self.sender as sender => move |article| {
                 let article: Article = article.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
-                let row = ArticleRow::new(article.clone());
-                row.set_on_click_callback(clone!(@strong sender => move |_, _| {
-                    send!(sender, ArticleAction::Open(article.clone()));
-                    gtk::Inhibit(false)
-                }));
+                let row = ArticleRow::new(article.clone(), sender.clone());
                 let widget = row.widget.clone();
                 widget.upcast::<gtk::Widget>()
             }),

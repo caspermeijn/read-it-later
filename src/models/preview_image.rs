@@ -1,6 +1,5 @@
 use crypto::digest::Digest;
 use crypto::sha1::Sha1;
-
 use failure::Error;
 use std::fs::File;
 use std::path::PathBuf;
@@ -36,14 +35,13 @@ impl PreviewImage {
         if !BLACK_LIST.contains(&self.url) && !self.cache.exists() {
             let cache_dir = &CACHE_DIR;
             fs::create_dir_all(&cache_dir.to_str().unwrap())?;
-            let resp = reqwest::get(&self.url).await?;
 
-            let content = resp.bytes().await?;
-            if !content.is_empty() {
-                let mut out = File::create(self.cache.clone())?;
-
-                let mut data: Vec<u8> = content.as_ref().iter().cloned().collect();
-                out.write_all(&mut data)?;
+            if let Ok(mut resp) = surf::get(&self.url).await {
+                let mut content = resp.body_bytes().await?;
+                if !content.is_empty() {
+                    let mut out = File::create(self.cache.clone())?;
+                    out.write_all(&mut content)?;
+                }
             }
 
             info!("Downloading preview image {} into {:#?}", self.url, self.cache);

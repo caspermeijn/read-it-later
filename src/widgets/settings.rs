@@ -1,7 +1,6 @@
 use crate::models::ClientManager;
 use crate::settings::{Key, SettingsManager};
 use async_std::sync::{Arc, Mutex};
-use futures_util::future::FutureExt;
 use gtk::prelude::*;
 use std::rc::Rc;
 
@@ -48,25 +47,21 @@ impl SettingsWidget {
         receiver.attach(None, move |action| settings.do_action(action));
 
         spawn!(async move {
-            client
-                .lock()
-                .then(async move |guard| {
-                    match guard.fetch_user().await {
-                        Ok(user) => {
-                            send!(
-                                sender,
-                                SettingsAction::ClientInfoLoaded(ClientInfo {
-                                    username: user.username.clone(),
-                                    email: user.email.clone(),
-                                    created_at: user.created_at.clone(),
-                                    updated_at: user.updated_at.clone(),
-                                })
-                            );
-                        }
-                        Err(_) => (), // Hide the account panel
-                    }
-                })
-                .await;
+            let client = client.lock().await;
+            match client.fetch_user().await {
+                Ok(user) => {
+                    send!(
+                        sender,
+                        SettingsAction::ClientInfoLoaded(ClientInfo {
+                            username: user.username.clone(),
+                            email: user.email.clone(),
+                            created_at: user.created_at.clone(),
+                            updated_at: user.updated_at.clone(),
+                        })
+                    );
+                }
+                Err(_) => (), // Hide the account panel
+            };
         });
     }
 

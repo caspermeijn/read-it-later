@@ -1,6 +1,8 @@
 use super::preview::ArticlePreviewImage;
 use crate::models::Article;
 
+use crate::models::ArticleAction;
+use glib::Sender;
 use gtk::prelude::*;
 use std::rc::Rc;
 
@@ -13,10 +15,11 @@ pub struct ArticleRow {
     builder: gtk::Builder,
     article: Article,
     preview_image: Rc<ArticlePreviewImage>,
+    sender: Sender<ArticleAction>,
 }
 
 impl ArticleRow {
-    pub fn new(article: Article) -> Rc<Self> {
+    pub fn new(article: Article, sender: Sender<ArticleAction>) -> Rc<Self> {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/article_row.ui");
         get_widget!(builder, gtk::ListBoxRow, article_row);
         let preview_image = ArticlePreviewImage::new();
@@ -25,19 +28,12 @@ impl ArticleRow {
             widget: article_row,
             builder,
             article,
+            sender,
             preview_image,
         });
 
         row.init(row.clone());
         row
-    }
-
-    pub fn set_on_click_callback<F>(&self, callback: F)
-    where
-        for<'r, 's> F: std::ops::Fn(&'r gtk::EventBox, &'s gdk::EventButton) -> gtk::Inhibit + 'static,
-    {
-        get_widget!(self.builder, gtk::EventBox, event_box);
-        event_box.connect_button_press_event(callback);
     }
 
     fn do_action(&self, action: ArticleRowAction) -> glib::Continue {
@@ -49,11 +45,17 @@ impl ArticleRow {
                 };
             }
         }
-
         glib::Continue(true)
     }
 
     fn init(&self, row: Rc<Self>) {
+        get_widget!(self.builder, gtk::EventBox, event_box);
+        event_box.connect_button_press_event(
+            clone!(@strong self.sender as sender, @strong self.article as article => move |_, _| {
+                send!(sender, ArticleAction::Open(article.clone()));
+                gtk::Inhibit(false)
+            }),
+        );
         get_widget!(self.builder, gtk::Box, article_container);
         article_container.pack_end(&self.preview_image.widget, false, false, 0);
 

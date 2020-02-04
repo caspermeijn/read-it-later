@@ -211,6 +211,7 @@ impl Window {
         save_article_btn.connect_clicked(clone!(@strong self.sender as sender => move |_| {
             if let Ok(url) = Url::parse(&article_url_entry.get_text().unwrap()) {
                 send!(sender, Action::SaveArticle(url));
+                article_url_entry.set_text("");
             }
         }));
 
