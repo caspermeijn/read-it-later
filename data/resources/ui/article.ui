@@ -4,9 +4,13 @@
   <requires lib="gtk+" version="3.20"/>
   <requires lib="webkit2gtk" version="2.12"/>
   <object class="WebKitSettings" id="settings1">
+    <property name="enable_html5_local_storage">False</property>
+    <property name="enable_html5_database">False</property>
+    <property name="enable_plugins">False</property>
     <property name="enable_java">False</property>
-    <property name="enable_javascript">True</property>
     <property name="default_charset">UTF-8</property>
+    <property name="enable_resizable_text_areas">False</property>
+    <property name="enable_page_cache">False</property>
     <property name="user_agent">Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15</property>
   </object>
   <object class="GtkBox" id="article">

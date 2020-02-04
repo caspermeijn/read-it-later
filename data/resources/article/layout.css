@@ -2,6 +2,14 @@
   max-width: 100%;
   height: auto;
 }
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
 
 
 body {

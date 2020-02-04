@@ -66,15 +66,15 @@ impl SettingsWidget {
     }
 
     fn do_action(&self, action: SettingsAction) -> glib::Continue {
-        get_widget!(self.builder, gtk::Entry, username_entry);
-        get_widget!(self.builder, gtk::Entry, email_entry);
+        get_widget!(self.builder, gtk::Label, username_label);
+        get_widget!(self.builder, gtk::Label, email_label);
         get_widget!(self.builder, gtk::Label, created_at_label);
         get_widget!(self.builder, gtk::Label, updated_at_label);
 
         match action {
             SettingsAction::ClientInfoLoaded(client_info) => {
-                username_entry.set_text(&client_info.username);
-                email_entry.set_text(&client_info.email);
+                username_label.set_text(&client_info.username);
+                email_label.set_text(&client_info.email);
                 if let Some(created_at) = client_info.created_at {
                     created_at_label.set_text(&created_at.format("%Y-%m-%d %H:%M:%S").to_string());
                 }

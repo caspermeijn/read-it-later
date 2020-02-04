@@ -5,9 +5,16 @@
   <metadata_license>CC0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>Read It Later</name>
-  <summary>A GTK + Rust application template.</summary>
+  <summary>A Wallabag Client.</summary>
   <description>
-    <p>A boilerplate template for GTK + Rust. It uses Meson as a build system and has flatpak support by default.</p>
+    <p>Read It Later, is a simple Wallabag client. It has the basic features to manage your articles</p>
+    <ul>
+      <li>Add new articles</li>
+      <li>Archive an article</li>
+      <li>Delete an article</li>
+      <li>Favorite an article</li>
+    </ul>
+    <p>It also comes with a nice on eyes reader mode that supports code syntax highlighting and a dark mode</p>
   </description>
   <screenshots>
       <screenshot type="default">
@@ -18,13 +25,17 @@
         <image>https://gitlab.gnome.org/bilelmoussaoui/reading-list/raw/master/data/resources/screenshots/screenshot2.png</image>
         <caption>Article View</caption>
       </screenshot>
+      <screenshot>
+        <image>https://gitlab.gnome.org/bilelmoussaoui/reading-list/raw/master/data/resources/screenshots/screenshot3.png</image>
+        <caption>Adaptive view in dark mode</caption>
+      </screenshot>
   </screenshots>
   <url type="homepage">https://gitlab.gnome.org/bilelmoussaoui/reading-list</url>
   <url type="bugtracker">https://gitlab.gnome.org/bilelmoussaoui/reading-list/issues</url>
   <url type="donation">https://liberapay.com/bielmoussaoui</url>
   <content_rating type="oars-1.0" />
   <releases>
-    <release version="0.0.1" date="2019-07-11" />
+    <release version="0.0.1" date="2020-02-05" />
   </releases>
   <kudos>
       <!--

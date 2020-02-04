@@ -1,10 +1,10 @@
 [Desktop Entry]
 Name=Read It Later
-Comment=A GTK + Rust application boilerplate template
+Comment=A Wallabag Client
 Type=Application
 Exec=read-it-later
 Terminal=false
-Categories=GNOME;GTK;
+Categories=GNOME;GTK;Utility;Network;
 Keywords=Gnome;GTK;
 # Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 Icon=@icon@

@@ -45,7 +45,7 @@
                 <property name="title" translatable="yes">Username</property>
                 <property name="visible">True</property>
                 <child type="action">
-                  <object class="GtkEntry" id="username_entry">
+                  <object class="GtkLabel" id="username_label">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="valign">center</property>
@@ -59,7 +59,7 @@
                 <property name="title" translatable="yes">Email</property>
                 <property name="visible">True</property>
                 <child type="action">
-                  <object class="GtkEntry" id="email_entry">
+                  <object class="GtkLabel" id="email_label">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="valign">center</property>

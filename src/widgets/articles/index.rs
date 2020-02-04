@@ -1,3 +1,4 @@
+use failure::Error;
 use gio::prelude::*;
 use glib::Sender;
 use gtk::prelude::*;
@@ -64,7 +65,7 @@ impl ArticleWidget {
         get_widget!(self.builder, gtk::ProgressBar, progressbar);
         webview.connect_property_estimated_load_progress_notify(move |webview| {
             let progress = webview.get_estimated_load_progress();
-
+            revealer.set_reveal_child(true);
             progressbar.set_fraction(progress);
             if progress == 1.0 {
                 revealer.set_reveal_child(false);
@@ -130,37 +131,35 @@ impl ArticleWidget {
         );
     }
 
-    pub fn load_article(&self, article: Article) {
+    pub fn load_article(&self, article: Article) -> Result<(), Error> {
         get_widget!(self.builder, WebView, webview);
         info!("Loading the article {:#?}", article.title);
         self.article.replace(Some(article.clone()));
-        // Progress Bar Revealer
-        get_widget!(self.builder, gtk::Revealer, revealer);
-        revealer.set_reveal_child(true);
 
-        if let Ok(mut layout_html) = utils::load_resource("layout.html") {
-            if let Some(title) = &article.title {
-                layout_html = layout_html.replace("{title}", title);
-            }
+        let mut layout_html = utils::load_resource("layout.html")?;
 
-            if let Some(article_info) = article.get_article_info(true) {
-                layout_html = layout_html.replace("{article_info}", &article_info);
-            }
-
-            if let Some(content) = &article.content {
-                layout_html = layout_html.replace("{content}", content);
-            }
-
-            let mut layout_css = utils::load_resource("layout.css").expect("Couldn't find the article layout css");
-            if SettingsManager::get_boolean(Key::DarkMode) {
-                layout_css.push_str(&utils::load_resource("layout-dark.css").expect("Couldn't find the article dark layout css"));
-            }
-            layout_html = layout_html.replace("{css}", &layout_css);
-
-            let layout_js = utils::load_resource("layout.js").expect("Couldn't find the article layout js");
-            layout_html = layout_html.replace("{js}", &layout_js);
-            println!("hey world {}", layout_html);
-            webview.load_html(&layout_html, None);
+        if let Some(title) = &article.title {
+            layout_html = layout_html.replace("{title}", title);
         }
+
+        if let Some(article_info) = article.get_article_info(true) {
+            layout_html = layout_html.replace("{article_info}", &article_info);
+        }
+
+        if let Some(content) = &article.content {
+            layout_html = layout_html.replace("{content}", content);
+        }
+
+        let mut layout_css = utils::load_resource("layout.css")?;
+        if SettingsManager::get_boolean(Key::DarkMode) {
+            layout_css.push_str(&utils::load_resource("layout-dark.css")?);
+        }
+        layout_html = layout_html.replace("{css}", &layout_css);
+
+        let layout_js = utils::load_resource("layout.js")?;
+        layout_html = layout_html.replace("{js}", &layout_js);
+        webview.load_html(&layout_html, None);
+
+        Ok(())
     }
 }
