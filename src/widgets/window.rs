@@ -93,7 +93,6 @@ impl Window {
     }
 
     pub fn previous_view(&self) {
-        println!("Hey changing the view again");
         self.set_view(View::Articles);
     }
 
@@ -201,21 +200,19 @@ impl Window {
         main_stack.add_named(&self.article_view.get_widget(), &self.article_view.name);
         self.widget.insert_action_group("article", self.article_view.get_actions());
 
-        let article_view = self.article_view.clone();
-        main_stack.connect_property_visible_child_name_notify(move |stack| {
+        main_stack.connect_property_visible_child_name_notify(clone!(@strong self.article_view as article_view => move |stack| {
             if let Some(view_name) = stack.get_visible_child_name() {
                 article_view.set_enable_actions(view_name == "article");
             }
-        });
+        }));
 
-        let sender = self.sender.clone();
         get_widget!(self.builder, gtk::Button, save_article_btn);
         get_widget!(self.builder, gtk::Entry, article_url_entry);
-        save_article_btn.connect_clicked(move |_| {
+        save_article_btn.connect_clicked(clone!(@strong self.sender as sender => move |_| {
             if let Ok(url) = Url::parse(&article_url_entry.get_text().unwrap()) {
                 send!(sender, Action::SaveArticle(url));
             }
-        });
+        }));
 
         self.set_view(View::Login);
     }
@@ -231,9 +228,14 @@ impl Window {
         get_widget!(builder, gtk::ShortcutsWindow, shortcuts);
         self.widget.set_help_overlay(Some(&shortcuts));
 
-        let sender = self.sender.clone();
-        action!(self.actions, "previous", move |_, _| send!(sender, Action::PreviousView));
+        action!(
+            self.actions,
+            "previous",
+            clone!(@strong self.sender as sender => move |_, _| {
+                send!(sender, Action::PreviousView);
+            })
+        );
 
-        self.widget.insert_action_group("win", Some(&self.actions));
+        self.widget.insert_action_group("window", Some(&self.actions));
     }
 }

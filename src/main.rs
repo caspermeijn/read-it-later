@@ -24,6 +24,8 @@ use libhandy::Column;
 
 #[macro_use]
 mod utils;
+#[macro_use]
+mod clone;
 
 mod application;
 mod config;

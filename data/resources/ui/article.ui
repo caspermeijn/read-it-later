@@ -5,6 +5,7 @@
   <requires lib="webkit2gtk" version="2.12"/>
   <object class="WebKitSettings" id="settings1">
     <property name="enable_java">False</property>
+    <property name="enable_javascript">True</property>
     <property name="default_charset">UTF-8</property>
     <property name="user_agent">Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15</property>
   </object>
@@ -40,9 +41,6 @@
         <property name="can_focus">True</property>
         <property name="settings">settings1</property>
         <property name="is_ephemeral">True</property>
-        <child>
-          <placeholder/>
-        </child>
       </object>
       <packing>
         <property name="expand">True</property>

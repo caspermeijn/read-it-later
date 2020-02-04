@@ -46,17 +46,18 @@ impl ArticlesListWidget {
             }
         });
         get_widget!(self.builder, gtk::ListBox, articles_listbox);
-        let sender = self.sender.clone();
-        articles_listbox.bind_model(Some(model), move |article| {
-            let article: Article = article.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
-            let row = ArticleRow::new(article.clone());
-            let sender = sender.clone();
-            row.set_on_click_callback(move |_, _| {
-                send!(sender, ArticleAction::Open(article.clone()));
-                gtk::Inhibit(false)
-            });
-            let widget = row.widget.clone();
-            widget.upcast::<gtk::Widget>()
-        });
+        articles_listbox.bind_model(
+            Some(model),
+            clone!(@strong self.sender as sender => move |article| {
+                let article: Article = article.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
+                let row = ArticleRow::new(article.clone());
+                row.set_on_click_callback(clone!(@strong sender => move |_, _| {
+                    send!(sender, ArticleAction::Open(article.clone()));
+                    gtk::Inhibit(false)
+                }));
+                let widget = row.widget.clone();
+                widget.upcast::<gtk::Widget>()
+            }),
+        );
     }
 }

@@ -22,7 +22,8 @@
         "--socket=pulseaudio",
         "--device=dri",
         "--share=network",
-        "--talk-name=org.freedesktop.secrets"
+        "--talk-name=org.freedesktop.secrets",
+        "--talk-name=org.gtk.vfs", "--talk-name=org.gtk.vfs.*"
     ],
     "build-options": {
         "append-path": "/usr/lib/sdk/rust-nightly/bin",

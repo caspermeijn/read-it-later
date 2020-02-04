@@ -74,11 +74,10 @@ impl ArticleWidget {
 
     fn setup_actions(&self, aw: Rc<Self>) {
         // Delete article
-        let sender = self.sender.clone();
         action!(
             self.actions,
             "delete",
-            clone!(aw => move |_, _| {
+            clone!(@strong aw, @strong self.sender as sender => move |_, _| {
                 if let Some(article) = aw.article.borrow().clone() {
                     send!(sender, ArticleAction::Delete(article));
                 }
@@ -88,7 +87,7 @@ impl ArticleWidget {
         action!(
             self.actions,
             "open",
-            clone!(aw => move |_, _| {
+            clone!(@strong aw => move |_, _| {
                 if let Some(article) = aw.article.borrow().clone() {
                     let article_url = article.url;
                     let screen = gdk::Screen::get_default().unwrap();
@@ -99,12 +98,11 @@ impl ArticleWidget {
             })
         );
         // Archive article
-        let sender = self.sender.clone();
         stateful_action!(
             self.actions,
             "archive",
             false,
-            clone!(aw => move |action, _|{
+            clone!(@strong aw, @strong self.sender as sender => move |action, _|{
                 let state = action.get_state().unwrap();
                 let action_state: bool = state.get().unwrap();
                 let is_archived = !action_state;
@@ -115,12 +113,11 @@ impl ArticleWidget {
             })
         );
         // Favorite article
-        let sender = self.sender.clone();
         stateful_action!(
             self.actions,
             "favorite",
             false,
-            clone!(aw => move |action, _|{
+            clone!(@strong aw, @strong self.sender as sender => move |action, _|{
                 let state = action.get_state().unwrap();
                 let action_state: bool = state.get().unwrap();
                 let is_starred = !action_state;
@@ -162,6 +159,7 @@ impl ArticleWidget {
 
             let layout_js = utils::load_resource("layout.js").expect("Couldn't find the article layout js");
             layout_html = layout_html.replace("{js}", &layout_js);
+            println!("hey world {}", layout_html);
             webview.load_html(&layout_html, None);
         }
     }

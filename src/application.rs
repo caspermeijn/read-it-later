@@ -109,43 +109,59 @@ impl Application {
 
     fn setup_gactions(&self) {
         // Quit
-        let app = self.app.clone();
-        let sender = self.sender.clone();
-        action!(self.app, "quit", move |_, _| app.quit());
+        action!(
+            self.app,
+            "quit",
+            clone!(@strong self.app as app => move |_, _| {
+                app.quit();
+            })
+        );
         // Settings
-        let weak_window = self.window.widget.downgrade();
-        let client = self.client.clone();
-        action!(self.app, "settings", move |_, _| {
-            let settings_widget = SettingsWidget::new(client.clone());
-            if let Some(window) = weak_window.upgrade() {
+        action!(
+            self.app,
+            "settings",
+            clone!(@strong self.window.widget as window, @strong self.client as client =>  move |_, _| {
+                let settings_widget = SettingsWidget::new(client.clone());
                 settings_widget.widget.set_transient_for(Some(&window));
                 let size = window.get_size();
                 settings_widget.widget.resize(size.0, size.1);
-            }
-            settings_widget.widget.show();
-        });
+                settings_widget.widget.show();
+            })
+        );
         // About
-        let weak_window = self.window.widget.downgrade();
-        action!(self.app, "about", move |_, _| {
-            let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/about_dialog.ui");
-            get_widget!(builder, gtk::AboutDialog, about_dialog);
+        action!(
+            self.app,
+            "about",
+            clone!(@strong self.window.widget as window => move |_, _| {
+                let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/about_dialog.ui");
+                get_widget!(builder, gtk::AboutDialog, about_dialog);
 
-            if let Some(window) = weak_window.upgrade() {
                 about_dialog.set_transient_for(Some(&window));
-            }
-
-            about_dialog.connect_response(|dialog, _| dialog.destroy());
-            about_dialog.show();
-        });
+                about_dialog.connect_response(|dialog, _| dialog.destroy());
+                about_dialog.show();
+            })
+        );
         action!(
             self.app,
             "new-article",
-            clone!(sender => move |_, _| {
+            clone!(@strong self.sender as sender => move |_, _| {
                 send!(sender, Action::SetView(View::NewArticle));
             })
         );
-        action!(self.app, "logout", clone!(sender => move |_, _| send!(sender, Action::Logout)));
-        action!(self.app, "sync", clone!(sender => move |_, _| send!(sender, Action::Sync)));
+        action!(
+            self.app,
+            "logout",
+            clone!(@strong self.sender as sender => move |_, _| {
+                send!(sender, Action::Logout);
+            })
+        );
+        action!(
+            self.app,
+            "sync",
+            clone!(@strong self.sender as sender => move |_, _| {
+                send!(sender, Action::Sync);
+            })
+        );
 
         self.app.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
         self.app.set_accels_for_action("win.previous", &["Escape"]);
@@ -155,7 +171,6 @@ impl Application {
         self.app.set_accels_for_action("app.new-article", &["<primary>N"]);
         self.app.set_accels_for_action("app.sync", &["F5"]);
         // Articles
-
         self.app.set_accels_for_action("article.delete", &["Delete"]);
         self.app.set_accels_for_action("article.favorite", &["<primary><alt>F"]);
         self.app.set_accels_for_action("article.archive", &["<primary><alt>A"]);
@@ -287,16 +302,17 @@ impl Application {
     }
 
     fn load_articles(&self, articles: Vec<Article>) {
-        let sender = self.sender.clone();
-        articles.into_iter().for_each(move |article| {
-            gtk::idle_add(clone!(sender => move || {
-                match article.insert() {
-                    Ok(_) => send!(sender, Action::Articles(ArticleAction::Add(article.clone()))),
-                    Err(_) => send!(sender, Action::Articles(ArticleAction::Update(article.clone()))),
-                };
-                glib::Continue(false)
+        articles
+            .into_iter()
+            .for_each(clone!(@strong self.sender as sender => move |article| {
+                gtk::idle_add(clone!(@strong sender => move || {
+                    match article.insert() {
+                        Ok(_) => send!(sender, Action::Articles(ArticleAction::Add(article.clone()))),
+                        Err(_) => send!(sender, Action::Articles(ArticleAction::Update(article.clone()))),
+                    };
+                    glib::Continue(false)
+                }));
             }));
-        });
     }
 
     fn update_article(&self, article: Article) {

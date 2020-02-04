@@ -41,25 +41,6 @@ macro_rules! stateful_action {
     };
 }
 
-// Source: https://github.com/gtk-rs/examples/
-// make moving clones into closures more convenient
-macro_rules! clone {
-    (@param _) => ( _ );
-    (@param $x:ident) => ( $x );
-    ($($n:ident),+ => move || $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move || $body
-        }
-    );
-    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move |$(clone!(@param $p),)+| $body
-        }
-    );
-}
-
 pub fn load_resource(file: &str) -> Result<String, Error> {
     let file = gio::File::new_for_uri(&format!("resource:///com/belmoussaoui/ReadItLater/{}", file));
     let (bytes, _) = file.load_bytes(gio::NONE_CANCELLABLE)?;
