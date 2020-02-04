@@ -91,7 +91,11 @@ impl Application {
             Action::SetClientConfig(config) => self.set_client_config(config),
             Action::Sync => self.sync(),
             Action::Login => self.login(),
-            Action::Logout => self.logout(),
+            Action::Logout => {
+                if let Err(_) = self.logout() {
+                    send!(self.sender, Action::Notify("Failed to logout".to_string()));
+                }
+            }
         };
         glib::Continue(true)
     }
@@ -251,16 +255,16 @@ impl Application {
         send!(self.sender, Action::SetView(View::Articles));
     }
 
-    fn logout(&self) {
+    fn logout(&self) -> Result<(), failure::Error> {
         let username = SettingsManager::get_string(Key::Username);
-        database::wipe();
+        database::wipe()?;
         self.window.articles_view.clear();
-        SecretManager::logout(&username).and_then(|_| {
+        if SecretManager::logout(&username).is_ok() {
             SettingsManager::set_string(Key::Username, "".into());
             SettingsManager::set_integer(Key::LatestSync, 0);
-            send!(self.sender, Action::SetView(View::Login));
-            Ok(())
-        });
+        }
+        send!(self.sender, Action::SetView(View::Login));
+        Ok(())
     }
 
     fn sync(&self) {

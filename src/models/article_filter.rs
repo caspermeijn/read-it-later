@@ -1,19 +1,6 @@
-pub enum SortBy {
-    Created,
-    Published,
-}
-
-pub enum SortOrder {
-    Asc,
-    Desc,
-}
-
 pub struct ArticlesFilter {
     pub archived: Option<bool>,
     pub starred: Option<bool>,
-    since: i32,
-    sort: SortBy,
-    order: SortOrder,
 }
 
 impl ArticlesFilter {
@@ -41,9 +28,6 @@ impl Default for ArticlesFilter {
         Self {
             archived: None,
             starred: None,
-            since: 0,
-            sort: SortBy::Created,
-            order: SortOrder::Asc,
         }
     }
 }

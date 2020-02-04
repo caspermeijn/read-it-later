@@ -7,7 +7,7 @@ mod preview_image;
 mod secret;
 
 pub use article::Article;
-pub use article_filter::{ArticlesFilter, SortBy, SortOrder};
+pub use article_filter::ArticlesFilter;
 pub use articles::{ArticleAction, ArticlesManager};
 pub use client_manager::ClientManager;
 pub use object_wrapper::ObjectWrapper;

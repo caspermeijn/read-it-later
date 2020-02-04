@@ -1,9 +1,16 @@
-use failure::Error;
 use secret_service::EncryptionType;
-use secret_service::SecretService;
+use secret_service::{SecretService, SsError};
 use std::collections::HashMap;
 use std::rc::Rc;
 use wallabag_api::types::Config;
+
+pub struct SecretError;
+
+impl From<SsError> for SecretError {
+    fn from(_f: SsError) -> SecretError {
+        Self {}
+    }
+}
 
 pub struct SecretManager {
     service: Rc<SecretService>,
@@ -16,41 +23,40 @@ impl SecretManager {
         Self { service }
     }
 
-    pub fn logout(username: &str) -> Result<(), Error> {
+    pub fn logout(username: &str) -> Result<(), SecretError> {
         let service = Self::new();
-        service.service.get_default_collection().and_then(|collection| {
-            collection.search_items(vec![("wallabag_username", &username)]).and_then(|items| {
-                items.iter().for_each(|item| {
-                    item.delete();
-                });
-                Ok(())
-            })
-        });
+
+        let collection = service.service.get_default_collection()?;
+        let items = collection.search_items(vec![("wallabag_username", &username)])?;
+
+        for item in items.iter() {
+            item.delete()?;
+        }
         Ok(())
     }
 
-    pub fn store_from_config(config: Config) -> Result<(), Error> {
+    pub fn store_from_config(config: Config) -> Result<(), SecretError> {
         let service = Self::new();
-        service.service.get_default_collection().and_then(|collection| {
-            let username = config.username.clone();
-            let mut secret_config = HashMap::new();
-            secret_config.insert("WALLABAG_USERNAME".to_string(), config.username.clone());
-            secret_config.insert("WALLABAG_CLIENT_ID".to_string(), config.client_id);
-            secret_config.insert("WALLABAG_CLIENT_SECRET".to_string(), config.client_secret);
-            secret_config.insert("WALLABAG_PASSWORD".to_string(), config.password);
-            secret_config.insert("WALLABAG_URL".to_string(), config.base_url);
 
-            for (key, val) in secret_config.iter() {
-                collection.create_item(
-                    &format!("Read It Later account: {}", username),
-                    vec![("wallabag_username", &username), ("attr", &key)],
-                    &val.clone().into_bytes(),
-                    false,
-                    "text/plain",
-                );
-            }
-            Ok(())
-        });
+        let collection = service.service.get_default_collection()?;
+
+        let username = config.username.clone();
+        let mut secret_config = HashMap::new();
+        secret_config.insert("WALLABAG_USERNAME".to_string(), config.username.clone());
+        secret_config.insert("WALLABAG_CLIENT_ID".to_string(), config.client_id);
+        secret_config.insert("WALLABAG_CLIENT_SECRET".to_string(), config.client_secret);
+        secret_config.insert("WALLABAG_PASSWORD".to_string(), config.password);
+        secret_config.insert("WALLABAG_URL".to_string(), config.base_url);
+
+        for (key, val) in secret_config.iter() {
+            collection.create_item(
+                &format!("Read It Later account: {}", username),
+                vec![("wallabag_username", &username), ("attr", &key)],
+                &val.clone().into_bytes(),
+                false,
+                "text/plain",
+            )?;
+        }
         Ok(())
     }
 
