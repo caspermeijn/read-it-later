@@ -65,6 +65,7 @@ a:active {
 }
 .container .info {
   color: #989A95;
+  padding-top: 6px;
   padding-bottom: 6px;
   font-size: 14px;
 }
