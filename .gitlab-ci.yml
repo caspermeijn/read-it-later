@@ -8,7 +8,7 @@ variables:
   BUNDLE: "read-it-nightly.flatpak"
 
 flatpak:
-  image: "docker.io/bilelmoussaoui/rust-nightly:master"
+  image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/rust_bundle:master'
   extends: ".flatpak"
   variables:
     MANIFEST_PATH: "build-aux/com.belmoussaoui.ReadItLaterDevel.json"

@@ -90,11 +90,14 @@ impl ArticleWidget {
             "open",
             clone!(@strong aw => move |_, _| {
                 if let Some(article) = aw.article.borrow().clone() {
-                    let article_url = article.url;
-                    let screen = gdk::Screen::get_default().unwrap();
-                    if let Err(err_msg) = gtk::show_uri(Some(&screen), &article_url.unwrap(), 0) {
-                        error!("Failed to open the uri {} in the default browser", err_msg);
-                    }
+                    glib::idle_add(clone!(@strong article => move || {
+                        let article_url = article.url.clone();
+                        let screen = gdk::Screen::get_default().unwrap();
+                        if let Err(err_msg) = gtk::show_uri(Some(&screen), &article_url.unwrap(), 0) {
+                            error!("Failed to open the uri {} in the default browser", err_msg);
+                        }
+                        glib::Continue(false)
+                    }));
                 }
             })
         );

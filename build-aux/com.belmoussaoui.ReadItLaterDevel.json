@@ -3,7 +3,7 @@
     "runtime": "org.gnome.Platform",
     "runtime-version": "master",
     "sdk": "org.gnome.Sdk",
-    "sdk-extensions": ["org.freedesktop.Sdk.Extension.rust-nightly"],
+    "sdk-extensions": ["org.freedesktop.Sdk.Extension.rust-stable"],
     "command": "read-it-later",
     "tags": ["nightly"],
     "desktop-file-name-suffix": " (Devel)",
@@ -23,7 +23,7 @@
         "--talk-name=org.gtk.vfs.*"
     ],
     "build-options": {
-        "append-path": "/usr/lib/sdk/rust-nightly/bin",
+        "append-path": "/usr/lib/sdk/rust-stable/bin",
         "build-args": ["--share=network"],
         "env": {
             "RUSTFLAGS": "--remap-path-prefix =../",
