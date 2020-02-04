@@ -16,7 +16,7 @@ A Wallabag Client
 </div>
 
 ## Hack on Read It Later
-To build the development version of Contrast and hack on the code
+To build the development version of Read It Later and hack on the code
 see the [general guide](https://wiki.gnome.org/Newcomers/BuildProject)
 for building GNOME apps with Flatpak and GNOME Builder.
 

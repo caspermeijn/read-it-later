@@ -3,13 +3,9 @@
     "runtime": "org.gnome.Platform",
     "runtime-version": "master",
     "sdk": "org.gnome.Sdk",
-    "sdk-extensions": [
-        "org.freedesktop.Sdk.Extension.rust-nightly"
-    ],
+    "sdk-extensions": ["org.freedesktop.Sdk.Extension.rust-nightly"],
     "command": "read-it-later",
-    "tags": [
-        "nightly"
-    ],
+    "tags": ["nightly"],
     "desktop-file-name-suffix": " (Devel)",
     "finish-args": [
         "--filesystem=xdg-run/dconf",
@@ -23,13 +19,12 @@
         "--device=dri",
         "--share=network",
         "--talk-name=org.freedesktop.secrets",
-        "--talk-name=org.gtk.vfs", "--talk-name=org.gtk.vfs.*"
+        "--talk-name=org.gtk.vfs",
+        "--talk-name=org.gtk.vfs.*"
     ],
     "build-options": {
         "append-path": "/usr/lib/sdk/rust-nightly/bin",
-        "build-args": [
-            "--share=network"
-        ],
+        "build-args": ["--share=network"],
         "env": {
             "RUSTFLAGS": "--remap-path-prefix =../",
             "CARGO_HOME": "/run/build/read-it-later/cargo",
@@ -38,7 +33,6 @@
         }
     },
     "modules": [
-
         {
             "name": "libhandy",
             "buildsystem": "meson",
@@ -49,28 +43,26 @@
                 "-Dexamples=false",
                 "-Dvapi=false",
                 "-Dglade_catalog=disabled"
-
             ],
-            "cleanup": [
-                "/include",
-                "/lib/pkgconfig"
-            ],
-            "sources": [{
-                "type": "git",
-                "url": "https://source.puri.sm/Librem5/libhandy.git",
-                "branch": "libhandy-0-0"
-            }]
+            "cleanup": ["/include", "/lib/pkgconfig"],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://source.puri.sm/Librem5/libhandy.git",
+                    "branch": "libhandy-0-0"
+                }
+            ]
         },
         {
             "name": "read-it-later",
             "buildsystem": "meson",
-            "config-opts": [
-                "-Dprofile=development"
-            ],
-            "sources": [{
-                "type": "git",
-                "url": "https://gitlab.gnome.org/bilelmoussaoui/read-it-later.git"
-            }]
+            "config-opts": ["-Dprofile=development"],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/bilelmoussaoui/read-it-later.git"
+                }
+            ]
         }
     ]
 }
