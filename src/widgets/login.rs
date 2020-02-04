@@ -3,14 +3,14 @@ use std::rc::Rc;
 use wallabag_api::types::Config;
 
 pub struct LoginWidget {
-    pub widget: gtk::ScrolledWindow,
+    pub widget: gtk::Box,
     builder: gtk::Builder,
 }
 
 impl LoginWidget {
     pub fn new() -> Rc<Self> {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/login.ui");
-        get_widget!(builder, gtk::ScrolledWindow, login);
+        get_widget!(builder, gtk::Box, login);
 
         Rc::new(Self { widget: login, builder })
     }
