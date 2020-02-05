@@ -167,7 +167,7 @@ impl Application {
         );
 
         self.app.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
-        self.app.set_accels_for_action("winndow.previous", &["Escape"]);
+        self.app.set_accels_for_action("window.previous", &["Escape"]);
 
         self.app.set_accels_for_action("app.quit", &["<primary>q"]);
         self.app.set_accels_for_action("app.settings", &["<primary>comma"]);
