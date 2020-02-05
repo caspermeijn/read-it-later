@@ -3,16 +3,19 @@ use std::rc::Rc;
 use wallabag_api::types::Config;
 
 pub struct LoginWidget {
-    pub widget: gtk::Box,
+    pub widget: libhandy::Column,
     builder: gtk::Builder,
 }
 
 impl LoginWidget {
     pub fn new() -> Rc<Self> {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/login.ui");
-        get_widget!(builder, gtk::Box, login);
+        get_widget!(builder, libhandy::Column, login);
 
-        Rc::new(Self { widget: login, builder })
+        let login_widget = Rc::new(Self { widget: login, builder });
+
+        login_widget.init();
+        login_widget
     }
 
     pub fn get_wallabag_client_config(&self) -> Option<Config> {
@@ -47,5 +50,20 @@ impl LoginWidget {
         get_widget!(self.builder, gtk::Button, login_button);
 
         login_button.connect_clicked(callback);
+    }
+
+    fn init(&self) {
+        get_widget!(self.builder, gtk::TreeStore, instances_store);
+        instances_store.insert_with_values(None, None, &[0], &[&"https://app.wallabag.it/"]);
+        instances_store.insert_with_values(None, None, &[0], &[&"https://framabag.org"]);
+
+        get_widget!(self.builder, gtk::ListBox, entries_listbox);
+        entries_listbox.set_header_func(Some(Box::new(move |row: &gtk::ListBoxRow, row1: Option<&gtk::ListBoxRow>| {
+            if row1.is_some() {
+                let sep = gtk::Separator::new(gtk::Orientation::Horizontal);
+                sep.show();
+                row.set_header(Some(&sep));
+            }
+        })));
     }
 }

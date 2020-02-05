@@ -150,19 +150,6 @@ impl Window {
             Inhibit(false)
         });
 
-        get_widget!(self.builder, gtk::Stack, headerbar_stack);
-        get_widget!(self.builder, gtk::Button, save_article_btn);
-        self.widget.connect_key_press_event(move |_, k| {
-            let child_name = headerbar_stack.get_visible_child_name().unwrap();
-            let child_name = child_name.as_str();
-            if child_name == "new-article" {
-                if k.get_keyval() == gdk::enums::key::Return {
-                    save_article_btn.clicked();
-                }
-            }
-            gtk::Inhibit(false)
-        });
-
         get_widget!(self.builder, libhandy::Squeezer, squeezer);
         get_widget!(self.builder, gtk::Stack, headerbar_stack);
         get_widget!(self.builder, libhandy::ViewSwitcher, title_wide_switcher);
