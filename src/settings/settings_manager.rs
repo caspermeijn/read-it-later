@@ -37,6 +37,11 @@ impl SettingsManager {
         settings.get_boolean(&key.to_string())
     }
 
+    pub fn set_boolean(key: Key, value: bool) {
+        let settings = Self::get_settings();
+        settings.set_boolean(&key.to_string(), value);
+    }
+
     pub fn get_integer(key: Key) -> i32 {
         let settings = Self::get_settings();
         settings.get_int(&key.to_string())

@@ -234,7 +234,9 @@ impl Application {
                         if config.username != logged_username {
                             SettingsManager::set_string(Key::Username, config.username.clone());
                         }
-                        SecretManager::store_from_config(config);
+                        if let Err(err) = SecretManager::store_from_config(config) {
+                            error!("Failed to store credentials {}", err);
+                        }
                         send!(sender, Action::Login);
                     } else {
                         send!(sender, Action::Notify("Failed to log in".into()));

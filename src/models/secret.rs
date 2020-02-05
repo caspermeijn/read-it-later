@@ -4,14 +4,6 @@ use std::collections::HashMap;
 use std::rc::Rc;
 use wallabag_api::types::Config;
 
-pub struct SecretError;
-
-impl From<SsError> for SecretError {
-    fn from(_f: SsError) -> SecretError {
-        Self {}
-    }
-}
-
 pub struct SecretManager {
     service: Rc<SecretService>,
 }
@@ -23,7 +15,7 @@ impl SecretManager {
         Self { service }
     }
 
-    pub fn logout(username: &str) -> Result<(), SecretError> {
+    pub fn logout(username: &str) -> Result<(), SsError> {
         let service = Self::new();
 
         let collection = service.service.get_default_collection()?;
@@ -35,7 +27,7 @@ impl SecretManager {
         Ok(())
     }
 
-    pub fn store_from_config(config: Config) -> Result<(), SecretError> {
+    pub fn store_from_config(config: Config) -> Result<(), SsError> {
         let service = Self::new();
 
         let collection = service.service.get_default_collection()?;

@@ -8,6 +8,7 @@ pub enum Key {
 
     WindowWidth,
     WindowHeight,
-    ViewSorting,
-    ViewOrder,
+    WindowX,
+    WindowY,
+    IsMaximized,
 }

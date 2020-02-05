@@ -5,7 +5,7 @@ use libhandy::prelude::*;
 use url::Url;
 
 use crate::application::Action;
-use crate::config::{APP_ID, PROFILE};
+use crate::config::PROFILE;
 use crate::models::{Article, ArticlesManager};
 use crate::views::{ArticleView, ArticlesView, LoginView};
 use crate::window_state;
@@ -31,7 +31,6 @@ pub struct Window {
 
 impl Window {
     pub fn new(sender: Sender<Action>) -> Self {
-        let settings = gio::Settings::new(APP_ID);
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/window.ui");
         get_widget!(builder, gtk::ApplicationWindow, window);
 
@@ -52,7 +51,7 @@ impl Window {
             actions,
         };
 
-        window_widget.init(settings);
+        window_widget.init();
         window_widget.init_views();
         window_widget.setup_actions();
         window_widget
@@ -136,18 +135,18 @@ impl Window {
         }
     }
 
-    fn init(&self, settings: gio::Settings) {
+    fn init(&self) {
         // setup app menu
         let menu_builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/menu.ui");
         get_widget!(menu_builder, gtk::PopoverMenu, popover_menu);
         get_widget!(self.builder, gtk::MenuButton, appmenu_button);
         appmenu_button.set_popover(Some(&popover_menu));
         // load latest window state
-        window_state::load(&self.widget, &settings);
+        window_state::load(&self.widget);
 
         // save window state on delete event
         self.widget.connect_delete_event(move |window, _| {
-            window_state::save(&window, &settings);
+            window_state::save(&window);
             Inhibit(false)
         });
 

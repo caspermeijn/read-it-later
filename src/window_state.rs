@@ -1,17 +1,17 @@
-use gio::prelude::SettingsExt;
+use crate::settings::{Key, SettingsManager};
 use gtk::prelude::GtkWindowExt;
 
-pub fn load(window: &gtk::ApplicationWindow, settings: &gio::Settings) {
-    let width = settings.get_int("window-width");
-    let height = settings.get_int("window-height");
+pub fn load(window: &gtk::ApplicationWindow) {
+    let width = SettingsManager::get_integer(Key::WindowWidth);
+    let height = SettingsManager::get_integer(Key::WindowHeight);
 
     if width > -1 && height > -1 {
         window.resize(width, height);
     }
 
-    let x = settings.get_int("window-x");
-    let y = settings.get_int("window-y");
-    let is_maximized = settings.get_boolean("is-maximized");
+    let x = SettingsManager::get_integer(Key::WindowX);
+    let y = SettingsManager::get_integer(Key::WindowY);
+    let is_maximized = SettingsManager::get_boolean(Key::IsMaximized);
 
     if x > -1 && y > -1 {
         window.move_(x, y);
@@ -20,15 +20,15 @@ pub fn load(window: &gtk::ApplicationWindow, settings: &gio::Settings) {
     }
 }
 
-pub fn save(window: &gtk::ApplicationWindow, settings: &gio::Settings) {
+pub fn save(window: &gtk::ApplicationWindow) {
     let size = window.get_size();
     let position = window.get_position();
 
-    settings.set_int("window-width", size.0);
-    settings.set_int("window-height", size.1);
+    SettingsManager::set_integer(Key::WindowWidth, size.0);
+    SettingsManager::set_integer(Key::WindowHeight, size.1);
 
-    settings.set_boolean("is-maximized", window.is_maximized());
+    SettingsManager::set_boolean(Key::IsMaximized, window.is_maximized());
 
-    settings.set_int("window-x", position.0);
-    settings.set_int("window-y", position.1);
+    SettingsManager::set_integer(Key::WindowX, position.0);
+    SettingsManager::set_integer(Key::WindowY, position.1);
 }

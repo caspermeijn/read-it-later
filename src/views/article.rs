@@ -45,7 +45,9 @@ impl ArticleView {
     }
 
     pub fn load(&self, article: Article) {
-        self.widget.load_article(article);
+        if let Err(err) = self.widget.load_article(article) {
+            error!("Failed to load article {}", err);
+        }
     }
 
     fn init(&self) {}
