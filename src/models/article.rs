@@ -57,7 +57,7 @@ impl Article {
             ),
             None => None,
         };
-        let published_at = match entry.published_at.clone() {
+        let published_at = match entry.published_at {
             Some(datetime) => Some(datetime.naive_utc()),
             None => None,
         };
@@ -74,9 +74,9 @@ impl Article {
             content: entry.content.clone(),
             published_by,
             published_at,
-            reading_time: entry.reading_time.clone() as i32,
+            reading_time: entry.reading_time as i32,
             base_url: entry.domain_name.clone(),
-            url: entry.url.clone(),
+            url: entry.url,
         }
     }
 
@@ -90,7 +90,7 @@ impl Article {
     pub fn get_article_info(&self, display_date: bool) -> Option<String> {
         let mut article_info = String::from("");
         if let Some(base_url) = &self.base_url {
-            article_info.push_str(&format!("{}", base_url));
+            article_info.push_str(&base_url);
         }
         if let Some(authors) = &self.published_by {
             article_info.push_str(&format!(" | by {} ", authors));
@@ -198,7 +198,7 @@ impl Article {
                     if line.len() > 50 {
                         // Ignore small lines
                         preview_content.push(line);
-                        counter = counter + 1;
+                        counter += 1;
                     }
                     if counter == 1 {
                         // Two lines length for the preview

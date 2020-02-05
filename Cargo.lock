@@ -1914,7 +1914,7 @@ dependencies = [
  "surf 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "tokio 0.2.0-alpha.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "url 2.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "wallabag-api 0.1.2 (git+https://github.com/swalladge/wallabag-api.git)",
+ "wallabag-api 0.1.2 (git+https://github.com/swalladge/wallabag-api.git?rev=2321780ebe38a9ab4fd3fa536faf80f73391884c)",
  "webkit2gtk 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -2664,7 +2664,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 [[package]]
 name = "wallabag-api"
 version = "0.1.2"
-source = "git+https://github.com/swalladge/wallabag-api.git#b93e2604c031b55af716fb0cb854d0f7df99e3ff"
+source = "git+https://github.com/swalladge/wallabag-api.git?rev=2321780ebe38a9ab4fd3fa536faf80f73391884c#2321780ebe38a9ab4fd3fa536faf80f73391884c"
 dependencies = [
  "chrono 0.4.10 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -3171,7 +3171,7 @@ dependencies = [
 "checksum vcpkg 0.2.8 (registry+https://github.com/rust-lang/crates.io-index)" = "3fc439f2794e98976c88a2a2dafce96b930fe8010b0a256b3c2199a773933168"
 "checksum version_check 0.1.5 (registry+https://github.com/rust-lang/crates.io-index)" = "914b1a6776c4c929a602fafd8bc742e06365d4bcbe48c30f9cca5824f70dc9dd"
 "checksum version_check 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)" = "078775d0255232fb988e6fccf26ddc9d1ac274299aaedcedce21c6f72cc533ce"
-"checksum wallabag-api 0.1.2 (git+https://github.com/swalladge/wallabag-api.git)" = "<none>"
+"checksum wallabag-api 0.1.2 (git+https://github.com/swalladge/wallabag-api.git?rev=2321780ebe38a9ab4fd3fa536faf80f73391884c)" = "<none>"
 "checksum want 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)" = "1ce8a968cb1cd110d136ff8b819a556d6fb6d919363c61534f6860c7eb172ba0"
 "checksum wasi 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)" = "b89c3ce4ce14bdc6fb6beaf9ec7928ca331de5df7e5ea278375642a2f478570d"
 "checksum wasm-bindgen 0.2.56 (registry+https://github.com/rust-lang/crates.io-index)" = "99de4b68939a880d530aed51289a7c7baee154e3ea8ac234b542c49da7134aaf"

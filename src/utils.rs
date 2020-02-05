@@ -18,10 +18,9 @@ macro_rules! spawn {
 
 macro_rules! send {
     ($sender:expr, $action:expr) => {
-        match $sender.send($action) {
-            Err(err) => error!("Failed to send \"{}\" action due to {}", stringify!($action), err),
-            _ => (),
-        };
+        if let Err(err) = $sender.send($action) {
+            error!("Failed to send \"{}\" action due to {}", stringify!($action), err);
+        }
     };
 }
 

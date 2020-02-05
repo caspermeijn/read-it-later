@@ -46,20 +46,23 @@ impl ArticlePreviewImage {
 
             match &*d.pixbuf.borrow() {
                 Some(pixbuf) => {
-                    if pixbuf.get_width() > width {
-                        let pixbuf = pixbuf.scale_simple(width, height, gdk_pixbuf::InterpType::Bilinear).unwrap();
-                        ctx.set_source_pixbuf(&pixbuf, 0.0, 0.0);
-                    } else if pixbuf.get_width() < width {
-                        ctx.set_source_pixbuf(&pixbuf, (width - pixbuf.get_width()) as f64, 0.0);
-                    } else {
-                        ctx.set_source_pixbuf(&pixbuf, 0.0, 0.0);
-                    }
-                    //ctx.scale(1.0 / scale_factor, 1.0 / scale_factor);
+                    match pixbuf.get_width().cmp(&width) {
+                        std::cmp::Ordering::Greater => {
+                            let pixbuf = pixbuf.scale_simple(width, height, gdk_pixbuf::InterpType::Bilinear).unwrap();
+                            ctx.set_source_pixbuf(&pixbuf, 0.0, 0.0);
+                        }
+                        std::cmp::Ordering::Less => {
+                            ctx.set_source_pixbuf(&pixbuf, (width - pixbuf.get_width()) as f64, 0.0);
+                        }
+                        std::cmp::Ordering::Equal => {
+                            ctx.set_source_pixbuf(&pixbuf, 0.0, 0.0);
+                        }
+                    };
                     ctx.paint();
 
                     gtk::Inhibit(false)
                 }
-                None => return gtk::Inhibit(false),
+                None => gtk::Inhibit(false),
             }
         });
     }

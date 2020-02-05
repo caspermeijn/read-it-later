@@ -16,7 +16,7 @@ use crate::widgets::{SettingsWidget, View, Window};
 use wallabag_api::types::Config;
 
 pub enum Action {
-    Articles(ArticleAction),
+    Articles(Box<ArticleAction>),
     SaveArticle(Url), // Save the pasted url
     SetView(View),
     PreviousView,
@@ -61,7 +61,6 @@ impl Application {
         info!("Version: {} ({})", config::VERSION, config::PROFILE);
         info!("Datadir: {}", config::PKGDATADIR);
 
-        let app = app.clone();
         let receiver = self.receiver.borrow_mut().take().unwrap();
         receiver.attach(None, move |action| app.do_action(action));
 
@@ -91,7 +90,7 @@ impl Application {
             Action::Sync => self.sync(),
             Action::Login => self.login(),
             Action::Logout => {
-                if let Err(_) = self.logout() {
+                if self.logout().is_err() {
                     send!(self.sender, Action::Notify("Failed to logout".to_string()));
                 }
             }
@@ -99,8 +98,8 @@ impl Application {
         glib::Continue(true)
     }
 
-    fn do_article_action(&self, action: ArticleAction) {
-        match action {
+    fn do_article_action(&self, action: Box<ArticleAction>) {
+        match *action {
             ArticleAction::Add(article) => self.add_article(article),
             ArticleAction::Open(article) => self.window.load_article(article),
             ArticleAction::Delete(article) => self.delete_article(article),
@@ -230,7 +229,7 @@ impl Application {
             let mut client = client.lock().await;
             match client.set_config(config.clone()).await {
                 Ok(_) => {
-                    if let Some(_) = client.get_user() {
+                    if client.get_user().is_some() {
                         if config.username != logged_username {
                             SettingsManager::set_string(Key::Username, config.username.clone());
                         }
@@ -308,8 +307,8 @@ impl Application {
             .for_each(clone!(@strong self.sender as sender => move |article| {
                 gtk::idle_add(clone!(@strong sender => move || {
                     match article.insert() {
-                        Ok(_) => send!(sender, Action::Articles(ArticleAction::Add(article.clone()))),
-                        Err(_) => send!(sender, Action::Articles(ArticleAction::Update(article.clone()))),
+                        Ok(_) => send!(sender, Action::Articles(Box::new(ArticleAction::Add(article.clone())))),
+                        Err(_) => send!(sender, Action::Articles(Box::new(ArticleAction::Update(article.clone())))),
                     };
                     glib::Continue(false)
                 }));

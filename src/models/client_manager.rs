@@ -21,15 +21,14 @@ impl ClientManager {
         let client: Option<Arc<Mutex<Client>>> = None;
         let user: Option<Arc<Mutex<User>>> = None;
 
-        let manager = Self { client, sender, user };
-        manager
+        Self { client, sender, user }
     }
 
     pub async fn update_entry(&self, entry_id: i32, patch: PatchEntry) {
         debug!("[Client] Updating entry {}", entry_id);
         if let Some(client) = self.client.clone() {
             let mut client = client.lock().await;
-            if let Err(_) = client.update_entry(entry_id, &patch).await {
+            if client.update_entry(entry_id, &patch).await.is_err() {
                 warn!("[Client] Failed to update the entry {}", entry_id);
             }
         }
@@ -39,7 +38,7 @@ impl ClientManager {
         debug!("[Client] Removing entry {}", entry_id);
         if let Some(client) = self.client.clone() {
             let mut client = client.lock().await;
-            if let Err(_) = client.delete_entry(entry_id).await {
+            if client.delete_entry(entry_id).await.is_err() {
                 warn!("[Client] Failed to delete the entry {}", entry_id);
             }
         }
@@ -52,7 +51,7 @@ impl ClientManager {
             let new_entry = NewEntry::new_with_url(url.into_string());
             if let Ok(entry) = client.create_entry(&new_entry).await {
                 let article = Article::from(entry);
-                send!(self.sender, Action::Articles(ArticleAction::Add(article)));
+                send!(self.sender, Action::Articles(Box::new(ArticleAction::Add(article))));
             }
         }
     }
@@ -70,15 +69,14 @@ impl ClientManager {
         if let Some(client) = self.client.clone() {
             let mut client = client.lock().await;
             let entries = client.get_entries_with_filter(&filter).await?;
-            let articles = entries.into_iter().map(|entry| Article::from(entry)).collect::<Vec<Article>>();
+            let articles = entries.into_iter().map(Article::from).collect::<Vec<Article>>();
             return Ok(articles);
         }
         bail!("No client set yet")
     }
 
     pub fn get_user(&self) -> Option<Arc<Mutex<User>>> {
-        let user = self.user.clone();
-        user
+        self.user.clone()
     }
 
     pub async fn fetch_user(&self) -> Result<User, Error> {

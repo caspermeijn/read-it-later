@@ -48,20 +48,17 @@ impl SettingsWidget {
 
         spawn!(async move {
             let client = client.lock().await;
-            match client.fetch_user().await {
-                Ok(user) => {
-                    send!(
-                        sender,
-                        SettingsAction::ClientInfoLoaded(ClientInfo {
-                            username: user.username.clone(),
-                            email: user.email.clone(),
-                            created_at: user.created_at.clone(),
-                            updated_at: user.updated_at.clone(),
-                        })
-                    );
-                }
-                Err(_) => (), // Hide the account panel
-            };
+            if let Ok(user) = client.fetch_user().await {
+                send!(
+                    sender,
+                    SettingsAction::ClientInfoLoaded(ClientInfo {
+                        username: user.username.clone(),
+                        email: user.email.clone(),
+                        created_at: user.created_at,
+                        updated_at: user.updated_at,
+                    })
+                );
+            }
         });
     }
 

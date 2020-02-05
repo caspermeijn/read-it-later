@@ -67,7 +67,7 @@ impl ArticleWidget {
             let progress = webview.get_estimated_load_progress();
             revealer.set_reveal_child(true);
             progressbar.set_fraction(progress);
-            if progress == 1.0 {
+            if (progress - 1.0).abs() < std::f64::EPSILON {
                 revealer.set_reveal_child(false);
             }
         });

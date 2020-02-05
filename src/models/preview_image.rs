@@ -19,8 +19,7 @@ pub struct PreviewImage {
 impl PreviewImage {
     pub fn new(url: String) -> Self {
         let cache = PreviewImage::get_cache_of(&url);
-        let image = Self { url, cache };
-        image
+        Self { url, cache }
     }
 
     pub fn get_cache_of(url: &str) -> PathBuf {
@@ -37,10 +36,10 @@ impl PreviewImage {
             fs::create_dir_all(&cache_dir.to_str().unwrap())?;
 
             if let Ok(mut resp) = surf::get(&self.url).await {
-                let mut content = resp.body_bytes().await?;
+                let content = resp.body_bytes().await?;
                 if !content.is_empty() {
                     let mut out = File::create(self.cache.clone())?;
-                    out.write_all(&mut content)?;
+                    out.write_all(&content)?;
                 }
             }
 

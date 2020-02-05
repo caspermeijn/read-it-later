@@ -16,13 +16,11 @@ impl ArticlesListWidget {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/articles_list.ui");
         get_widget!(builder, libhandy::Column, articles_list);
 
-        let list_widget = Self {
+        Self {
             builder,
             widget: articles_list,
             sender,
-        };
-
-        list_widget
+        }
     }
 
     pub fn bind_model(&self, model: &gio::ListStore, icon: &str, empty_msg: &str) {
@@ -50,9 +48,8 @@ impl ArticlesListWidget {
             Some(model),
             clone!(@strong self.sender as sender => move |article| {
                 let article: Article = article.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
-                let row = ArticleRow::new(article.clone(), sender.clone());
-                let widget = row.widget.clone();
-                widget.upcast::<gtk::Widget>()
+                let row = ArticleRow::new(article, sender.clone());
+                row.widget.clone().upcast::<gtk::Widget>()
             }),
         );
     }

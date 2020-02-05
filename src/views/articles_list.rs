@@ -17,7 +17,7 @@ pub struct ArticlesListView {
 impl ArticlesListView {
     pub fn new(name: &str, title: &str, icon: &str, filter: ArticlesFilter, sender: Sender<ArticleAction>) -> Self {
         let model = gio::ListStore::new(ObjectWrapper::static_type());
-        let widget = ArticlesListWidget::new(sender.clone());
+        let widget = ArticlesListWidget::new(sender);
 
         let articles_view = Self {
             widget,
@@ -37,7 +37,7 @@ impl ArticlesListView {
     }
 
     pub fn add(&self, article: &Article) {
-        if !self.index(&article).is_some() {
+        if self.index(&article).is_none() {
             let object = ObjectWrapper::new(Box::new(article));
             self.model.insert(0, &object);
         }
@@ -52,10 +52,9 @@ impl ArticlesListView {
     }
 
     pub fn delete(&self, article: &Article) {
-        match self.index(&article) {
-            Some(pos) => self.model.remove(pos),
-            None => (),
-        };
+        if let Some(pos) = self.index(&article) {
+            self.model.remove(pos);
+        }
     }
 
     fn init(&self) {

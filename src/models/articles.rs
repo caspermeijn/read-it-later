@@ -54,30 +54,30 @@ impl ArticlesManager {
     }
 
     fn open(&self, article: Article) {
-        send!(self.main_sender, Action::Articles(ArticleAction::Open(article)));
+        send!(self.main_sender, Action::Articles(Box::new(ArticleAction::Open(article))));
     }
 
     fn update(&self, article: Article) {
-        send!(self.main_sender, Action::Articles(ArticleAction::Update(article)));
+        send!(self.main_sender, Action::Articles(Box::new(ArticleAction::Update(article))));
     }
 
     fn archive(&self, mut article: Article) {
         match article.toggle_archive() {
-            Ok(_) => send!(self.main_sender, Action::Articles(ArticleAction::Archive(article))),
+            Ok(_) => send!(self.main_sender, Action::Articles(Box::new(ArticleAction::Archive(article)))),
             Err(err) => error!("Failed to (un)archive the article {}", err),
         }
     }
 
     fn favorite(&self, mut article: Article) {
         match article.toggle_favorite() {
-            Ok(_) => send!(self.main_sender, Action::Articles(ArticleAction::Favorite(article))),
+            Ok(_) => send!(self.main_sender, Action::Articles(Box::new(ArticleAction::Favorite(article)))),
             Err(err) => error!("Failed to (un)favorite the article {}", err),
         }
     }
 
     fn delete(&self, article: Article) {
         match article.delete() {
-            Ok(_) => send!(self.main_sender, Action::Articles(ArticleAction::Delete(article))),
+            Ok(_) => send!(self.main_sender, Action::Articles(Box::new(ArticleAction::Delete(article)))),
             Err(err) => error!("Failed to delete the article {}", err),
         }
     }

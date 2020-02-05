@@ -13,7 +13,7 @@ pub struct ArticleView {
 
 impl ArticleView {
     pub fn new(sender: Sender<ArticleAction>) -> Self {
-        let widget = ArticleWidget::new(sender.clone());
+        let widget = ArticleWidget::new(sender);
 
         let article_view = Self {
             widget,

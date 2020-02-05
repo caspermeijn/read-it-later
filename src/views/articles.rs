@@ -21,7 +21,7 @@ impl ArticlesView {
             sender.clone(),
         );
         let archive_view = ArticlesListView::new("archive", "Archive", "archive-symbolic", ArticlesFilter::archive(), sender.clone());
-        let unread_view = ArticlesListView::new("unread", "Unread", "unread-symbolic", ArticlesFilter::unread(), sender.clone());
+        let unread_view = ArticlesListView::new("unread", "Unread", "unread-symbolic", ArticlesFilter::unread(), sender);
         let widget = gtk::Stack::new();
 
         let articles_view = Self {

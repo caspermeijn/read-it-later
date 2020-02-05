@@ -81,7 +81,7 @@ impl ArticleRow {
         let (sender, receiver) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
         let article = self.article.clone();
         spawn!(async move {
-            if let Err(_) = article.download_preview_image().await {
+            if article.download_preview_image().await.is_err() {
                 warn!("Failed to download preview image of {:#?} with ID={}", article.title, article.id);
             }
             send!(sender, ArticleRowAction::ImageDownloaded);
