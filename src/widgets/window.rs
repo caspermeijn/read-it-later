@@ -111,6 +111,8 @@ impl Window {
             View::Login => {
                 main_stack.set_visible_child_name("login");
                 headerbar_stack.set_visible_child_name("login");
+                get_widget!(self.builder, gtk::Entry, article_url_entry);
+                article_url_entry.grab_focus_without_selecting();
             }
             View::Syncing(state) => {
                 get_widget!(self.builder, gtk::ProgressBar, loading_progress);
@@ -147,6 +149,19 @@ impl Window {
         self.widget.connect_delete_event(move |window, _| {
             window_state::save(&window, &settings);
             Inhibit(false)
+        });
+
+        get_widget!(self.builder, gtk::Stack, headerbar_stack);
+        get_widget!(self.builder, gtk::Button, save_article_btn);
+        self.widget.connect_key_press_event(move |_, k| {
+            let child_name = headerbar_stack.get_visible_child_name().unwrap();
+            let child_name = child_name.as_str();
+            if child_name == "new-article" {
+                if k.get_keyval() == gdk::enums::key::Return {
+                    save_article_btn.clicked();
+                }
+            }
+            gtk::Inhibit(false)
         });
 
         get_widget!(self.builder, libhandy::Squeezer, squeezer);
