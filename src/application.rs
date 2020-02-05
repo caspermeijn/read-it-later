@@ -243,6 +243,7 @@ impl Application {
                     }
                 }
                 Err(err) => {
+                    send!(sender, Action::Notify("Failed to log in".to_string()));
                     send!(sender, Action::SetView(View::Syncing(false)));
                     error!("Failed to setup a new client from current config: {}", err);
                 }

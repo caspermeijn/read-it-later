@@ -91,9 +91,8 @@ impl ClientManager {
     pub async fn set_config(&mut self, config: wallabag_api::types::Config) -> Result<(), Error> {
         let client = Client::new(config);
         self.client = Some(Arc::new(Mutex::new(client)));
-        if let Ok(user) = self.fetch_user().await {
-            self.user.replace(Arc::new(Mutex::new(user)));
-        }
+        let user = self.fetch_user().await?;
+        self.user.replace(Arc::new(Mutex::new(user)));
         Ok(())
     }
 }
