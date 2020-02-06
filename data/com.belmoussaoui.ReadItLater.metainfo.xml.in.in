@@ -18,20 +18,20 @@
   </description>
   <screenshots>
       <screenshot type="default">
-        <image>https://gitlab.gnome.org/bilelmoussaoui/reading-list/raw/master/data/resources/screenshots/screenshot1.png</image>
+        <image>https://gitlab.gnome.org/bilelmoussaoui/read-it-later/raw/master/data/resources/screenshots/screenshot1.png</image>
         <caption>Main Window</caption>
       </screenshot>
       <screenshot>
-        <image>https://gitlab.gnome.org/bilelmoussaoui/reading-list/raw/master/data/resources/screenshots/screenshot2.png</image>
+        <image>https://gitlab.gnome.org/bilelmoussaoui/read-it-later/raw/master/data/resources/screenshots/screenshot2.png</image>
         <caption>Article View</caption>
       </screenshot>
       <screenshot>
-        <image>https://gitlab.gnome.org/bilelmoussaoui/reading-list/raw/master/data/resources/screenshots/screenshot3.png</image>
+        <image>https://gitlab.gnome.org/bilelmoussaoui/read-it-later/raw/master/data/resources/screenshots/screenshot3.png</image>
         <caption>Adaptive view in dark mode</caption>
       </screenshot>
   </screenshots>
-  <url type="homepage">https://gitlab.gnome.org/bilelmoussaoui/reading-list</url>
-  <url type="bugtracker">https://gitlab.gnome.org/bilelmoussaoui/reading-list/issues</url>
+  <url type="homepage">https://gitlab.gnome.org/bilelmoussaoui/read-it-later</url>
+  <url type="bugtracker">https://gitlab.gnome.org/bilelmoussaoui/read-it-later/issues</url>
   <url type="donation">https://liberapay.com/bielmoussaoui</url>
   <content_rating type="oars-1.0" />
   <releases>
