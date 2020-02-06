@@ -18,6 +18,8 @@ flatpak:
 rustfmt:
   image: "rust:slim"
   stage: ".pre"
+  before_script:
+    - apt install libssl-dev -y
   script:
     - rustup component add rustfmt clippy
     # Create blank versions of our configured files
