@@ -9,14 +9,17 @@ pub struct SecretManager {
 }
 
 impl SecretManager {
-    pub fn new() -> Self {
-        let service = Rc::new(SecretService::new(EncryptionType::Dh).unwrap());
-
-        Self { service }
+    pub fn new() -> Result<Self, SsError> {
+        let service = Rc::new(SecretService::new(EncryptionType::Dh)?);
+        let collection = service.get_default_collection()?;
+        if collection.is_locked()? {
+            collection.unlock()?;
+        }
+        Ok(Self { service })
     }
 
     pub fn logout(username: &str) -> Result<(), SsError> {
-        let service = Self::new();
+        let service = Self::new()?;
 
         let collection = service.service.get_default_collection()?;
         let items = collection.search_items(vec![("wallabag_username", &username)])?;
@@ -28,7 +31,7 @@ impl SecretManager {
     }
 
     pub fn store_from_config(config: Config) -> Result<(), SsError> {
-        let service = Self::new();
+        let service = Self::new()?;
 
         let collection = service.service.get_default_collection()?;
 
@@ -52,32 +55,28 @@ impl SecretManager {
         Ok(())
     }
 
-    pub fn is_logged(username: &str) -> Option<Config> {
-        let service = Self::new();
-        let client_id = service.retrieve(username, "WALLABAG_CLIENT_ID");
-        let client_secret = service.retrieve(username, "WALLABAG_CLIENT_SECRET");
-        let password = service.retrieve(username, "WALLABAG_PASSWORD");
-        let base_url = service.retrieve(username, "WALLABAG_URL");
+    pub fn is_logged(username: &str) -> Result<Config, SsError> {
+        let service = Self::new()?;
+        let client_id = service.retrieve(username, "WALLABAG_CLIENT_ID")?;
+        let client_secret = service.retrieve(username, "WALLABAG_CLIENT_SECRET")?;
+        let password = service.retrieve(username, "WALLABAG_PASSWORD")?;
+        let base_url = service.retrieve(username, "WALLABAG_URL")?;
 
-        if let (Some(client_id), Some(client_secret), Some(password), Some(base_url)) = (client_id, client_secret, password, base_url) {
-            return Some(Config {
-                client_id,
-                client_secret,
-                username: username.to_string(),
-                password,
-                base_url,
-            });
-        }
-        None
+        Ok(Config {
+            client_id,
+            client_secret,
+            username: username.to_string(),
+            password,
+            base_url,
+        })
     }
 
-    fn retrieve(&self, key: &str, attribute: &str) -> Option<String> {
-        match self.service.search_items(vec![("wallabag_username", key), ("attr", attribute)]) {
-            Ok(search_items) => match search_items.get(0) {
-                Some(item) => Some(String::from_utf8(item.get_secret().unwrap()).unwrap()),
-                _ => None,
-            },
-            _ => None,
+    fn retrieve(&self, key: &str, attribute: &str) -> Result<String, SsError> {
+        let items = self.service.search_items(vec![("wallabag_username", key), ("attr", attribute)])?;
+        if let Some(item) = items.get(0) {
+            let value = item.get_secret()?;
+            return Ok(String::from_utf8(value).unwrap());
         }
+        Err(SsError::NoResult)
     }
 }

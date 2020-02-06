@@ -211,7 +211,7 @@ impl Application {
     fn init_client(&self) {
         let username = SettingsManager::get_string(Key::Username);
         match SecretManager::is_logged(&username) {
-            Some(config) => {
+            Ok(config) => {
                 send!(self.sender, Action::SetView(View::Articles));
                 self.set_client_config(config);
             }
