@@ -20,7 +20,7 @@ rustfmt:
   stage: ".pre"
   before_script:
     - apt-get update -y
-    - apt-get install libssl-dev -y
+    - apt-get install libssl-dev pkg-config -y
   script:
     - rustup component add rustfmt clippy
     # Create blank versions of our configured files
