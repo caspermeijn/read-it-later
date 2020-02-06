@@ -8,7 +8,7 @@
     <property name="type_hint">dialog</property>
     <property name="program_name">Read It Later@name-suffix@</property>
     <property name="version">@version@</property>
-    <property name="website">https://gitlab.gnome.org/bilelmoussaoui/reading-list/</property>
+    <property name="website">https://gitlab.gnome.org/bilelmoussaoui/read-it-later/</property>
     <property name="authors">Bilal Elmoussaoui</property>
     <property name="translator_credits" translatable="yes">translator-credits</property>
     <property name="artists">Tobias Bernard</property>
