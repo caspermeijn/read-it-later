@@ -19,7 +19,8 @@ rustfmt:
   image: "rust:slim"
   stage: ".pre"
   before_script:
-    - apt install libssl-dev -y
+    - apt-get update -y
+    - apt-get install libssl-dev -y
   script:
     - rustup component add rustfmt clippy
     # Create blank versions of our configured files
