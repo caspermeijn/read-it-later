@@ -1,34 +1,23 @@
-include: "https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak-ci-initiative-sdk-extensions.yml"
-stages:
-  - lint
-  - test
-  - deploy
-
-variables:
-  BUNDLE: "read-it-nightly.flatpak"
+include:
+  - project: 'gnome/citemplates'
+    file: 'flatpak/flatpak-ci-initiative-sdk-extensions.yml'
 
 flatpak:
   image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/rust_bundle:master'
-  extends: ".flatpak"
   variables:
+    BUNDLE: "read-it-later-nightly.flatpak"
     MANIFEST_PATH: "build-aux/com.belmoussaoui.ReadItLaterDevel.json"
     FLATPAK_MODULE: "read-it-later"
     MESON_ARGS: "-Dprofile=development"
     APP_ID: "com.belmoussaoui.ReadItLaterDevel"
-
-review:
-  dependencies:
-    - flatpak
-  extends: ".review"
-
-stop_review:
-  extends: ".stop_review"
+    RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
+  extends: '.flatpak'
 
 # Configure and run rustfmt
 # Exits and builds fails if on bad format
 rustfmt:
   image: "rust:slim"
-  stage: "lint"
+  stage: ".pre"
   script:
     - rustup component add rustfmt clippy
     # Create blank versions of our configured files
