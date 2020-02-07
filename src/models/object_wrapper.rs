@@ -55,7 +55,7 @@ mod imp {
 
             match *prop {
                 subclass::Property("data", ..) => {
-                    let data = value.get();
+                    let data = value.get().expect("Failed to get `data` property");
                     self.data.replace(data);
                 }
                 _ => unimplemented!(),
@@ -97,6 +97,6 @@ impl ObjectWrapper {
         O: DeserializeOwned,
     {
         let data = self.get_property("data").unwrap().get::<String>().unwrap();
-        serde_json::from_str(&data).unwrap()
+        serde_json::from_str(&data.unwrap()).unwrap()
     }
 }

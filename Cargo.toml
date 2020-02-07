@@ -5,15 +5,15 @@ authors = ["Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-gtk = { version = "0.7", features = ["v3_22"] }
-glib = { version = "0.8", features = ["subclassing", "futures"] }
-gio = { version = "0.7", features = ["v2_56", "futures"] }
-cairo-rs = "0.7"
-gdk = "0.11"
-gdk-pixbuf = "0.7"
+gtk = { version = "0.8", features = ["v3_22"] }
+glib = "0.9"
+gio = { version = "0.8", features = ["v2_56"] }
+cairo-rs = "0.8"
+gdk = "0.12"
+gdk-pixbuf = "0.8"
 log = "0.4"
-libhandy = "0.4"
-webkit2gtk = { version = "0.8", features = ["v2_6"] }
+libhandy = "0.5"
+webkit2gtk = { version = "0.9", features = ["v2_6"] }
 gettext-rs= { version = "0.4", features = ["gettext-system"] }
 lazy_static = "1.3"
 serde = "1.0"

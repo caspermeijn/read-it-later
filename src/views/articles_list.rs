@@ -1,6 +1,5 @@
 use gio::prelude::*;
 use glib::Sender;
-use gtk::prelude::*;
 
 use crate::models::{Article, ArticleAction, ArticlesFilter, ObjectWrapper};
 use crate::widgets::articles::ArticlesListWidget;

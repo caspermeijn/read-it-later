@@ -1,4 +1,4 @@
-use gdk::prelude::ContextExt;
+use gdk::prelude::GdkContextExt;
 use gdk_pixbuf::Pixbuf;
 use gtk::prelude::*;
 use std::cell::RefCell;

@@ -15,16 +15,11 @@ extern crate glib;
 #[macro_use]
 extern crate strum_macros;
 
-extern crate pretty_env_logger;
-extern crate webkit2gtk;
-
 use gettextrs::*;
 use libhandy::Column;
 
 #[macro_use]
 mod utils;
-#[macro_use]
-mod clone;
 
 mod application;
 mod config;

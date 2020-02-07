@@ -4,7 +4,6 @@ Thanks Felix!
 */
 
 use gio::prelude::*;
-use glib::prelude::*;
 
 use crate::config;
 use crate::settings::Key;
@@ -29,7 +28,9 @@ impl SettingsManager {
 
     pub fn set_string(key: Key, value: String) {
         let settings = Self::get_settings();
-        settings.set_string(&key.to_string(), &value);
+        if let Err(err) = settings.set_string(&key.to_string(), &value) {
+            error!("Failed to save {} setting due to {}", key.to_string(), err);
+        }
     }
 
     pub fn get_boolean(key: Key) -> bool {
@@ -39,7 +40,9 @@ impl SettingsManager {
 
     pub fn set_boolean(key: Key, value: bool) {
         let settings = Self::get_settings();
-        settings.set_boolean(&key.to_string(), value);
+        if let Err(err) = settings.set_boolean(&key.to_string(), value) {
+            error!("Failed to save {} setting due to {}", key.to_string(), err);
+        }
     }
 
     pub fn get_integer(key: Key) -> i32 {
@@ -49,6 +52,8 @@ impl SettingsManager {
 
     pub fn set_integer(key: Key, value: i32) {
         let settings = Self::get_settings();
-        settings.set_int(&key.to_string(), value);
+        if let Err(err) = settings.set_int(&key.to_string(), value) {
+            error!("Failed to save {} setting due to {}", key.to_string(), err);
+        }
     }
 }
