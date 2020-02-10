@@ -110,7 +110,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="activatable">False</property>
-                <property name="title" translatable="yes">Instance</property>
+                <property name="title" translatable="yes">Instance URL</property>
                 <child type="action">
                   <object class="GtkEntry" id="instance_entry">
                     <property name="visible">True</property>
