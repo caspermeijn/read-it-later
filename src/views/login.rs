@@ -7,7 +7,7 @@ use crate::application::Action;
 use crate::widgets::LoginWidget;
 
 pub struct LoginView {
-    widget: Rc<LoginWidget>,
+    pub widget: Rc<LoginWidget>,
     pub name: String,
     sender: Sender<Action>,
 }

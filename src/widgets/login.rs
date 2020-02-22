@@ -4,7 +4,7 @@ use wallabag_api::types::Config;
 
 pub struct LoginWidget {
     pub widget: libhandy::Column,
-    builder: gtk::Builder,
+    pub builder: gtk::Builder,
 }
 
 impl LoginWidget {

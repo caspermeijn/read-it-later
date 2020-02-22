@@ -110,8 +110,8 @@ impl Window {
             View::Login => {
                 main_stack.set_visible_child_name("login");
                 headerbar_stack.set_visible_child_name("login");
-                get_widget!(self.builder, gtk::Entry, article_url_entry);
-                article_url_entry.grab_focus_without_selecting();
+                get_widget!(self.login_view.widget.builder, gtk::Button, login_button);
+                login_button.grab_default();
             }
             View::Syncing(state) => {
                 get_widget!(self.builder, gtk::ProgressBar, loading_progress);
