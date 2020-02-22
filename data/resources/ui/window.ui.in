@@ -279,6 +279,7 @@
                   <object class="GtkEntry" id="article_url_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="activates_default">True</property>
                     <property name="input_purpose">url</property>>
                     <property name="placeholder_text" translatable="yes">Paste the article url here</property>
                   </object>
@@ -294,6 +295,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="can_default">True</property>
               </object>
               <packing>
                 <property name="pack_type">end</property>

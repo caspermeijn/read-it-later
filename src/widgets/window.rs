@@ -131,6 +131,8 @@ impl Window {
                 headerbar_stack.set_visible_child_name("new-article");
                 get_widget!(self.builder, gtk::Entry, article_url_entry);
                 article_url_entry.grab_focus_without_selecting();
+                get_widget!(self.builder, gtk::Button, save_article_btn);
+                save_article_btn.grab_default();
             }
         }
     }
