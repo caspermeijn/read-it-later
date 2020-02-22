@@ -20,10 +20,10 @@ rustfmt:
   stage: ".pre"
   script:
     - rustup component add rustfmt
-    # Ensure our configured files are present now (although they're generated
-    # only later), so rustfmt doesn't yell about non-existent or empty files
-    - mv -v src/config.rs{.in,}
-    - mv -v src/static_resources.rs{.in,}
+    # Create blank versions of our configured files
+    # so rustfmt does not yell about non-existent files or completely empty files
+    - echo -e "" >> src/config.rs
+    - echo -e "" >> src/static_resources.rs
     - rustc -Vv && cargo -Vv
     - cargo fmt --version
     - cargo fmt --all -- --color=always --check
