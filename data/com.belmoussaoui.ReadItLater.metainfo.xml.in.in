@@ -38,7 +38,7 @@
     <release version="0.0.2" date="2020-02-26">
       <description>
         <ul>
-          <li>Unlock the keyirng instead of crashing</li>
+          <li>Unlock the keyring instead of crashing</li>
           <li>Fix crash in headers parsing</li>
           <li>Other minor fixes</li>
         </ul>
