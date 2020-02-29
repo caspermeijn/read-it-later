@@ -2,6 +2,8 @@ use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
 use failure::Error;
 use gdk_pixbuf::Pixbuf;
 use sanitize_html::sanitize_str;
+use std::str::FromStr;
+use url::Url;
 use wallabag_api::types::{Entry, PatchEntry};
 
 use crate::database;
@@ -161,7 +163,7 @@ impl Article {
 
     pub async fn download_preview_image(&self) -> Result<(), Error> {
         if let Some(preview_picture) = &self.preview_picture {
-            let preview_image = PreviewImage::new(preview_picture.to_string());
+            let preview_image = PreviewImage::new(Url::from_str(preview_picture)?);
             preview_image.download().await?;
         }
         Ok(())
@@ -169,7 +171,7 @@ impl Article {
 
     pub fn get_preview_pixbuf(&self) -> Option<Pixbuf> {
         if let Some(preview_picture) = &self.preview_picture {
-            let cache_path = PreviewImage::get_cache_of(&preview_picture);
+            let cache_path = PreviewImage::get_cache_of(preview_picture);
 
             return match gdk_pixbuf::Pixbuf::new_from_file(cache_path) {
                 Ok(pixbuf) => Some(pixbuf),
