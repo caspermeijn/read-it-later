@@ -19,7 +19,7 @@ lazy_static = "1.3"
 serde = "1.0"
 serde_json = "1.0"
 serde_derive = "1.0"
-wallabag-api = { git= "https://github.com/swalladge/wallabag-api.git", rev = "71a77358d7d573102894af591ca082175a6a8a93" }
+wallabag-api = { git = "https://github.com/swalladge/wallabag-api.git", rev = "71a77358d7d573102894af591ca082175a6a8a93" }
 pretty_env_logger = "0.3"
 diesel = { version = "1.4", features = ["sqlite", "r2d2", "chrono"] }
 diesel_migrations = {  version = "1.4" , features = ["sqlite"] }
@@ -36,4 +36,4 @@ html2pango = "0.3"
 tokio = "0.2.0-alpha.6"
 rust-crypto = "0.2"
 async-std = "1.4"
-
+gtk-macros = { git = "https://gitlab.gnome.org/haecker-felix/gtk-macros.git" }

@@ -28,15 +28,10 @@ impl ArticleView {
     }
 
     pub fn set_enable_actions(&self, state: bool) {
-        let actions = &self.widget.actions;
-        actions.list_actions().iter().for_each(|action_name| {
-            let action = actions
-                .lookup_action(action_name.as_str())
-                .unwrap()
-                .downcast::<gio::SimpleAction>()
-                .unwrap();
-            action.set_enabled(state);
-        });
+        get_action!(self.widget.actions, @open).set_enabled(state);
+        get_action!(self.widget.actions, @archive).set_enabled(state);
+        get_action!(self.widget.actions, @delete).set_enabled(state);
+        get_action!(self.widget.actions, @favorite).set_enabled(state);
     }
 
     pub fn get_widget(&self) -> gtk::Widget {

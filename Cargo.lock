@@ -861,6 +861,11 @@ dependencies = [
 ]
 
 [[package]]
+name = "gtk-macros"
+version = "0.1.0"
+source = "git+https://gitlab.gnome.org/haecker-felix/gtk-macros.git#90146a59c1b712948ed920899f91cd8895083bba"
+
+[[package]]
 name = "gtk-sys"
 version = "0.9.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1961,6 +1966,7 @@ dependencies = [
  "gio 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "glib 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "gtk 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "gtk-macros 0.1.0 (git+https://gitlab.gnome.org/haecker-felix/gtk-macros.git)",
  "html2pango 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "lazy_static 1.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "libhandy 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -3048,6 +3054,7 @@ dependencies = [
 "checksum glib-sys 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)" = "95856f3802f446c05feffa5e24859fe6a183a7cb849c8449afc35c86b1e316e2"
 "checksum gobject-sys 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)" = "31d1a804f62034eccf370006ccaef3708a71c31d561fee88564abe71177553d9"
 "checksum gtk 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)" = "7cd1d646cc9a2cb795f33b538779a3f22e71dc172f2aba08a41e84a2f72c0dec"
+"checksum gtk-macros 0.1.0 (git+https://gitlab.gnome.org/haecker-felix/gtk-macros.git)" = "<none>"
 "checksum gtk-sys 0.9.2 (registry+https://github.com/rust-lang/crates.io-index)" = "53def660c7b48b00b510c81ef2d2fbd3c570f1527081d8d7947f471513e1a4c1"
 "checksum h2 0.2.0-alpha.3 (registry+https://github.com/rust-lang/crates.io-index)" = "0f107db1419ef8271686187b1a5d47c6431af4a7f4d98b495e7b7fc249bb0a78"
 "checksum heck 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)" = "20564e78d53d2bb135c343b3f47714a56af2061f1c928fdb541dc7b9fdd94205"

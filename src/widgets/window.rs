@@ -59,21 +59,9 @@ impl Window {
 
     pub fn load_article(&self, article: Article) {
         if let Some(article_view_actions) = self.article_view.get_actions() {
-            let archive_action = article_view_actions
-                .lookup_action("archive")
-                .unwrap()
-                .downcast::<gio::SimpleAction>()
-                .unwrap();
-            let favorite_action = article_view_actions
-                .lookup_action("favorite")
-                .unwrap()
-                .downcast::<gio::SimpleAction>()
-                .unwrap();
-
-            favorite_action.set_state(&article.is_starred.to_variant());
-            archive_action.set_state(&article.is_archived.to_variant());
+            get_action!(article_view_actions, @archive).set_state(&article.is_archived.to_variant());
+            get_action!(article_view_actions, @favorite).set_state(&article.is_starred.to_variant());
         }
-
         self.article_view.load(article);
         self.set_view(View::Article);
     }

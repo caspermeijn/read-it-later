@@ -7,7 +7,6 @@ use webkit2gtk::{ContextMenuExt, ContextMenuItemExt, WebView, WebViewExt};
 
 use crate::models::{Article, ArticleAction};
 use crate::settings::{Key, SettingsManager};
-use crate::utils;
 
 pub struct ArticleWidget {
     pub widget: gtk::Box,
@@ -139,7 +138,7 @@ impl ArticleWidget {
         info!("Loading the article {:#?}", article.title);
         self.article.replace(Some(article.clone()));
 
-        let mut layout_html = utils::load_resource("layout.html")?;
+        let mut layout_html = load_resource("layout.html")?;
 
         if let Some(title) = &article.title {
             layout_html = layout_html.replace("{title}", title);
@@ -153,16 +152,22 @@ impl ArticleWidget {
             layout_html = layout_html.replace("{content}", content);
         }
 
-        let mut layout_css = utils::load_resource("layout.css")?;
+        let mut layout_css = load_resource("layout.css")?;
         if SettingsManager::get_boolean(Key::DarkMode) {
-            layout_css.push_str(&utils::load_resource("layout-dark.css")?);
+            layout_css.push_str(&load_resource("layout-dark.css")?);
         }
         layout_html = layout_html.replace("{css}", &layout_css);
 
-        let layout_js = utils::load_resource("layout.js")?;
+        let layout_js = load_resource("layout.js")?;
         layout_html = layout_html.replace("{js}", &layout_js);
         webview.load_html(&layout_html, None);
 
         Ok(())
     }
+}
+
+pub fn load_resource(file: &str) -> Result<String, failure::Error> {
+    let file = gio::File::new_for_uri(&format!("resource:///com/belmoussaoui/ReadItLater/{}", file));
+    let (bytes, _) = file.load_bytes(gio::NONE_CANCELLABLE)?;
+    String::from_utf8(bytes.to_vec()).map_err(From::from)
 }
