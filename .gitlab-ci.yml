@@ -17,7 +17,6 @@ flatpak:
 # Exits and builds fails if on bad format
 rustfmt:
   image: "rust:slim"
-  stage: ".pre"
   script:
     - rustup component add rustfmt
     # Create blank versions of our configured files
