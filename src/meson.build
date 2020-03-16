@@ -67,7 +67,6 @@ sources = files(
   'main.rs',
   'schema.rs',
   'static_resources.rs',
-  'utils.rs',
   'window_state.rs',
 )
 

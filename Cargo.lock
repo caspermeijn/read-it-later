@@ -861,6 +861,11 @@ dependencies = [
 ]
 
 [[package]]
+name = "gtk-macros"
+version = "0.1.0"
+source = "git+https://gitlab.gnome.org/haecker-felix/gtk-macros.git#90146a59c1b712948ed920899f91cd8895083bba"
+
+[[package]]
 name = "gtk-sys"
 version = "0.9.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1947,7 +1952,7 @@ dependencies = [
 
 [[package]]
 name = "read-it-later"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "async-std 1.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "cairo-rs 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -1961,6 +1966,7 @@ dependencies = [
  "gio 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "glib 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "gtk 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "gtk-macros 0.1.0 (git+https://gitlab.gnome.org/haecker-felix/gtk-macros.git)",
  "html2pango 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "lazy_static 1.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "libhandy 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -1978,7 +1984,7 @@ dependencies = [
  "surf 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "tokio 0.2.0-alpha.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "url 2.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "wallabag-api 0.1.2 (git+https://github.com/swalladge/wallabag-api.git?rev=2321780ebe38a9ab4fd3fa536faf80f73391884c)",
+ "wallabag-api 0.1.2 (git+https://github.com/swalladge/wallabag-api.git?rev=71a77358d7d573102894af591ca082175a6a8a93)",
  "webkit2gtk 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -2728,7 +2734,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 [[package]]
 name = "wallabag-api"
 version = "0.1.2"
-source = "git+https://github.com/swalladge/wallabag-api.git?rev=2321780ebe38a9ab4fd3fa536faf80f73391884c#2321780ebe38a9ab4fd3fa536faf80f73391884c"
+source = "git+https://github.com/swalladge/wallabag-api.git?rev=71a77358d7d573102894af591ca082175a6a8a93#71a77358d7d573102894af591ca082175a6a8a93"
 dependencies = [
  "chrono 0.4.10 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -3048,6 +3054,7 @@ dependencies = [
 "checksum glib-sys 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)" = "95856f3802f446c05feffa5e24859fe6a183a7cb849c8449afc35c86b1e316e2"
 "checksum gobject-sys 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)" = "31d1a804f62034eccf370006ccaef3708a71c31d561fee88564abe71177553d9"
 "checksum gtk 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)" = "7cd1d646cc9a2cb795f33b538779a3f22e71dc172f2aba08a41e84a2f72c0dec"
+"checksum gtk-macros 0.1.0 (git+https://gitlab.gnome.org/haecker-felix/gtk-macros.git)" = "<none>"
 "checksum gtk-sys 0.9.2 (registry+https://github.com/rust-lang/crates.io-index)" = "53def660c7b48b00b510c81ef2d2fbd3c570f1527081d8d7947f471513e1a4c1"
 "checksum h2 0.2.0-alpha.3 (registry+https://github.com/rust-lang/crates.io-index)" = "0f107db1419ef8271686187b1a5d47c6431af4a7f4d98b495e7b7fc249bb0a78"
 "checksum heck 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)" = "20564e78d53d2bb135c343b3f47714a56af2061f1c928fdb541dc7b9fdd94205"
@@ -3241,7 +3248,7 @@ dependencies = [
 "checksum vcpkg 0.2.8 (registry+https://github.com/rust-lang/crates.io-index)" = "3fc439f2794e98976c88a2a2dafce96b930fe8010b0a256b3c2199a773933168"
 "checksum version_check 0.1.5 (registry+https://github.com/rust-lang/crates.io-index)" = "914b1a6776c4c929a602fafd8bc742e06365d4bcbe48c30f9cca5824f70dc9dd"
 "checksum version_check 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)" = "078775d0255232fb988e6fccf26ddc9d1ac274299aaedcedce21c6f72cc533ce"
-"checksum wallabag-api 0.1.2 (git+https://github.com/swalladge/wallabag-api.git?rev=2321780ebe38a9ab4fd3fa536faf80f73391884c)" = "<none>"
+"checksum wallabag-api 0.1.2 (git+https://github.com/swalladge/wallabag-api.git?rev=71a77358d7d573102894af591ca082175a6a8a93)" = "<none>"
 "checksum want 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)" = "1ce8a968cb1cd110d136ff8b819a556d6fb6d919363c61534f6860c7eb172ba0"
 "checksum wasi 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)" = "b89c3ce4ce14bdc6fb6beaf9ec7928ca331de5df7e5ea278375642a2f478570d"
 "checksum wasm-bindgen 0.2.56 (registry+https://github.com/rust-lang/crates.io-index)" = "99de4b68939a880d530aed51289a7c7baee154e3ea8ac234b542c49da7134aaf"

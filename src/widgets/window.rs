@@ -59,21 +59,9 @@ impl Window {
 
     pub fn load_article(&self, article: Article) {
         if let Some(article_view_actions) = self.article_view.get_actions() {
-            let archive_action = article_view_actions
-                .lookup_action("archive")
-                .unwrap()
-                .downcast::<gio::SimpleAction>()
-                .unwrap();
-            let favorite_action = article_view_actions
-                .lookup_action("favorite")
-                .unwrap()
-                .downcast::<gio::SimpleAction>()
-                .unwrap();
-
-            favorite_action.set_state(&article.is_starred.to_variant());
-            archive_action.set_state(&article.is_archived.to_variant());
+            get_action!(article_view_actions, @archive).set_state(&article.is_archived.to_variant());
+            get_action!(article_view_actions, @favorite).set_state(&article.is_starred.to_variant());
         }
-
         self.article_view.load(article);
         self.set_view(View::Article);
     }
@@ -154,11 +142,15 @@ impl Window {
 
         get_widget!(self.builder, libhandy::Squeezer, squeezer);
         get_widget!(self.builder, gtk::Stack, headerbar_stack);
-        get_widget!(self.builder, libhandy::ViewSwitcher, title_wide_switcher);
-        get_widget!(self.builder, libhandy::ViewSwitcher, title_narrow_switcher);
         get_widget!(self.builder, libhandy::ViewSwitcherBar, switcher_bar);
         get_widget!(self.builder, gtk::Label, title_label);
 
+        squeezer.connect_property_visible_child_notify(move |squeezer| {
+            let visible_headerbar_stack = headerbar_stack.get_visible_child_name();
+            if let Some(visible_child) = squeezer.get_visible_child() {
+                switcher_bar.set_reveal(visible_child == title_label && visible_headerbar_stack == Some("articles".into()));
+            }
+        });
         self.widget.connect_size_allocate(move |widget, allocation| {
             if allocation.width <= 450 {
                 widget.get_style_context().add_class("sm");
@@ -173,14 +165,6 @@ impl Window {
                 widget.get_style_context().remove_class("sm");
                 widget.get_style_context().remove_class("md");
             }
-            if headerbar_stack.get_visible_child_name() == Some("articles".into()) {
-                squeezer.set_child_enabled(&title_wide_switcher, allocation.width > 600);
-                squeezer.set_child_enabled(&title_label, allocation.width <= 450);
-                squeezer.set_child_enabled(&title_narrow_switcher, allocation.width > 450);
-                switcher_bar.set_reveal(allocation.width <= 450);
-            } else {
-                switcher_bar.set_reveal(false);
-            }
         });
     }
 
@@ -190,13 +174,11 @@ impl Window {
         main_stack.add_named(&self.login_view.get_widget(), &self.login_view.name);
 
         // Articles
-        get_widget!(self.builder, libhandy::ViewSwitcher, title_wide_switcher);
-        get_widget!(self.builder, libhandy::ViewSwitcher, title_narrow_switcher);
+        get_widget!(self.builder, libhandy::ViewSwitcher, view_switcher);
         get_widget!(self.builder, libhandy::ViewSwitcherBar, switcher_bar);
 
         main_stack.add_named(&self.articles_view.widget, "articles");
-        title_wide_switcher.set_stack(Some(&self.articles_view.widget));
-        title_narrow_switcher.set_stack(Some(&self.articles_view.widget));
+        view_switcher.set_stack(Some(&self.articles_view.widget));
         switcher_bar.set_stack(Some(&self.articles_view.widget));
 
         // Article View

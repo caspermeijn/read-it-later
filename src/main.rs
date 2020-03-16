@@ -14,12 +14,11 @@ extern crate serde_derive;
 extern crate glib;
 #[macro_use]
 extern crate strum_macros;
+#[macro_use]
+extern crate gtk_macros;
 
 use gettextrs::*;
 use libhandy::Column;
-
-#[macro_use]
-mod utils;
 
 mod application;
 mod config;
