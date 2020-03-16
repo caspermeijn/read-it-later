@@ -33,6 +33,7 @@
   <url type="homepage">https://gitlab.gnome.org/bilelmoussaoui/read-it-later</url>
   <url type="bugtracker">https://gitlab.gnome.org/bilelmoussaoui/read-it-later/issues</url>
   <url type="donation">https://liberapay.com/bielmoussaoui</url>
+  <url type="translate">https://l10n.gnome.org/module/read-it-later/</url>
   <content_rating type="oars-1.0" />
   <releases>
     <release version="0.0.2" date="2020-02-26">
