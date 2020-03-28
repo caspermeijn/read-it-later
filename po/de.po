@@ -1,0 +1,260 @@
+# German translation for read-it-later.
+# Copyright (C) 2020 read-it-later's COPYRIGHT HOLDER
+# This file is distributed under the same license as the read-it-later package.
+# Sven <l10n.gnome.org@linux4tw.de>, 2020.
+# Christian Kirbach <christian.kirbach@gmail.com>, 2020.
+# Wolfgang Stöggl <c72578@yahoo.de>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: read-it-later master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
+"POT-Creation-Date: 2020-03-16 19:55+0000\n"
+"PO-Revision-Date: 2020-03-18 01:17+0100\n"
+"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
+"Language-Team: German <gnome-de@gnome.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.3\n"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
+msgid "Read It Later"
+msgstr "Read It Later"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
+msgid "A Wallabag Client."
+msgstr "Eine Wallabag-Anwendung."
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
+msgid ""
+"Read It Later, is a simple Wallabag client. It has the basic features to "
+"manage your articles"
+msgstr ""
+"Read It Later ist eine einfache Wallabag-Anwendung. Sie besitzt alle "
+"wesentlichen Funktionen, um Ihre Artikel zu verwalten"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+msgid "Add new articles"
+msgstr "Neue Artikel hinzufügen"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+msgid "Archive an article"
+msgstr "Einen Artikel archivieren"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+msgid "Delete an article"
+msgstr "Einen Artikel löschen"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
+msgid "Favorite an article"
+msgstr "Einen Artikel favorisieren"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
+msgid ""
+"It also comes with a nice on eyes reader mode that supports code syntax "
+"highlighting and a dark mode"
+msgstr ""
+"Es hat einen augenfreundlichen Lesemodus, der Code-Hervorhebung und den "
+"dunklen Modus unterstützt"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
+msgid "Main Window"
+msgstr "Hauptfenster"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
+msgid "Article View"
+msgstr "Artikelansicht"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
+msgid "Adaptive view in dark mode"
+msgstr "Anpassungsfähige Ansicht im dunklen Modus"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
+msgid "A Wallabag Client"
+msgstr "Eine Wallabag-Anwendung"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
+msgid "Gnome;GTK;"
+msgstr "Gnome;GTK;"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
+msgid "Default window width"
+msgstr "Voreingestellte Fensterbreite"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:10
+msgid "Default window height"
+msgstr "Voreingestellte Fensterhöhe"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
+msgid "Default window x position"
+msgstr "Voreingestellte horizontale Position des Fensters"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
+msgid "Default window y position"
+msgstr "Voreingestellte vertikale Position des Fensters"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
+msgid "Default window maximized behaviour"
+msgstr "Voreingestelltes Verhalten für maximiertes Fenster"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
+msgid "Logged in username"
+msgstr "Benutzername des angemeldeten Benutzers"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
+msgid "Latest successful sync in ms"
+msgstr "Letzter erfolgreicher Abgleich in ms"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:34
+msgid "Whether we should use a dark theme or not"
+msgstr "Legt fest, ob ein dunkles Thema verwendet werden soll"
+
+#: data/resources/ui/about_dialog.ui.in:13
+msgid "translator-credits"
+msgstr ""
+"Sven Fischer <l10n.gnome.org@linux4tw.de>, 2020\n"
+"Christian Kirbach <christian.kirbach@gmail.com>, 2020"
+
+#: data/resources/ui/articles_list.ui:59
+msgid "No articles found"
+msgstr "Keinen Artikel gefunden"
+
+#: data/resources/ui/menu.ui:19
+msgid "Add Article..."
+msgstr "Artikel hinzufügen …"
+
+#: data/resources/ui/menu.ui:44
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: data/resources/ui/menu.ui:58
+msgid "Logout"
+msgstr "Abmelden"
+
+#: data/resources/ui/menu.ui:83
+msgid "Keyboard Shortcuts"
+msgstr "Tastaturkürzel"
+
+#: data/resources/ui/menu.ui:97
+msgid "About Read It Later"
+msgstr "Info zu Read It Later"
+
+#: data/resources/ui/settings.ui:15
+msgid "Appearance"
+msgstr "Erscheinungsbild"
+
+#: data/resources/ui/settings.ui:19
+msgid "Enable dark mode"
+msgstr "Dunklen Modus aktivieren"
+
+#: data/resources/ui/settings.ui:41
+msgid "Account Settings"
+msgstr "Kontoeinstellungen"
+
+#: data/resources/ui/settings.ui:45
+msgid "Username"
+msgstr "Benutzername"
+
+#: data/resources/ui/settings.ui:59
+msgid "Email"
+msgstr "E-Mail"
+
+#: data/resources/ui/settings.ui:73
+msgid "Created At"
+msgstr "Erstellt am"
+
+#: data/resources/ui/settings.ui:87
+msgid "Updated At"
+msgstr "Aktualisiert am"
+
+#: data/resources/ui/shortcuts.ui:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Allgemein"
+
+#: data/resources/ui/shortcuts.ui:17
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Tastaturkürzel zeigen"
+
+#: data/resources/ui/shortcuts.ui:24
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "Einstellungen"
+
+#: data/resources/ui/shortcuts.ui:31
+msgctxt "shortcut window"
+msgid "Back"
+msgstr "Zurück"
+
+#: data/resources/ui/shortcuts.ui:38
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Beenden"
+
+#: data/resources/ui/shortcuts.ui:47
+msgctxt "shortcut window"
+msgid "Articles"
+msgstr "Artikel"
+
+#: data/resources/ui/shortcuts.ui:51
+msgctxt "shortcut window"
+msgid "Synchronize"
+msgstr "Abgleichen"
+
+#: data/resources/ui/shortcuts.ui:58
+msgctxt "shortcut window"
+msgid "New Article"
+msgstr "Neuer Artikel"
+
+#: data/resources/ui/shortcuts.ui:65
+msgctxt "shortcut window"
+msgid "Delete Article"
+msgstr "Artikel löschen"
+
+#: data/resources/ui/shortcuts.ui:72
+msgctxt "shortcut window"
+msgid "Favorite Article"
+msgstr "Artikel favorisieren"
+
+#: data/resources/ui/shortcuts.ui:79
+msgctxt "shortcut window"
+msgid "Archive Article"
+msgstr "Artikel archivieren"
+
+#: data/resources/ui/shortcuts.ui:86
+msgctxt "shortcut window"
+msgid "Open Article In Browser"
+msgstr "Artikel im Browser öffnen"
+
+#: data/resources/ui/window.ui.in:25
+msgid "Open Website"
+msgstr "Internetseite öffnen"
+
+#: data/resources/ui/window.ui.in:50
+msgid "Delete Article"
+msgstr "Artikel löschen"
+
+#: data/resources/ui/window.ui.in:181
+msgid "Favorite"
+msgstr "Favorisieren"
+
+#: data/resources/ui/window.ui.in:201
+msgid "Archive"
+msgstr "Archivieren"
+
+#: data/resources/ui/window.ui.in:273
+msgid "Paste the article url here"
+msgstr "Adresse des Artikels hier einfügen"
+
+#: data/resources/ui/window.ui.in:283
+msgid "Save"
+msgstr "Speichern"
