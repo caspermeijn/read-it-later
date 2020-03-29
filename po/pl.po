@@ -1,0 +1,259 @@
+# Polish translation for read-it-later.
+# Copyright © 2020 the read-it-later authors.
+# This file is distributed under the same license as the read-it-later package.
+# Piotr Drąg <piotrdrag@gmail.com>, 2020.
+# Aviary.pl <community-poland@mozilla.org>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: read-it-later\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
+"POT-Creation-Date: 2020-03-28 12:52+0000\n"
+"PO-Revision-Date: 2020-03-29 13:45+0200\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"Language-Team: Polish <community-poland@mozilla.org>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
+msgid "Read It Later"
+msgstr "Przeczytaj później"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
+msgid "A Wallabag Client."
+msgstr "Klient serwisu Wallabag."
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
+msgid ""
+"Read It Later, is a simple Wallabag client. It has the basic features to "
+"manage your articles"
+msgstr ""
+"Prosty klient serwisu Wallabag. Ma podstawowe funkcje do zarządzania "
+"artykułami:"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+msgid "Add new articles"
+msgstr "Dodawanie nowych artykułów"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+msgid "Archive an article"
+msgstr "Archiwizowanie artykułu"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+msgid "Delete an article"
+msgstr "Usuwanie artykułu"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
+msgid "Favorite an article"
+msgstr "Dodawanie artykułu do ulubionych"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
+msgid ""
+"It also comes with a nice on eyes reader mode that supports code syntax "
+"highlighting and a dark mode"
+msgstr ""
+"Ma także łagodny dla oczu tryb czytania obsługujący wyróżnianie elementów "
+"składni i tryb ciemny."
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
+msgid "Main Window"
+msgstr "Główne okno"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
+msgid "Article View"
+msgstr "Widok artykułu"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
+msgid "Adaptive view in dark mode"
+msgstr "Widok adaptacyjny w trybie ciemnym"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
+msgid "A Wallabag Client"
+msgstr "Klient serwisu Wallabag"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
+msgid "Gnome;GTK;"
+msgstr "GNOME;GTK;"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
+msgid "Default window width"
+msgstr "Domyślna szerokość okna"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:10
+msgid "Default window height"
+msgstr "Domyślna wysokość okna"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
+msgid "Default window x position"
+msgstr "Domyślne położenie okna na osi X"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
+msgid "Default window y position"
+msgstr "Domyślne położenie okna na osi Y"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
+msgid "Default window maximized behaviour"
+msgstr "Domyślny stan maksymalizacji okna"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
+msgid "Logged in username"
+msgstr "Nazwa zalogowanego użytkownika"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
+msgid "Latest successful sync in ms"
+msgstr "Ostatnia pomyślna synchronizacja w milisekundach"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:34
+msgid "Whether we should use a dark theme or not"
+msgstr "Czy używać ciemnego motywu"
+
+#: data/resources/ui/about_dialog.ui.in:13
+msgid "translator-credits"
+msgstr ""
+"Piotr Drąg <piotrdrag@gmail.com>, 2020\n"
+"Aviary.pl <community-poland@mozilla.org>, 2020"
+
+#: data/resources/ui/articles_list.ui:59
+msgid "No articles found"
+msgstr "Nie odnaleziono żadnych artykułów"
+
+#: data/resources/ui/menu.ui:19
+msgid "Add Article..."
+msgstr "Dodaj artykuł…"
+
+#: data/resources/ui/menu.ui:44
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: data/resources/ui/menu.ui:58
+msgid "Logout"
+msgstr "Wyloguj się"
+
+#: data/resources/ui/menu.ui:83
+msgid "Keyboard Shortcuts"
+msgstr "Skróty klawiszowe"
+
+#: data/resources/ui/menu.ui:97
+msgid "About Read It Later"
+msgstr "O programie"
+
+#: data/resources/ui/settings.ui:15
+msgid "Appearance"
+msgstr "Wygląd"
+
+#: data/resources/ui/settings.ui:19
+msgid "Enable dark mode"
+msgstr "Tryb ciemny"
+
+#: data/resources/ui/settings.ui:41
+msgid "Account Settings"
+msgstr "Ustawienia konta"
+
+#: data/resources/ui/settings.ui:45
+msgid "Username"
+msgstr "Nazwa użytkownika"
+
+#: data/resources/ui/settings.ui:59
+msgid "Email"
+msgstr "Adres e-mail"
+
+#: data/resources/ui/settings.ui:73
+msgid "Created At"
+msgstr "Utworzono"
+
+#: data/resources/ui/settings.ui:87
+msgid "Updated At"
+msgstr "Zaktualizowano"
+
+#: data/resources/ui/shortcuts.ui:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Ogólne"
+
+#: data/resources/ui/shortcuts.ui:17
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Wyświetlenie skrótów"
+
+#: data/resources/ui/shortcuts.ui:24
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "Preferencje"
+
+#: data/resources/ui/shortcuts.ui:31
+msgctxt "shortcut window"
+msgid "Back"
+msgstr "Przejście wstecz"
+
+#: data/resources/ui/shortcuts.ui:38
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Zakończenie działania"
+
+#: data/resources/ui/shortcuts.ui:47
+msgctxt "shortcut window"
+msgid "Articles"
+msgstr "Artykuły"
+
+#: data/resources/ui/shortcuts.ui:51
+msgctxt "shortcut window"
+msgid "Synchronize"
+msgstr "Synchronizacja"
+
+#: data/resources/ui/shortcuts.ui:58
+msgctxt "shortcut window"
+msgid "New Article"
+msgstr "Nowy artykuł"
+
+#: data/resources/ui/shortcuts.ui:65
+msgctxt "shortcut window"
+msgid "Delete Article"
+msgstr "Usunięcie artykułu"
+
+#: data/resources/ui/shortcuts.ui:72
+msgctxt "shortcut window"
+msgid "Favorite Article"
+msgstr "Dodanie artykułu do ulubionych"
+
+#: data/resources/ui/shortcuts.ui:79
+msgctxt "shortcut window"
+msgid "Archive Article"
+msgstr "Archiwizacja artykułu"
+
+#: data/resources/ui/shortcuts.ui:86
+msgctxt "shortcut window"
+msgid "Open Article In Browser"
+msgstr "Otwarcie artykułu w przeglądarce"
+
+#: data/resources/ui/window.ui.in:25
+msgid "Open Website"
+msgstr "Otwórz stronę WWW"
+
+#: data/resources/ui/window.ui.in:50
+msgid "Delete Article"
+msgstr "Usuń artykuł"
+
+#: data/resources/ui/window.ui.in:181
+msgid "Favorite"
+msgstr "Dodaje do ulubionych"
+
+#: data/resources/ui/window.ui.in:201
+msgid "Archive"
+msgstr "Archiwizuje"
+
+#: data/resources/ui/window.ui.in:273
+msgid "Paste the article url here"
+msgstr "Tutaj należy wkleić adres URL artykułu"
+
+#: data/resources/ui/window.ui.in:283
+msgid "Save"
+msgstr "Zapisz"
