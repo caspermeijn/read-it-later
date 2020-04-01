@@ -1,17 +1,18 @@
+use crate::config;
+use crate::database;
+use crate::models::CACHE_DIR;
+use crate::models::{Article, ArticleAction, ClientManager, SecretManager};
+use crate::settings::{Key, SettingsManager};
+use crate::widgets::{SettingsWidget, View, Window};
 use async_std::sync::{Arc, Mutex};
 use chrono::{TimeZone, Utc};
+use futures::executor::ThreadPool;
 use gio::prelude::*;
 use glib::{Receiver, Sender};
 use gtk::prelude::*;
 use std::env;
 use std::{cell::RefCell, rc::Rc};
 use url::Url;
-
-use crate::config;
-use crate::database;
-use crate::models::{Article, ArticleAction, ClientManager, SecretManager};
-use crate::settings::{Key, SettingsManager};
-use crate::widgets::{SettingsWidget, View, Window};
 
 use wallabag_api::types::Config;
 
@@ -60,6 +61,8 @@ impl Application {
         info!("Read It Later{} ({})", config::NAME_SUFFIX, config::APP_ID);
         info!("Version: {} ({})", config::VERSION, config::PROFILE);
         info!("Datadir: {}", config::PKGDATADIR);
+
+        std::fs::create_dir_all(&CACHE_DIR.to_str().unwrap()).unwrap();
 
         let receiver = self.receiver.borrow_mut().take().unwrap();
         receiver.attach(None, move |action| app.do_action(action));
@@ -303,17 +306,19 @@ impl Application {
     }
 
     fn load_articles(&self, articles: Vec<Article>) {
-        articles
-            .into_iter()
-            .for_each(clone!(@strong self.sender as sender => move |article| {
-                gtk::idle_add(clone!(@strong sender => move || {
+        let pool = ThreadPool::new().expect("Failed to build pool");
+        let sender = self.sender.clone();
+        spawn!(async move {
+            let futures = async move {
+                articles.iter().for_each(|article| {
                     match article.insert() {
                         Ok(_) => send!(sender, Action::Articles(Box::new(ArticleAction::Add(article.clone())))),
                         Err(_) => send!(sender, Action::Articles(Box::new(ArticleAction::Update(article.clone())))),
-                    }   ;
-                    glib::Continue(false)
-                }));
-            }));
+                    };
+                })
+            };
+            pool.spawn_ok(futures);
+        });
     }
 
     fn update_article(&self, article: Article) {

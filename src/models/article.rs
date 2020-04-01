@@ -1,13 +1,14 @@
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
 use failure::Error;
 use gdk_pixbuf::Pixbuf;
+use glib::Cast;
 use sanitize_html::sanitize_str;
 use std::str::FromStr;
 use url::Url;
 use wallabag_api::types::{Entry, PatchEntry};
 
 use crate::database;
-use crate::models::{ArticlesFilter, PreviewImage};
+use crate::models::{ArticlesFilter, ObjectWrapper, PreviewImage};
 use crate::schema::articles;
 
 #[derive(Insertable, Queryable, PartialEq, Debug, Clone, Serialize, Deserialize)]
@@ -30,6 +31,13 @@ pub struct Article {
 }
 
 impl Article {
+    pub fn compare(a: &glib::Object, b: &glib::Object) -> std::cmp::Ordering {
+        let article_a: Article = a.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
+        let article_b: Article = b.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
+
+        article_b.published_at.cmp(&article_a.published_at)
+    }
+
     pub fn load(filter: &ArticlesFilter) -> Result<Vec<Self>, Error> {
         use crate::schema::articles::dsl::*;
         let db = database::connection();
@@ -161,24 +169,16 @@ impl Article {
         Ok(())
     }
 
-    pub async fn download_preview_image(&self) -> Result<(), Error> {
+    pub async fn get_preview_picture(&self) -> Result<Option<Pixbuf>, failure::Error> {
         if let Some(preview_picture) = &self.preview_picture {
             let preview_image = PreviewImage::new(Url::from_str(preview_picture)?);
-            preview_image.download().await?;
-        }
-        Ok(())
-    }
+            if !preview_image.exists() {
+                preview_image.download().await?;
+            }
 
-    pub fn get_preview_pixbuf(&self) -> Option<Pixbuf> {
-        if let Some(preview_picture) = &self.preview_picture {
-            let cache_path = PreviewImage::get_cache_of(preview_picture);
-
-            return match gdk_pixbuf::Pixbuf::new_from_file(cache_path) {
-                Ok(pixbuf) => Some(pixbuf),
-                Err(_) => None,
-            };
+            return Ok(Some(gdk_pixbuf::Pixbuf::new_from_file(&preview_image.cache)?));
         }
-        None
+        Ok(None)
     }
 
     pub fn get_preview(&self) -> Result<Option<String>, Error> {

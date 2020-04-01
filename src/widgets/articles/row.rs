@@ -6,10 +6,6 @@ use glib::Sender;
 use gtk::prelude::*;
 use std::rc::Rc;
 
-enum ArticleRowAction {
-    ImageDownloaded,
-}
-
 pub struct ArticleRow {
     pub widget: gtk::ListBoxRow,
     builder: gtk::Builder,
@@ -19,36 +15,24 @@ pub struct ArticleRow {
 }
 
 impl ArticleRow {
-    pub fn new(article: Article, sender: Sender<ArticleAction>) -> Rc<Self> {
+    pub fn new(article: Article, sender: Sender<ArticleAction>) -> Self {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/article_row.ui");
         get_widget!(builder, gtk::ListBoxRow, article_row);
         let preview_image = ArticlePreviewImage::new();
 
-        let row = Rc::new(Self {
+        let row = Self {
             widget: article_row,
             builder,
             article,
             sender,
             preview_image,
-        });
+        };
 
-        row.init(row.clone());
+        row.init();
         row
     }
 
-    fn do_action(&self, action: ArticleRowAction) -> glib::Continue {
-        match action {
-            ArticleRowAction::ImageDownloaded => {
-                match self.article.get_preview_pixbuf() {
-                    Some(pixbuf) => self.preview_image.set_pixbuf(pixbuf),
-                    _ => self.preview_image.widget.hide(),
-                };
-            }
-        }
-        glib::Continue(true)
-    }
-
-    fn init(&self, row: Rc<Self>) {
+    fn init(&self) {
         get_widget!(self.builder, gtk::EventBox, event_box);
         event_box.connect_button_press_event(
             clone!(@strong self.sender as sender, @strong self.article as article => move |_, _| {
@@ -78,14 +62,13 @@ impl ArticleRow {
             content_label.set_text(&preview);
         }
 
-        let (sender, receiver) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
         let article = self.article.clone();
+        let preview_image = self.preview_image.clone();
         spawn!(async move {
-            if article.download_preview_image().await.is_err() {
-                warn!("Failed to download preview image of {:#?} with ID={}", article.title, article.id);
-            }
-            send!(sender, ArticleRowAction::ImageDownloaded);
+            match article.get_preview_picture().await {
+                Ok(Some(pixbuf)) => preview_image.set_pixbuf(pixbuf),
+                _ => preview_image.widget.hide(),
+            };
         });
-        receiver.attach(None, move |action| row.do_action(action));
     }
 }

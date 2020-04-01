@@ -35,4 +35,5 @@ strum_macros = "0.16"
 html2pango = "0.3"
 rust-crypto = "0.2"
 async-std = "1.4"
+futures = { version = "0.3", features = [ "thread-pool" ] }
 gtk-macros = "0.2"

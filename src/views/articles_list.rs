@@ -38,7 +38,7 @@ impl ArticlesListView {
     pub fn add(&self, article: &Article) {
         if self.index(&article).is_none() {
             let object = ObjectWrapper::new(Box::new(article));
-            self.model.insert(0, &object);
+            self.model.insert_sorted(&object, Article::compare);
         }
     }
 

@@ -49,7 +49,7 @@ impl ArticlesListWidget {
             clone!(@strong self.sender as sender => move |article| {
                 let article: Article = article.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
                 let row = ArticleRow::new(article, sender.clone());
-                row.widget.clone().upcast::<gtk::Widget>()
+                row.widget.upcast::<gtk::Widget>()
             }),
         );
     }

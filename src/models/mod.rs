@@ -11,5 +11,5 @@ pub use article_filter::ArticlesFilter;
 pub use articles::{ArticleAction, ArticlesManager};
 pub use client_manager::ClientManager;
 pub use object_wrapper::ObjectWrapper;
-pub use preview_image::PreviewImage;
+pub use preview_image::{PreviewImage, CACHE_DIR};
 pub use secret::SecretManager;

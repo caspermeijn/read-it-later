@@ -1,18 +1,18 @@
+use async_std::fs::File;
+use async_std::prelude::*;
 use crypto::digest::Digest;
 use crypto::sha1::Sha1;
 use failure::Error;
-use std::fs::File;
 use std::path::PathBuf;
-use std::{fs, io::Write};
 use url::Url;
 
 lazy_static! {
-    static ref CACHE_DIR: PathBuf = glib::get_user_cache_dir().unwrap().join("read-it-later");
+    pub static ref CACHE_DIR: PathBuf = glib::get_user_cache_dir().unwrap().join("read-it-later");
 }
 
 pub struct PreviewImage {
     pub url: Url,
-    cache: PathBuf,
+    pub cache: PathBuf,
 }
 
 impl PreviewImage {
@@ -28,20 +28,18 @@ impl PreviewImage {
         cache
     }
 
+    pub fn exists(&self) -> bool {
+        self.cache.exists()
+    }
+
     pub async fn download(&self) -> Result<(), Error> {
-        if !self.cache.exists() {
-            let cache_dir = &CACHE_DIR;
-            fs::create_dir_all(&cache_dir.to_str().unwrap())?;
-
-            if let Ok(mut resp) = surf::get(&self.url).await {
-                let content = resp.body_bytes().await?;
-                if !content.is_empty() {
-                    let mut out = File::create(self.cache.clone())?;
-                    out.write_all(&content)?;
-                }
-            }
-
+        if let Ok(mut resp) = surf::get(&self.url).await {
             info!("Downloading preview image {} into {:#?}", self.url, self.cache);
+            let content = resp.body_bytes().await?;
+            if !content.is_empty() {
+                let mut out = File::create(self.cache.clone()).await?;
+                out.write_all(&content).await?;
+            }
         }
         Ok(())
     }
