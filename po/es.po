@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
 "POT-Creation-Date: 2020-03-16 19:55+0000\n"
-"PO-Revision-Date: 2020-03-26 09:33+0100\n"
+"PO-Revision-Date: 2020-04-01 12:15+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -32,6 +32,8 @@ msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
 "manage your articles"
 msgstr ""
+"Leer más tarde es un sencillo cliente de Wallabag. Tiene las funcionalidades "
+"básicas para gestionar sus artículos"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
 msgid "Add new articles"
@@ -54,6 +56,8 @@ msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
 "highlighting and a dark mode"
 msgstr ""
+"También incluye un modo de lectura agradable que soporta resaltado de "
+"sintaxis de código y un modo oscuro"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
 msgid "Main Window"
@@ -89,11 +93,11 @@ msgstr "Altura predeterminada de ventana"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
 msgid "Default window x position"
-msgstr ""
+msgstr "Posición X predeterminada de la ventana"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
 msgid "Default window y position"
-msgstr ""
+msgstr "Posición Y predeterminada de la ventana"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
 msgid "Default window maximized behaviour"
@@ -101,7 +105,7 @@ msgstr "Comportamiento predeterminado al maximizar la ventana"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
 msgid "Logged in username"
-msgstr ""
+msgstr "Nombre del usuario que ha iniciado sesión"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
 msgid "Latest successful sync in ms"
@@ -109,7 +113,7 @@ msgstr "Última sincronización correcta, en ms"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:34
 msgid "Whether we should use a dark theme or not"
-msgstr ""
+msgstr "Indica si se debe usar un tema oscuro o no"
 
 #: data/resources/ui/about_dialog.ui.in:13
 msgid "translator-credits"
@@ -121,7 +125,7 @@ msgstr "No se han encontrado artículos"
 
 #: data/resources/ui/menu.ui:19
 msgid "Add Article..."
-msgstr ""
+msgstr "Añadir artículo..."
 
 #: data/resources/ui/menu.ui:44
 msgid "Settings"
