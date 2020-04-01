@@ -65,6 +65,7 @@ impl ClientManager {
             tags: vec![],
             since: since.timestamp(),
             public: None,
+            per_page: None,
         };
         if let Some(client) = self.client.clone() {
             let mut client = client.lock().await;

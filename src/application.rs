@@ -310,7 +310,7 @@ impl Application {
                     match article.insert() {
                         Ok(_) => send!(sender, Action::Articles(Box::new(ArticleAction::Add(article.clone())))),
                         Err(_) => send!(sender, Action::Articles(Box::new(ArticleAction::Update(article.clone())))),
-                    };
+                    }   ;
                     glib::Continue(false)
                 }));
             }));

@@ -33,8 +33,7 @@ mod window_state;
 
 use application::Application;
 
-#[tokio::main]
-async fn main() {
+fn main() {
     pretty_env_logger::init();
 
     gtk::init().expect("Unable to start GTK3");
