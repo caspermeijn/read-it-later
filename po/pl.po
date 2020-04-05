@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2020-03-28 12:52+0000\n"
-"PO-Revision-Date: 2020-03-29 13:45+0200\n"
+"POT-Creation-Date: 2020-04-01 03:18+0000\n"
+"PO-Revision-Date: 2020-04-05 11:35+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -81,8 +81,10 @@ msgid "A Wallabag Client"
 msgstr "Klient serwisu Wallabag"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
-msgid "Gnome;GTK;"
-msgstr "GNOME;GTK;"
+msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
+msgstr ""
+"GNOME;GTK;Wallabag;WWW;Internet;Online;On-line;Web;Artykuły;Offline;Off-line;"
+"Czytaj;Przeczytaj;Poczytaj;Czytanie;"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
 msgid "Default window width"
