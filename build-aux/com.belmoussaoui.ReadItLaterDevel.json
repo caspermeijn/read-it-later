@@ -58,7 +58,7 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://gitlab.gnome.org/bilelmoussaoui/read-it-later.git"
+                    "url": "https://gitlab.gnome.org/World/read-it-later.git"
                 }
             ]
         }

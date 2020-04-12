@@ -4,7 +4,7 @@
 
 # Read It Later
 
-<img src="https://gitlab.gnome.org/bilelmoussaoui/read-it-later/raw/master/data/icons/com.belmoussaoui.ReadItLater.svg" width="128" height="128" />
+<img src="https://gitlab.gnome.org/World/read-it-later/raw/master/data/icons/com.belmoussaoui.ReadItLater.svg" width="128" height="128" />
 
 A Wallabag Client
 
