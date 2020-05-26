@@ -3,6 +3,7 @@ use failure::Error;
 use gdk_pixbuf::Pixbuf;
 use glib::Cast;
 use sanitize_html::sanitize_str;
+use std::rc::Rc;
 use std::str::FromStr;
 use url::Url;
 use wallabag_api::types::{Entry, PatchEntry};
@@ -169,11 +170,11 @@ impl Article {
         Ok(())
     }
 
-    pub async fn get_preview_picture(&self) -> Result<Option<Pixbuf>, failure::Error> {
+    pub async fn get_preview_picture(&self, client: Rc<isahc::HttpClient>) -> Result<Option<Pixbuf>, failure::Error> {
         if let Some(preview_picture) = &self.preview_picture {
             let preview_image = PreviewImage::new(Url::from_str(preview_picture)?);
             if !preview_image.exists() {
-                preview_image.download().await?;
+                preview_image.download(client).await?;
             }
 
             return Ok(Some(gdk_pixbuf::Pixbuf::new_from_file(&preview_image.cache)?));

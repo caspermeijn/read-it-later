@@ -48,9 +48,13 @@ impl ArticlesManager {
             ArticleAction::Archive(article) => self.archive(article),
             ArticleAction::Favorite(article) => self.favorite(article),
             ArticleAction::Update(article) => self.update(article), // Update article values by their ID.
-            _ => (),                                                // Do nothing for now
+            ArticleAction::Add(article) => self.add(article),
         };
         glib::Continue(true)
+    }
+
+    fn add(&self, article: Article) {
+        send!(self.main_sender, Action::Articles(Box::new(ArticleAction::Add(article))));
     }
 
     fn open(&self, article: Article) {

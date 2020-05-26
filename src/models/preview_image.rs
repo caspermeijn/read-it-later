@@ -1,9 +1,9 @@
-use async_std::fs::File;
-use async_std::prelude::*;
 use crypto::digest::Digest;
 use crypto::sha1::Sha1;
 use failure::Error;
+use isahc::ResponseExt;
 use std::path::PathBuf;
+use std::rc::Rc;
 use url::Url;
 
 lazy_static! {
@@ -32,14 +32,10 @@ impl PreviewImage {
         self.cache.exists()
     }
 
-    pub async fn download(&self) -> Result<(), Error> {
-        if let Ok(mut resp) = surf::get(&self.url).await {
+    pub async fn download(&self, client: Rc<isahc::HttpClient>) -> Result<(), Error> {
+        if let Ok(mut resp) = client.get_async(&self.url.to_string()).await {
             info!("Downloading preview image {} into {:#?}", self.url, self.cache);
-            let content = resp.body_bytes().await?;
-            if !content.is_empty() {
-                let mut out = File::create(self.cache.clone()).await?;
-                out.write_all(&content).await?;
-            }
+            resp.copy_to_file(self.cache.clone())?;
         }
         Ok(())
     }

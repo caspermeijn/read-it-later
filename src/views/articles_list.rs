@@ -1,8 +1,9 @@
-use gio::prelude::*;
-use glib::Sender;
-
 use crate::models::{Article, ArticleAction, ArticlesFilter, ObjectWrapper};
 use crate::widgets::articles::ArticlesListWidget;
+use futures::executor::ThreadPool;
+use gio::prelude::*;
+use glib::Sender;
+use std::rc::Rc;
 
 pub struct ArticlesListView {
     widget: ArticlesListWidget,
@@ -11,12 +12,20 @@ pub struct ArticlesListView {
     pub icon: String,
     model: gio::ListStore,
     filter: ArticlesFilter,
+    sender: Sender<ArticleAction>,
 }
 
 impl ArticlesListView {
-    pub fn new(name: &str, title: &str, icon: &str, filter: ArticlesFilter, sender: Sender<ArticleAction>) -> Self {
+    pub fn new(
+        name: &str,
+        title: &str,
+        icon: &str,
+        filter: ArticlesFilter,
+        client: Rc<isahc::HttpClient>,
+        sender: Sender<ArticleAction>,
+    ) -> Self {
         let model = gio::ListStore::new(ObjectWrapper::static_type());
-        let widget = ArticlesListWidget::new(sender);
+        let widget = ArticlesListWidget::new(sender.clone(), client);
 
         let articles_view = Self {
             widget,
@@ -25,6 +34,7 @@ impl ArticlesListView {
             title: title.to_string(),
             icon: icon.to_string(),
             filter,
+            sender,
         };
         articles_view.init();
         articles_view
@@ -57,9 +67,20 @@ impl ArticlesListView {
     }
 
     fn init(&self) {
-        if let Ok(articles) = Article::load(&self.filter) {
-            articles.into_iter().for_each(|article| self.add(&article));
-        }
+        let articles = Article::load(&self.filter).unwrap();
+        let pool = ThreadPool::new().expect("Failed to build pool");
+        let sender = self.sender.clone();
+
+        let ctx = glib::MainContext::default();
+        ctx.spawn(async move {
+            let futures = async move {
+                articles.into_iter().for_each(|article| {
+                    send!(sender, ArticleAction::Add(article));
+                })
+            };
+            pool.spawn_ok(futures);
+        });
+
         self.widget.bind_model(&self.model, &self.icon, "Pretty clean!");
     }
 

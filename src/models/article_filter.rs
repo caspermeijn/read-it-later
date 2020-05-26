@@ -1,3 +1,4 @@
+#[derive(Clone)]
 pub struct ArticlesFilter {
     pub archived: Option<bool>,
     pub starred: Option<bool>,

@@ -12,10 +12,11 @@ pub struct ArticleRow {
     article: Article,
     preview_image: Rc<ArticlePreviewImage>,
     sender: Sender<ArticleAction>,
+    client: Rc<isahc::HttpClient>,
 }
 
 impl ArticleRow {
-    pub fn new(article: Article, sender: Sender<ArticleAction>) -> Self {
+    pub fn new(article: Article, client: Rc<isahc::HttpClient>, sender: Sender<ArticleAction>) -> Self {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/article_row.ui");
         get_widget!(builder, gtk::ListBoxRow, article_row);
         let preview_image = ArticlePreviewImage::new();
@@ -26,6 +27,7 @@ impl ArticleRow {
             article,
             sender,
             preview_image,
+            client,
         };
 
         row.init();
@@ -64,8 +66,9 @@ impl ArticleRow {
 
         let article = self.article.clone();
         let preview_image = self.preview_image.clone();
+        let client = self.client.clone();
         spawn!(async move {
-            match article.get_preview_picture().await {
+            match article.get_preview_picture(client).await {
                 Ok(Some(pixbuf)) => preview_image.set_pixbuf(pixbuf),
                 _ => preview_image.widget.hide(),
             };

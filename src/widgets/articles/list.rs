@@ -1,6 +1,7 @@
 use gio::prelude::*;
 use glib::Sender;
 use gtk::prelude::*;
+use std::rc::Rc;
 
 use super::row::ArticleRow;
 use crate::models::{Article, ArticleAction, ObjectWrapper};
@@ -9,10 +10,11 @@ pub struct ArticlesListWidget {
     pub widget: libhandy::Column,
     builder: gtk::Builder,
     sender: Sender<ArticleAction>,
+    client: Rc<isahc::HttpClient>,
 }
 
 impl ArticlesListWidget {
-    pub fn new(sender: Sender<ArticleAction>) -> Self {
+    pub fn new(sender: Sender<ArticleAction>, client: Rc<isahc::HttpClient>) -> Self {
         let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/articles_list.ui");
         get_widget!(builder, libhandy::Column, articles_list);
 
@@ -20,6 +22,7 @@ impl ArticlesListWidget {
             builder,
             widget: articles_list,
             sender,
+            client,
         }
     }
 
@@ -44,11 +47,12 @@ impl ArticlesListWidget {
             }
         });
         get_widget!(self.builder, gtk::ListBox, articles_listbox);
+
         articles_listbox.bind_model(
             Some(model),
-            clone!(@strong self.sender as sender => move |article| {
+            clone!(@strong self.sender as sender, @strong self.client as client => move |article| {
                 let article: Article = article.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
-                let row = ArticleRow::new(article, sender.clone());
+                let row = ArticleRow::new(article, client.clone(), sender.clone());
                 row.widget.upcast::<gtk::Widget>()
             }),
         );
