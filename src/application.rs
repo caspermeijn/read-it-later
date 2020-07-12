@@ -4,6 +4,7 @@ use crate::models::CACHE_DIR;
 use crate::models::{Article, ArticleAction, ClientManager, SecretManager};
 use crate::settings::{Key, SettingsManager};
 use crate::widgets::{SettingsWidget, View, Window};
+use anyhow::Result;
 use async_std::sync::{Arc, Mutex};
 use chrono::{TimeZone, Utc};
 use futures::executor::ThreadPool;
@@ -259,7 +260,7 @@ impl Application {
         send!(self.sender, Action::SetView(View::Articles));
     }
 
-    fn logout(&self) -> Result<(), failure::Error> {
+    fn logout(&self) -> Result<()> {
         let username = SettingsManager::get_string(Key::Username);
         database::wipe()?;
         self.window.articles_view.clear();

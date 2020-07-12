@@ -1,6 +1,6 @@
+use anyhow::{bail, Result};
 use async_std::sync::{Arc, Mutex};
 use chrono::DateTime;
-use failure::Error;
 use glib::Sender;
 use url::Url;
 use wallabag_api::types::{EntriesFilter, NewEntry, PatchEntry, SortBy, SortOrder, User};
@@ -56,7 +56,7 @@ impl ClientManager {
         }
     }
 
-    pub async fn sync(&self, since: DateTime<chrono::Utc>) -> Result<Vec<Article>, Error> {
+    pub async fn sync(&self, since: DateTime<chrono::Utc>) -> Result<Vec<Article>> {
         let filter = EntriesFilter {
             archive: None,
             starred: None,
@@ -80,7 +80,7 @@ impl ClientManager {
         self.user.clone()
     }
 
-    pub async fn fetch_user(&self) -> Result<User, Error> {
+    pub async fn fetch_user(&self) -> Result<User> {
         if let Some(client) = self.client.clone() {
             let mut client = client.lock().await;
             let user = client.get_user().await?;
@@ -89,7 +89,7 @@ impl ClientManager {
         bail!("No client set yet");
     }
 
-    pub async fn set_config(&mut self, config: wallabag_api::types::Config) -> Result<(), Error> {
+    pub async fn set_config(&mut self, config: wallabag_api::types::Config) -> Result<()> {
         let client = Client::new(config);
         self.client = Some(Arc::new(Mutex::new(client)));
         let user = self.fetch_user().await?;

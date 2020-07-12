@@ -1,4 +1,4 @@
-use failure::Error;
+use anyhow::Result;
 use gio::prelude::*;
 use glib::Sender;
 use gtk::prelude::*;
@@ -133,7 +133,7 @@ impl ArticleWidget {
         );
     }
 
-    pub fn load_article(&self, article: Article) -> Result<(), Error> {
+    pub fn load_article(&self, article: Article) -> Result<()> {
         get_widget!(self.builder, WebView, webview);
         info!("Loading the article {:#?}", article.title);
         self.article.replace(Some(article.clone()));
@@ -166,7 +166,7 @@ impl ArticleWidget {
     }
 }
 
-pub fn load_resource(file: &str) -> Result<String, failure::Error> {
+pub fn load_resource(file: &str) -> Result<String> {
     let file = gio::File::new_for_uri(&format!("resource:///com/belmoussaoui/ReadItLater/{}", file));
     let (bytes, _) = file.load_bytes(gio::NONE_CANCELLABLE)?;
     String::from_utf8(bytes.to_vec()).map_err(From::from)

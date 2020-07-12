@@ -1,6 +1,6 @@
+use anyhow::Result;
 use crypto::digest::Digest;
 use crypto::sha1::Sha1;
-use failure::Error;
 use isahc::ResponseExt;
 use std::path::PathBuf;
 use std::rc::Rc;
@@ -32,7 +32,7 @@ impl PreviewImage {
         self.cache.exists()
     }
 
-    pub async fn download(&self, client: Rc<isahc::HttpClient>) -> Result<(), Error> {
+    pub async fn download(&self, client: Rc<isahc::HttpClient>) -> Result<()> {
         if let Ok(mut resp) = client.get_async(&self.url.to_string()).await {
             info!("Downloading preview image {} into {:#?}", self.url, self.cache);
             resp.copy_to_file(self.cache.clone())?;

@@ -1,5 +1,5 @@
+use anyhow::Result;
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
-use failure::Error;
 use gdk_pixbuf::Pixbuf;
 use glib::Cast;
 use sanitize_html::sanitize_str;
@@ -39,7 +39,7 @@ impl Article {
         article_b.published_at.cmp(&article_a.published_at)
     }
 
-    pub fn load(filter: &ArticlesFilter) -> Result<Vec<Self>, Error> {
+    pub fn load(filter: &ArticlesFilter) -> Result<Vec<Self>> {
         use crate::schema::articles::dsl::*;
         let db = database::connection();
 
@@ -127,7 +127,7 @@ impl Article {
         None
     }
 
-    pub fn insert(&self) -> Result<(), Error> {
+    pub fn insert(&self) -> Result<()> {
         let db = database::connection();
         let conn = db.get()?;
 
@@ -136,7 +136,7 @@ impl Article {
         Ok(())
     }
 
-    pub fn delete(&self) -> Result<(), Error> {
+    pub fn delete(&self) -> Result<()> {
         let db = database::connection();
         let conn = db.get()?;
         use crate::schema::articles::dsl::*;
@@ -146,7 +146,7 @@ impl Article {
         Ok(())
     }
 
-    pub fn toggle_favorite(&mut self) -> Result<(), Error> {
+    pub fn toggle_favorite(&mut self) -> Result<()> {
         let db = database::connection();
         let conn = db.get()?;
         use crate::schema::articles::dsl::*;
@@ -158,7 +158,7 @@ impl Article {
         Ok(())
     }
 
-    pub fn toggle_archive(&mut self) -> Result<(), Error> {
+    pub fn toggle_archive(&mut self) -> Result<()> {
         let db = database::connection();
         let conn = db.get()?;
         use crate::schema::articles::dsl::*;
@@ -170,7 +170,7 @@ impl Article {
         Ok(())
     }
 
-    pub async fn get_preview_picture(&self, client: Rc<isahc::HttpClient>) -> Result<Option<Pixbuf>, failure::Error> {
+    pub async fn get_preview_picture(&self, client: Rc<isahc::HttpClient>) -> Result<Option<Pixbuf>> {
         if let Some(preview_picture) = &self.preview_picture {
             let preview_image = PreviewImage::new(Url::from_str(preview_picture)?);
             if !preview_image.exists() {
@@ -182,7 +182,7 @@ impl Article {
         Ok(None)
     }
 
-    pub fn get_preview(&self) -> Result<Option<String>, Error> {
+    pub fn get_preview(&self) -> Result<Option<String>> {
         match &self.content {
             Some(content) => {
                 // Regex to remove duplicate spaces
