@@ -22,7 +22,7 @@ serde_derive = "1.0"
 wallabag-api = { git = "https://github.com/swalladge/wallabag-api.git", rev = "d2bbebbe76f44edc074e3b2f5313bb8861b6cbe4" }
 pretty_env_logger = "0.3"
 diesel = { version = "1.4", features = ["sqlite", "r2d2", "chrono"] }
-diesel_migrations = {  version = "1.4" , features = ["sqlite"] }
+diesel_migrations = {  version = "1.4", features = ["sqlite"] }
 anyhow = "1.0"
 isahc = "0.9"
 sanitize_html = "0.6"
