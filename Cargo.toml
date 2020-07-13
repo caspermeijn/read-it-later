@@ -23,7 +23,6 @@ wallabag-api = { git = "https://github.com/swalladge/wallabag-api.git", rev = "d
 pretty_env_logger = "0.3"
 diesel = { version = "1.4", features = ["sqlite", "r2d2", "chrono"] }
 diesel_migrations = {  version = "1.4" , features = ["sqlite"] }
-failure = "0.1"
 anyhow = "1.0"
 isahc = "0.9"
 sanitize_html = "0.6"
