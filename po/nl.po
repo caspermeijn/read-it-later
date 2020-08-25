@@ -1,0 +1,260 @@
+# Dutch translation for read-it-later.
+# Copyright (C) 2020 read-it-later's COPYRIGHT HOLDER
+# This file is distributed under the same license as the read-it-later package.
+# Nathan Follens <nthn@unseen.is>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: read-it-later master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/"
+"issues\n"
+"POT-Creation-Date: 2020-08-10 10:33+0000\n"
+"PO-Revision-Date: 2020-08-25 22:24+0200\n"
+"Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: Nathan Follens <nthn@unseen.is>\n"
+"X-Generator: Poedit 2.4.1\n"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
+msgid "Read It Later"
+msgstr "Later lezen"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
+msgid "A Wallabag Client."
+msgstr "Een Wallabag-cliënt."
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
+msgid ""
+"Read It Later, is a simple Wallabag client. It has the basic features to "
+"manage your articles"
+msgstr ""
+"Later lezen is een eenvoudige Wallabag-cliënt. Hij beschikt over de "
+"basisfuncties om uw artikels te beheren"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+msgid "Add new articles"
+msgstr "Nieuwe artikels toevoegen"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+msgid "Archive an article"
+msgstr "Een artikel archiveren"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+msgid "Delete an article"
+msgstr "Een artikel verwijderen"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
+msgid "Favorite an article"
+msgstr "Een artikel toevoegen aan uw favorieten"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
+msgid ""
+"It also comes with a nice on eyes reader mode that supports code syntax "
+"highlighting and a dark mode"
+msgstr ""
+"Het bevat ook een aangename leesmodus met markering voor "
+"broncodesyntaxis, en een donkere modus"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
+msgid "Main Window"
+msgstr "Hoofdvenster"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
+msgid "Article View"
+msgstr "Artikelweergave"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
+msgid "Adaptive view in dark mode"
+msgstr "Adaptieve weergave in donkere modus"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
+msgid "A Wallabag Client"
+msgstr "Een Wallabag-cliënt"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
+msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
+msgstr "Gnome;GTK;Wallabag;Web;Article;Offline;artikels;"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
+msgid "Default window width"
+msgstr "Standaard vensterbreedte"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:10
+msgid "Default window height"
+msgstr "Standaard vensterhoogte"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
+msgid "Default window x position"
+msgstr "Standaardpositie van venster op x-as"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
+msgid "Default window y position"
+msgstr "Standaardpositie van venster op y-as"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
+msgid "Default window maximized behaviour"
+msgstr "Standaardgedrag van gemaximaliseerd venster"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
+msgid "Logged in username"
+msgstr "Aangemelde gebruikersnaam"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
+msgid "Latest successful sync in ms"
+msgstr "Laatste geslaagde synchronisatie in ms"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:34
+msgid "Whether we should use a dark theme or not"
+msgstr "Of Later lezen een donker thema moet gebruiken"
+
+#: data/resources/ui/about_dialog.ui.in:13
+msgid "translator-credits"
+msgstr ""
+"Nathan Follens <nthn@unseen.is>\n"
+"\n"
+"Meer info over Gnome-NL http://nl.gnome.org/"
+
+#: data/resources/ui/articles_list.ui:59
+msgid "No articles found"
+msgstr "Geen artikels gevonden"
+
+#: data/resources/ui/menu.ui:19
+msgid "Add Article..."
+msgstr "Artikel toevoegen…"
+
+#: data/resources/ui/menu.ui:44
+msgid "Settings"
+msgstr "Instellingen"
+
+#: data/resources/ui/menu.ui:58
+msgid "Logout"
+msgstr "Afmelden"
+
+#: data/resources/ui/menu.ui:83
+msgid "Keyboard Shortcuts"
+msgstr "Sneltoetsen"
+
+#: data/resources/ui/menu.ui:97
+msgid "About Read It Later"
+msgstr "Over Later lezen"
+
+#: data/resources/ui/settings.ui:15
+msgid "Appearance"
+msgstr "Uiterlijk"
+
+#: data/resources/ui/settings.ui:19
+msgid "Enable dark mode"
+msgstr "Donkere modus inschakelen"
+
+#: data/resources/ui/settings.ui:41
+msgid "Account Settings"
+msgstr "Accountinstellingen"
+
+#: data/resources/ui/settings.ui:45
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+#: data/resources/ui/settings.ui:59
+msgid "Email"
+msgstr "E-mailadres"
+
+#: data/resources/ui/settings.ui:73
+msgid "Created At"
+msgstr "Aangemaakt op"
+
+#: data/resources/ui/settings.ui:87
+msgid "Updated At"
+msgstr "Bijgewerkt op"
+
+#: data/resources/ui/shortcuts.ui:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Algemeen"
+
+#: data/resources/ui/shortcuts.ui:17
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Sneltoetsen tonen"
+
+#: data/resources/ui/shortcuts.ui:24
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+#: data/resources/ui/shortcuts.ui:31
+msgctxt "shortcut window"
+msgid "Back"
+msgstr "Terug"
+
+#: data/resources/ui/shortcuts.ui:38
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Afsluiten"
+
+#: data/resources/ui/shortcuts.ui:47
+msgctxt "shortcut window"
+msgid "Articles"
+msgstr "Artikels"
+
+#: data/resources/ui/shortcuts.ui:51
+msgctxt "shortcut window"
+msgid "Synchronize"
+msgstr "Synchroniseren"
+
+#: data/resources/ui/shortcuts.ui:58
+msgctxt "shortcut window"
+msgid "New Article"
+msgstr "Nieuw artikel"
+
+#: data/resources/ui/shortcuts.ui:65
+msgctxt "shortcut window"
+msgid "Delete Article"
+msgstr "Artikel verwijderen"
+
+#: data/resources/ui/shortcuts.ui:72
+msgctxt "shortcut window"
+msgid "Favorite Article"
+msgstr "Artikel toevoegen aan favorieten"
+
+#: data/resources/ui/shortcuts.ui:79
+msgctxt "shortcut window"
+msgid "Archive Article"
+msgstr "Artikel archiveren"
+
+#: data/resources/ui/shortcuts.ui:86
+msgctxt "shortcut window"
+msgid "Open Article In Browser"
+msgstr "Artikel openen in browser"
+
+#: data/resources/ui/window.ui.in:25
+msgid "Open Website"
+msgstr "Website openen"
+
+#: data/resources/ui/window.ui.in:50
+msgid "Delete Article"
+msgstr "Artikel verwijderen"
+
+#: data/resources/ui/window.ui.in:181
+msgid "Favorite"
+msgstr "Toevoegen aan favorieten"
+
+#: data/resources/ui/window.ui.in:201
+msgid "Archive"
+msgstr "Archiveren"
+
+#: data/resources/ui/window.ui.in:273
+msgid "Paste the article url here"
+msgstr "Plak hier de artikel-URL"
+
+#: data/resources/ui/window.ui.in:283
+msgid "Save"
+msgstr "Opslaan"
