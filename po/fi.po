@@ -1,0 +1,257 @@
+# Finnish translation for read-it-later.
+# Copyright (C) 2020 read-it-later's COPYRIGHT HOLDER
+# This file is distributed under the same license as the read-it-later package.
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: read-it-later master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/"
+"issues\n"
+"POT-Creation-Date: 2020-09-03 20:07+0000\n"
+"PO-Revision-Date: 2020-09-05 12:51+0300\n"
+"Language-Team: Finnish <lokalisointi-lista@googlegroups.com>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
+"X-Generator: Poedit 2.4.1\n"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
+msgid "Read It Later"
+msgstr "Lue myöhemmin"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
+msgid "A Wallabag Client."
+msgstr "Wallabag-asiakasohjelma."
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
+msgid ""
+"Read It Later, is a simple Wallabag client. It has the basic features to "
+"manage your articles"
+msgstr ""
+"Lue myöhemmin on yksinkertainen Wallabag-asiakasohjelma. Se sisältää "
+"perusominaisuudet artikkelien hallintaan"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+msgid "Add new articles"
+msgstr "Lisää uusia artikkeleja"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+msgid "Archive an article"
+msgstr "Arkistoi artikkeli"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+msgid "Delete an article"
+msgstr "Poista artikkeli"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
+msgid "Favorite an article"
+msgstr "Lisää artikkeli suosikkeihin"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
+msgid ""
+"It also comes with a nice on eyes reader mode that supports code syntax "
+"highlighting and a dark mode"
+msgstr ""
+"Se sisältää lukutilan, joka tukee koodin syntaksin korostusta ja tummaa "
+"tilaa"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
+msgid "Main Window"
+msgstr "Pääikkuna"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
+msgid "Article View"
+msgstr "Artikkelinäkymä"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
+msgid "Adaptive view in dark mode"
+msgstr "Sopeutuva näkymä tummassa tilassa"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
+msgid "A Wallabag Client"
+msgstr "Wallabag-asiakasohjelma"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
+msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
+msgstr "Gnome;GTK;Wallabag;Web;Article;Offline;artikkeli;"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
+msgid "Default window width"
+msgstr "Ikkunan oletusleveys"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:10
+msgid "Default window height"
+msgstr "Ikkunan oletuskorkeus"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
+msgid "Default window x position"
+msgstr "Ikkunan oletusarvoinen x-sijainti"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
+msgid "Default window y position"
+msgstr "Ikkunan oletusarvoinen y-sijainti"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
+msgid "Default window maximized behaviour"
+msgstr "Suurennetun ikkunan oletusarvoinen toiminta"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
+msgid "Logged in username"
+msgstr "Sisäänkirjautuneena käyttäjätunnuksella"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
+msgid "Latest successful sync in ms"
+msgstr "Viimeisin onnistunut synkronointi millisekunneissa"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:34
+msgid "Whether we should use a dark theme or not"
+msgstr "Käyttääkö sovellus tummaa teemaa vai ei"
+
+#: data/resources/ui/about_dialog.ui.in:13
+msgid "translator-credits"
+msgstr "Jiri Grönroos"
+
+#: data/resources/ui/articles_list.ui:59
+msgid "No articles found"
+msgstr "Artikkeleja ei löytynyt"
+
+#: data/resources/ui/menu.ui:19
+msgid "Add Article..."
+msgstr "Lisää artikkeli..."
+
+#: data/resources/ui/menu.ui:44
+msgid "Settings"
+msgstr "Asetukset"
+
+#: data/resources/ui/menu.ui:58
+msgid "Logout"
+msgstr "Kirjaudu ulos"
+
+#: data/resources/ui/menu.ui:83
+msgid "Keyboard Shortcuts"
+msgstr "Pikanäppäimet"
+
+#: data/resources/ui/menu.ui:97
+msgid "About Read It Later"
+msgstr "Tietoja - Lue myöhemmin"
+
+#: data/resources/ui/settings.ui:15
+msgid "Appearance"
+msgstr "Ulkoasu"
+
+#: data/resources/ui/settings.ui:19
+msgid "Enable dark mode"
+msgstr "Käytä tummaa teemaa"
+
+#: data/resources/ui/settings.ui:41
+msgid "Account Settings"
+msgstr "Tilin asetukset"
+
+#: data/resources/ui/settings.ui:45
+msgid "Username"
+msgstr "Käyttäjätunnus"
+
+#: data/resources/ui/settings.ui:59
+msgid "Email"
+msgstr "Sähköposti"
+
+#: data/resources/ui/settings.ui:73
+msgid "Created At"
+msgstr "Luotu"
+
+#: data/resources/ui/settings.ui:87
+msgid "Updated At"
+msgstr "Päivitetty"
+
+#: data/resources/ui/shortcuts.ui:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Yleiset"
+
+#: data/resources/ui/shortcuts.ui:17
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Näytä pikanäppäimet"
+
+#: data/resources/ui/shortcuts.ui:24
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "Asetukset"
+
+#: data/resources/ui/shortcuts.ui:31
+msgctxt "shortcut window"
+msgid "Back"
+msgstr "Takaisin"
+
+#: data/resources/ui/shortcuts.ui:38
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Lopeta"
+
+#: data/resources/ui/shortcuts.ui:47
+msgctxt "shortcut window"
+msgid "Articles"
+msgstr "Artikkelit"
+
+#: data/resources/ui/shortcuts.ui:51
+msgctxt "shortcut window"
+msgid "Synchronize"
+msgstr "Synkronoi"
+
+#: data/resources/ui/shortcuts.ui:58
+msgctxt "shortcut window"
+msgid "New Article"
+msgstr "Uusi artikkeli"
+
+#: data/resources/ui/shortcuts.ui:65
+msgctxt "shortcut window"
+msgid "Delete Article"
+msgstr "Poista artikkeli"
+
+#: data/resources/ui/shortcuts.ui:72
+msgctxt "shortcut window"
+msgid "Favorite Article"
+msgstr "Lisää artikkeli suosikkeihin"
+
+#: data/resources/ui/shortcuts.ui:79
+msgctxt "shortcut window"
+msgid "Archive Article"
+msgstr "Arkistoi artikkeli"
+
+#: data/resources/ui/shortcuts.ui:86
+msgctxt "shortcut window"
+msgid "Open Article In Browser"
+msgstr "Avaa artikkeli selaimessa"
+
+#: data/resources/ui/window.ui.in:25
+msgid "Open Website"
+msgstr "Avaa verkkosivusto"
+
+#: data/resources/ui/window.ui.in:50
+msgid "Delete Article"
+msgstr "Poista artikkeli"
+
+#: data/resources/ui/window.ui.in:181
+msgid "Favorite"
+msgstr "Suosikki"
+
+#: data/resources/ui/window.ui.in:201
+msgid "Archive"
+msgstr "Arkisto"
+
+#: data/resources/ui/window.ui.in:273
+msgid "Paste the article url here"
+msgstr "Liitä artikkelin osoite tähän"
+
+#: data/resources/ui/window.ui.in:283
+msgid "Save"
+msgstr "Tallenna"
