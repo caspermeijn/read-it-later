@@ -1,0 +1,255 @@
+# Danish translation for read-it-later.
+# Copyright (C) 2020 read-it-later's COPYRIGHT HOLDER
+# This file is distributed under the same license as the read-it-later package.
+# scootergrisen, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: read-it-later master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
+"POT-Creation-Date: 2020-03-26 11:49+0000\n"
+"PO-Revision-Date: 2020-03-27 20:02+0200\n"
+"Last-Translator: scootergrisen\n"
+"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
+msgid "Read It Later"
+msgstr "Read It Later"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
+msgid "A Wallabag Client."
+msgstr "En Wallabag-klient."
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
+msgid ""
+"Read It Later, is a simple Wallabag client. It has the basic features to "
+"manage your articles"
+msgstr ""
+"Read It Later er en simpel Wallabag-klient. Den har de grundlæggende "
+"funktioner til at håndtere dine artikler"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+msgid "Add new articles"
+msgstr "Tilføj nye artikler"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+msgid "Archive an article"
+msgstr "Arkivér en artikel"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+msgid "Delete an article"
+msgstr "Slet en artikel"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
+msgid "Favorite an article"
+msgstr "Tilføj artikel som favorit"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
+msgid ""
+"It also comes with a nice on eyes reader mode that supports code syntax "
+"highlighting and a dark mode"
+msgstr ""
+"Den kommer også med en læsertilstand, der er rar for øjnene, som understøtter "
+"syntaksfremhævning af kode og en mørk tilstand"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
+msgid "Main Window"
+msgstr "Hovedvindue"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
+msgid "Article View"
+msgstr "Artikelvisning"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
+msgid "Adaptive view in dark mode"
+msgstr "Adaptiv visning i mørk tilstand"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
+msgid "A Wallabag Client"
+msgstr "En Wallabag-klient"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
+msgid "Gnome;GTK;"
+msgstr "Gnome;GTK;"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
+msgid "Default window width"
+msgstr "Standardbredde for vindue"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:10
+msgid "Default window height"
+msgstr "Standardhøjde for vindue"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
+msgid "Default window x position"
+msgstr "Standard x-placering af vindue"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
+msgid "Default window y position"
+msgstr "Standard y-placering af vindue"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
+msgid "Default window maximized behaviour"
+msgstr "Standardopførsel for maksimering af vindue"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
+msgid "Logged in username"
+msgstr "Brugernavn ved login"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
+msgid "Latest successful sync in ms"
+msgstr "Seneste synkronisering der lykkedes, i ms"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:34
+msgid "Whether we should use a dark theme or not"
+msgstr "Om vi skal bruge det mørke tema"
+
+#: data/resources/ui/about_dialog.ui.in:13
+msgid "translator-credits"
+msgstr "scootergrisen"
+
+#: data/resources/ui/articles_list.ui:59
+msgid "No articles found"
+msgstr "Ingen artikler fundet"
+
+#: data/resources/ui/menu.ui:19
+msgid "Add Article..."
+msgstr "Tilføj artikel …"
+
+#: data/resources/ui/menu.ui:44
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: data/resources/ui/menu.ui:58
+msgid "Logout"
+msgstr "Log ud"
+
+#: data/resources/ui/menu.ui:83
+msgid "Keyboard Shortcuts"
+msgstr "Tastaturgenveje"
+
+#: data/resources/ui/menu.ui:97
+msgid "About Read It Later"
+msgstr "Om Read It Later"
+
+#: data/resources/ui/settings.ui:15
+msgid "Appearance"
+msgstr "Udseende"
+
+#: data/resources/ui/settings.ui:19
+msgid "Enable dark mode"
+msgstr "Aktivér mørk tilstand"
+
+#: data/resources/ui/settings.ui:41
+msgid "Account Settings"
+msgstr "Kontoindstillinger"
+
+#: data/resources/ui/settings.ui:45
+msgid "Username"
+msgstr "Brugernavn"
+
+#: data/resources/ui/settings.ui:59
+msgid "Email"
+msgstr "E-mail"
+
+#: data/resources/ui/settings.ui:73
+msgid "Created At"
+msgstr "Oprettet"
+
+#: data/resources/ui/settings.ui:87
+msgid "Updated At"
+msgstr "Opdateret"
+
+#: data/resources/ui/shortcuts.ui:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Generelt"
+
+#: data/resources/ui/shortcuts.ui:17
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Vis genveje"
+
+#: data/resources/ui/shortcuts.ui:24
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "Indstillinger"
+
+#: data/resources/ui/shortcuts.ui:31
+msgctxt "shortcut window"
+msgid "Back"
+msgstr "Tilbage"
+
+#: data/resources/ui/shortcuts.ui:38
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Afslut"
+
+#: data/resources/ui/shortcuts.ui:47
+msgctxt "shortcut window"
+msgid "Articles"
+msgstr "Artikler"
+
+#: data/resources/ui/shortcuts.ui:51
+msgctxt "shortcut window"
+msgid "Synchronize"
+msgstr "Synkroniser"
+
+#: data/resources/ui/shortcuts.ui:58
+msgctxt "shortcut window"
+msgid "New Article"
+msgstr "Ny artikel"
+
+#: data/resources/ui/shortcuts.ui:65
+msgctxt "shortcut window"
+msgid "Delete Article"
+msgstr "Slet artikel"
+
+#: data/resources/ui/shortcuts.ui:72
+msgctxt "shortcut window"
+msgid "Favorite Article"
+msgstr "Tilføj artikel som favorit"
+
+#: data/resources/ui/shortcuts.ui:79
+msgctxt "shortcut window"
+msgid "Archive Article"
+msgstr "Arkivér artikel"
+
+#: data/resources/ui/shortcuts.ui:86
+msgctxt "shortcut window"
+msgid "Open Article In Browser"
+msgstr "Åbn artikel i browser"
+
+#: data/resources/ui/window.ui.in:25
+msgid "Open Website"
+msgstr "Åbn websted"
+
+#: data/resources/ui/window.ui.in:50
+msgid "Delete Article"
+msgstr "Slet artikel"
+
+#: data/resources/ui/window.ui.in:181
+msgid "Favorite"
+msgstr "Favorit"
+
+#: data/resources/ui/window.ui.in:201
+msgid "Archive"
+msgstr "Arkivér"
+
+#: data/resources/ui/window.ui.in:273
+msgid "Paste the article url here"
+msgstr "Indsæt artiklens url her"
+
+#: data/resources/ui/window.ui.in:283
+msgid "Save"
+msgstr "Gem"
