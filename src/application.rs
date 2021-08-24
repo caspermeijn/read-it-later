@@ -11,7 +11,6 @@ use futures::executor::ThreadPool;
 use gio::prelude::*;
 use glib::{Receiver, Sender};
 use gtk::prelude::*;
-use std::env;
 use std::{cell::RefCell, rc::Rc};
 use url::Url;
 
@@ -40,7 +39,7 @@ pub struct Application {
 
 impl Application {
     pub fn new() -> Rc<Self> {
-        let app = gtk::Application::new(Some(config::APP_ID), gio::ApplicationFlags::FLAGS_NONE).unwrap();
+        let app = gtk::Application::new(Some(config::APP_ID), gio::ApplicationFlags::FLAGS_NONE);
 
         let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
         let receiver = RefCell::new(Some(r));
@@ -68,8 +67,7 @@ impl Application {
         let receiver = self.receiver.borrow_mut().take().unwrap();
         receiver.attach(None, move |action| app.do_action(action));
 
-        let args: Vec<String> = env::args().collect();
-        self.app.run(&args);
+        self.app.run();
     }
 
     fn init(&self) {
@@ -129,7 +127,7 @@ impl Application {
             clone!(@strong self.window.widget as window, @strong self.client as client =>  move |_, _| {
                 let settings_widget = SettingsWidget::new(client.clone());
                 settings_widget.widget.set_transient_for(Some(&window));
-                let size = window.get_size();
+                let size = window.size();
                 settings_widget.widget.resize(size.0, size.1);
                 settings_widget.widget.show();
             })
@@ -139,11 +137,13 @@ impl Application {
             self.app,
             "about",
             clone!(@strong self.window.widget as window => move |_, _| {
-                let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/about_dialog.ui");
+                let builder = gtk::Builder::from_resource("/com/belmoussaoui/ReadItLater/about_dialog.ui");
                 get_widget!(builder, gtk::AboutDialog, about_dialog);
 
                 about_dialog.set_transient_for(Some(&window));
-                about_dialog.connect_response(|dialog, _| dialog.destroy());
+                unsafe {
+                    about_dialog.connect_response(|dialog, _| dialog.destroy());
+                }
                 about_dialog.show();
             })
         );
@@ -192,19 +192,19 @@ impl Application {
             window.present();
         });
 
-        if let Some(gtk_settings) = gtk::Settings::get_default() {
+        if let Some(gtk_settings) = gtk::Settings::default() {
             SettingsManager::bind_property(Key::DarkMode, &gtk_settings, "gtk-application-prefer-dark-theme");
         }
     }
 
     fn setup_css(&self) {
-        if let Some(theme) = gtk::IconTheme::get_default() {
+        if let Some(theme) = gtk::IconTheme::default() {
             theme.add_resource_path("/com/belmoussaoui/ReadItLater/icons");
         }
 
         let p = gtk::CssProvider::new();
         gtk::CssProvider::load_from_resource(&p, "/com/belmoussaoui/ReadItLater/style.css");
-        if let Some(screen) = gdk::Screen::get_default() {
+        if let Some(screen) = gdk::Screen::default() {
             gtk::StyleContext::add_provider_for_screen(&screen, &p, 500);
         }
     }
@@ -213,7 +213,7 @@ impl Application {
      * Auth
      */
     fn init_client(&self) {
-        let username = SettingsManager::get_string(Key::Username);
+        let username = SettingsManager::string(Key::Username);
         match SecretManager::is_logged(&username) {
             Ok(config) => {
                 send!(self.sender, Action::SetView(View::Articles));
@@ -227,7 +227,7 @@ impl Application {
         send!(self.sender, Action::SetView(View::Syncing(true)));
         let client = self.client.clone();
         let sender = self.sender.clone();
-        let logged_username = SettingsManager::get_string(Key::Username);
+        let logged_username = SettingsManager::string(Key::Username);
 
         spawn!(async move {
             let mut client = client.lock().await;
@@ -261,7 +261,7 @@ impl Application {
     }
 
     fn logout(&self) -> Result<()> {
-        let username = SettingsManager::get_string(Key::Username);
+        let username = SettingsManager::string(Key::Username);
         database::wipe()?;
         self.window.articles_view.clear();
         if SecretManager::logout(&username).is_ok() {
@@ -275,7 +275,7 @@ impl Application {
     fn sync(&self) {
         send!(self.sender, Action::SetView(View::Syncing(true)));
         let mut since = Utc.timestamp(0, 0);
-        let last_sync = SettingsManager::get_integer(Key::LatestSync);
+        let last_sync = SettingsManager::integer(Key::LatestSync);
         if last_sync != 0 {
             since = Utc.timestamp(last_sync.into(), 0);
         }

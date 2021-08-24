@@ -20,11 +20,9 @@
       </attributes>
     </child>
   </object>
-  <object class="HdyColumn" id="login">
+  <object class="HdyClamp" id="login">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="maximum_width">450</property>
-    <property name="linear_growth_width">450</property>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -111,7 +109,7 @@
                 <property name="can_focus">True</property>
                 <property name="activatable">False</property>
                 <property name="title" translatable="yes">Instance URL</property>
-                <child type="action">
+                <child>
                   <object class="GtkEntry" id="instance_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -127,7 +125,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="title" translatable="yes">Client ID</property>
-                <child type="action">
+                <child>
                   <object class="GtkEntry" id="client_id_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -142,7 +140,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="title" translatable="yes">Client Secret</property>
-                <child type="action">
+                <child>
                   <object class="GtkEntry" id="client_secret_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -159,7 +157,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="title" translatable="yes">Username</property>
-                <child type="action">
+                <child>
                   <object class="GtkEntry" id="username_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -174,7 +172,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="title" translatable="yes">Password</property>
-                <child type="action">
+                <child>
                   <object class="GtkEntry" id="password_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>

@@ -16,7 +16,7 @@ extern crate strum_macros;
 extern crate gtk_macros;
 
 use gettextrs::*;
-use libhandy::Column;
+use libhandy;
 
 mod application;
 mod config;
@@ -27,7 +27,6 @@ mod settings;
 mod static_resources;
 mod views;
 mod widgets;
-mod window_state;
 
 use application::Application;
 
@@ -44,7 +43,7 @@ fn main() {
     glib::set_application_name(&format!("Read It Later{}", config::NAME_SUFFIX));
 
     static_resources::init().expect("Failed to initialize the resource file.");
-    Column::new(); // Due to libhandy not having a main func :(
+    libhandy::init();
     webkit2gtk::WebView::new();
 
     let app = Application::new();

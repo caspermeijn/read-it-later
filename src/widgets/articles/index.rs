@@ -3,7 +3,8 @@ use gio::prelude::*;
 use glib::Sender;
 use gtk::prelude::*;
 use std::{cell::RefCell, rc::Rc};
-use webkit2gtk::{ContextMenuExt, ContextMenuItemExt, WebView, WebViewExt};
+use webkit2gtk::traits::{ContextMenuExt, ContextMenuItemExt, WebViewExt};
+use webkit2gtk::WebView;
 
 use crate::models::{Article, ArticleAction};
 use crate::settings::{Key, SettingsManager};
@@ -18,7 +19,7 @@ pub struct ArticleWidget {
 
 impl ArticleWidget {
     pub fn new(sender: Sender<ArticleAction>) -> Rc<Self> {
-        let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/article.ui");
+        let builder = gtk::Builder::from_resource("/com/belmoussaoui/ReadItLater/article.ui");
         get_widget!(builder, gtk::Box, article);
 
         let actions = gio::SimpleActionGroup::new();
@@ -48,8 +49,8 @@ impl ArticleWidget {
         get_widget!(self.builder, WebView, webview);
 
         webview.connect_context_menu(move |_, context_menu, _, _| {
-            for menu_item in context_menu.get_items() {
-                let action = menu_item.get_stock_action();
+            for menu_item in context_menu.items() {
+                let action = menu_item.stock_action();
 
                 if forbidden_actions.contains(&action) {
                     // Remove forbidden actions
@@ -62,8 +63,8 @@ impl ArticleWidget {
         // Progress bar
         get_widget!(self.builder, gtk::Revealer, revealer);
         get_widget!(self.builder, gtk::ProgressBar, progressbar);
-        webview.connect_property_estimated_load_progress_notify(move |webview| {
-            let progress = webview.get_estimated_load_progress();
+        webview.connect_estimated_load_progress_notify(move |webview| {
+            let progress = webview.estimated_load_progress();
             revealer.set_reveal_child(true);
             progressbar.set_fraction(progress);
             if (progress - 1.0).abs() < std::f64::EPSILON {
@@ -91,7 +92,7 @@ impl ArticleWidget {
                 if let Some(article) = aw.article.borrow().clone() {
                     glib::idle_add(clone!(@strong article => move || {
                         let article_url = article.url.clone();
-                        let screen = gdk::Screen::get_default().unwrap();
+                        let screen = gdk::Screen::default().unwrap();
                         if let Err(err_msg) = gtk::show_uri(Some(&screen), &article_url.unwrap(), 0) {
                             error!("Failed to open the uri {} in the default browser", err_msg);
                         }
@@ -106,7 +107,7 @@ impl ArticleWidget {
             "archive",
             false,
             clone!(@strong aw, @strong self.sender as sender => move |action, _|{
-                let state = action.get_state().unwrap();
+                let state = action.state().unwrap();
                 let action_state: bool = state.get().unwrap();
                 let is_archived = !action_state;
                 action.set_state(&is_archived.to_variant());
@@ -121,7 +122,7 @@ impl ArticleWidget {
             "favorite",
             false,
             clone!(@strong aw, @strong self.sender as sender => move |action, _|{
-                let state = action.get_state().unwrap();
+                let state = action.state().unwrap();
                 let action_state: bool = state.get().unwrap();
                 let is_starred = !action_state;
                 action.set_state(&is_starred.to_variant());
@@ -153,7 +154,7 @@ impl ArticleWidget {
         }
 
         let mut layout_css = load_resource("layout.css")?;
-        if SettingsManager::get_boolean(Key::DarkMode) {
+        if SettingsManager::boolean(Key::DarkMode) {
             layout_css.push_str(&load_resource("layout-dark.css")?);
         }
         layout_html = layout_html.replace("{css}", &layout_css);
@@ -167,7 +168,7 @@ impl ArticleWidget {
 }
 
 pub fn load_resource(file: &str) -> Result<String> {
-    let file = gio::File::new_for_uri(&format!("resource:///com/belmoussaoui/ReadItLater/{}", file));
+    let file = gio::File::for_uri(&format!("resource:///com/belmoussaoui/ReadItLater/{}", file));
     let (bytes, _) = file.load_bytes(gio::NONE_CANCELLABLE)?;
     String::from_utf8(bytes.to_vec()).map_err(From::from)
 }

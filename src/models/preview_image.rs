@@ -7,7 +7,7 @@ use std::rc::Rc;
 use url::Url;
 
 lazy_static! {
-    pub static ref CACHE_DIR: PathBuf = glib::get_user_cache_dir().unwrap().join("read-it-later");
+    pub static ref CACHE_DIR: PathBuf = glib::user_cache_dir().join("read-it-later");
 }
 
 pub struct PreviewImage {
@@ -17,7 +17,7 @@ pub struct PreviewImage {
 
 impl PreviewImage {
     pub fn new(url: Url) -> Self {
-        let cache = PreviewImage::get_cache_of(&url.clone().into_string());
+        let cache = PreviewImage::get_cache_of(&String::from(url.clone()));
         Self { url, cache }
     }
 

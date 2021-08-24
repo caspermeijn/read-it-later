@@ -48,7 +48,7 @@ impl ClientManager {
         debug!("[Client] Saving url {}", url);
         if let Some(client) = self.client.clone() {
             let mut client = client.lock().await;
-            let new_entry = NewEntry::new_with_url(url.into_string());
+            let new_entry = NewEntry::new_with_url(url.into());
             if let Ok(entry) = client.create_entry(&new_entry).await {
                 let article = Article::from(entry);
                 send!(self.sender, Action::Articles(Box::new(ArticleAction::Add(article))));

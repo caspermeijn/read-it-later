@@ -11,7 +11,7 @@ dependency('glib-2.0', version: '>= 2.56')
 dependency('gio-2.0', version: '>= 2.56')
 dependency('gdk-pixbuf-2.0')
 dependency('gtk+-3.0', version: '>= 3.24.7')
-dependency('libhandy-0.0', version: '>= 0.0.10')
+dependency('libhandy-1', version: '>= 0.0.10')
 
 version = meson.project_version()
 version_array = version.split('.')

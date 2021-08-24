@@ -57,7 +57,7 @@ impl ArticlesListView {
     }
 
     pub fn len(&self) -> u32 {
-        self.model.get_n_items()
+        self.model.n_items()
     }
 
     pub fn delete(&self, article: &Article) {
@@ -86,7 +86,7 @@ impl ArticlesListView {
 
     fn index(&self, article: &Article) -> Option<u32> {
         for i in 0..self.len() {
-            let gobject = self.model.get_object(i).unwrap();
+            let gobject = self.model.item(i).unwrap();
             let a: Article = gobject.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
 
             if article.id == a.id {

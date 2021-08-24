@@ -18,7 +18,7 @@
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Enable dark mode</property>
                 <property name="visible">True</property>
-                <child type="action">
+                <child>
                   <object class="GtkSwitch" id="dark_mode_button">
                     <property name="can_focus">True</property>
                     <property name="valign">center</property>
@@ -44,7 +44,7 @@
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Username</property>
                 <property name="visible">True</property>
-                <child type="action">
+                <child>
                   <object class="GtkLabel" id="username_label">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -58,7 +58,7 @@
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Email</property>
                 <property name="visible">True</property>
-                <child type="action">
+                <child>
                   <object class="GtkLabel" id="email_label">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -72,7 +72,7 @@
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Created At</property>
                 <property name="visible">True</property>
-                <child type="action">
+                <child>
                   <object class="GtkLabel" id="created_at_label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
@@ -86,7 +86,7 @@
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Updated At</property>
                 <property name="visible">True</property>
-                <child type="action">
+                <child>
                   <object class="GtkLabel" id="updated_at_label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>

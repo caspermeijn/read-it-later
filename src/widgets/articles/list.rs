@@ -7,7 +7,7 @@ use super::row::ArticleRow;
 use crate::models::{Article, ArticleAction, ObjectWrapper};
 
 pub struct ArticlesListWidget {
-    pub widget: libhandy::Column,
+    pub widget: libhandy::Clamp,
     builder: gtk::Builder,
     sender: Sender<ArticleAction>,
     client: Rc<isahc::HttpClient>,
@@ -15,8 +15,8 @@ pub struct ArticlesListWidget {
 
 impl ArticlesListWidget {
     pub fn new(sender: Sender<ArticleAction>, client: Rc<isahc::HttpClient>) -> Self {
-        let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/articles_list.ui");
-        get_widget!(builder, libhandy::Column, articles_list);
+        let builder = gtk::Builder::from_resource("/com/belmoussaoui/ReadItLater/articles_list.ui");
+        get_widget!(builder, libhandy::Clamp, articles_list);
 
         Self {
             builder,
@@ -34,13 +34,13 @@ impl ArticlesListWidget {
         empty_image.set_from_icon_name(Some(icon), gtk::IconSize::Dialog);
 
         get_widget!(self.builder, gtk::Stack, stack);
-        if model.get_n_items() == 0 {
+        if model.n_items() == 0 {
             stack.set_visible_child_name("empty");
         } else {
             stack.set_visible_child_name("articles");
         }
         model.connect_items_changed(move |model, _, _, _| {
-            if model.get_n_items() == 0 {
+            if model.n_items() == 0 {
                 stack.set_visible_child_name("empty");
             } else {
                 stack.set_visible_child_name("articles");

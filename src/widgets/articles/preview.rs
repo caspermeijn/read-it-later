@@ -13,7 +13,7 @@ pub struct ArticlePreviewImage {
 
 impl ArticlePreviewImage {
     pub fn new() -> Rc<Self> {
-        let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/ReadItLater/article_preview.ui");
+        let builder = gtk::Builder::from_resource("/com/belmoussaoui/ReadItLater/article_preview.ui");
         get_widget!(builder, gtk::Stack, article_preview);
         get_widget!(builder, gtk::DrawingArea, image);
         let pixbuf = Rc::new(RefCell::new(None));
@@ -37,28 +37,28 @@ impl ArticlePreviewImage {
         self.widget.set_visible_child_name("loading");
 
         self.image.connect_draw(move |dr, ctx| {
-            let width = dr.get_allocated_width();
-            let height = dr.get_allocated_height();
+            let width = dr.allocated_width();
+            let height = dr.allocated_height();
 
-            let style = dr.get_style_context();
+            let style = dr.style_context();
             gtk::render_background(&style, ctx, 0.0, 0.0, width.into(), height.into());
             gtk::render_frame(&style, ctx, 0.0, 0.0, width.into(), height.into());
 
             match &*d.pixbuf.borrow() {
                 Some(pixbuf) => {
-                    match pixbuf.get_width().cmp(&width) {
+                    match pixbuf.width().cmp(&width) {
                         std::cmp::Ordering::Greater => {
                             let pixbuf = pixbuf.scale_simple(width, height, gdk_pixbuf::InterpType::Bilinear).unwrap();
                             ctx.set_source_pixbuf(&pixbuf, 0.0, 0.0);
                         }
                         std::cmp::Ordering::Less => {
-                            ctx.set_source_pixbuf(&pixbuf, (width - pixbuf.get_width()) as f64, 0.0);
+                            ctx.set_source_pixbuf(&pixbuf, (width - pixbuf.width()) as f64, 0.0);
                         }
                         std::cmp::Ordering::Equal => {
                             ctx.set_source_pixbuf(&pixbuf, 0.0, 0.0);
                         }
                     };
-                    ctx.paint();
+                    ctx.paint().unwrap();
 
                     gtk::Inhibit(false)
                 }

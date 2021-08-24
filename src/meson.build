@@ -67,7 +67,6 @@ sources = files(
   'main.rs',
   'schema.rs',
   'static_resources.rs',
-  'window_state.rs',
 )
 
 custom_target('cargo-build',

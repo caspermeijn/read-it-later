@@ -8,7 +8,7 @@ use std::{fs, fs::File};
 type Pool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 
 lazy_static! {
-    static ref DB_PATH: PathBuf = glib::get_user_data_dir().unwrap().join("read-it-later");
+    static ref DB_PATH: PathBuf = glib::user_cache_dir().join("read-it-later");
     static ref POOL: Pool = init_pool().expect("Failed to create a Pool");
 }
 

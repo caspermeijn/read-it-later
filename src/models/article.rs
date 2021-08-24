@@ -177,7 +177,7 @@ impl Article {
                 preview_image.download(client).await?;
             }
 
-            return Ok(Some(gdk_pixbuf::Pixbuf::new_from_file(&preview_image.cache)?));
+            return Ok(Some(gdk_pixbuf::Pixbuf::from_file(&preview_image.cache)?));
         }
         Ok(None)
     }
