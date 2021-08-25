@@ -36,8 +36,8 @@ fn main() {
     gtk::init().expect("Unable to start GTK3");
     // Prepare i18n
     setlocale(LocaleCategory::LcAll, "");
-    bindtextdomain(config::GETTEXT_PACKAGE, config::LOCALEDIR);
-    textdomain(config::GETTEXT_PACKAGE);
+    bindtextdomain(config::GETTEXT_PACKAGE, config::LOCALEDIR).unwrap();
+    textdomain(config::GETTEXT_PACKAGE).unwrap();
 
     glib::set_prgname(Some("read-it-later"));
     glib::set_application_name(&format!("Read It Later{}", config::NAME_SUFFIX));

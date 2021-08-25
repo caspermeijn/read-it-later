@@ -141,9 +141,6 @@ impl Application {
                 get_widget!(builder, gtk::AboutDialog, about_dialog);
 
                 about_dialog.set_transient_for(Some(&window));
-                unsafe {
-                    about_dialog.connect_response(|dialog, _| dialog.destroy());
-                }
                 about_dialog.show();
             })
         );
