@@ -1413,7 +1413,7 @@ dependencies = [
  "deadpool",
  "futures",
  "http-types",
- "isahc",
+ "isahc 0.9.14",
  "js-sys",
  "log",
  "wasm-bindgen",
@@ -1494,13 +1494,37 @@ dependencies = [
  "crossbeam-utils",
  "curl",
  "curl-sys",
- "encoding_rs",
  "flume",
+ "futures-lite",
+ "http",
+ "log",
+ "once_cell",
+ "slab",
+ "sluice",
+ "tracing",
+ "tracing-futures",
+ "url",
+ "waker-fn",
+]
+
+[[package]]
+name = "isahc"
+version = "1.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "431445cb4ba85a80cb1438a9ae8042dadb78ae4046ecee89ad027b614aa0ddb7"
+dependencies = [
+ "async-channel",
+ "crossbeam-utils",
+ "curl",
+ "curl-sys",
+ "encoding_rs",
+ "event-listener",
  "futures-lite",
  "http",
  "log",
  "mime",
  "once_cell",
+ "polling",
  "slab",
  "sluice",
  "tracing",
@@ -2461,7 +2485,7 @@ dependencies = [
  "gtk-macros",
  "html2pango",
  "http-client",
- "isahc",
+ "isahc 1.5.0",
  "lazy_static",
  "libhandy",
  "log",
