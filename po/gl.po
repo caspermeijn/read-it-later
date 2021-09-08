@@ -1,0 +1,262 @@
+# Galician translation for read-it-later.
+# Copyright (C) 2021 read-it-later's COPYRIGHT HOLDER
+# This file is distributed under the same license as the read-it-later package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Fran Dieguez <frandieguez@gnome.org>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: read-it-later master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
+"POT-Creation-Date: 2021-08-24 18:46+0000\n"
+"PO-Revision-Date: 2021-09-08 12:09+0200\n"
+"Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
+"Language-Team: Galician <proxecto@trasno.gal>\n"
+"Language: gl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-DL-Team: gl\n"
+"X-DL-Module: read-it-later\n"
+"X-DL-Branch: master\n"
+"X-DL-Domain: po\n"
+"X-DL-State: Translating\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Generator: Gtranslator 40.0\n"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
+msgid "Read It Later"
+msgstr "Ler despois"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
+msgid "A Wallabag Client."
+msgstr "Un cliente de Wallabag."
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
+msgid ""
+"Read It Later, is a simple Wallabag client. It has the basic features to "
+"manage your articles"
+msgstr ""
+"Ler despois, é un cliente sinxelo de Wallabag. Ten características básicas "
+"para xestioanr os seus artigos"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+msgid "Add new articles"
+msgstr "Engadir novos artigos"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+msgid "Archive an article"
+msgstr "Arquivar un artigo"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+msgid "Delete an article"
+msgstr "Eliminar un artigo"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
+msgid "Favorite an article"
+msgstr "Marcar como favorito un artigo"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
+msgid ""
+"It also comes with a nice on eyes reader mode that supports code syntax "
+"highlighting and a dark mode"
+msgstr ""
+"Tamén conta con un modo de lectura bó para os ollos que admite o realce de "
+"código e un modo escuro"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
+msgid "Main Window"
+msgstr "Xanela principal"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
+msgid "Article View"
+msgstr "Vista de artigo"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
+msgid "Adaptive view in dark mode"
+msgstr "Vista adaptativa en modo escuro"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
+msgid "A Wallabag Client"
+msgstr "Un cliente de Wallabag"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
+msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
+msgstr "Gnome;GTK;Wallabag;Web;Artigo;Desconectado;"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
+msgid "Default window width"
+msgstr "Anchura predeterminada da xanela"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:10
+msgid "Default window height"
+msgstr "Altura predeterminada da xanela"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
+msgid "Default window x position"
+msgstr "Posición X predeterminada da xanela"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
+msgid "Default window y position"
+msgstr "Posición Y predeterminada da xanela"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
+msgid "Default window maximized behaviour"
+msgstr "Comportamento predeterminado do maximizado da xanela"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
+msgid "Logged in username"
+msgstr "Nome de usuario de inicio de sesión"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
+msgid "Latest successful sync in ms"
+msgstr "Última sincronización exitosa en ms"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:34
+msgid "Whether we should use a dark theme or not"
+msgstr "Indica se debería usarse o tema escuro ou non"
+
+#: data/resources/ui/about_dialog.ui.in:13
+msgid "translator-credits"
+msgstr "Fran Diéguez <frandieguez@gnome.org>, 2021"
+
+#: data/resources/ui/articles_list.ui:59
+msgid "No articles found"
+msgstr "Non se atoparon artigos"
+
+#: data/resources/ui/menu.ui:19
+msgid "Add Article..."
+msgstr "Engadir artigo…"
+
+#: data/resources/ui/menu.ui:44
+msgid "Settings"
+msgstr "Preferencias"
+
+#: data/resources/ui/menu.ui:58
+msgid "Logout"
+msgstr "Pechar a sesión"
+
+#: data/resources/ui/menu.ui:83
+msgid "Keyboard Shortcuts"
+msgstr "Atallos de teclado"
+
+#: data/resources/ui/menu.ui:97
+msgid "About Read It Later"
+msgstr "Sobre Ler despois"
+
+#: data/resources/ui/settings.ui:15
+msgid "Appearance"
+msgstr "Aparencia"
+
+#: data/resources/ui/settings.ui:19
+msgid "Enable dark mode"
+msgstr "Activar modo escuro"
+
+#: data/resources/ui/settings.ui:41
+msgid "Account Settings"
+msgstr "Preferencias de conta"
+
+#: data/resources/ui/settings.ui:45
+msgid "Username"
+msgstr "Nome de usuario"
+
+#: data/resources/ui/settings.ui:59
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: data/resources/ui/settings.ui:73
+msgid "Created At"
+msgstr "Creado en"
+
+#: data/resources/ui/settings.ui:87
+msgid "Updated At"
+msgstr "Actualizado en"
+
+#: data/resources/ui/shortcuts.ui:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Xeral"
+
+#: data/resources/ui/shortcuts.ui:17
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Mostrar atallos de teclado"
+
+#: data/resources/ui/shortcuts.ui:24
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "Preferencias"
+
+#: data/resources/ui/shortcuts.ui:31
+msgctxt "shortcut window"
+msgid "Back"
+msgstr "Atrás"
+
+#: data/resources/ui/shortcuts.ui:38
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Saír"
+
+#: data/resources/ui/shortcuts.ui:47
+msgctxt "shortcut window"
+msgid "Articles"
+msgstr "Artigos"
+
+#: data/resources/ui/shortcuts.ui:51
+msgctxt "shortcut window"
+msgid "Synchronize"
+msgstr "Sincronizar"
+
+#: data/resources/ui/shortcuts.ui:58
+msgctxt "shortcut window"
+msgid "New Article"
+msgstr "Novo artigo"
+
+#: data/resources/ui/shortcuts.ui:65
+msgctxt "shortcut window"
+msgid "Delete Article"
+msgstr "Eliminar artigo"
+
+#: data/resources/ui/shortcuts.ui:72
+msgctxt "shortcut window"
+msgid "Favorite Article"
+msgstr "Marcar artigo como favorito"
+
+#: data/resources/ui/shortcuts.ui:79
+msgctxt "shortcut window"
+msgid "Archive Article"
+msgstr "Arquivar artigo"
+
+#: data/resources/ui/shortcuts.ui:86
+msgctxt "shortcut window"
+msgid "Open Article In Browser"
+msgstr "Abrir artigo no navegador"
+
+#: data/resources/ui/window.ui.in:25
+msgid "Open Website"
+msgstr "Abrir sitio web"
+
+#: data/resources/ui/window.ui.in:50
+msgid "Delete Article"
+msgstr "Eliminar artigo"
+
+#: data/resources/ui/window.ui.in:181
+msgid "Favorite"
+msgstr "Favorito"
+
+#: data/resources/ui/window.ui.in:201
+msgid "Archive"
+msgstr "Arquivar"
+
+#: data/resources/ui/window.ui.in:273
+msgid "Paste the article url here"
+msgstr "Pegue o URL do artigo aquí"
+
+#: data/resources/ui/window.ui.in:283
+msgid "Save"
+msgstr "Gardar"
