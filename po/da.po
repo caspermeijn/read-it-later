@@ -6,16 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2020-03-26 11:49+0000\n"
-"PO-Revision-Date: 2020-03-27 20:02+0200\n"
-"Last-Translator: scootergrisen\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/"
+"issues\n"
+"POT-Creation-Date: 2020-09-06 11:48+0000\n"
+"PO-Revision-Date: 2022-03-27 16:22+0200\n"
+"Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.3\n"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
@@ -55,8 +57,8 @@ msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
 "highlighting and a dark mode"
 msgstr ""
-"Den kommer også med en læsertilstand, der er rar for øjnene, som understøtter "
-"syntaksfremhævning af kode og en mørk tilstand"
+"Den kommer også med en læsertilstand, der er rar for øjnene, som "
+"understøtter syntaksfremhævning af kode og en mørk tilstand"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
 msgid "Main Window"
@@ -79,8 +81,8 @@ msgid "A Wallabag Client"
 msgstr "En Wallabag-klient"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
-msgid "Gnome;GTK;"
-msgstr "Gnome;GTK;"
+msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
+msgstr "Gnome;GTK;Wallabag;Web;Artikel;Offline;"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
 msgid "Default window width"
@@ -253,3 +255,6 @@ msgstr "Indsæt artiklens url her"
 #: data/resources/ui/window.ui.in:283
 msgid "Save"
 msgstr "Gem"
+
+#~ msgid "Gnome;GTK;"
+#~ msgstr "Gnome;GTK;"
