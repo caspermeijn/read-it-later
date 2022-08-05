@@ -27,7 +27,7 @@ anyhow = "1.0"
 isahc = "1.5"
 sanitize_html = "0.7"
 regex = "1.5"
-secret-service = "1.0"
+secret-service = "2.0"
 chrono = "0.4"
 url = "2.2"
 strum = { version = "0.24", features = ["derive"] }
