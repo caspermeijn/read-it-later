@@ -148,11 +148,11 @@ impl Window {
             }
         });
         self.widget.connect_size_allocate(move |widget, allocation| {
-            if allocation.width <= 450 {
+            if allocation.width() <= 450 {
                 widget.style_context().add_class("sm");
                 widget.style_context().remove_class("md");
                 widget.style_context().remove_class("lg");
-            } else if allocation.width <= 600 {
+            } else if allocation.width() <= 600 {
                 widget.style_context().add_class("md");
                 widget.style_context().remove_class("sm");
                 widget.style_context().remove_class("lg");

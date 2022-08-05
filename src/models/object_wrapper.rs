@@ -35,7 +35,7 @@ mod imp {
         fn properties() -> &'static [glib::ParamSpec] {
             use once_cell::sync::Lazy;
             static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
-                vec![glib::ParamSpec::new_string(
+                vec![glib::ParamSpecString::new(
                     "data",
                     "Data",
                     "Data",
@@ -82,7 +82,7 @@ impl ObjectWrapper {
     where
         O: DeserializeOwned,
     {
-        let data = self.property("data").unwrap().get::<String>().unwrap();
+        let data = self.property::<String>("data");
         serde_json::from_str(&data).unwrap()
     }
 }

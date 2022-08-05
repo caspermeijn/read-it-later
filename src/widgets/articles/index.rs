@@ -92,8 +92,7 @@ impl ArticleWidget {
                 if let Some(article) = aw.article.borrow().clone() {
                     glib::idle_add(clone!(@strong article => move || {
                         let article_url = article.url.clone();
-                        let screen = gdk::Screen::default().unwrap();
-                        if let Err(err_msg) = gtk::show_uri(Some(&screen), &article_url.unwrap(), 0) {
+                        if let Err(err_msg) = gtk::show_uri_on_window(gtk::Window::NONE, &article_url.unwrap(), 0) {
                             error!("Failed to open the uri {} in the default browser", err_msg);
                         }
                         glib::Continue(false)
@@ -169,6 +168,6 @@ impl ArticleWidget {
 
 pub fn load_resource(file: &str) -> Result<String> {
     let file = gio::File::for_uri(&format!("resource:///com/belmoussaoui/ReadItLater/{}", file));
-    let (bytes, _) = file.load_bytes(gio::NONE_CANCELLABLE)?;
+    let (bytes, _) = file.load_bytes(gio::Cancellable::NONE)?;
     String::from_utf8(bytes.to_vec()).map_err(From::from)
 }
