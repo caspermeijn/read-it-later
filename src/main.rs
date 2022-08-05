@@ -11,8 +11,6 @@ extern crate serde_derive;
 #[macro_use]
 extern crate glib;
 #[macro_use]
-extern crate strum_macros;
-#[macro_use]
 extern crate gtk_macros;
 
 use gettextrs::*;
