@@ -38,7 +38,7 @@
         <property name="visible">True</property>
         <child>
           <object class="HdyPreferencesGroup">
-            <property name="title" translatable="yes">Account Settings</property>
+            <property name="title" translatable="yes">Account Information</property>
             <property name="visible">True</property>
             <child>
               <object class="HdyActionRow">
