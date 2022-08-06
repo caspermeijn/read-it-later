@@ -6,20 +6,23 @@ pub struct ArticlesFilter {
 
 impl ArticlesFilter {
     pub fn favorites() -> Self {
-        let mut filter = ArticlesFilter::default();
-        filter.starred = Some(true);
-        filter
+        ArticlesFilter {
+            starred: Some(true),
+            ..Default::default()
+        }
     }
 
     pub fn archive() -> Self {
-        let mut filter = ArticlesFilter::default();
-        filter.archived = Some(true);
-        filter
+        ArticlesFilter {
+            archived: Some(true),
+            ..Default::default()
+        }
     }
 
     pub fn unread() -> Self {
-        let mut filter = ArticlesFilter::default();
-        filter.archived = Some(false);
-        filter
+        ArticlesFilter {
+            archived: Some(false),
+            ..Default::default()
+        }
     }
 }

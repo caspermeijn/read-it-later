@@ -85,10 +85,11 @@ impl Article {
     }
 
     pub fn get_patch(&self) -> PatchEntry {
-        let mut patch = PatchEntry::default();
-        patch.starred = Some(self.is_starred);
-        patch.archive = Some(self.is_archived);
-        patch
+        PatchEntry {
+            starred: Some(self.is_starred),
+            archive: Some(self.is_archived),
+            ..Default::default()
+        }
     }
 
     pub fn get_article_info(&self, display_date: bool) -> Option<String> {
