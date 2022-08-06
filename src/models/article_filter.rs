@@ -1,4 +1,4 @@
-#[derive(Clone)]
+#[derive(Clone, Default)]
 pub struct ArticlesFilter {
     pub archived: Option<bool>,
     pub starred: Option<bool>,
@@ -21,14 +21,5 @@ impl ArticlesFilter {
         let mut filter = ArticlesFilter::default();
         filter.archived = Some(false);
         filter
-    }
-}
-
-impl Default for ArticlesFilter {
-    fn default() -> Self {
-        Self {
-            archived: None,
-            starred: None,
-        }
     }
 }
