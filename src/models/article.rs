@@ -95,7 +95,7 @@ impl Article {
     pub fn get_article_info(&self, display_date: bool) -> Option<String> {
         let mut article_info = String::from("");
         if let Some(base_url) = &self.base_url {
-            article_info.push_str(&base_url);
+            article_info.push_str(base_url);
         }
         if let Some(authors) = &self.published_by {
             article_info.push_str(&format!(" | by {} ", authors));
@@ -188,7 +188,7 @@ impl Article {
                     .delete("figcaption")
                     .allow_comments(false);
 
-                let preview = sanitize_str(&rules, &content)?.trim().to_string();
+                let preview = sanitize_str(&rules, content)?.trim().to_string();
                 let mut preview_content = Vec::new();
                 let mut counter = 0;
                 for line in preview.lines() {

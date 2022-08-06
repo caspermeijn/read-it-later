@@ -46,7 +46,7 @@ impl ArticlesListView {
     }
 
     pub fn add(&self, article: &Article) {
-        if self.index(&article).is_none() {
+        if self.index(article).is_none() {
             let object = ObjectWrapper::new(Box::new(article));
             self.model.insert_sorted(&object, Article::compare);
         }
@@ -61,7 +61,7 @@ impl ArticlesListView {
     }
 
     pub fn delete(&self, article: &Article) {
-        if let Some(pos) = self.index(&article) {
+        if let Some(pos) = self.index(article) {
             self.model.remove(pos);
         }
     }

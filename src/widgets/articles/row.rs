@@ -47,7 +47,7 @@ impl ArticleRow {
 
         get_widget!(self.builder, gtk::Label, title_label);
         if let Some(title) = &self.article.title {
-            title_label.set_text(&title);
+            title_label.set_text(title);
         }
 
         get_widget!(self.builder, gtk::Label, info_label);

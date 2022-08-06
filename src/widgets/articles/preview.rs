@@ -52,10 +52,10 @@ impl ArticlePreviewImage {
                             ctx.set_source_pixbuf(&pixbuf, 0.0, 0.0);
                         }
                         std::cmp::Ordering::Less => {
-                            ctx.set_source_pixbuf(&pixbuf, (width - pixbuf.width()) as f64, 0.0);
+                            ctx.set_source_pixbuf(pixbuf, (width - pixbuf.width()) as f64, 0.0);
                         }
                         std::cmp::Ordering::Equal => {
-                            ctx.set_source_pixbuf(&pixbuf, 0.0, 0.0);
+                            ctx.set_source_pixbuf(pixbuf, 0.0, 0.0);
                         }
                     };
                     ctx.paint().unwrap();
