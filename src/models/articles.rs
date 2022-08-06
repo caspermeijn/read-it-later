@@ -5,7 +5,7 @@ use std::rc::Rc;
 use super::article::Article;
 use crate::application::Action;
 
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, Eq, PartialEq, Clone)]
 pub enum ArticleAction {
     Add(Article),
     Delete(Article),

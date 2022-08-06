@@ -12,7 +12,7 @@ use crate::database;
 use crate::models::{ArticlesFilter, ObjectWrapper, PreviewImage};
 use crate::schema::articles;
 
-#[derive(Insertable, Queryable, PartialEq, Debug, Clone, Serialize, Deserialize)]
+#[derive(Insertable, Queryable, Eq, PartialEq, Debug, Clone, Serialize, Deserialize)]
 #[table_name = "articles"]
 pub struct Article {
     pub id: i32,

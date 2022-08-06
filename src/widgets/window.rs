@@ -8,7 +8,7 @@ use crate::config::PROFILE;
 use crate::models::{Article, ArticlesManager};
 use crate::views::{ArticleView, ArticlesView, LoginView};
 
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq)]
 pub enum View {
     Article,       // Article
     Login,         // Sign in
