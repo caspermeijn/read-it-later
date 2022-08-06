@@ -57,21 +57,14 @@ impl Article {
     }
 
     pub fn from(entry: Entry) -> Self {
-        let published_by = match entry.published_by.clone() {
-            Some(published_by) => Some(
-                published_by
-                    .iter()
-                    .filter(|author| author.is_some())
-                    .map(|author| author.clone().unwrap())
-                    .collect::<Vec<String>>()
-                    .join(", "),
-            ),
-            None => None,
-        };
-        let published_at = match entry.published_at {
-            Some(datetime) => Some(datetime.naive_utc()),
-            None => None,
-        };
+        let published_by = entry.published_by.map(|authors| {
+            authors
+                .iter()
+                .filter_map(|author| author.clone())
+                .collect::<Vec<String>>()
+                .join(", ")
+        });
+        let published_at = entry.published_at.map(|datetime| datetime.naive_utc());
 
         Article {
             id: (entry.id.as_int()) as i32,
