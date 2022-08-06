@@ -32,10 +32,11 @@ impl PreviewImage {
         self.cache.exists()
     }
 
-    pub fn download(&self, client: Rc<isahc::HttpClient>) -> Result<()> {
-        if let Ok(mut resp) = client.get(&self.url.to_string()) {
+    pub async fn download(&self, client: Rc<isahc::HttpClient>) -> Result<()> {
+        if let Ok(mut resp) = client.get_async(&self.url.to_string()).await {
             info!("Downloading preview image {} into {:#?}", self.url, self.cache);
-            resp.copy_to_file(self.cache.clone())?;
+            let body = resp.bytes().await?;
+            async_std::fs::write(self.cache.clone(), body).await?;
         }
         Ok(())
     }

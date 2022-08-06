@@ -174,7 +174,7 @@ impl Article {
         if let Some(preview_picture) = &self.preview_picture {
             let preview_image = PreviewImage::new(Url::from_str(preview_picture)?);
             if !preview_image.exists() {
-                preview_image.download(client)?;
+                preview_image.download(client).await?;
             }
 
             return Ok(Some(gdk_pixbuf::Pixbuf::from_file(&preview_image.cache)?));
