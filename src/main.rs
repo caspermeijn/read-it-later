@@ -14,7 +14,6 @@ extern crate glib;
 extern crate gtk_macros;
 
 use gettextrs::*;
-use libhandy;
 
 mod application;
 mod config;
