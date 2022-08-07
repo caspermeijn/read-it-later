@@ -12,6 +12,7 @@ use gio::prelude::*;
 use glib::clone;
 use glib::{Receiver, Sender};
 use gtk::prelude::*;
+use gtk_macros::{action, get_widget, send, spawn};
 use log::{error, info};
 use std::{cell::RefCell, rc::Rc};
 use url::Url;

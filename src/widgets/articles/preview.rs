@@ -1,6 +1,7 @@
 use gdk::prelude::GdkContextExt;
 use gdk_pixbuf::Pixbuf;
 use gtk::prelude::*;
+use gtk_macros::get_widget;
 use std::cell::RefCell;
 use std::f64;
 use std::rc::Rc;

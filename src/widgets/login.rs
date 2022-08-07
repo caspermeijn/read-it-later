@@ -1,4 +1,5 @@
 use gtk::prelude::*;
+use gtk_macros::get_widget;
 use log::error;
 use std::rc::Rc;
 use wallabag_api::types::Config;

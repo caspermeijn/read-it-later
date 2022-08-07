@@ -3,6 +3,7 @@ use gio::prelude::*;
 use glib::clone;
 use glib::Sender;
 use gtk::prelude::*;
+use gtk_macros::{action, get_widget, send, stateful_action};
 use log::{error, info};
 use std::{cell::RefCell, rc::Rc};
 use webkit2gtk::traits::{ContextMenuExt, ContextMenuItemExt, WebViewExt};

@@ -1,5 +1,6 @@
 use glib::object::Cast;
 use glib::Sender;
+use gtk_macros::send;
 use log::error;
 use std::rc::Rc;
 

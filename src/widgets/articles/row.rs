@@ -4,6 +4,7 @@ use crate::models::ArticleAction;
 use glib::clone;
 use glib::Sender;
 use gtk::prelude::*;
+use gtk_macros::{get_widget, send, spawn};
 use log::error;
 use std::rc::Rc;
 

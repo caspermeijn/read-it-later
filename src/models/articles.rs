@@ -1,4 +1,5 @@
 use glib::{Receiver, Sender};
+use gtk_macros::send;
 use log::error;
 use std::cell::RefCell;
 use std::rc::Rc;

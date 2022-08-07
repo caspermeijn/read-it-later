@@ -1,6 +1,7 @@
 use gio::prelude::*;
 use glib::object::Cast;
 use glib::Sender;
+use gtk_macros::get_action;
 use log::error;
 
 use crate::models::{Article, ArticleAction};
