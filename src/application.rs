@@ -11,6 +11,7 @@ use futures::executor::ThreadPool;
 use gio::prelude::*;
 use glib::{Receiver, Sender};
 use gtk::prelude::*;
+use log::{error, info};
 use std::{cell::RefCell, rc::Rc};
 use url::Url;
 

@@ -2,6 +2,7 @@ use crate::models::ClientManager;
 use crate::settings::{Key, SettingsManager};
 use async_std::sync::{Arc, Mutex};
 use gtk::prelude::*;
+use log::error;
 use std::rc::Rc;
 
 struct ClientInfo {

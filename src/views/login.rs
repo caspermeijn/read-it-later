@@ -1,6 +1,6 @@
 use glib::object::Cast;
 use glib::Sender;
-
+use log::error;
 use std::rc::Rc;
 
 use crate::application::Action;

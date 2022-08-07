@@ -4,6 +4,7 @@ Thanks Felix!
 */
 
 use gio::prelude::*;
+use log::error;
 
 use crate::config;
 use crate::settings::Key;

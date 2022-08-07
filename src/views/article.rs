@@ -1,6 +1,7 @@
 use gio::prelude::*;
 use glib::object::Cast;
 use glib::Sender;
+use log::error;
 
 use crate::models::{Article, ArticleAction};
 use crate::widgets::articles::ArticleWidget;

@@ -1,4 +1,5 @@
 use glib::{Receiver, Sender};
+use log::error;
 use std::cell::RefCell;
 use std::rc::Rc;
 

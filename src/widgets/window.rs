@@ -1,6 +1,7 @@
 use gio::prelude::*;
 use glib::{timeout_future_seconds, MainContext, Sender};
 use gtk::prelude::*;
+use log::error;
 use url::Url;
 
 use crate::application::Action;

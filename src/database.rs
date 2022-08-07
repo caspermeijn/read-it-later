@@ -2,6 +2,7 @@ use anyhow::Result;
 use diesel::prelude::*;
 use diesel::r2d2;
 use diesel::r2d2::ConnectionManager;
+use log::info;
 use std::path::PathBuf;
 use std::{fs, fs::File};
 

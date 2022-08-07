@@ -2,6 +2,7 @@ use anyhow::Result;
 use gio::prelude::*;
 use glib::Sender;
 use gtk::prelude::*;
+use log::{error, info};
 use std::{cell::RefCell, rc::Rc};
 use webkit2gtk::traits::{ContextMenuExt, ContextMenuItemExt, WebViewExt};
 use webkit2gtk::WebView;

@@ -2,6 +2,7 @@ use anyhow::{bail, Result};
 use async_std::sync::{Arc, Mutex};
 use chrono::DateTime;
 use glib::Sender;
+use log::{debug, error, warn};
 use url::Url;
 use wallabag_api::types::{EntriesFilter, NewEntry, PatchEntry, SortBy, SortOrder, User};
 use wallabag_api::Client;

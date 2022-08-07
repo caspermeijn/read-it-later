@@ -3,6 +3,7 @@ use crate::widgets::articles::ArticlesListWidget;
 use futures::executor::ThreadPool;
 use gio::prelude::*;
 use glib::Sender;
+use log::error;
 use std::rc::Rc;
 
 pub struct ArticlesListView {
