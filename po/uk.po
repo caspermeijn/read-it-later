@@ -2,13 +2,13 @@
 # Copyright (C) 2020 read-it-later's COPYRIGHT HOLDER
 # This file is distributed under the same license as the read-it-later package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2020.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2020-04-01 10:16+0000\n"
-"PO-Revision-Date: 2020-04-01 13:59+0300\n"
+"POT-Creation-Date: 2022-08-06 19:00+0000\n"
+"PO-Revision-Date: 2022-08-07 18:53+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.07.70\n"
+"X-Generator: Lokalize 20.12.0\n"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
@@ -33,8 +33,8 @@ msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
 "manage your articles"
 msgstr ""
-"«Прочитаю потім» — простий клієнт Wallabag. Має базові можливості із"
-" керування вашими статтями"
+"«Прочитаю потім» — простий клієнт Wallabag. Має базові можливості із "
+"керування вашими статтями"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
 msgid "Add new articles"
@@ -57,8 +57,8 @@ msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
 "highlighting and a dark mode"
 msgstr ""
-"Крім того, у програмі передбачено чудовий режим читання, у якому передбачено"
-" можливість підсвічування синтаксичних конструкцій та нічні кольори."
+"Крім того, у програмі передбачено чудовий режим читання, у якому передбачено "
+"можливість підсвічування синтаксичних конструкцій та нічні кольори."
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
 msgid "Main Window"
@@ -83,8 +83,8 @@ msgstr "Клієнт Wallabag"
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
 msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
 msgstr ""
-"Gnome;GTK;Wallabag;Web;Article;Offline;гноме;гном;жтека;гтк;воллабег;веб;інтер"
-"нет;стаття;автономний;читання;"
+"Gnome;GTK;Wallabag;Web;Article;Offline;гноме;гном;жтека;гтк;воллабег;веб;"
+"інтернет;стаття;автономний;читання;"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
 msgid "Default window width"
@@ -122,7 +122,7 @@ msgstr "Чи слід використовувати темну тему"
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
-#: data/resources/ui/articles_list.ui:59
+#: data/resources/ui/articles_list.ui:57
 msgid "No articles found"
 msgstr "Статей не знайдено"
 
@@ -131,8 +131,10 @@ msgid "Add Article..."
 msgstr "Додати статтю…"
 
 #: data/resources/ui/menu.ui:44
-msgid "Settings"
-msgstr "Параметри"
+#| msgctxt "shortcut window"
+#| msgid "Preferences"
+msgid "Preferences"
+msgstr "Налаштування"
 
 #: data/resources/ui/menu.ui:58
 msgid "Logout"
@@ -155,8 +157,9 @@ msgid "Enable dark mode"
 msgstr "Увімкнути темний режим"
 
 #: data/resources/ui/settings.ui:41
-msgid "Account Settings"
-msgstr "Параметри облікового запису"
+#| msgid "Account Settings"
+msgid "Account Information"
+msgstr "Дані щодо облікового запису"
 
 #: data/resources/ui/settings.ui:45
 msgid "Username"
@@ -250,10 +253,13 @@ msgstr "Вибране"
 msgid "Archive"
 msgstr "Архівувати"
 
-#: data/resources/ui/window.ui.in:273
+#: data/resources/ui/window.ui.in:271
 msgid "Paste the article url here"
 msgstr "Сюди можна вставити адресу статті"
 
-#: data/resources/ui/window.ui.in:283
+#: data/resources/ui/window.ui.in:281
 msgid "Save"
 msgstr "Зберегти"
+
+#~ msgid "Settings"
+#~ msgstr "Параметри"
