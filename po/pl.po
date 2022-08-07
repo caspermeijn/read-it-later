@@ -1,15 +1,15 @@
 # Polish translation for read-it-later.
-# Copyright © 2020 the read-it-later authors.
+# Copyright © 2020-2022 the read-it-later authors.
 # This file is distributed under the same license as the read-it-later package.
-# Piotr Drąg <piotrdrag@gmail.com>, 2020.
-# Aviary.pl <community-poland@mozilla.org>, 2020.
+# Piotr Drąg <piotrdrag@gmail.com>, 2020-2022.
+# Aviary.pl <community-poland@mozilla.org>, 2020-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2020-04-01 03:18+0000\n"
-"PO-Revision-Date: 2020-04-05 11:35+0200\n"
+"POT-Creation-Date: 2022-08-06 19:00+0000\n"
+"PO-Revision-Date: 2022-08-07 15:05+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -121,10 +121,10 @@ msgstr "Czy używać ciemnego motywu"
 #: data/resources/ui/about_dialog.ui.in:13
 msgid "translator-credits"
 msgstr ""
-"Piotr Drąg <piotrdrag@gmail.com>, 2020\n"
-"Aviary.pl <community-poland@mozilla.org>, 2020"
+"Piotr Drąg <piotrdrag@gmail.com>, 2020-2022\n"
+"Aviary.pl <community-poland@mozilla.org>, 2020-2022"
 
-#: data/resources/ui/articles_list.ui:59
+#: data/resources/ui/articles_list.ui:57
 msgid "No articles found"
 msgstr "Nie odnaleziono żadnych artykułów"
 
@@ -133,8 +133,8 @@ msgid "Add Article..."
 msgstr "Dodaj artykuł…"
 
 #: data/resources/ui/menu.ui:44
-msgid "Settings"
-msgstr "Ustawienia"
+msgid "Preferences"
+msgstr "Preferencje"
 
 #: data/resources/ui/menu.ui:58
 msgid "Logout"
@@ -157,8 +157,8 @@ msgid "Enable dark mode"
 msgstr "Tryb ciemny"
 
 #: data/resources/ui/settings.ui:41
-msgid "Account Settings"
-msgstr "Ustawienia konta"
+msgid "Account Information"
+msgstr "Informacje o koncie"
 
 #: data/resources/ui/settings.ui:45
 msgid "Username"
@@ -252,10 +252,10 @@ msgstr "Dodaje do ulubionych"
 msgid "Archive"
 msgstr "Archiwizuje"
 
-#: data/resources/ui/window.ui.in:273
+#: data/resources/ui/window.ui.in:271
 msgid "Paste the article url here"
 msgstr "Tutaj należy wkleić adres URL artykułu"
 
-#: data/resources/ui/window.ui.in:283
+#: data/resources/ui/window.ui.in:281
 msgid "Save"
 msgstr "Zapisz"
