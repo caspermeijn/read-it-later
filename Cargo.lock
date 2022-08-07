@@ -2628,7 +2628,6 @@ dependencies = [
  "sanitize_html",
  "secret-service",
  "serde",
- "serde_derive",
  "serde_json",
  "strum",
  "url",

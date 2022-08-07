@@ -3,6 +3,7 @@ use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
 use gdk_pixbuf::Pixbuf;
 use glib::Cast;
 use sanitize_html::sanitize_str;
+use serde::{Deserialize, Serialize};
 use std::rc::Rc;
 use std::str::FromStr;
 use url::Url;
