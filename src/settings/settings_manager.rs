@@ -3,7 +3,8 @@ Source: https://gitlab.gnome.org/World/Shortwave/blob/master/src/settings/settin
 Thanks Felix!
 */
 
-use gio::prelude::*;
+use gtk::gio;
+use gtk::gio::prelude::*;
 use log::error;
 
 use crate::config;

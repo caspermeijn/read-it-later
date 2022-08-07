@@ -1,6 +1,6 @@
 // Source: https://gitlab.gnome.org/World/podcasts/blob/master/podcasts-gtk/src/static_resource.rs
 
-use gio::{resources_register, Resource};
+use gtk::gio::{resources_register, Resource};
 use glib::{Bytes, Error};
 
 pub(crate) fn init() -> Result<(), Error> {

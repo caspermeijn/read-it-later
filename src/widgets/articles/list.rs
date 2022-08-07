@@ -1,6 +1,7 @@
-use gio::prelude::*;
 use glib::clone;
 use glib::Sender;
+use gtk::gio;
+use gtk::gio::prelude::*;
 use gtk::prelude::*;
 use gtk_macros::get_widget;
 use std::rc::Rc;

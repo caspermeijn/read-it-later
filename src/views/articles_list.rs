@@ -1,8 +1,9 @@
 use crate::models::{Article, ArticleAction, ArticlesFilter, ObjectWrapper};
 use crate::widgets::articles::ArticlesListWidget;
 use futures::executor::ThreadPool;
-use gio::prelude::*;
 use glib::Sender;
+use gtk::gio;
+use gtk::gio::prelude::*;
 use gtk_macros::send;
 use log::error;
 use std::rc::Rc;

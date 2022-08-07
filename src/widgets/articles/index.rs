@@ -1,7 +1,8 @@
 use anyhow::Result;
-use gio::prelude::*;
 use glib::clone;
 use glib::Sender;
+use gtk::gio;
+use gtk::gio::prelude::*;
 use gtk::prelude::*;
 use gtk_macros::{action, get_widget, send, stateful_action};
 use log::{error, info};

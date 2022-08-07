@@ -5,9 +5,8 @@ authors = ["Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-gtk = { version = "0.15", features = ["v3_22"] }
+gtk = { version = "0.15", features = ["v3_22", "gio_v2_58"] }
 glib = "0.15"
-gio = { version = "0.15", features = ["v2_64"] }
 cairo-rs = "0.15"
 gdk = "0.15"
 gdk-pixbuf = "0.15"
