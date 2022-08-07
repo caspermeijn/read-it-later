@@ -1,5 +1,6 @@
 use anyhow::Result;
 use gio::prelude::*;
+use glib::clone;
 use glib::Sender;
 use gtk::prelude::*;
 use log::{error, info};

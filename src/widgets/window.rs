@@ -1,4 +1,5 @@
 use gio::prelude::*;
+use glib::clone;
 use glib::{timeout_future_seconds, MainContext, Sender};
 use gtk::prelude::*;
 use log::error;

@@ -9,6 +9,7 @@ use async_std::sync::{Arc, Mutex};
 use chrono::{TimeZone, Utc};
 use futures::executor::ThreadPool;
 use gio::prelude::*;
+use glib::clone;
 use glib::{Receiver, Sender};
 use gtk::prelude::*;
 use log::{error, info};

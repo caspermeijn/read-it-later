@@ -1,6 +1,7 @@
 use super::preview::ArticlePreviewImage;
 use crate::models::Article;
 use crate::models::ArticleAction;
+use glib::clone;
 use glib::Sender;
 use gtk::prelude::*;
 use log::error;
