@@ -2,6 +2,7 @@ use anyhow::Result;
 use crypto::digest::Digest;
 use crypto::sha1::Sha1;
 use isahc::prelude::*;
+use lazy_static::lazy_static;
 use log::info;
 use std::path::PathBuf;
 use std::rc::Rc;
