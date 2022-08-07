@@ -1,6 +1,6 @@
 use anyhow::Result;
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
-use gdk_pixbuf::Pixbuf;
+use gtk::gdk_pixbuf::Pixbuf;
 use gtk::glib;
 use gtk::glib::Cast;
 use sanitize_html::sanitize_str;
@@ -173,7 +173,7 @@ impl Article {
                 preview_image.download(client).await?;
             }
 
-            return Ok(Some(gdk_pixbuf::Pixbuf::from_file(&preview_image.cache)?));
+            return Ok(Some(Pixbuf::from_file(&preview_image.cache)?));
         }
         Ok(None)
     }

@@ -1,5 +1,5 @@
-use gdk_pixbuf::Pixbuf;
 use gtk::gdk::prelude::GdkContextExt;
+use gtk::gdk_pixbuf::Pixbuf;
 use gtk::prelude::*;
 use gtk_macros::get_widget;
 use std::cell::RefCell;
@@ -49,7 +49,7 @@ impl ArticlePreviewImage {
                 Some(pixbuf) => {
                     match pixbuf.width().cmp(&width) {
                         std::cmp::Ordering::Greater => {
-                            let pixbuf = pixbuf.scale_simple(width, height, gdk_pixbuf::InterpType::Bilinear).unwrap();
+                            let pixbuf = pixbuf.scale_simple(width, height, gtk::gdk_pixbuf::InterpType::Bilinear).unwrap();
                             ctx.set_source_pixbuf(&pixbuf, 0.0, 0.0);
                         }
                         std::cmp::Ordering::Less => {
