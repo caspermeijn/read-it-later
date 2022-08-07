@@ -1,7 +1,8 @@
-use glib::clone;
-use glib::{timeout_future_seconds, MainContext, Sender};
 use gtk::gio;
 use gtk::gio::prelude::*;
+use gtk::glib;
+use gtk::glib::clone;
+use gtk::glib::{timeout_future_seconds, MainContext, Sender};
 use gtk::prelude::*;
 use gtk_macros::{action, get_action, get_widget, send};
 use log::error;

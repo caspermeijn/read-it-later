@@ -2611,7 +2611,6 @@ dependencies = [
  "gdk",
  "gdk-pixbuf",
  "gettext-rs",
- "glib",
  "gtk",
  "gtk-macros",
  "html2pango",

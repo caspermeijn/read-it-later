@@ -1,8 +1,9 @@
 use super::preview::ArticlePreviewImage;
 use crate::models::Article;
 use crate::models::ArticleAction;
-use glib::clone;
-use glib::Sender;
+use gtk::glib;
+use gtk::glib::clone;
+use gtk::glib::Sender;
 use gtk::prelude::*;
 use gtk_macros::{get_widget, send, spawn};
 use log::error;

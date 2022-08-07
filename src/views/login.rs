@@ -1,5 +1,5 @@
-use glib::object::Cast;
-use glib::Sender;
+use gtk::glib::object::Cast;
+use gtk::glib::Sender;
 use gtk_macros::send;
 use log::error;
 use std::rc::Rc;

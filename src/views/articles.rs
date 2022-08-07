@@ -1,6 +1,6 @@
 use crate::models::{Article, ArticleAction, ArticlesFilter};
 use crate::views::ArticlesListView;
-use glib::Sender;
+use gtk::glib::Sender;
 use gtk::prelude::*;
 use std::rc::Rc;
 

@@ -5,6 +5,7 @@ Thanks Felix!
 
 use gtk::gio;
 use gtk::gio::prelude::*;
+use gtk::glib;
 use log::error;
 
 use crate::config;

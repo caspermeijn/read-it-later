@@ -4,6 +4,7 @@ extern crate diesel_migrations;
 extern crate diesel;
 
 use gettextrs::*;
+use gtk::glib;
 
 mod application;
 mod config;

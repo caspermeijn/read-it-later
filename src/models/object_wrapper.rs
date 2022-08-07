@@ -5,11 +5,11 @@
 // https://github.com/gtk-rs/examples/blob/master/src/bin/listbox_model.rs
 // Source https://gitlab.gnome.org/World/Shortwave/blob/master/src/model/object_wrapper.rs
 
-use gtk::{glib, prelude::*};
+use gtk::glib;
+use gtk::glib::subclass::prelude::*;
+use gtk::glib::{ParamSpec, Value};
+use gtk::prelude::*;
 use serde::de::DeserializeOwned;
-
-use glib::subclass::prelude::*;
-use glib::{ParamSpec, Value};
 
 mod imp {
     use super::*;

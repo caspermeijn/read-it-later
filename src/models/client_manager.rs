@@ -1,7 +1,7 @@
 use anyhow::{bail, Result};
 use async_std::sync::{Arc, Mutex};
 use chrono::DateTime;
-use glib::Sender;
+use gtk::glib::Sender;
 use gtk_macros::send;
 use log::{debug, error, warn};
 use url::Url;
