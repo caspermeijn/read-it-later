@@ -5,7 +5,7 @@ authors = ["Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-gtk = { version = "0.15", features = ["v3_22", "gio_v2_58"] }
+gtk = { version = "0.15", features = ["v3_24", "gio_v2_58"] }
 log = "0.4"
 libhandy = "0.9"
 webkit2gtk = { version = "0.18", features = ["v2_6"] }

@@ -2603,7 +2603,6 @@ version = "0.0.2"
 dependencies = [
  "anyhow",
  "async-std",
- "cairo-rs",
  "chrono",
  "diesel",
  "diesel_migrations",
