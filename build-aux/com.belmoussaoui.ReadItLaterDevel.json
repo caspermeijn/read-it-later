@@ -32,26 +32,6 @@
     },
     "modules": [
         {
-            "name": "libhandy",
-            "buildsystem": "meson",
-            "config-opts": [
-                "-Dintrospection=disabled",
-                "-Dgtk_doc=false",
-                "-Dtests=false",
-                "-Dexamples=false",
-                "-Dvapi=false",
-                "-Dglade_catalog=disabled"
-            ],
-            "cleanup": ["/include", "/lib/pkgconfig"],
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://source.puri.sm/Librem5/libhandy.git",
-                    "branch": "libhandy-0-0"
-                }
-            ]
-        },
-        {
             "name": "read-it-later",
             "buildsystem": "meson",
             "config-opts": ["-Dprofile=development"],
