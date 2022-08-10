@@ -12,7 +12,6 @@ use webkit2gtk::traits::{ContextMenuExt, ContextMenuItemExt, WebViewExt};
 use webkit2gtk::WebView;
 
 use crate::models::{Article, ArticleAction};
-use crate::settings::{Key, SettingsManager};
 
 pub struct ArticleWidget {
     pub widget: gtk::Box,
@@ -158,7 +157,8 @@ impl ArticleWidget {
         }
 
         let mut layout_css = load_resource("layout.css")?;
-        if SettingsManager::boolean(Key::DarkMode) {
+        let style_manager = libhandy::StyleManager::default().unwrap();
+        if style_manager.is_dark() {
             layout_css.push_str(&load_resource("layout-dark.css")?);
         }
         layout_html = layout_html.replace("{css}", &layout_css);

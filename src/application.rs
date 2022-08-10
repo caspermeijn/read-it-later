@@ -194,9 +194,8 @@ impl Application {
             window.present();
         });
 
-        if let Some(gtk_settings) = gtk::Settings::default() {
-            SettingsManager::bind_property(Key::DarkMode, &gtk_settings, "gtk-application-prefer-dark-theme");
-        }
+        let style_manager = libhandy::StyleManager::default().unwrap();
+        style_manager.set_color_scheme(libhandy::ColorScheme::PreferLight);
     }
 
     fn setup_css(&self) {

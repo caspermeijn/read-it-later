@@ -1,5 +1,4 @@
 use crate::models::ClientManager;
-use crate::settings::{Key, SettingsManager};
 use async_std::sync::{Arc, Mutex};
 use gtk::glib;
 use gtk::prelude::*;
@@ -34,7 +33,6 @@ impl SettingsWidget {
         });
 
         window.init(window.clone(), client);
-        window.setup_signals();
         window
     }
 
@@ -78,9 +76,5 @@ impl SettingsWidget {
         }
 
         glib::Continue(true)
-    }
-    fn setup_signals(&self) {
-        get_widget!(self.builder, gtk::Switch, dark_mode_button);
-        SettingsManager::bind_property(Key::DarkMode, &dark_mode_button, "active");
     }
 }

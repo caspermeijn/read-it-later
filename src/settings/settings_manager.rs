@@ -5,7 +5,6 @@ Thanks Felix!
 
 use gtk::gio;
 use gtk::gio::prelude::*;
-use gtk::glib;
 use log::error;
 
 use crate::config;
@@ -19,11 +18,6 @@ impl SettingsManager {
         gio::Settings::new(app_id)
     }
 
-    pub fn bind_property<P: IsA<glib::Object>>(key: Key, object: &P, property: &str) {
-        let settings = Self::get_settings();
-        settings.bind(key.to_string().as_str(), object, property).build();
-    }
-
     pub fn string(key: Key) -> String {
         let settings = Self::get_settings();
         settings.string(&key.to_string()).to_string()
@@ -34,11 +28,6 @@ impl SettingsManager {
         if let Err(err) = settings.set_string(&key.to_string(), &value) {
             error!("Failed to save {} setting due to {}", key.to_string(), err);
         }
-    }
-
-    pub fn boolean(key: Key) -> bool {
-        let settings = Self::get_settings();
-        settings.boolean(&key.to_string())
     }
 
     pub fn integer(key: Key) -> i32 {
