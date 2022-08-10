@@ -156,11 +156,7 @@ impl ArticleWidget {
             layout_html = layout_html.replace("{content}", content);
         }
 
-        let mut layout_css = load_resource("layout.css")?;
-        let style_manager = libhandy::StyleManager::default().unwrap();
-        if style_manager.is_dark() {
-            layout_css.push_str(&load_resource("layout-dark.css")?);
-        }
+        let layout_css = load_resource("layout.css")?;
         layout_html = layout_html.replace("{css}", &layout_css);
 
         let layout_js = load_resource("layout.js")?;

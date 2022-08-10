@@ -15,7 +15,6 @@
       <file compressed="true" preprocess="xml-stripblanks" alias="menu.ui">resources/ui/menu.ui</file>
 
       <file compressed="true" alias="layout.css">resources/article/layout.css</file>
-      <file compressed="true" alias="layout-dark.css">resources/article/layout-dark.css</file>
       <file compressed="true" alias="layout.js">resources/article/layout.js</file>
       <file alias="layout.html">resources/article/layout.html</file>
       <file compressed="true" alias="style.css">resources/style.css</file>
