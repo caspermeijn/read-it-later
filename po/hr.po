@@ -1,0 +1,248 @@
+# Croatian translation for read-it-later.
+# Copyright (C) 2022 read-it-later's COPYRIGHT HOLDER
+# This file is distributed under the same license as the read-it-later package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: read-it-later master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/"
+"issues\n"
+"POT-Creation-Date: 2022-08-12 20:05+0000\n"
+"PO-Revision-Date: 2022-08-13 22:45+0200\n"
+"Last-Translator: \n"
+"Language-Team: Croatian <hr@li.org>\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 3.1.1\n"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
+msgid "Read It Later"
+msgstr "Pročitaj kasnije"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
+msgid "A Wallabag Client."
+msgstr "Wallabag klijent"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
+msgid ""
+"Read It Later, is a simple Wallabag client. It has the basic features to "
+"manage your articles"
+msgstr ""
+"Pročitaj kasnije, je jednostavan Wallabag klijent. Ima osnovne značajke "
+"za upravljanje vašim člancima"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+msgid "Add new articles"
+msgstr "Dodaj nove članke"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+msgid "Archive an article"
+msgstr "Arhiviraj članak"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+msgid "Delete an article"
+msgstr "Obriši članak"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
+msgid "Favorite an article"
+msgstr "Dodaj članak u omiljene"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
+msgid ""
+"It also comes with a nice on eyes reader mode that supports code syntax "
+"highlighting and a dark mode"
+msgstr ""
+"Dolazi s ugodnim načinom čitanja koji podržava isticanje sintakse kôda i "
+"tamni način rada"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
+msgid "Main Window"
+msgstr "Glavni prozor"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
+msgid "Article View"
+msgstr "Prikaz članka"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
+msgid "Adaptive view in dark mode"
+msgstr "Prilagodljivi prikaz u tamnom načinu rada"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
+msgid "A Wallabag Client"
+msgstr "Wallabag klijent"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
+msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
+msgstr "Gnome;GTK;Wallabag;Web;Članak;Izvanmrežno;"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
+msgid "Default window width"
+msgstr "Zadana širina prozora"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:10
+msgid "Default window height"
+msgstr "Zadana visina prozora"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
+msgid "Default window x position"
+msgstr "Zadani x položaj prozora"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
+msgid "Default window y position"
+msgstr "Zadani y položaj prozora"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
+msgid "Default window maximized behaviour"
+msgstr "Zadano ponašanje uvećanja prozora"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
+msgid "Logged in username"
+msgstr "Korisničko ime prijave"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
+msgid "Latest successful sync in ms"
+msgstr "Posljednje uspješno usklađivanje u ms"
+
+#: data/resources/ui/about_dialog.ui.in:13
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  gogo https://launchpad.net/~trebelnik-stefina"
+
+#: data/resources/ui/articles_list.ui:57
+msgid "No articles found"
+msgstr "Nema pronađenih članaka"
+
+#: data/resources/ui/menu.ui:19
+msgid "Add Article..."
+msgstr "Dodaj članak..."
+
+#: data/resources/ui/menu.ui:44
+msgid "Preferences"
+msgstr "Osobitosti"
+
+#: data/resources/ui/menu.ui:58
+msgid "Logout"
+msgstr "Odjava"
+
+#: data/resources/ui/menu.ui:83
+msgid "Keyboard Shortcuts"
+msgstr "Prečaci tipkovnice"
+
+#: data/resources/ui/menu.ui:97
+msgid "About Read It Later"
+msgstr "O Pročitaj kasnije"
+
+#: data/resources/ui/settings.ui:15
+msgid "Account Information"
+msgstr "Informacije računa"
+
+#: data/resources/ui/settings.ui:19
+msgid "Username"
+msgstr "Ime korisnika"
+
+#: data/resources/ui/settings.ui:33
+msgid "Email"
+msgstr "E-pošta"
+
+#: data/resources/ui/settings.ui:47
+msgid "Created At"
+msgstr "Stvoreno"
+
+#: data/resources/ui/settings.ui:61
+msgid "Updated At"
+msgstr "Nadopunjeo"
+
+#: data/resources/ui/shortcuts.ui:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Općenito"
+
+#: data/resources/ui/shortcuts.ui:17
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Prikaži prečace"
+
+#: data/resources/ui/shortcuts.ui:24
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "Osobitosti"
+
+#: data/resources/ui/shortcuts.ui:31
+msgctxt "shortcut window"
+msgid "Back"
+msgstr "Natrag"
+
+#: data/resources/ui/shortcuts.ui:38
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Zatvori"
+
+#: data/resources/ui/shortcuts.ui:47
+msgctxt "shortcut window"
+msgid "Articles"
+msgstr "Članci"
+
+#: data/resources/ui/shortcuts.ui:51
+msgctxt "shortcut window"
+msgid "Synchronize"
+msgstr "Uskladi"
+
+#: data/resources/ui/shortcuts.ui:58
+msgctxt "shortcut window"
+msgid "New Article"
+msgstr "Novi članak"
+
+#: data/resources/ui/shortcuts.ui:65
+msgctxt "shortcut window"
+msgid "Delete Article"
+msgstr "Obriši članak"
+
+#: data/resources/ui/shortcuts.ui:72
+msgctxt "shortcut window"
+msgid "Favorite Article"
+msgstr "Omiljeni članak"
+
+#: data/resources/ui/shortcuts.ui:79
+msgctxt "shortcut window"
+msgid "Archive Article"
+msgstr "Arhiviraj članak"
+
+#: data/resources/ui/shortcuts.ui:86
+msgctxt "shortcut window"
+msgid "Open Article In Browser"
+msgstr "Otvori članak u pregledniku"
+
+#: data/resources/ui/window.ui.in:22
+msgid "Open Website"
+msgstr "Otvori web stranicu"
+
+#: data/resources/ui/window.ui.in:47
+msgid "Delete Article"
+msgstr "Obriši članak"
+
+#: data/resources/ui/window.ui.in:178
+msgid "Favorite"
+msgstr "Omiljeno"
+
+#: data/resources/ui/window.ui.in:198
+msgid "Archive"
+msgstr "Arhiva"
+
+#: data/resources/ui/window.ui.in:268
+msgid "Paste the article url here"
+msgstr "Zalijepi url članka ovdje"
+
+#: data/resources/ui/window.ui.in:278
+msgid "Save"
+msgstr "Spremi"
