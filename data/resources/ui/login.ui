@@ -23,6 +23,7 @@
   <object class="HdyClamp" id="login">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
+    <property name="maximum_size">450</property>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
