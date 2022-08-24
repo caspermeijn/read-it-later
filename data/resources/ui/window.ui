@@ -88,9 +88,6 @@
                 <property name="pack_type">end</property>
               </packing>
             </child>
-            <style>
-              <class name="titlebar"/>
-            </style>
           </object>
           <packing>
             <property name="name">articles</property>
@@ -173,9 +170,6 @@
                 <property name="pack_type">end</property>
               </packing>
             </child>
-            <style>
-              <class name="titlebar"/>
-            </style>
           </object>
           <packing>
             <property name="name">article</property>
@@ -187,9 +181,6 @@
             <property name="can_focus">False</property>
             <property name="show_close_button">True</property>
             <property name="has_subtitle">False</property>
-            <style>
-              <class name="titlebar"/>
-            </style>
           </object>
           <packing>
             <property name="name">login</property>
@@ -245,9 +236,6 @@
                 <property name="pack_type">end</property>
               </packing>
             </child>
-            <style>
-              <class name="titlebar"/>
-            </style>
           </object>
           <packing>
             <property name="name">new-article</property>
