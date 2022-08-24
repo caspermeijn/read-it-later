@@ -5,6 +5,7 @@ use gtk::glib::clone;
 use gtk::glib::{timeout_future_seconds, MainContext, Sender};
 use gtk::prelude::*;
 use gtk_macros::{action, get_action, get_widget, send};
+use libhandy::prelude::*;
 use log::error;
 use url::Url;
 
@@ -138,7 +139,7 @@ impl Window {
         let application_name = glib::application_name().unwrap();
         get_widget!(self.builder, libhandy::ViewSwitcherTitle, view_switcher_title);
         view_switcher_title.set_title(Some(&application_name));
-        get_widget!(self.builder, gtk::HeaderBar, login_header_bar);
+        get_widget!(self.builder, libhandy::HeaderBar, login_header_bar);
         login_header_bar.set_title(Some(&application_name));
 
         get_widget!(self.builder, gtk::Stack, headerbar_stack);
