@@ -4,6 +4,7 @@ extern crate diesel_migrations;
 extern crate diesel;
 
 use gettextrs::*;
+use gtk::gio;
 use gtk::glib;
 
 mod application;
@@ -12,11 +13,12 @@ mod database;
 mod models;
 mod schema;
 mod settings;
-mod static_resources;
 mod views;
 mod widgets;
 
 use application::Application;
+
+use self::config::{GETTEXT_PACKAGE, LOCALEDIR, NAME_SUFFIX, RESOURCES_FILE};
 
 fn main() {
     pretty_env_logger::init();
@@ -24,13 +26,15 @@ fn main() {
     gtk::init().expect("Unable to start GTK3");
     // Prepare i18n
     setlocale(LocaleCategory::LcAll, "");
-    bindtextdomain(config::GETTEXT_PACKAGE, config::LOCALEDIR).unwrap();
-    textdomain(config::GETTEXT_PACKAGE).unwrap();
+    bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR).unwrap();
+    textdomain(GETTEXT_PACKAGE).unwrap();
 
     glib::set_prgname(Some("read-it-later"));
-    glib::set_application_name(&format!("Read It Later{}", config::NAME_SUFFIX));
+    glib::set_application_name(&format!("Read It Later{}", NAME_SUFFIX));
 
-    static_resources::init().expect("Failed to initialize the resource file.");
+    let res = gio::Resource::load(RESOURCES_FILE).expect("Could not load gresource file");
+    gio::resources_register(&res);
+
     libhandy::init();
     webkit2gtk::WebView::new();
 

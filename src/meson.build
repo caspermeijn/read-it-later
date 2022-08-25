@@ -19,22 +19,6 @@ run_command(
   check: true
 )
 
-# include_bytes! only takes a string literal
-resource_conf = configuration_data()
-resource_conf.set_quoted('RESOURCEFILE', resources.full_path())
-resource_rs = configure_file(
-  input: 'static_resources.rs.in',
-  output: 'static_resources.rs',
-  configuration: resource_conf
-)
-
-run_command(
-  'cp',
-  resource_rs,
-  meson.current_source_dir(),
-  check: true
-)
-
 cargo_options = [ '--manifest-path', meson.project_source_root() / 'Cargo.toml' ]
 cargo_options += [ '--target-dir', meson.project_build_root() / 'src' ]
 
