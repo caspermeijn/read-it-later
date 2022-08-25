@@ -6,10 +6,10 @@ flatpak:
   image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:42'
   variables:
     BUNDLE: "read-it-later-nightly.flatpak"
-    MANIFEST_PATH: "build-aux/com.belmoussaoui.ReadItLaterDevel.json"
+    MANIFEST_PATH: "build-aux/com.belmoussaoui.ReadItLater.Devel.json"
     FLATPAK_MODULE: "read-it-later"
     MESON_ARGS: "-Dprofile=development"
-    APP_ID: "com.belmoussaoui.ReadItLaterDevel"
+    APP_ID: "com.belmoussaoui.ReadItLater.Devel"
     RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
   extends: '.flatpak'
 

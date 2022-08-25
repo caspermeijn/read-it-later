@@ -14,8 +14,7 @@ pub struct SettingsManager {}
 
 impl SettingsManager {
     pub fn get_settings() -> gio::Settings {
-        let app_id = config::APP_ID.trim_end_matches(".Devel");
-        gio::Settings::new(app_id)
+        gio::Settings::new(config::APP_ID)
     }
 
     pub fn string(key: Key) -> String {

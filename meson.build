@@ -38,7 +38,9 @@ podir =meson.source_root () / 'po'
 gettext_package = meson.project_name()
 
 
+application_id = 'com.belmoussaoui.ReadItLater'
 if get_option('profile') == 'development'
+  application_id += '.Devel'
   profile = 'Devel'
   name_suffix = ' (Development)'
   vcs_tag = run_command('git', 'rev-parse', '--short', 'HEAD').stdout().strip()
@@ -52,8 +54,6 @@ else
   name_suffix = ''
   version_suffix = ''
 endif
-
-application_id = 'com.belmoussaoui.ReadItLater@0@'.format(profile)
 
 
 subdir('po')
