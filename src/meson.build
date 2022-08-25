@@ -1,21 +1,21 @@
 global_conf = configuration_data()
 global_conf.set_quoted('APP_ID', application_id)
-global_conf.set_quoted('PKGDATADIR', prefix / pkgdatadir)
+global_conf.set_quoted('PKGDATADIR', pkgdatadir)
 global_conf.set_quoted('PROFILE', profile)
 global_conf.set_quoted('NAME_SUFFIX', name_suffix)
 global_conf.set_quoted('VERSION', version + version_suffix)
 global_conf.set_quoted('GETTEXT_PACKAGE', gettext_package)
 global_conf.set_quoted('LOCALEDIR', localedir)
 config = configure_file(
-    input: 'config.rs.in',
-    output: 'config.rs',
-    configuration: global_conf
+  input: 'config.rs.in',
+  output: 'config.rs',
+  configuration: global_conf
 )
 # Copy the config.rs output to the source directory.
 run_command(
   'cp',
-  join_paths(meson.build_root(), 'src', 'config.rs'),
-  join_paths(meson.source_root(), 'src', 'config.rs'),
+  meson.project_build_root() / 'src' / 'config.rs',
+  meson.project_source_root() / 'src' / 'config.rs',
   check: true
 )
 
@@ -35,55 +35,35 @@ run_command(
   check: true
 )
 
-sources = files(
-  'models/article.rs',
-  'models/article_filter.rs',
-  'models/articles.rs',
-  'models/client_manager.rs',
-  'models/mod.rs',
-  'models/object_wrapper.rs',
-  'models/preview_image.rs',
-  'models/secret.rs',
-  'settings/key.rs',
-  'settings/mod.rs',
-  'settings/settings_manager.rs',
-  'views/article.rs',
-  'views/articles.rs',
-  'views/articles_list.rs',
-  'views/login.rs',
-  'views/mod.rs',
-  'widgets/articles/index.rs',
-  'widgets/articles/list.rs',
-  'widgets/articles/mod.rs',
-  'widgets/articles/preview.rs',
-  'widgets/articles/row.rs',
-  'widgets/login.rs',
-  'widgets/mod.rs',
-  'widgets/settings.rs',
-  'widgets/window.rs',
-  'application.rs',
-  'config.rs',
-  'database.rs',
-  'main.rs',
-  'schema.rs',
-  'static_resources.rs',
-)
+cargo_options = [ '--manifest-path', meson.project_source_root() / 'Cargo.toml' ]
+cargo_options += [ '--target-dir', meson.project_build_root() / 'src' ]
 
-custom_target('cargo-build',
+if get_option('profile') == 'default'
+  cargo_options += [ '--release' ]
+  rust_target = 'release'
+  message('Building in release mode')
+else
+  rust_target = 'debug'
+  message('Building in debug mode')
+endif
+
+cargo_env = [ 'CARGO_HOME=' + meson.project_build_root() / 'cargo-home' ]
+
+cargo_build = custom_target(
+  'cargo-build',
   build_by_default: true,
-  input: sources,
+  build_always_stale: true,
   output: meson.project_name(),
   console: true,
   install: true,
   install_dir: bindir,
   depends: resources,
   command: [
-    cargo_script,
-    meson.build_root(),
-    meson.source_root(),
-    '@OUTPUT@',
-    localedir,
-    profile
+    'env',
+    cargo_env,
+    cargo, 'build',
+    cargo_options,
+    '&&',
+    'cp', 'src' / rust_target / meson.project_name(), '@OUTPUT@',
   ]
 )
-

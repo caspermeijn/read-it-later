@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/com/belmoussaoui/ReadItLater/">
+      <!-- Pre-configured files -->
+      <file compressed="true" preprocess="xml-stripblanks">about_dialog.ui</file>
+      <file compressed="true" preprocess="xml-stripblanks">window.ui</file>
+      <file compressed="true" preprocess="xml-stripblanks">login.ui</file>
+
+      <file compressed="true" preprocess="xml-stripblanks" alias="article.ui">ui/article.ui</file>
+      <file compressed="true" preprocess="xml-stripblanks" alias="articles_list.ui">ui/articles_list.ui</file>
+      <file compressed="true" preprocess="xml-stripblanks" alias="article_row.ui">ui/article_row.ui</file>
+      <file compressed="true" preprocess="xml-stripblanks" alias="article_preview.ui">ui/article_preview.ui</file>
+      <file compressed="true" preprocess="xml-stripblanks" alias="settings.ui">ui/settings.ui</file>
+      <file compressed="true" preprocess="xml-stripblanks" alias="shortcuts.ui">ui/shortcuts.ui</file>
+      <file compressed="true" preprocess="xml-stripblanks" alias="menu.ui">ui/menu.ui</file>
+
+      <file compressed="true" alias="layout.css">article/layout.css</file>
+      <file compressed="true" alias="layout.js">article/layout.js</file>
+      <file alias="layout.html">article/layout.html</file>
+      <file compressed="true" alias="style.css">style.css</file>
+  </gresource>
+  <gresource prefix="/com/belmoussaoui/ReadItLater/icons/">
+      <file alias="archive-symbolic.svg">icons/archive-symbolic.svg</file>
+      <file alias="favorites-symbolic.svg">icons/favorites-symbolic.svg</file>
+      <file alias="unread-symbolic.svg">icons/unread-symbolic.svg</file>
+  </gresource>
+</gresources>

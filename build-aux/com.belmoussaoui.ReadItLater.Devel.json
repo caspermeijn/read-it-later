@@ -3,7 +3,9 @@
     "runtime": "org.gnome.Platform",
     "runtime-version": "42",
     "sdk": "org.gnome.Sdk",
-    "sdk-extensions": ["org.freedesktop.Sdk.Extension.rust-stable"],
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Extension.rust-stable"
+    ],
     "command": "read-it-later",
     "tags": ["nightly"],
     "desktop-file-name-suffix": " (Devel)",
@@ -15,30 +17,30 @@
         "--share=ipc",
         "--socket=fallback-x11",
         "--socket=wayland",
-        "--socket=pulseaudio",
         "--device=dri",
         "--share=network",
-        "--talk-name=org.freedesktop.secrets"
+        "--talk-name=org.freedesktop.secrets",
+        "--env=RUST_LOG=read_it_later=debug",
+        "--env=G_MESSAGES_DEBUG=none",
+        "--env=RUST_BACKTRACE=1"
     ],
     "build-options": {
         "append-path": "/usr/lib/sdk/rust-stable/bin",
-        "build-args": ["--share=network"],
-        "env": {
-            "RUSTFLAGS": "--remap-path-prefix =../",
-            "CARGO_HOME": "/run/build/read-it-later/cargo",
-            "RUST_BACKTRACE": "full",
-            "RUST_LOG": "read_it_later=info"
-        }
+        "build-args": [
+            "--share=network"
+        ]
     },
     "modules": [
         {
             "name": "read-it-later",
             "buildsystem": "meson",
-            "config-opts": ["-Dprofile=development"],
+            "config-opts": [
+                "-Dprofile=development"
+            ],
             "sources": [
                 {
-                    "type": "git",
-                    "url": "https://gitlab.gnome.org/World/read-it-later.git"
+                    "type": "dir",
+                    "path": "../"
                 }
             ]
         }

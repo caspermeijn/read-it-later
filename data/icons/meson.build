@@ -4,7 +4,7 @@ install_data(
 )
 
 install_data(
-  'com.belmoussaoui.ReadItLater-symbolic.svg',
+  '@0@-symbolic.svg'.format(base_id),
   install_dir: iconsdir / 'hicolor' / 'symbolic' / 'apps',
   rename: '@0@-symbolic.svg'.format(application_id)
 )
