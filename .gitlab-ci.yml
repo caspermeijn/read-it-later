@@ -1,9 +1,12 @@
-include:
-  - project: 'gnome/citemplates'
-    file: 'flatpak/flatpak_ci_initiative.yml'
+stages:
+  - check
+  - test
 
 flatpak:
-  image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:42'
+  image: 'quay.io/gnome_infrastructure/gnome-runtime-images:gnome-42'
+  tags:
+    - flatpak
+  stage: test
   variables:
     BUNDLE: "read-it-later-nightly.flatpak"
     MANIFEST_PATH: "build-aux/com.belmoussaoui.ReadItLater.Devel.json"
@@ -11,12 +14,29 @@ flatpak:
     MESON_ARGS: "-Dprofile=development"
     APP_ID: "com.belmoussaoui.ReadItLater.Devel"
     RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
-  extends: '.flatpak'
+  script:
+    - >
+      xvfb-run -a -s "-screen 0 1024x768x24"
+      flatpak-builder --keep-build-dirs --user --disable-rofiles-fuse flatpak_app --repo=repo ${BRANCH:+--default-branch=$BRANCH} ${MANIFEST_PATH}
+    - flatpak build-bundle repo ${BUNDLE} --runtime-repo=${RUNTIME_REPO} ${APP_ID} ${BRANCH}
+    - tar cf repo.tar repo/
+  artifacts:
+    name: 'Flatpak artifacts'
+    expose_as: 'Get Flatpak bundle here'
+    when: 'always'
+    paths:
+      - "${BUNDLE}"
+      - '.flatpak-builder/build/${FLATPAK_MODULE}/_flatpak_build/meson-logs/meson-log.txt'
+      - '.flatpak-builder/build/${FLATPAK_MODULE}/_flatpak_build/meson-logs/testlog.txt'
+      - 'repo.tar'
+    expire_in: 14 days
+
 
 # Configure and run rustfmt
 # Exits and builds fails if on bad format
 rustfmt:
   image: "rust:slim"
+  stage: check
   script:
     - rustup component add rustfmt
     # Create blank versions of our configured files
