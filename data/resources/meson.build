@@ -4,7 +4,6 @@ ui_config.set('app-id', application_id)
 ui_config.set('version', meson.project_version() + version_suffix)
 ui_config.set('name-suffix', name_suffix)
 ui_preconfigured_files = files(
-  'ui/about_dialog.ui.in',
   'ui/login.ui.in',
   'ui/window.ui.in',
 )

@@ -2,7 +2,6 @@
 <gresources>
   <gresource prefix="/com/belmoussaoui/ReadItLater/">
       <!-- Pre-configured files -->
-      <file compressed="true" preprocess="xml-stripblanks">about_dialog.ui</file>
       <file compressed="true" preprocess="xml-stripblanks">window.ui</file>
       <file compressed="true" preprocess="xml-stripblanks">login.ui</file>
 

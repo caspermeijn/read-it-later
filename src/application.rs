@@ -1,3 +1,4 @@
+use self::config::{APP_ID, VERSION};
 use crate::config;
 use crate::database;
 use crate::models::CACHE_DIR;
@@ -8,13 +9,14 @@ use anyhow::Result;
 use async_std::sync::{Arc, Mutex};
 use chrono::{TimeZone, Utc};
 use futures::executor::ThreadPool;
+use gettextrs::gettext;
 use gtk::gio;
 use gtk::gio::prelude::*;
 use gtk::glib;
 use gtk::glib::clone;
 use gtk::glib::{Receiver, Sender};
 use gtk::prelude::*;
-use gtk_macros::{action, get_widget, send, spawn};
+use gtk_macros::{action, send, spawn};
 use log::{error, info};
 use std::{cell::RefCell, rc::Rc};
 use url::Url;
@@ -142,11 +144,7 @@ impl Application {
             self.app,
             "about",
             clone!(@strong self.window.widget as window => move |_, _| {
-                let builder = gtk::Builder::from_resource("/com/belmoussaoui/ReadItLater/about_dialog.ui");
-                get_widget!(builder, gtk::AboutDialog, about_dialog);
-
-                about_dialog.set_transient_for(Some(&window));
-                about_dialog.show();
+                Application::show_about_dialog(&window);
             })
         );
         action!(
@@ -383,5 +381,21 @@ impl Application {
             send!(sender, Action::SetView(View::Syncing(false)));
             send!(sender, Action::PreviousView);
         });
+    }
+
+    fn show_about_dialog(parent: &impl IsA<gtk::Window>) {
+        let dialog = gtk::AboutDialog::builder()
+            .logo_icon_name(APP_ID)
+            .license_type(gtk::License::Gpl30)
+            .website("https://gitlab.gnome.org/World/read-it-later/")
+            .version(VERSION)
+            .transient_for(parent)
+            .translator_credits(&gettext("translator-credits"))
+            .modal(true)
+            .authors(vec!["Bilal Elmoussaoui".into()])
+            .artists(vec!["Tobias Bernard".into()])
+            .build();
+
+        dialog.present();
     }
 }
