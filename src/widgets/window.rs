@@ -136,21 +136,17 @@ impl Window {
 
     fn init(&self) {
         let application_name = glib::application_name().unwrap();
-        get_widget!(self.builder, gtk::Label, title_label);
-        title_label.set_text(&application_name);
+        get_widget!(self.builder, libhandy::ViewSwitcherTitle, view_switcher_title);
+        view_switcher_title.set_title(Some(&application_name));
         get_widget!(self.builder, gtk::HeaderBar, login_header_bar);
         login_header_bar.set_title(Some(&application_name));
 
-        get_widget!(self.builder, libhandy::Squeezer, squeezer);
         get_widget!(self.builder, gtk::Stack, headerbar_stack);
-        get_widget!(self.builder, libhandy::ViewSwitcherBar, switcher_bar);
-        get_widget!(self.builder, gtk::Label, title_label);
+        get_widget!(self.builder, libhandy::ViewSwitcherBar, view_switcher_bar);
 
-        squeezer.connect_visible_child_notify(move |squeezer| {
-            let visible_headerbar_stack = headerbar_stack.visible_child_name();
-            if let Some(visible_child) = squeezer.visible_child() {
-                switcher_bar.set_reveal(visible_child == title_label && visible_headerbar_stack == Some("articles".into()));
-            }
+        headerbar_stack.connect_visible_child_name_notify(move |headerbar_stack| {
+            let visible_headerbar_stack = headerbar_stack.visible_child_name().unwrap();
+            view_switcher_bar.set_visible(visible_headerbar_stack == "articles");
         });
         self.widget.connect_size_allocate(move |widget, allocation| {
             if allocation.width() <= 450 {
@@ -175,12 +171,12 @@ impl Window {
         main_stack.add_named(&self.login_view.get_widget(), &self.login_view.name);
 
         // Articles
-        get_widget!(self.builder, libhandy::ViewSwitcher, view_switcher);
-        get_widget!(self.builder, libhandy::ViewSwitcherBar, switcher_bar);
+        get_widget!(self.builder, libhandy::ViewSwitcherTitle, view_switcher_title);
+        get_widget!(self.builder, libhandy::ViewSwitcherBar, view_switcher_bar);
 
         main_stack.add_named(&self.articles_view.widget, "articles");
-        view_switcher.set_stack(Some(&self.articles_view.widget));
-        switcher_bar.set_stack(Some(&self.articles_view.widget));
+        view_switcher_title.set_stack(Some(&self.articles_view.widget));
+        view_switcher_bar.set_stack(Some(&self.articles_view.widget));
 
         // Article View
         main_stack.add_named(&self.article_view.get_widget(), &self.article_view.name);

@@ -64,28 +64,10 @@
             <property name="centering_policy">strict</property>
             <property name="has_subtitle">False</property>
             <child type="title">
-              <object class="HdySqueezer" id="squeezer">
+              <object class="HdyViewSwitcherTitle" id="view_switcher_title">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">center</property>
-                <child>
-                  <object class="HdyViewSwitcher" id="view_switcher">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="halign">center</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="title_label">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="halign">center</property>
-                    <property name="ellipsize">end</property>
-                    <style>
-                      <class name="title"/>
-                    </style>
-                  </object>
-                </child>
               </object>
             </child>
             <child>
@@ -366,9 +348,13 @@
           </object>
         </child>
         <child>
-          <object class="HdyViewSwitcherBar" id="switcher_bar">
+          <object class="HdyViewSwitcherBar" id="view_switcher_bar">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="reveal"
+                    bind-source="view_switcher_title"
+                    bind-property="title-visible"
+                    bind-flags="sync-create"/>
           </object>
         </child>
       </object>
