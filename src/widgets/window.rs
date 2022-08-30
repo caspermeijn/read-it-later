@@ -135,6 +135,12 @@ impl Window {
     }
 
     fn init(&self) {
+        let application_name = glib::application_name().unwrap();
+        get_widget!(self.builder, gtk::Label, title_label);
+        title_label.set_text(&application_name);
+        get_widget!(self.builder, gtk::HeaderBar, login_header_bar);
+        login_header_bar.set_title(Some(&application_name));
+
         get_widget!(self.builder, libhandy::Squeezer, squeezer);
         get_widget!(self.builder, gtk::Stack, headerbar_stack);
         get_widget!(self.builder, libhandy::ViewSwitcherBar, switcher_bar);

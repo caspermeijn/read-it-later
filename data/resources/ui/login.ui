@@ -37,11 +37,10 @@
             <property name="orientation">vertical</property>
             <property name="spacing">12</property>
             <child>
-              <object class="GtkImage">
+              <object class="GtkImage" id="icon">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="pixel_size">128</property>
-                <property name="icon_name">@app-id@-symbolic</property>
                 <style>
                   <class name="dim-label"/>
                 </style>

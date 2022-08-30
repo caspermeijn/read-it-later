@@ -46,6 +46,8 @@ pub struct Application {
 
 impl Application {
     pub fn new() -> Rc<Self> {
+        gtk::Window::set_default_icon_name(APP_ID);
+
         let app = gtk::Application::new(Some(config::APP_ID), gio::ApplicationFlags::FLAGS_NONE);
 
         let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);

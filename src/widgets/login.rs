@@ -1,3 +1,4 @@
+use crate::config::APP_ID;
 use gtk::prelude::*;
 use gtk_macros::get_widget;
 use log::error;
@@ -55,6 +56,9 @@ impl LoginWidget {
     }
 
     fn init(&self) {
+        get_widget!(self.builder, gtk::Image, icon);
+        icon.set_icon_name(Some(&format!("{}-symbolic", APP_ID)));
+
         get_widget!(self.builder, gtk::TreeStore, instances_store);
         instances_store.insert_with_values(None, None, &[(0, &"https://app.wallabag.it/")]);
         instances_store.insert_with_values(None, None, &[(0, &"https://framabag.org")]);
