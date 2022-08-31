@@ -21,22 +21,12 @@
             <property name="action_name">article.open</property>
             <property name="text" translatable="yes">Open Website</property>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
         </child>
         <child>
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
-          </packing>
         </child>
         <child>
           <object class="GtkModelButton">
@@ -46,11 +36,6 @@
             <property name="action_name">article.delete</property>
             <property name="text" translatable="yes">Delete Article</property>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">4</property>
-          </packing>
         </child>
       </object>
     </child>
@@ -99,9 +84,6 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkMenuButton" id="appmenu_button">
@@ -118,7 +100,6 @@
               </object>
               <packing>
                 <property name="pack_type">end</property>
-                <property name="position">2</property>
               </packing>
             </child>
             <style>
@@ -166,7 +147,6 @@
               </object>
               <packing>
                 <property name="pack_type">end</property>
-                <property name="position">1</property>
               </packing>
             </child>
             <child>
@@ -186,7 +166,6 @@
               </object>
               <packing>
                 <property name="pack_type">end</property>
-                <property name="position">2</property>
               </packing>
             </child>
             <child>
@@ -206,7 +185,6 @@
               </object>
               <packing>
                 <property name="pack_type">end</property>
-                <property name="position">3</property>
               </packing>
             </child>
             <style>
@@ -269,9 +247,6 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkButton" id="save_article_btn">
@@ -283,7 +258,6 @@
               </object>
               <packing>
                 <property name="pack_type">end</property>
-                <property name="position">2</property>
               </packing>
             </child>
             <style>
@@ -309,10 +283,6 @@
               <class name="loading-progress" />
             </style>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="position">0</property>
-          </packing>
         </child>
         <child>
           <object class="GtkRevealer" id="notification">
@@ -332,10 +302,7 @@
                     <property name="valign">center</property>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
                     <property name="padding">12</property>
-                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
@@ -356,10 +323,7 @@
                     </style>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
                     <property name="padding">6</property>
-                    <property name="position">1</property>
                   </packing>
                 </child>
                 <style>
@@ -369,11 +333,6 @@
               </object>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
         </child>
         <child>
           <object class="GtkScrolledWindow">
@@ -381,6 +340,7 @@
             <property name="can_focus">True</property>
             <property name="min_content_width">340</property>
             <property name="min_content_height">228</property>
+            <property name="expand">True</property>
             <child>
               <object class="GtkViewport">
                 <property name="visible">True</property>
@@ -401,22 +361,12 @@
               </object>
             </child>
           </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
-          </packing>
         </child>
         <child>
           <object class="HdyViewSwitcherBar" id="switcher_bar">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">4</property>
-          </packing>
         </child>
       </object>
     </child>

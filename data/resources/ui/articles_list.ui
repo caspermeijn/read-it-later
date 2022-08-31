@@ -44,11 +44,6 @@
                 <property name="pixel_size">128</property>
                 <property name="icon_name">dialog-missing-symbolic</property>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="empty_label">
@@ -59,11 +54,6 @@
                   <class name="head-title"/>
                 </style>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
             </child>
             <style>
               <class name="dim-label"/>
@@ -71,7 +61,6 @@
           </object>
           <packing>
             <property name="name">empty</property>
-            <property name="position">1</property>
           </packing>
         </child>
       </object>

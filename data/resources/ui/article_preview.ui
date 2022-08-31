@@ -25,7 +25,6 @@
       </object>
       <packing>
         <property name="name">loading</property>
-        <property name="position">1</property>
       </packing>
     </child>
   </object>
