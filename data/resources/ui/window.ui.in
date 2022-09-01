@@ -17,6 +17,34 @@
       </item>
     </section>
   </menu>
+  <menu id='app-menu'>
+    <section>
+      <item>
+        <attribute name='label' translatable='yes'>Add Article...</attribute>
+        <attribute name='action'>app.new-article</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name='label' translatable='yes'>Preferences</attribute>
+        <attribute name='action'>app.settings</attribute>
+      </item>
+      <item>
+        <attribute name='label' translatable='yes'>Logout</attribute>
+        <attribute name='action'>app.logout</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name='label' translatable='yes'>Keyboard Shortcuts</attribute>
+        <attribute name='action'>win.show-help-overlay</attribute>
+      </item>
+      <item>
+        <attribute name='label' translatable='yes'>About Read It Later</attribute>
+        <attribute name='action'>app.about</attribute>
+      </item>
+    </section>
+  </menu>
   <object class="GtkApplicationWindow" id="window">
     <property name="can_focus">False</property>
     <property name="default_width">960</property>
@@ -67,6 +95,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="menu-model">app-menu</property>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
@@ -349,4 +378,3 @@
     </child>
   </object>
 </interface>
-

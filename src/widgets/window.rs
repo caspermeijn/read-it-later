@@ -135,12 +135,6 @@ impl Window {
     }
 
     fn init(&self) {
-        // setup app menu
-        let menu_builder = gtk::Builder::from_resource("/com/belmoussaoui/ReadItLater/menu.ui");
-        get_widget!(menu_builder, gtk::PopoverMenu, popover_menu);
-        get_widget!(self.builder, gtk::MenuButton, appmenu_button);
-        appmenu_button.set_popover(Some(&popover_menu));
-
         get_widget!(self.builder, libhandy::Squeezer, squeezer);
         get_widget!(self.builder, gtk::Stack, headerbar_stack);
         get_widget!(self.builder, libhandy::ViewSwitcherBar, switcher_bar);

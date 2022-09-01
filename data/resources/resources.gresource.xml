@@ -11,7 +11,6 @@
       <file compressed="true" preprocess="xml-stripblanks" alias="article_preview.ui">ui/article_preview.ui</file>
       <file compressed="true" preprocess="xml-stripblanks" alias="settings.ui">ui/settings.ui</file>
       <file compressed="true" preprocess="xml-stripblanks" alias="shortcuts.ui">ui/shortcuts.ui</file>
-      <file compressed="true" preprocess="xml-stripblanks" alias="menu.ui">ui/menu.ui</file>
 
       <file compressed="true" alias="layout.css">article/layout.css</file>
       <file compressed="true" alias="layout.js">article/layout.js</file>
