@@ -392,7 +392,7 @@ impl Application {
             .transient_for(parent)
             .translator_credits(&gettext("translator-credits"))
             .modal(true)
-            .authors(vec!["Bilal Elmoussaoui".into()])
+            .authors(vec!["Bilal Elmoussaoui".into(), "Casper Meijn".into()])
             .artists(vec!["Tobias Bernard".into()])
             .build();
 
