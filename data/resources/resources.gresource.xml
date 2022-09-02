@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/com/belmoussaoui/ReadItLater/">
+  <gresource prefix="/com/belmoussaoui/ReadItLater">
       <file compressed="true" preprocess="xml-stripblanks" alias="article.ui">ui/article.ui</file>
       <file compressed="true" preprocess="xml-stripblanks" alias="articles_list.ui">ui/articles_list.ui</file>
       <file compressed="true" preprocess="xml-stripblanks" alias="article_row.ui">ui/article_row.ui</file>
       <file compressed="true" preprocess="xml-stripblanks" alias="article_preview.ui">ui/article_preview.ui</file>
       <file compressed="true" preprocess="xml-stripblanks" alias="settings.ui">ui/settings.ui</file>
-      <file compressed="true" preprocess="xml-stripblanks" alias="shortcuts.ui">ui/shortcuts.ui</file>
+      <file compressed="true" preprocess="xml-stripblanks" alias="gtk/help-overlay.ui">ui/gtk/help-overlay.ui</file>
       <file compressed="true" preprocess="xml-stripblanks" alias="login.ui">ui/login.ui</file>
       <file compressed="true" preprocess="xml-stripblanks" alias="window.ui">ui/window.ui</file>
 

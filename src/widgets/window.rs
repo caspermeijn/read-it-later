@@ -211,10 +211,6 @@ impl Window {
             notification.set_reveal_child(false);
         });
 
-        let builder = gtk::Builder::from_resource("/com/belmoussaoui/ReadItLater/shortcuts.ui");
-        get_widget!(builder, gtk::ShortcutsWindow, shortcuts);
-        self.widget.set_help_overlay(Some(&shortcuts));
-
         action!(
             self.actions,
             "previous",
