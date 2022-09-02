@@ -49,6 +49,7 @@ impl Application {
         gtk::Window::set_default_icon_name(APP_ID);
 
         let app = gtk::Application::new(Some(config::APP_ID), gio::ApplicationFlags::FLAGS_NONE);
+        app.set_resource_base_path(Some("/com/belmoussaoui/ReadItLater"));
 
         let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
         let receiver = RefCell::new(Some(r));
@@ -199,10 +200,6 @@ impl Application {
     }
 
     fn setup_css(&self) {
-        if let Some(theme) = gtk::IconTheme::default() {
-            theme.add_resource_path("/com/belmoussaoui/ReadItLater/icons");
-        }
-
         let p = gtk::CssProvider::new();
         gtk::CssProvider::load_from_resource(&p, "/com/belmoussaoui/ReadItLater/style.css");
         if let Some(screen) = gtk::gdk::Screen::default() {

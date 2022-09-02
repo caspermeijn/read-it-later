@@ -15,9 +15,9 @@
       <file alias="layout.html">article/layout.html</file>
       <file compressed="true" alias="style.css">style.css</file>
   </gresource>
-  <gresource prefix="/com/belmoussaoui/ReadItLater/icons/">
-      <file alias="archive-symbolic.svg">icons/archive-symbolic.svg</file>
-      <file alias="favorites-symbolic.svg">icons/favorites-symbolic.svg</file>
-      <file alias="unread-symbolic.svg">icons/unread-symbolic.svg</file>
+  <gresource prefix="/com/belmoussaoui/ReadItLater/icons/scalable/status">
+      <file alias="archive-symbolic.svg">../icons/hicolor/scalable/status/archive-symbolic.svg</file>
+      <file alias="favorites-symbolic.svg">../icons/hicolor/scalable/status/favorites-symbolic.svg</file>
+      <file alias="unread-symbolic.svg">../icons/hicolor/scalable/status/unread-symbolic.svg</file>
   </gresource>
 </gresources>
