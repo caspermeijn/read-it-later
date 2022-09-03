@@ -139,8 +139,6 @@ impl Application {
             clone!(@strong self.window.widget as window, @strong self.client as client =>  move |_, _| {
                 let settings_widget = SettingsWidget::new(client.clone());
                 settings_widget.widget.set_transient_for(Some(&window));
-                let size = window.size();
-                settings_widget.widget.resize(size.0, size.1);
                 settings_widget.widget.show();
             })
         );
