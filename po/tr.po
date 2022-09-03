@@ -1,5 +1,5 @@
 # Turkish translation for read-it-later.
-# Copyright (C) 2021 read-it-later's COPYRIGHT HOLDER
+# Copyright (C) 2021-2022 read-it-later's COPYRIGHT HOLDER
 # This file is distributed under the same license as the read-it-later package.
 #
 # Muhammet Kara <muhammetk@gmail.com>, 2021.
@@ -10,16 +10,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2022-04-07 17:43+0000\n"
-"PO-Revision-Date: 2022-05-14 14:50+0300\n"
-"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"POT-Creation-Date: 2022-08-12 20:05+0000\n"
+"PO-Revision-Date: 2022-09-02 14:24+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
@@ -35,8 +35,8 @@ msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
 "manage your articles"
 msgstr ""
-"Read It Later, yalın bir Wallabag istemcisidir. Makalelerinizi yönetmek "
-"için temel özellikleri vardır"
+"Read It Later, yalın bir Wallabag istemcisidir. Makalelerinizi yönetmek için "
+"temel özellikleri vardır"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
 msgid "Add new articles"
@@ -114,15 +114,11 @@ msgstr "Giriş yapmış kullanıcı adı"
 msgid "Latest successful sync in ms"
 msgstr "Milisaniye türünden son başarılı eşzamanlama"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:34
-msgid "Whether we should use a dark theme or not"
-msgstr "Karanlık temanın kullanıp kullanmayacağı"
-
 #: data/resources/ui/about_dialog.ui.in:13
 msgid "translator-credits"
 msgstr "Muhammet Kara <muhammetk@gmail.com>"
 
-#: data/resources/ui/articles_list.ui:59
+#: data/resources/ui/articles_list.ui:57
 msgid "No articles found"
 msgstr "Makale bulunamadı"
 
@@ -131,8 +127,8 @@ msgid "Add Article..."
 msgstr "Makale Ekle..."
 
 #: data/resources/ui/menu.ui:44
-msgid "Settings"
-msgstr "Ayarlar"
+msgid "Preferences"
+msgstr "Tercihler"
 
 #: data/resources/ui/menu.ui:58
 msgid "Logout"
@@ -147,30 +143,22 @@ msgid "About Read It Later"
 msgstr "Read It Later Hakkında"
 
 #: data/resources/ui/settings.ui:15
-msgid "Appearance"
-msgstr "Görünüm"
+msgid "Account Information"
+msgstr "Hesap Bilgileri"
 
 #: data/resources/ui/settings.ui:19
-msgid "Enable dark mode"
-msgstr "Karanlık kipi etkinleştir"
-
-#: data/resources/ui/settings.ui:41
-msgid "Account Settings"
-msgstr "Hesap Ayarları"
-
-#: data/resources/ui/settings.ui:45
 msgid "Username"
 msgstr "Kullanıcı Adı"
 
-#: data/resources/ui/settings.ui:59
+#: data/resources/ui/settings.ui:33
 msgid "Email"
 msgstr "E-posta"
 
-#: data/resources/ui/settings.ui:73
+#: data/resources/ui/settings.ui:47
 msgid "Created At"
 msgstr "Oluşturulma:"
 
-#: data/resources/ui/settings.ui:87
+#: data/resources/ui/settings.ui:61
 msgid "Updated At"
 msgstr "Güncellenme:"
 
@@ -197,7 +185,7 @@ msgstr "Geri"
 #: data/resources/ui/shortcuts.ui:38
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Kapat"
+msgstr "Çık"
 
 #: data/resources/ui/shortcuts.ui:47
 msgctxt "shortcut window"
@@ -234,26 +222,26 @@ msgctxt "shortcut window"
 msgid "Open Article In Browser"
 msgstr "Makaleyi Tarayıcıda Aç"
 
-#: data/resources/ui/window.ui.in:25
+#: data/resources/ui/window.ui.in:22
 msgid "Open Website"
 msgstr "Web Sitesini Aç"
 
-#: data/resources/ui/window.ui.in:50
+#: data/resources/ui/window.ui.in:47
 msgid "Delete Article"
 msgstr "Makaleyi Sil"
 
-#: data/resources/ui/window.ui.in:181
+#: data/resources/ui/window.ui.in:178
 msgid "Favorite"
 msgstr "Gözde"
 
-#: data/resources/ui/window.ui.in:201
+#: data/resources/ui/window.ui.in:198
 msgid "Archive"
 msgstr "Arşivle"
 
-#: data/resources/ui/window.ui.in:273
+#: data/resources/ui/window.ui.in:268
 msgid "Paste the article url here"
 msgstr "Makale adresini buraya ekle"
 
-#: data/resources/ui/window.ui.in:283
+#: data/resources/ui/window.ui.in:278
 msgid "Save"
 msgstr "Kaydet"
