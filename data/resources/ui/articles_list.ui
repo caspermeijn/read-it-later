@@ -27,31 +27,10 @@
           </packing>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="HdyStatusPage" id="empty_status">
             <property name="visible">True</property>
-            <property name="halign">center</property>
-            <property name="valign">center</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">6</property>
-            <child>
-              <object class="GtkImage" id="empty_image">
-                <property name="visible">True</property>
-                <property name="pixel-size">128</property>
-                <property name="icon-name">dialog-missing-symbolic</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="empty_label">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">No articles found</property>
-                <style>
-                  <class name="head-title"/>
-                </style>
-              </object>
-            </child>
-            <style>
-              <class name="dim-label"/>
-            </style>
+            <property name="icon-name">dialog-missing-symbolic</property>
+            <property name="title" translatable="yes">Pretty clean!</property>
           </object>
           <packing>
             <property name="name">empty</property>

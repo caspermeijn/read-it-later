@@ -29,12 +29,9 @@ impl ArticlesListWidget {
         }
     }
 
-    pub fn bind_model(&self, model: &gio::ListStore, icon: &str, empty_msg: &str) {
-        get_widget!(self.builder, gtk::Label, empty_label);
-        get_widget!(self.builder, gtk::Image, empty_image);
-
-        empty_label.set_text(empty_msg);
-        empty_image.set_from_icon_name(Some(icon), gtk::IconSize::Dialog);
+    pub fn bind_model(&self, model: &gio::ListStore, icon: &str) {
+        get_widget!(self.builder, libhandy::StatusPage, empty_status);
+        empty_status.set_icon_name(Some(icon));
 
         get_widget!(self.builder, gtk::Stack, stack);
         if model.n_items() == 0 {

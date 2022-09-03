@@ -85,7 +85,7 @@ impl ArticlesListView {
             pool.spawn_ok(futures);
         });
 
-        self.widget.bind_model(&self.model, &self.icon, "Pretty clean!");
+        self.widget.bind_model(&self.model, &self.icon);
     }
 
     fn index(&self, article: &Article) -> Option<u32> {
