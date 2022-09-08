@@ -48,8 +48,10 @@ impl Application {
     pub fn new() -> Rc<Self> {
         gtk::Window::set_default_icon_name(APP_ID);
 
-        let app = gtk::Application::new(Some(config::APP_ID), gio::ApplicationFlags::FLAGS_NONE);
-        app.set_resource_base_path(Some("/com/belmoussaoui/ReadItLater"));
+        let app = gtk::Application::builder()
+            .application_id(config::APP_ID)
+            .resource_base_path("/com/belmoussaoui/ReadItLater")
+            .build();
 
         let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
         let receiver = RefCell::new(Some(r));
