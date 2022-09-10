@@ -13,7 +13,7 @@
             <property name="visible">True</property>
             <child>
               <object class="HdyActionRow">
-                <property name="title" translatable="yes">Username</property>
+                <property name="title" translatable="yes">User Name</property>
                 <property name="visible">True</property>
                 <child>
                   <object class="GtkLabel" id="username_label">

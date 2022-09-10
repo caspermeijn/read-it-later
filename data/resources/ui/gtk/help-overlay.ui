@@ -83,7 +83,7 @@
                         <child>
                             <object class="GtkShortcutsShortcut">
                                 <property name="visible">True</property>
-                                <property name="title" translatable="yes" context="shortcut window">Open Article In Browser</property>
+                                <property name="title" translatable="yes" context="shortcut window">Open Article in Browser</property>
                                 <property name="accelerator">&lt;Primary&gt;O</property>
                             </object>
                         </child>

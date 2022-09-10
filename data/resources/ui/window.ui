@@ -20,7 +20,7 @@
   <menu id='app-menu'>
     <section>
       <item>
-        <attribute name='label' translatable='yes'>Add Article...</attribute>
+        <attribute name='label' translatable='yes'>Add Article…</attribute>
         <attribute name='action'>app.new-article</attribute>
       </item>
     </section>
@@ -30,7 +30,7 @@
         <attribute name='action'>app.settings</attribute>
       </item>
       <item>
-        <attribute name='label' translatable='yes'>Logout</attribute>
+        <attribute name='label' translatable='yes'>Log Out</attribute>
         <attribute name='action'>app.logout</attribute>
       </item>
     </section>
@@ -228,7 +228,7 @@
                     <property name="can_focus">True</property>
                     <property name="activates_default">True</property>
                     <property name="input_purpose">url</property>>
-                    <property name="placeholder_text" translatable="yes">Paste the article url here</property>
+                    <property name="placeholder_text" translatable="yes">Paste the article URL here</property>
                   </object>
                 </child>
               </object>

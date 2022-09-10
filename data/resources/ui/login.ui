@@ -137,7 +137,7 @@
               <object class="HdyActionRow">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="title" translatable="yes">Username</property>
+                <property name="title" translatable="yes">User Name</property>
                 <child>
                   <object class="GtkEntry" id="username_entry">
                     <property name="visible">True</property>
@@ -172,7 +172,7 @@
         </child>
         <child>
           <object class="GtkButton" id="login_button">
-            <property name="label" translatable="yes">Login</property>
+            <property name="label" translatable="yes">Log In</property>
             <property name="width_request">110</property>
             <property name="height_request">36</property>
             <property name="visible">True</property>
