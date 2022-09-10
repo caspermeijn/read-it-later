@@ -2,14 +2,15 @@
 # Copyright (C) 2020 read-it-later's COPYRIGHT HOLDER
 # This file is distributed under the same license as the read-it-later package.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2020.
+# Enrico Nicoletto <hiko@duck.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2022-08-12 20:05+0000\n"
-"PO-Revision-Date: 2022-09-05 22:14-0300\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"POT-Creation-Date: 2022-09-10 11:40+0000\n"
+"PO-Revision-Date: 2022-09-10 09:32-0300\n"
+"Last-Translator: Enrico Nicoletto <hiko@duck.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -18,10 +19,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
 msgid "Read It Later"
 msgstr "Leia Depois"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
+msgid "A Wallabag Client"
+msgstr "Um cliente Wallabag"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
+msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
+msgstr "Gnome;GTK;Wallabag;Web;artigo;Article;desconectado;Offline;"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
 msgid "A Wallabag Client."
@@ -75,14 +84,6 @@ msgstr "Visão adaptável no modo escuro"
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-msgid "A Wallabag Client"
-msgstr "Um cliente Wallabag"
-
-#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
-msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
-msgstr "Gnome;GTK;Wallabag;Web;artigo;Article;desconectado;Offline;"
-
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
 msgid "Default window width"
 msgstr "Largura padrão da janela"
@@ -100,147 +101,175 @@ msgid "Default window y position"
 msgstr "Posição y padrão da janela"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
-msgid "Default window maximized behaviour"
+msgid "Default window maximized behavior"
 msgstr "Comportamento padrão da janela maximizada"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
-msgid "Logged in username"
+msgid "Logged in user name"
 msgstr "Nome de usuário autenticado"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
 msgid "Latest successful sync in ms"
 msgstr "Última sincronização bem-sucedida em ms"
 
-#: data/resources/ui/about_dialog.ui.in:13
-msgid "translator-credits"
-msgstr ""
-"Rafael Fontenelle <rafaelff@gnome.org>\n"
-"Enrico Nicoletto <hiko@duck.com>"
-
-#: data/resources/ui/articles_list.ui:57
+#: data/resources/ui/articles_list.ui:52
 msgid "No articles found"
 msgstr "Nenhum artigo encontrado"
 
-#: data/resources/ui/menu.ui:19
-msgid "Add Article..."
-msgstr "Adicionar artigo..."
-
-#: data/resources/ui/menu.ui:44
-msgid "Preferences"
-msgstr "Preferências"
-
-#: data/resources/ui/menu.ui:58
-msgid "Logout"
-msgstr "Encerrar sessão"
-
-#: data/resources/ui/menu.ui:83
-msgid "Keyboard Shortcuts"
-msgstr "Atalhos de teclado"
-
-#: data/resources/ui/menu.ui:97
-msgid "About Read It Later"
-msgstr "Sobre o Leia Depois"
-
-#: data/resources/ui/settings.ui:15
-msgid "Account Information"
-msgstr "Informações da conta"
-
-#: data/resources/ui/settings.ui:19
-msgid "Username"
-msgstr "Nome de usuário"
-
-#: data/resources/ui/settings.ui:33
-msgid "Email"
-msgstr "E-mail"
-
-#: data/resources/ui/settings.ui:47
-msgid "Created At"
-msgstr "Criado em"
-
-#: data/resources/ui/settings.ui:61
-msgid "Updated At"
-msgstr "Atualizado em"
-
-#: data/resources/ui/shortcuts.ui:13
+#: data/resources/ui/gtk/help-overlay.ui:13
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Geral"
 
-#: data/resources/ui/shortcuts.ui:17
+#: data/resources/ui/gtk/help-overlay.ui:17
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "Mostra os atalhos"
 
-#: data/resources/ui/shortcuts.ui:24
+#: data/resources/ui/gtk/help-overlay.ui:24
 msgctxt "shortcut window"
 msgid "Preferences"
 msgstr "Preferências"
 
-#: data/resources/ui/shortcuts.ui:31
+#: data/resources/ui/gtk/help-overlay.ui:31
 msgctxt "shortcut window"
 msgid "Back"
 msgstr "Volta"
 
-#: data/resources/ui/shortcuts.ui:38
+#: data/resources/ui/gtk/help-overlay.ui:38
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Sai"
 
-#: data/resources/ui/shortcuts.ui:47
+#: data/resources/ui/gtk/help-overlay.ui:47
 msgctxt "shortcut window"
 msgid "Articles"
 msgstr "Artigos"
 
-#: data/resources/ui/shortcuts.ui:51
+#: data/resources/ui/gtk/help-overlay.ui:51
 msgctxt "shortcut window"
 msgid "Synchronize"
 msgstr "Sincroniza"
 
-#: data/resources/ui/shortcuts.ui:58
+#: data/resources/ui/gtk/help-overlay.ui:58
 msgctxt "shortcut window"
 msgid "New Article"
 msgstr "Novo artigo"
 
-#: data/resources/ui/shortcuts.ui:65
+#: data/resources/ui/gtk/help-overlay.ui:65
 msgctxt "shortcut window"
 msgid "Delete Article"
 msgstr "Exclui um artigo"
 
-#: data/resources/ui/shortcuts.ui:72
+#: data/resources/ui/gtk/help-overlay.ui:72
 msgctxt "shortcut window"
 msgid "Favorite Article"
 msgstr "Favorita um artigo"
 
-#: data/resources/ui/shortcuts.ui:79
+#: data/resources/ui/gtk/help-overlay.ui:79
 msgctxt "shortcut window"
 msgid "Archive Article"
 msgstr "Arquiva um artigo"
 
-#: data/resources/ui/shortcuts.ui:86
+#: data/resources/ui/gtk/help-overlay.ui:86
 msgctxt "shortcut window"
-msgid "Open Article In Browser"
-msgstr "Abre um artigo no navegador"
+msgid "Open Article in Browser"
+msgstr "Abre o artigo no navegador"
 
-#: data/resources/ui/window.ui.in:22
+#: data/resources/ui/login.ui:53
+msgid "Welcome to Read It Later"
+msgstr "Boas-vindas ao Leia Depois"
+
+#: data/resources/ui/login.ui:67
+msgid "Please sign in using your Wallabag instance information"
+msgstr "Por gentileza, ingresse usando suas informações de instância Wallabag"
+
+#: data/resources/ui/login.ui:92
+msgid "Instance URL"
+msgstr "URL da instância"
+
+#: data/resources/ui/login.ui:108
+msgid "Client ID"
+msgstr "ID do cliente"
+
+#: data/resources/ui/login.ui:123
+msgid "Client Secret"
+msgstr "Cofre do cliente"
+
+#: data/resources/ui/login.ui:140 data/resources/ui/settings.ui:16
+msgid "User Name"
+msgstr "Nome de usuário"
+
+#: data/resources/ui/login.ui:155
+msgid "Password"
+msgstr "Senha"
+
+#: data/resources/ui/login.ui:175
+msgid "Log In"
+msgstr "Ingressar"
+
+#: data/resources/ui/settings.ui:12
+msgid "Account Information"
+msgstr "Informações da conta"
+
+#: data/resources/ui/settings.ui:30
+msgid "Email"
+msgstr "E-mail"
+
+#: data/resources/ui/settings.ui:44
+msgid "Created At"
+msgstr "Criado em"
+
+#: data/resources/ui/settings.ui:58
+msgid "Updated At"
+msgstr "Atualizado em"
+
+#: data/resources/ui/window.ui:9
 msgid "Open Website"
 msgstr "Abrir site"
 
-#: data/resources/ui/window.ui.in:47
+#: data/resources/ui/window.ui:15
 msgid "Delete Article"
 msgstr "Excluir artigo"
 
-#: data/resources/ui/window.ui.in:178
+#: data/resources/ui/window.ui:23
+msgid "Add Article…"
+msgstr "Adicionar artigo…"
+
+#: data/resources/ui/window.ui:29
+msgid "Preferences"
+msgstr "Preferências"
+
+#: data/resources/ui/window.ui:33
+msgid "Log Out"
+msgstr "Encerrar"
+
+#: data/resources/ui/window.ui:39
+msgid "Keyboard Shortcuts"
+msgstr "Atalhos de teclado"
+
+#: data/resources/ui/window.ui:43
+msgid "About Read It Later"
+msgstr "Sobre o Leia Depois"
+
+#: data/resources/ui/window.ui:144
 msgid "Favorite"
 msgstr "Favorita"
 
-#: data/resources/ui/window.ui.in:198
+#: data/resources/ui/window.ui:163
 msgid "Archive"
 msgstr "Arquiva"
 
-#: data/resources/ui/window.ui.in:268
-msgid "Paste the article url here"
-msgstr "Cole a url do artigo aqui"
+#: data/resources/ui/window.ui:231
+msgid "Paste the article URL here"
+msgstr "Cole a URL do artigo aqui"
 
-#: data/resources/ui/window.ui.in:278
+#: data/resources/ui/window.ui:238
 msgid "Save"
 msgstr "Salvar"
+
+#: src/application.rs:392
+msgid "translator-credits"
+msgstr ""
+"Rafael Fontenelle <rafaelff@gnome.org>\n"
+"Enrico Nicoletto <hiko@duck.com>"
