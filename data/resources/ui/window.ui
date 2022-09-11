@@ -46,8 +46,8 @@
     </section>
   </menu>
   <object class="GtkApplicationWindow" id="window">
-    <property name="default_width">960</property>
-    <property name="default_height">720</property>
+    <property name="default-width">960</property>
+    <property name="default-height">720</property>
     <child type="titlebar">
       <object class="GtkStack" id="headerbar_stack">
         <property name="visible">True</property>
@@ -57,9 +57,9 @@
         <child>
           <object class="HdyHeaderBar">
             <property name="visible">True</property>
-            <property name="show_close_button">True</property>
-            <property name="centering_policy">strict</property>
-            <property name="has_subtitle">False</property>
+            <property name="show-close-button">True</property>
+            <property name="centering-policy">strict</property>
+            <property name="has-subtitle">False</property>
             <child type="title">
               <object class="HdyViewSwitcherTitle" id="view_switcher_title">
                 <property name="visible">True</property>
@@ -69,18 +69,18 @@
             <child>
               <object class="GtkMenuButton" id="appmenu_button">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
                 <property name="menu-model">app-menu</property>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
-                    <property name="icon_name">open-menu-symbolic</property>
+                    <property name="icon-name">open-menu-symbolic</property>
                   </object>
                 </child>
               </object>
               <packing>
-                <property name="pack_type">end</property>
+                <property name="pack-type">end</property>
               </packing>
             </child>
           </object>
@@ -91,18 +91,18 @@
         <child>
           <object class="HdyHeaderBar">
             <property name="visible">True</property>
-            <property name="show_close_button">True</property>
-            <property name="has_subtitle">False</property>
+            <property name="show-close-button">True</property>
+            <property name="has-subtitle">False</property>
             <child>
               <object class="GtkButton">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="action_name">window.previous</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="action-name">window.previous</property>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
-                    <property name="icon_name">go-previous-symbolic</property>
+                    <property name="icon-name">go-previous-symbolic</property>
                   </object>
                 </child>
               </object>
@@ -110,54 +110,54 @@
             <child>
               <object class="GtkMenuButton" id="articlemenu_button">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
                 <property name="menu-model">article-menu</property>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
-                    <property name="icon_name">view-more-symbolic</property>
+                    <property name="icon-name">view-more-symbolic</property>
                   </object>
                 </child>
               </object>
               <packing>
-                <property name="pack_type">end</property>
+                <property name="pack-type">end</property>
               </packing>
             </child>
             <child>
               <object class="GtkToggleButton" id="favorite_togglebtn">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="action_name">article.favorite</property>
-                <property name="tooltip_text" translatable="yes">Favorite</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="action-name">article.favorite</property>
+                <property name="tooltip-text" translatable="yes">Favorite</property>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
-                    <property name="icon_name">favorites-symbolic</property>
+                    <property name="icon-name">favorites-symbolic</property>
                   </object>
                 </child>
               </object>
               <packing>
-                <property name="pack_type">end</property>
+                <property name="pack-type">end</property>
               </packing>
             </child>
             <child>
               <object class="GtkToggleButton" id="archive_togglebtn">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="action_name">article.archive</property>
-                <property name="tooltip_text" translatable="yes">Archive</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="action-name">article.archive</property>
+                <property name="tooltip-text" translatable="yes">Archive</property>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
-                    <property name="icon_name">archive-symbolic</property>
+                    <property name="icon-name">archive-symbolic</property>
                   </object>
                 </child>
               </object>
               <packing>
-                <property name="pack_type">end</property>
+                <property name="pack-type">end</property>
               </packing>
             </child>
           </object>
@@ -168,8 +168,8 @@
         <child>
           <object class="HdyHeaderBar" id="login_header_bar">
             <property name="visible">True</property>
-            <property name="show_close_button">True</property>
-            <property name="has_subtitle">False</property>
+            <property name="show-close-button">True</property>
+            <property name="has-subtitle">False</property>
           </object>
           <packing>
             <property name="name">login</property>
@@ -178,19 +178,19 @@
         <child>
           <object class="HdyHeaderBar">
             <property name="visible">True</property>
-            <property name="show_close_button">False</property>
-            <property name="centering_policy">strict</property>
-            <property name="has_subtitle">False</property>
+            <property name="show-close-button">False</property>
+            <property name="centering-policy">strict</property>
+            <property name="has-subtitle">False</property>
             <child>
               <object class="GtkButton" id="new_article_back_btn">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="action_name">window.previous</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="action-name">window.previous</property>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
-                    <property name="icon_name">go-previous-symbolic</property>
+                    <property name="icon-name">go-previous-symbolic</property>
                   </object>
                 </child>
               </object>
@@ -202,10 +202,10 @@
                 <child>
                   <object class="GtkEntry" id="article_url_entry">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="activates_default">True</property>
-                    <property name="input_purpose">url</property>>
-                    <property name="placeholder_text" translatable="yes">Paste the article URL here</property>
+                    <property name="can-focus">True</property>
+                    <property name="activates-default">True</property>
+                    <property name="input-purpose">url</property>>
+                    <property name="placeholder-text" translatable="yes">Paste the article URL here</property>
                   </object>
                 </child>
               </object>
@@ -214,12 +214,12 @@
               <object class="GtkButton" id="save_article_btn">
                 <property name="label" translatable="yes">Save</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="can_default">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="can-default">True</property>
               </object>
               <packing>
-                <property name="pack_type">end</property>
+                <property name="pack-type">end</property>
               </packing>
             </child>
           </object>
@@ -236,7 +236,7 @@
         <child>
           <object class="GtkProgressBar" id="loading_progress">
             <property name="visible">False</property>
-            <property name="pulse_step">0.25</property>
+            <property name="pulse-step">0.25</property>
             <style>
               <class name="loading-progress" />
             </style>
@@ -263,13 +263,13 @@
                 <child>
                   <object class="GtkButton">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="action_name">window.close-notification</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <property name="action-name">window.close-notification</property>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
-                        <property name="icon_name">window-close-symbolic</property>
+                        <property name="icon-name">window-close-symbolic</property>
                       </object>
                     </child>
                     <style>
@@ -291,20 +291,20 @@
         <child>
           <object class="GtkScrolledWindow">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="min_content_width">340</property>
-            <property name="min_content_height">228</property>
+            <property name="can-focus">True</property>
+            <property name="min-content-width">340</property>
+            <property name="min-content-height">228</property>
             <property name="expand">True</property>
             <child>
               <object class="GtkViewport">
                 <property name="visible">True</property>
-                <property name="shadow_type">none</property>
+                <property name="shadow-type">none</property>
                 <child>
                   <object class="GtkStack" id="main_stack">
                     <property name="visible">True</property>
                     <property name="hhomogeneous">False</property>
                     <property name="vhomogeneous">False</property>
-                    <property name="transition_type">slide-left-right</property>
+                    <property name="transition-type">slide-left-right</property>
                     <child>
                       <placeholder/>
                     </child>

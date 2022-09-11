@@ -11,8 +11,8 @@
   </object>
   <object class="GtkEntryCompletion" id="entrycompletion1">
     <property name="model">instances_store</property>
-    <property name="text_column">0</property>
-    <property name="inline_completion">True</property>
+    <property name="text-column">0</property>
+    <property name="inline-completion">True</property>
     <child>
       <object class="GtkCellRendererText" />
       <attributes>
@@ -22,12 +22,12 @@
   </object>
   <object class="HdyClamp" id="login">
     <property name="visible">True</property>
-    <property name="maximum_size">450</property>
+    <property name="maximum-size">450</property>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
         <property name="valign">center</property>
-        <property name="border_width">18</property>
+        <property name="border-width">18</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkBox">
@@ -37,7 +37,7 @@
             <child>
               <object class="GtkImage" id="icon">
                 <property name="visible">True</property>
-                <property name="pixel_size">128</property>
+                <property name="pixel-size">128</property>
                 <style>
                   <class name="dim-label"/>
                 </style>
@@ -77,17 +77,17 @@
         <child>
           <object class="GtkListBox" id="entries_listbox">
             <property name="visible">True</property>
-            <property name="selection_mode">none</property>
+            <property name="selection-mode">none</property>
             <child>
               <object class="HdyActionRow">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="can-focus">True</property>
                 <property name="activatable">False</property>
                 <property name="title" translatable="yes">Instance URL</property>
                 <child>
                   <object class="GtkEntry" id="instance_entry">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
+                    <property name="can-focus">True</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="completion">entrycompletion1</property>
@@ -98,12 +98,12 @@
             <child>
               <object class="HdyActionRow">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Client ID</property>
                 <child>
                   <object class="GtkEntry" id="client_id_entry">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
+                    <property name="can-focus">True</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                   </object>
@@ -113,16 +113,16 @@
             <child>
               <object class="HdyActionRow">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Client Secret</property>
                 <child>
                   <object class="GtkEntry" id="client_secret_entry">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
+                    <property name="can-focus">True</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="visibility">False</property>
-                    <property name="input_purpose">password</property>
+                    <property name="input-purpose">password</property>
                   </object>
                 </child>
               </object>
@@ -130,12 +130,12 @@
             <child>
               <object class="HdyActionRow">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="can-focus">True</property>
                 <property name="title" translatable="yes">User Name</property>
                 <child>
                   <object class="GtkEntry" id="username_entry">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
+                    <property name="can-focus">True</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                   </object>
@@ -145,16 +145,16 @@
             <child>
               <object class="HdyActionRow">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Password</property>
                 <child>
                   <object class="GtkEntry" id="password_entry">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
+                    <property name="can-focus">True</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="visibility">False</property>
-                    <property name="input_purpose">password</property>
+                    <property name="input-purpose">password</property>
                   </object>
                 </child>
               </object>
@@ -167,12 +167,12 @@
         <child>
           <object class="GtkButton" id="login_button">
             <property name="label" translatable="yes">Log In</property>
-            <property name="width_request">110</property>
-            <property name="height_request">36</property>
+            <property name="width-request">110</property>
+            <property name="height-request">36</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="can_default">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="can-default">True</property>
             <property name="halign">end</property>
             <property name="valign">start</property>
             <style>

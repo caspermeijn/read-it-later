@@ -4,7 +4,7 @@
   <object class="HdyPreferencesWindow" id="settings_window">
     <child>
       <object class="HdyPreferencesPage">
-        <property name="icon_name">user-info-symbolic</property>
+        <property name="icon-name">user-info-symbolic</property>
         <property name="title">Account</property>
         <property name="visible">True</property>
         <child>
@@ -18,7 +18,7 @@
                 <child>
                   <object class="GtkLabel" id="username_label">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
+                    <property name="can-focus">True</property>
                     <property name="valign">center</property>
                     <property name="halign">end</property>
                   </object>
@@ -32,7 +32,7 @@
                 <child>
                   <object class="GtkLabel" id="email_label">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
+                    <property name="can-focus">True</property>
                     <property name="valign">center</property>
                     <property name="halign">end</property>
                   </object>

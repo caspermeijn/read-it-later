@@ -10,13 +10,13 @@
         <property name="visible">True</property>
         <property name="hhomogeneous">False</property>
         <property name="vhomogeneous">False</property>
-        <property name="transition_duration">150</property>
-        <property name="transition_type">slide-left-right</property>
+        <property name="transition-duration">150</property>
+        <property name="transition-type">slide-left-right</property>
         <child>
           <object class="GtkListBox" id="articles_listbox">
             <property name="visible">True</property>
             <property name="valign">start</property>
-            <property name="selection_mode">none</property>
+            <property name="selection-mode">none</property>
             <style>
               <class name="transparent"/>
               <class name="articles-list"/>
@@ -36,8 +36,8 @@
             <child>
               <object class="GtkImage" id="empty_image">
                 <property name="visible">True</property>
-                <property name="pixel_size">128</property>
-                <property name="icon_name">dialog-missing-symbolic</property>
+                <property name="pixel-size">128</property>
+                <property name="icon-name">dialog-missing-symbolic</property>
               </object>
             </child>
             <child>
