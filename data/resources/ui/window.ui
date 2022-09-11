@@ -46,27 +46,23 @@
     </section>
   </menu>
   <object class="GtkApplicationWindow" id="window">
-    <property name="can_focus">False</property>
     <property name="default_width">960</property>
     <property name="default_height">720</property>
     <child type="titlebar">
       <object class="GtkStack" id="headerbar_stack">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="hexpand">True</property>
         <property name="hhomogeneous">False</property>
         <property name="vhomogeneous">False</property>
         <child>
           <object class="HdyHeaderBar">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="show_close_button">True</property>
             <property name="centering_policy">strict</property>
             <property name="has_subtitle">False</property>
             <child type="title">
               <object class="HdyViewSwitcherTitle" id="view_switcher_title">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="halign">center</property>
               </object>
             </child>
@@ -79,7 +75,6 @@
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="icon_name">open-menu-symbolic</property>
                   </object>
                 </child>
@@ -96,7 +91,6 @@
         <child>
           <object class="HdyHeaderBar">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="show_close_button">True</property>
             <property name="has_subtitle">False</property>
             <child>
@@ -108,7 +102,6 @@
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="icon_name">go-previous-symbolic</property>
                   </object>
                 </child>
@@ -123,7 +116,6 @@
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="icon_name">view-more-symbolic</property>
                   </object>
                 </child>
@@ -142,7 +134,6 @@
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="icon_name">favorites-symbolic</property>
                   </object>
                 </child>
@@ -161,7 +152,6 @@
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="icon_name">archive-symbolic</property>
                   </object>
                 </child>
@@ -178,7 +168,6 @@
         <child>
           <object class="HdyHeaderBar" id="login_header_bar">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="show_close_button">True</property>
             <property name="has_subtitle">False</property>
           </object>
@@ -189,7 +178,6 @@
         <child>
           <object class="HdyHeaderBar">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="show_close_button">False</property>
             <property name="centering_policy">strict</property>
             <property name="has_subtitle">False</property>
@@ -202,7 +190,6 @@
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="icon_name">go-previous-symbolic</property>
                   </object>
                 </child>
@@ -211,7 +198,6 @@
             <child type="title">
               <object class="HdyClamp">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
                 <child>
                   <object class="GtkEntry" id="article_url_entry">
@@ -246,7 +232,6 @@
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkProgressBar" id="loading_progress">
@@ -260,17 +245,14 @@
         <child>
           <object class="GtkRevealer" id="notification">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="halign">center</property>
                 <property name="spacing">6</property>
                 <child>
                   <object class="GtkLabel" id="notification_label">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                   </object>
@@ -287,7 +269,6 @@
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="icon_name">window-close-symbolic</property>
                       </object>
                     </child>
@@ -317,12 +298,10 @@
             <child>
               <object class="GtkViewport">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="shadow_type">none</property>
                 <child>
                   <object class="GtkStack" id="main_stack">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="hhomogeneous">False</property>
                     <property name="vhomogeneous">False</property>
                     <property name="transition_type">slide-left-right</property>
@@ -338,7 +317,6 @@
         <child>
           <object class="HdyViewSwitcherBar" id="view_switcher_bar">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="reveal"
                     bind-source="view_switcher_title"
                     bind-property="title-visible"
