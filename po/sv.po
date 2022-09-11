@@ -1,28 +1,37 @@
 # Swedish translation for read-it-later.
 # Copyright © 2020-2022 read-it-later's COPYRIGHT HOLDER
 # This file is distributed under the same license as the read-it-later package.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2020.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2020, 2022.
 # Luna Jernberg <droidbittin@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2022-09-01 15:53+0000\n"
-"PO-Revision-Date: 2022-08-07 12:43+0200\n"
-"Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/"
+"issues\n"
+"POT-Creation-Date: 2022-09-10 11:40+0000\n"
+"PO-Revision-Date: 2022-09-10 15:19+0200\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
 msgid "Read It Later"
 msgstr "Läs det senare"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
+msgid "A Wallabag Client"
+msgstr "En Wallabag-klient"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
+msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
+msgstr "Gnome;GTK;Wallabag;Webb;Artikel;Frånkopplat;Offline;"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
 msgid "A Wallabag Client."
@@ -76,14 +85,6 @@ msgstr "Adaptiv vy i mörkt läge"
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-msgid "A Wallabag Client"
-msgstr "En Wallabag-klient"
-
-#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
-msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
-msgstr "Gnome;GTK;Wallabag;Webb;Artikel;Frånkopplat;Offline;"
-
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
 msgid "Default window width"
 msgstr "Standardbredd för fönster"
@@ -101,11 +102,11 @@ msgid "Default window y position"
 msgstr "Standardfönstrets y-position"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
-msgid "Default window maximized behaviour"
-msgstr "Standardfönstrets maximeringsbeteende"
+msgid "Default window maximized behavior"
+msgstr "Standardmaximeringsbeteende för fönster"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
-msgid "Logged in username"
+msgid "Logged in user name"
 msgstr "Inloggat användarnamn"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
@@ -116,131 +117,159 @@ msgstr "Senaste lyckad synkronisering i ms"
 msgid "No articles found"
 msgstr "Inga artiklar hittades"
 
-#: data/resources/ui/menu.ui:19
-msgid "Add Article..."
-msgstr "Lägg till artikel…"
-
-#: data/resources/ui/menu.ui:34
-msgid "Preferences"
-msgstr "Inställningar"
-
-#: data/resources/ui/menu.ui:43
-msgid "Logout"
-msgstr "Logga ut"
-
-#: data/resources/ui/menu.ui:58
-msgid "Keyboard Shortcuts"
-msgstr "Tangentbordsgenvägar"
-
-#: data/resources/ui/menu.ui:67
-msgid "About Read It Later"
-msgstr "Om Läs det senare"
-
-#: data/resources/ui/settings.ui:15
-msgid "Account Information"
-msgstr "Kontoinformation"
-
-#: data/resources/ui/settings.ui:19
-msgid "Username"
-msgstr "Användarnamn"
-
-#: data/resources/ui/settings.ui:33
-msgid "Email"
-msgstr "E-post"
-
-#: data/resources/ui/settings.ui:47
-msgid "Created At"
-msgstr "Skapades"
-
-#: data/resources/ui/settings.ui:61
-msgid "Updated At"
-msgstr "Uppdaterades"
-
-#: data/resources/ui/shortcuts.ui:13
+#: data/resources/ui/gtk/help-overlay.ui:13
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Allmänt"
 
-#: data/resources/ui/shortcuts.ui:17
+#: data/resources/ui/gtk/help-overlay.ui:17
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "Visa kortkommandon"
 
-#: data/resources/ui/shortcuts.ui:24
+#: data/resources/ui/gtk/help-overlay.ui:24
 msgctxt "shortcut window"
 msgid "Preferences"
 msgstr "Inställningar"
 
-#: data/resources/ui/shortcuts.ui:31
+#: data/resources/ui/gtk/help-overlay.ui:31
 msgctxt "shortcut window"
 msgid "Back"
 msgstr "Bakåt"
 
-#: data/resources/ui/shortcuts.ui:38
+#: data/resources/ui/gtk/help-overlay.ui:38
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Avsluta"
 
-#: data/resources/ui/shortcuts.ui:47
+#: data/resources/ui/gtk/help-overlay.ui:47
 msgctxt "shortcut window"
 msgid "Articles"
 msgstr "Artiklar"
 
-#: data/resources/ui/shortcuts.ui:51
+#: data/resources/ui/gtk/help-overlay.ui:51
 msgctxt "shortcut window"
 msgid "Synchronize"
 msgstr "Synkronisera"
 
-#: data/resources/ui/shortcuts.ui:58
+#: data/resources/ui/gtk/help-overlay.ui:58
 msgctxt "shortcut window"
 msgid "New Article"
 msgstr "Ny artikel"
 
-#: data/resources/ui/shortcuts.ui:65
+#: data/resources/ui/gtk/help-overlay.ui:65
 msgctxt "shortcut window"
 msgid "Delete Article"
 msgstr "Ta bort artikel"
 
-#: data/resources/ui/shortcuts.ui:72
+#: data/resources/ui/gtk/help-overlay.ui:72
 msgctxt "shortcut window"
 msgid "Favorite Article"
 msgstr "Gör artikel till favorit"
 
-#: data/resources/ui/shortcuts.ui:79
+#: data/resources/ui/gtk/help-overlay.ui:79
 msgctxt "shortcut window"
 msgid "Archive Article"
 msgstr "Arkivera artikel"
 
-#: data/resources/ui/shortcuts.ui:86
+#: data/resources/ui/gtk/help-overlay.ui:86
 msgctxt "shortcut window"
-msgid "Open Article In Browser"
+msgid "Open Article in Browser"
 msgstr "Öppna artikel i bläddrare"
 
-#: data/resources/ui/window.ui.in:22
+#: data/resources/ui/login.ui:53
+msgid "Welcome to Read It Later"
+msgstr "Välkommen till Läs det senare"
+
+#: data/resources/ui/login.ui:67
+msgid "Please sign in using your Wallabag instance information"
+msgstr "Logga in med din Wallabag-instansinformation"
+
+#: data/resources/ui/login.ui:92
+msgid "Instance URL"
+msgstr "Instans-URL"
+
+#: data/resources/ui/login.ui:108
+msgid "Client ID"
+msgstr "Klient-ID"
+
+#: data/resources/ui/login.ui:123
+msgid "Client Secret"
+msgstr "Klienthemlighet"
+
+#: data/resources/ui/login.ui:140 data/resources/ui/settings.ui:16
+msgid "User Name"
+msgstr "Användarnamn"
+
+#: data/resources/ui/login.ui:155
+msgid "Password"
+msgstr "Lösenord"
+
+#: data/resources/ui/login.ui:175
+msgid "Log In"
+msgstr "Logga in"
+
+#: data/resources/ui/settings.ui:12
+msgid "Account Information"
+msgstr "Kontoinformation"
+
+#: data/resources/ui/settings.ui:30
+msgid "Email"
+msgstr "E-post"
+
+#: data/resources/ui/settings.ui:44
+msgid "Created At"
+msgstr "Skapades"
+
+#: data/resources/ui/settings.ui:58
+msgid "Updated At"
+msgstr "Uppdaterades"
+
+#: data/resources/ui/window.ui:9
 msgid "Open Website"
 msgstr "Öppna webbplats"
 
-#: data/resources/ui/window.ui.in:37
+#: data/resources/ui/window.ui:15
 msgid "Delete Article"
 msgstr "Ta bort artikel"
 
-#: data/resources/ui/window.ui.in:158
+#: data/resources/ui/window.ui:23
+msgid "Add Article…"
+msgstr "Lägg till artikel…"
+
+#: data/resources/ui/window.ui:29
+msgid "Preferences"
+msgstr "Inställningar"
+
+#: data/resources/ui/window.ui:33
+msgid "Log Out"
+msgstr "Logga ut"
+
+#: data/resources/ui/window.ui:39
+msgid "Keyboard Shortcuts"
+msgstr "Tangentbordsgenvägar"
+
+#: data/resources/ui/window.ui:43
+msgid "About Read It Later"
+msgstr "Om Läs det senare"
+
+#: data/resources/ui/window.ui:144
 msgid "Favorite"
 msgstr "Gör till favorit"
 
-#: data/resources/ui/window.ui.in:177
+#: data/resources/ui/window.ui:163
 msgid "Archive"
 msgstr "Arkivera"
 
-#: data/resources/ui/window.ui.in:246
-msgid "Paste the article url here"
+#: data/resources/ui/window.ui:231
+msgid "Paste the article URL here"
 msgstr "Klistra in artikel-URL här"
 
-#: data/resources/ui/window.ui.in:253
+#: data/resources/ui/window.ui:238
 msgid "Save"
 msgstr "Spara"
 
-#: src/application.rs:393
+#: src/application.rs:392
 msgid "translator-credits"
 msgstr ""
 "Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
