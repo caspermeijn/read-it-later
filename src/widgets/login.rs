@@ -62,14 +62,5 @@ impl LoginWidget {
         get_widget!(self.builder, gtk::TreeStore, instances_store);
         instances_store.insert_with_values(None, None, &[(0, &"https://app.wallabag.it/")]);
         instances_store.insert_with_values(None, None, &[(0, &"https://framabag.org")]);
-
-        get_widget!(self.builder, gtk::ListBox, entries_listbox);
-        entries_listbox.set_header_func(Some(Box::new(move |row: &gtk::ListBoxRow, row1: Option<&gtk::ListBoxRow>| {
-            if row1.is_some() {
-                let sep = gtk::Separator::new(gtk::Orientation::Horizontal);
-                sep.show();
-                row.set_header(Some(&sep));
-            }
-        })));
     }
 }

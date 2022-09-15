@@ -27,7 +27,7 @@
       <object class="GtkBox">
         <property name="visible">True</property>
         <property name="valign">center</property>
-        <property name="border-width">18</property>
+        <property name="margin">18</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkBox">
@@ -49,8 +49,6 @@
                 <property name="label" translatable="yes">Welcome to Read It Later</property>
                 <property name="justify">center</property>
                 <property name="wrap">True</property>
-                <property name="ellipsize">end</property>
-                <property name="lines">2</property>
                 <style>
                   <class name="title-label"/>
                 </style>
@@ -62,28 +60,23 @@
                 <property name="label" translatable="yes">Please sign in using your Wallabag instance information</property>
                 <property name="justify">center</property>
                 <property name="wrap">True</property>
-                <property name="ellipsize">end</property>
-                <property name="lines">2</property>
                 <style>
                   <class name="dim-label"/>
                 </style>
               </object>
             </child>
           </object>
-          <packing>
-            <property name="padding">30</property>
-          </packing>
         </child>
         <child>
-          <object class="GtkListBox" id="entries_listbox">
+          <object class="HdyPreferencesGroup">
             <property name="visible">True</property>
-            <property name="selection-mode">none</property>
+            <property name="margin-top">30</property>
             <child>
               <object class="HdyActionRow">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
-                <property name="activatable">False</property>
                 <property name="title" translatable="yes">Instance URL</property>
+                <property name="activatable-widget">instance_entry</property>
                 <child>
                   <object class="GtkEntry" id="instance_entry">
                     <property name="visible">True</property>
@@ -91,6 +84,7 @@
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="completion">entrycompletion1</property>
+                    <property name="activates-default">True</property>
                   </object>
                 </child>
               </object>
@@ -100,12 +94,14 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Client ID</property>
+                <property name="activatable-widget">client_id_entry</property>
                 <child>
                   <object class="GtkEntry" id="client_id_entry">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
+                    <property name="activates-default">True</property>
                   </object>
                 </child>
               </object>
@@ -115,6 +111,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Client Secret</property>
+                <property name="activatable-widget">client_secret_entry</property>
                 <child>
                   <object class="GtkEntry" id="client_secret_entry">
                     <property name="visible">True</property>
@@ -123,6 +120,7 @@
                     <property name="valign">center</property>
                     <property name="visibility">False</property>
                     <property name="input-purpose">password</property>
+                    <property name="activates-default">True</property>
                   </object>
                 </child>
               </object>
@@ -132,12 +130,14 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="title" translatable="yes">User Name</property>
+                <property name="activatable-widget">username_entry</property>
                 <child>
                   <object class="GtkEntry" id="username_entry">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
+                    <property name="activates-default">True</property>
                   </object>
                 </child>
               </object>
@@ -147,6 +147,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Password</property>
+                <property name="activatable-widget">password_entry</property>
                 <child>
                   <object class="GtkEntry" id="password_entry">
                     <property name="visible">True</property>
@@ -155,23 +156,20 @@
                     <property name="valign">center</property>
                     <property name="visibility">False</property>
                     <property name="input-purpose">password</property>
+                    <property name="activates-default">True</property>
                   </object>
                 </child>
               </object>
             </child>
-            <style>
-              <class name="frame"/>
-            </style>
           </object>
         </child>
         <child>
           <object class="GtkButton" id="login_button">
+            <property name="margin-top">24</property>
             <property name="label" translatable="yes">Log In</property>
             <property name="width-request">110</property>
             <property name="height-request">36</property>
             <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
             <property name="can-default">True</property>
             <property name="halign">end</property>
             <property name="valign">start</property>
@@ -179,9 +177,6 @@
               <class name="suggested-action"/>
             </style>
           </object>
-          <packing>
-            <property name="padding">24</property>
-          </packing>
         </child>
       </object>
     </child>
