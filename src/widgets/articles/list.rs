@@ -10,7 +10,7 @@ use super::row::ArticleRow;
 use crate::models::{Article, ArticleAction, ObjectWrapper};
 
 pub struct ArticlesListWidget {
-    pub widget: libhandy::Clamp,
+    pub widget: adw::Clamp,
     builder: gtk::Builder,
     sender: Sender<ArticleAction>,
     client: Rc<isahc::HttpClient>,
@@ -19,7 +19,7 @@ pub struct ArticlesListWidget {
 impl ArticlesListWidget {
     pub fn new(sender: Sender<ArticleAction>, client: Rc<isahc::HttpClient>) -> Self {
         let builder = gtk::Builder::from_resource("/com/belmoussaoui/ReadItLater/articles_list.ui");
-        get_widget!(builder, libhandy::Clamp, articles_list);
+        get_widget!(builder, adw::Clamp, articles_list);
 
         Self {
             builder,
@@ -30,7 +30,7 @@ impl ArticlesListWidget {
     }
 
     pub fn bind_model(&self, model: &gio::ListStore, icon: &str) {
-        get_widget!(self.builder, libhandy::StatusPage, empty_status);
+        get_widget!(self.builder, adw::StatusPage, empty_status);
         empty_status.set_icon_name(Some(icon));
 
         get_widget!(self.builder, gtk::Stack, stack);

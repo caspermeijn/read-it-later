@@ -6,8 +6,8 @@ edition = "2018"
 
 [dependencies]
 gtk = { version = "0.15", features = ["v3_24", "gio_v2_58"] }
+adw = { version = "0.1", package = "libadwaita" }
 log = "0.4"
-libhandy = { version = "0.9", features = ["v1_6"] }
 webkit2gtk = { version = "0.18", features = ["v2_6"] }
 gettext-rs= { version = "0.7", features = ["gettext-system"] }
 lazy_static = "1.4"

@@ -5,7 +5,7 @@ use gtk::prelude::*;
 use std::rc::Rc;
 
 pub struct ArticlesView {
-    pub widget: gtk::Stack,
+    pub widget: adw::ViewStack,
     unread_view: ArticlesListView,
     favorites_view: ArticlesListView,
     archive_view: ArticlesListView,
@@ -31,7 +31,7 @@ impl ArticlesView {
             sender.clone(),
         );
         let unread_view = ArticlesListView::new("unread", "Unread", "unread-symbolic", ArticlesFilter::unread(), client, sender);
-        let widget = gtk::Stack::new();
+        let widget = adw::ViewStack::new();
 
         let articles_view = Self {
             widget,
@@ -44,28 +44,30 @@ impl ArticlesView {
     }
 
     fn init(&self) {
-        self.widget.set_homogeneous(false);
-        self.widget.set_transition_duration(200);
-        self.widget.set_transition_type(gtk::StackTransitionType::SlideLeftRight);
-
         // Unread View
         self.widget
-            .add_titled(&self.unread_view.get_widget(), &self.unread_view.name, &self.unread_view.title);
-        self.widget
-            .set_child_icon_name(&self.unread_view.get_widget(), Some(&self.unread_view.icon));
+            .add_titled(
+                &self.unread_view.get_widget(),
+                Some(&self.unread_view.name),
+                &self.unread_view.title,
+            )
+            .set_icon_name(Some(&self.unread_view.icon));
         // Favorites View
-        self.widget.add_titled(
-            &self.favorites_view.get_widget(),
-            &self.favorites_view.name,
-            &self.favorites_view.title,
-        );
         self.widget
-            .set_child_icon_name(&self.favorites_view.get_widget(), Some(&self.favorites_view.icon));
+            .add_titled(
+                &self.favorites_view.get_widget(),
+                Some(&self.favorites_view.name),
+                &self.favorites_view.title,
+            )
+            .set_icon_name(Some(&self.favorites_view.icon));
         // Archive View
         self.widget
-            .add_titled(&self.archive_view.get_widget(), &self.archive_view.name, &self.archive_view.title);
-        self.widget
-            .set_child_icon_name(&self.archive_view.get_widget(), Some(&self.archive_view.icon));
+            .add_titled(
+                &self.archive_view.get_widget(),
+                Some(&self.archive_view.name),
+                &self.archive_view.title,
+            )
+            .set_icon_name(Some(&self.archive_view.icon));
 
         self.widget.show();
     }

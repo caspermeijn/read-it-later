@@ -1,3 +1,4 @@
+use adw::prelude::*;
 use gtk::gio;
 use gtk::gio::prelude::*;
 use gtk::glib;
@@ -5,7 +6,6 @@ use gtk::glib::clone;
 use gtk::glib::{timeout_future_seconds, MainContext, Sender};
 use gtk::prelude::*;
 use gtk_macros::{action, get_action, get_widget, send};
-use libhandy::prelude::*;
 use log::error;
 use url::Url;
 
@@ -137,13 +137,11 @@ impl Window {
 
     fn init(&self) {
         let application_name = glib::application_name().unwrap();
-        get_widget!(self.builder, libhandy::ViewSwitcherTitle, view_switcher_title);
-        view_switcher_title.set_title(Some(&application_name));
-        get_widget!(self.builder, libhandy::HeaderBar, login_header_bar);
-        login_header_bar.set_title(Some(&application_name));
+        get_widget!(self.builder, adw::ViewSwitcherTitle, view_switcher_title);
+        view_switcher_title.set_title(&application_name);
 
         get_widget!(self.builder, gtk::Stack, headerbar_stack);
-        get_widget!(self.builder, libhandy::ViewSwitcherBar, view_switcher_bar);
+        get_widget!(self.builder, adw::ViewSwitcherBar, view_switcher_bar);
 
         headerbar_stack.connect_visible_child_name_notify(move |headerbar_stack| {
             let visible_headerbar_stack = headerbar_stack.visible_child_name().unwrap();
@@ -172,8 +170,8 @@ impl Window {
         main_stack.add_named(&self.login_view.get_widget(), &self.login_view.name);
 
         // Articles
-        get_widget!(self.builder, libhandy::ViewSwitcherTitle, view_switcher_title);
-        get_widget!(self.builder, libhandy::ViewSwitcherBar, view_switcher_bar);
+        get_widget!(self.builder, adw::ViewSwitcherTitle, view_switcher_title);
+        get_widget!(self.builder, adw::ViewSwitcherBar, view_switcher_bar);
 
         main_stack.add_named(&self.articles_view.widget, "articles");
         view_switcher_title.set_stack(Some(&self.articles_view.widget));

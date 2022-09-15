@@ -18,14 +18,14 @@ enum SettingsAction {
 }
 
 pub struct SettingsWidget {
-    pub widget: libhandy::PreferencesWindow,
+    pub widget: adw::PreferencesWindow,
     builder: gtk::Builder,
 }
 
 impl SettingsWidget {
     pub fn new(client: Arc<Mutex<ClientManager>>) -> Rc<Self> {
         let builder = gtk::Builder::from_resource("/com/belmoussaoui/ReadItLater/settings.ui");
-        get_widget!(builder, libhandy::PreferencesWindow, settings_window);
+        get_widget!(builder, adw::PreferencesWindow, settings_window);
 
         let window = Rc::new(Self {
             builder,

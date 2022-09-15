@@ -6,14 +6,14 @@ use std::rc::Rc;
 use wallabag_api::types::Config;
 
 pub struct LoginWidget {
-    pub widget: libhandy::Clamp,
+    pub widget: adw::Clamp,
     pub builder: gtk::Builder,
 }
 
 impl LoginWidget {
     pub fn new() -> Rc<Self> {
         let builder = gtk::Builder::from_resource("/com/belmoussaoui/ReadItLater/login.ui");
-        get_widget!(builder, libhandy::Clamp, login);
+        get_widget!(builder, adw::Clamp, login);
 
         let login_widget = Rc::new(Self { widget: login, builder });
 

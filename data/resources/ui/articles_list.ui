@@ -2,8 +2,8 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <requires lib="libhandy" version="0.0"/>
-  <object class="HdyClamp" id="articles_list">
+  <requires lib="libadwaita" version="1.1"/>
+  <object class="AdwClamp" id="articles_list">
     <property name="visible">True</property>
     <child>
       <object class="GtkStack" id="stack">
@@ -27,7 +27,7 @@
           </packing>
         </child>
         <child>
-          <object class="HdyStatusPage" id="empty_status">
+          <object class="AdwStatusPage" id="empty_status">
             <property name="visible">True</property>
             <property name="icon-name">dialog-missing-symbolic</property>
             <property name="title" translatable="yes">Pretty clean!</property>

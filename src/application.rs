@@ -195,8 +195,8 @@ impl Application {
             window.present();
         });
 
-        let style_manager = libhandy::StyleManager::default().unwrap();
-        style_manager.set_color_scheme(libhandy::ColorScheme::PreferLight);
+        let style_manager = adw::StyleManager::default();
+        style_manager.set_color_scheme(adw::ColorScheme::PreferLight);
     }
 
     fn setup_css(&self) {
