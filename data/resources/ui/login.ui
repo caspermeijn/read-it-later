@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
 <interface>
-  <requires lib="gtk+" version="3.20"/>
+  <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.1"/>
   <object class="GtkTreeStore" id="instances_store">
     <columns>
-      <!-- column-name url -->
       <column type="gchararray"/>
     </columns>
   </object>
@@ -14,29 +12,28 @@
     <property name="text-column">0</property>
     <property name="inline-completion">True</property>
     <child>
-      <object class="GtkCellRendererText" />
+      <object class="GtkCellRendererText"/>
       <attributes>
         <attribute name="text">0</attribute>
       </attributes>
     </child>
   </object>
   <object class="AdwClamp" id="login">
-    <property name="visible">True</property>
     <property name="maximum-size">450</property>
     <child>
       <object class="GtkBox">
-        <property name="visible">True</property>
         <property name="valign">center</property>
-        <property name="margin">18</property>
+        <property name="margin-start">18</property>
+        <property name="margin-end">18</property>
+        <property name="margin-top">18</property>
+        <property name="margin-bottom">18</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkBox">
-            <property name="visible">True</property>
             <property name="orientation">vertical</property>
             <property name="spacing">12</property>
             <child>
               <object class="GtkImage" id="icon">
-                <property name="visible">True</property>
                 <property name="pixel-size">128</property>
                 <style>
                   <class name="dim-label"/>
@@ -45,7 +42,6 @@
             </child>
             <child>
               <object class="GtkLabel">
-                <property name="visible">True</property>
                 <property name="label" translatable="yes">Welcome to Read It Later</property>
                 <property name="justify">center</property>
                 <property name="wrap">True</property>
@@ -56,7 +52,6 @@
             </child>
             <child>
               <object class="GtkLabel">
-                <property name="visible">True</property>
                 <property name="label" translatable="yes">Please sign in using your Wallabag instance information</property>
                 <property name="justify">center</property>
                 <property name="wrap">True</property>
@@ -69,18 +64,15 @@
         </child>
         <child>
           <object class="AdwPreferencesGroup">
-            <property name="visible">True</property>
             <property name="margin-top">30</property>
             <child>
               <object class="AdwActionRow">
-                <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Instance URL</property>
                 <property name="activatable-widget">instance_entry</property>
                 <child>
                   <object class="GtkEntry" id="instance_entry">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
+                    <property name="focusable">True</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="completion">entrycompletion1</property>
@@ -91,14 +83,12 @@
             </child>
             <child>
               <object class="AdwActionRow">
-                <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Client ID</property>
                 <property name="activatable-widget">client_id_entry</property>
                 <child>
                   <object class="GtkEntry" id="client_id_entry">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
+                    <property name="focusable">True</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="activates-default">True</property>
@@ -108,14 +98,12 @@
             </child>
             <child>
               <object class="AdwActionRow">
-                <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Client Secret</property>
                 <property name="activatable-widget">client_secret_entry</property>
                 <child>
                   <object class="GtkEntry" id="client_secret_entry">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
+                    <property name="focusable">True</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="visibility">False</property>
@@ -127,14 +115,12 @@
             </child>
             <child>
               <object class="AdwActionRow">
-                <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="title" translatable="yes">User Name</property>
                 <property name="activatable-widget">username_entry</property>
                 <child>
                   <object class="GtkEntry" id="username_entry">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
+                    <property name="focusable">True</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="activates-default">True</property>
@@ -144,14 +130,12 @@
             </child>
             <child>
               <object class="AdwActionRow">
-                <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Password</property>
                 <property name="activatable-widget">password_entry</property>
                 <child>
                   <object class="GtkEntry" id="password_entry">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
+                    <property name="focusable">True</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="visibility">False</property>
@@ -169,8 +153,7 @@
             <property name="label" translatable="yes">Log In</property>
             <property name="width-request">110</property>
             <property name="height-request">36</property>
-            <property name="visible">True</property>
-            <property name="can-default">True</property>
+            <property name="receives-default">True</property>
             <property name="halign">end</property>
             <property name="valign">start</property>
             <style>

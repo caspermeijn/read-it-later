@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
 <interface>
-  <requires lib="gtk+" version="3.20"/>
+  <requires lib="gtk" version="4.0"/>
   <requires lib="webkit2gtk" version="2.12"/>
   <object class="WebKitSettings" id="settings1">
     <property name="enable-html5-local-storage">False</property>
@@ -14,30 +13,27 @@
     <property name="user-agent">Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15</property>
   </object>
   <object class="GtkBox" id="article">
-    <property name="visible">True</property>
     <property name="orientation">vertical</property>
     <child>
       <object class="GtkRevealer" id="revealer">
-        <property name="visible">True</property>
         <property name="valign">start</property>
         <property name="transition-duration">100</property>
-        <child>
+        <property name="child">
           <object class="GtkProgressBar" id="progressbar">
-            <property name="visible">True</property>
             <style>
               <class name="loading-progress"/>
             </style>
           </object>
-        </child>
+        </property>
       </object>
     </child>
     <child>
       <object class="WebKitWebView" id="webview">
-        <property name="visible">True</property>
         <property name="can-focus">True</property>
         <property name="settings">settings1</property>
         <property name="is-ephemeral">True</property>
-        <property name="expand">True</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
       </object>
     </child>
     <style>

@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="3.0"/>
+  <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.1"/>
   <object class="AdwPreferencesWindow" id="settings_window">
     <child>
       <object class="AdwPreferencesPage">
         <property name="icon-name">user-info-symbolic</property>
         <property name="title">Account</property>
-        <property name="visible">True</property>
         <child>
           <object class="AdwPreferencesGroup">
             <property name="title" translatable="yes">Account Information</property>
-            <property name="visible">True</property>
             <child>
               <object class="AdwActionRow">
                 <property name="title" translatable="yes">User Name</property>
-                <property name="visible">True</property>
                 <child>
                   <object class="GtkLabel" id="username_label">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
+                    <property name="focusable">True</property>
                     <property name="valign">center</property>
                     <property name="halign">end</property>
                   </object>
@@ -29,11 +25,9 @@
             <child>
               <object class="AdwActionRow">
                 <property name="title" translatable="yes">Email</property>
-                <property name="visible">True</property>
                 <child>
                   <object class="GtkLabel" id="email_label">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
+                    <property name="focusable">True</property>
                     <property name="valign">center</property>
                     <property name="halign">end</property>
                   </object>
@@ -43,10 +37,8 @@
             <child>
               <object class="AdwActionRow">
                 <property name="title" translatable="yes">Created At</property>
-                <property name="visible">True</property>
                 <child>
                   <object class="GtkLabel" id="created_at_label">
-                    <property name="visible">True</property>
                     <property name="halign">start</property>
                     <property name="wrap">True</property>
                   </object>
@@ -56,11 +48,8 @@
             <child>
               <object class="AdwActionRow">
                 <property name="title" translatable="yes">Updated At</property>
-                <property name="visible">True</property>
                 <child>
                   <object class="GtkLabel" id="updated_at_label">
-                    <property name="visible">True</property>
-                    <property name="label"></property>
                     <property name="halign">start</property>
                     <property name="wrap">True</property>
                   </object>
