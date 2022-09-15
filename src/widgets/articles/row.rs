@@ -38,15 +38,18 @@ impl ArticleRow {
     }
 
     fn init(&self) {
-        get_widget!(self.builder, gtk::EventBox, event_box);
-        event_box.connect_button_press_event(
-            clone!(@strong self.sender as sender, @strong self.article as article => move |_, _| {
+        get_widget!(self.builder, gtk::ListBoxRow, article_row);
+
+        let event_controller = gtk::GestureClick::new();
+        article_row.add_controller(&event_controller);
+        event_controller.connect_pressed(
+            clone!(@strong self.sender as sender, @strong self.article as article => move |_, _, _, _| {
                 send!(sender, ArticleAction::Open(article.clone()));
-                gtk::Inhibit(false)
             }),
         );
+
         get_widget!(self.builder, gtk::Box, article_container);
-        article_container.pack_end(&self.preview_image.widget, false, false, 0);
+        article_container.append(&self.preview_image.widget);
 
         get_widget!(self.builder, gtk::Label, title_label);
         if let Some(title) = &self.article.title {
@@ -57,7 +60,6 @@ impl ArticleRow {
         match self.article.get_article_info(false) {
             Some(article_info) => info_label.set_text(&article_info),
             None => {
-                info_label.set_no_show_all(false);
                 info_label.hide();
             }
         };

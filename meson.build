@@ -14,7 +14,7 @@ base_id = 'com.belmoussaoui.ReadItLater'
 dependency('glib-2.0', version: '>= 2.56')
 dependency('gio-2.0', version: '>= 2.56')
 dependency('gdk-pixbuf-2.0')
-dependency('gtk+-3.0', version: '>= 3.24.7')
+dependency('gtk4', version: '>= 4.8')
 dependency('libadwaita-1', version: '>= 1.1')
 
 glib_compile_resources = find_program('glib-compile-resources', required: true)

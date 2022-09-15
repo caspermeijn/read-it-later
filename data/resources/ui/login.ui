@@ -67,13 +67,10 @@
             <property name="margin-top">30</property>
             <child>
               <object class="AdwActionRow">
-                <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Instance URL</property>
                 <property name="activatable-widget">instance_entry</property>
                 <child>
                   <object class="GtkEntry" id="instance_entry">
-                    <property name="focusable">True</property>
-                    <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="completion">entrycompletion1</property>
                     <property name="activates-default">True</property>
@@ -83,13 +80,10 @@
             </child>
             <child>
               <object class="AdwActionRow">
-                <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Client ID</property>
                 <property name="activatable-widget">client_id_entry</property>
                 <child>
                   <object class="GtkEntry" id="client_id_entry">
-                    <property name="focusable">True</property>
-                    <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="activates-default">True</property>
                   </object>
@@ -98,13 +92,10 @@
             </child>
             <child>
               <object class="AdwActionRow">
-                <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Client Secret</property>
                 <property name="activatable-widget">client_secret_entry</property>
                 <child>
                   <object class="GtkEntry" id="client_secret_entry">
-                    <property name="focusable">True</property>
-                    <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="visibility">False</property>
                     <property name="input-purpose">password</property>
@@ -115,13 +106,10 @@
             </child>
             <child>
               <object class="AdwActionRow">
-                <property name="can-focus">True</property>
                 <property name="title" translatable="yes">User Name</property>
                 <property name="activatable-widget">username_entry</property>
                 <child>
                   <object class="GtkEntry" id="username_entry">
-                    <property name="focusable">True</property>
-                    <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="activates-default">True</property>
                   </object>
@@ -130,13 +118,10 @@
             </child>
             <child>
               <object class="AdwActionRow">
-                <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Password</property>
                 <property name="activatable-widget">password_entry</property>
                 <child>
                   <object class="GtkEntry" id="password_entry">
-                    <property name="focusable">True</property>
-                    <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="visibility">False</property>
                     <property name="input-purpose">password</property>

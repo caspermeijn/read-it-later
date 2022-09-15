@@ -3,6 +3,7 @@
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.1"/>
   <object class="AdwClamp" id="articles_list">
+    <property name="maximum-size">800</property>
     <child>
       <object class="GtkStack" id="stack">
         <property name="hhomogeneous">False</property>

@@ -89,6 +89,8 @@ impl Window {
     }
 
     pub fn set_view(&self, view: View) {
+        get_widget!(self.builder, gtk::ApplicationWindow, window);
+        window.set_default_widget(gtk::Widget::NONE);
         get_widget!(self.builder, gtk::Stack, main_stack);
         get_widget!(self.builder, gtk::Stack, headerbar_stack);
         match view {
@@ -104,7 +106,7 @@ impl Window {
                 main_stack.set_visible_child_name("login");
                 headerbar_stack.set_visible_child_name("login");
                 get_widget!(self.login_view.widget.builder, gtk::Button, login_button);
-                login_button.grab_default();
+                window.set_default_widget(Some(&login_button));
             }
             View::Syncing(state) => {
                 get_widget!(self.builder, gtk::ProgressBar, loading_progress);
@@ -130,8 +132,24 @@ impl Window {
                 get_widget!(self.builder, gtk::Entry, article_url_entry);
                 article_url_entry.grab_focus_without_selecting();
                 get_widget!(self.builder, gtk::Button, save_article_btn);
-                save_article_btn.grab_default();
+                window.set_default_widget(Some(&save_article_btn));
             }
+        }
+    }
+
+    fn update_size_class(widget: &gtk::ApplicationWindow) {
+        if widget.default_width() <= 450 {
+            widget.style_context().add_class("sm");
+            widget.style_context().remove_class("md");
+            widget.style_context().remove_class("lg");
+        } else if widget.default_width() <= 600 {
+            widget.style_context().add_class("md");
+            widget.style_context().remove_class("sm");
+            widget.style_context().remove_class("lg");
+        } else {
+            widget.style_context().add_class("lg");
+            widget.style_context().remove_class("sm");
+            widget.style_context().remove_class("md");
         }
     }
 
@@ -147,38 +165,25 @@ impl Window {
             let visible_headerbar_stack = headerbar_stack.visible_child_name().unwrap();
             view_switcher_bar.set_visible(visible_headerbar_stack == "articles");
         });
-        self.widget.connect_size_allocate(move |widget, allocation| {
-            if allocation.width() <= 450 {
-                widget.style_context().add_class("sm");
-                widget.style_context().remove_class("md");
-                widget.style_context().remove_class("lg");
-            } else if allocation.width() <= 600 {
-                widget.style_context().add_class("md");
-                widget.style_context().remove_class("sm");
-                widget.style_context().remove_class("lg");
-            } else {
-                widget.style_context().add_class("lg");
-                widget.style_context().remove_class("sm");
-                widget.style_context().remove_class("md");
-            }
-        });
+        self.widget.connect_default_width_notify(Self::update_size_class);
+        Self::update_size_class(&self.widget);
     }
 
     fn init_views(&self) {
         get_widget!(self.builder, gtk::Stack, main_stack);
         // Login Form
-        main_stack.add_named(&self.login_view.get_widget(), &self.login_view.name);
+        main_stack.add_named(&self.login_view.get_widget(), Some(&self.login_view.name));
 
         // Articles
         get_widget!(self.builder, adw::ViewSwitcherTitle, view_switcher_title);
         get_widget!(self.builder, adw::ViewSwitcherBar, view_switcher_bar);
 
-        main_stack.add_named(&self.articles_view.widget, "articles");
+        main_stack.add_named(&self.articles_view.widget, Some("articles"));
         view_switcher_title.set_stack(Some(&self.articles_view.widget));
         view_switcher_bar.set_stack(Some(&self.articles_view.widget));
 
         // Article View
-        main_stack.add_named(&self.article_view.get_widget(), &self.article_view.name);
+        main_stack.add_named(&self.article_view.get_widget(), Some(&self.article_view.name));
         self.widget.insert_action_group("article", self.article_view.get_actions());
 
         main_stack.connect_visible_child_name_notify(clone!(@strong self.article_view as article_view => move |stack| {

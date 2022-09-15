@@ -202,8 +202,8 @@ impl Application {
     fn setup_css(&self) {
         let p = gtk::CssProvider::new();
         gtk::CssProvider::load_from_resource(&p, "/com/belmoussaoui/ReadItLater/style.css");
-        if let Some(screen) = gtk::gdk::Screen::default() {
-            gtk::StyleContext::add_provider_for_screen(&screen, &p, 500);
+        if let Some(display) = gtk::gdk::Display::default() {
+            gtk::StyleContext::add_provider_for_display(&display, &p, 500);
         }
     }
 

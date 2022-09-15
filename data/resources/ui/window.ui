@@ -254,17 +254,10 @@
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <property name="child">
-              <object class="GtkViewport">
-                <property name="child">
-                  <object class="GtkStack" id="main_stack">
-                    <property name="hhomogeneous">False</property>
-                    <property name="vhomogeneous">False</property>
-                    <property name="transition-type">slide-left-right</property>
-                    <child>
-                      <placeholder/>
-                    </child>
-                  </object>
-                </property>
+              <object class="GtkStack" id="main_stack">
+                <property name="hhomogeneous">False</property>
+                <property name="vhomogeneous">False</property>
+                <property name="transition-type">slide-left-right</property>
               </object>
             </property>
           </object>

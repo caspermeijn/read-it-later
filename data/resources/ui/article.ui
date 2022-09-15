@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <requires lib="webkit2gtk" version="2.12"/>
   <object class="WebKitSettings" id="settings1">
     <property name="enable-html5-local-storage">False</property>
     <property name="enable-html5-database">False</property>

@@ -96,9 +96,7 @@ impl ArticleWidget {
                 if let Some(article) = aw.article.borrow().clone() {
                     glib::idle_add(clone!(@strong article => move || {
                         let article_url = article.url.clone();
-                        if let Err(err_msg) = gtk::show_uri_on_window(gtk::Window::NONE, &article_url.unwrap(), 0) {
-                            error!("Failed to open the uri {} in the default browser", err_msg);
-                        }
+                        gtk::show_uri(gtk::Window::NONE, &article_url.unwrap(), 0);
                         glib::Continue(false)
                     }));
                 }
