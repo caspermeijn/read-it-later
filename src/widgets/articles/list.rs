@@ -2,7 +2,6 @@ use gtk::gio;
 use gtk::gio::prelude::*;
 use gtk::glib::clone;
 use gtk::glib::Sender;
-use gtk::prelude::*;
 use gtk_macros::get_widget;
 use std::rc::Rc;
 

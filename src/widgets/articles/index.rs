@@ -4,7 +4,6 @@ use gtk::gio::prelude::*;
 use gtk::glib;
 use gtk::glib::clone;
 use gtk::glib::Sender;
-use gtk::prelude::*;
 use gtk_macros::{action, get_widget, send, stateful_action};
 use log::{error, info};
 use std::{cell::RefCell, rc::Rc};

@@ -1,7 +1,6 @@
 use crate::models::ClientManager;
 use async_std::sync::{Arc, Mutex};
 use gtk::glib;
-use gtk::prelude::*;
 use gtk_macros::{get_widget, send, spawn};
 use log::error;
 use std::rc::Rc;
