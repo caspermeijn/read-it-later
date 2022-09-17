@@ -13,25 +13,25 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Show Shortcuts</property>
-                <property name="accelerator">&lt;Primary&gt;question</property>
+                <property name="action-name">win.show-help-overlay</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Preferences</property>
-                <property name="accelerator">&lt;Primary&gt;comma</property>
+                <property name="action-name">app.settings</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Back</property>
-                <property name="accelerator">Escape</property>
+                <property name="action-name">window.previous</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Quit</property>
-                <property name="accelerator">&lt;Primary&gt;Q</property>
+                <property name="action-name">app.quit</property>
               </object>
             </child>
           </object>
@@ -42,37 +42,37 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Synchronize</property>
-                <property name="accelerator">F5</property>
+                <property name="action-name">app.sync</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">New Article</property>
-                <property name="accelerator">&lt;Primary&gt;N</property>
+                <property name="action-name">app.new-article</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Delete Article</property>
-                <property name="accelerator">Delete</property>
+                <property name="action-name">article.delete</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Favorite Article</property>
-                <property name="accelerator">&lt;Primary&gt;&lt;Alt&gt;F</property>
+                <property name="action-name">article.favorite</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Archive Article</property>
-                <property name="accelerator">&lt;Primary&gt;&lt;Alt&gt;A</property>
+                <property name="action-name">article.archive</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Open Article in Browser</property>
-                <property name="accelerator">&lt;Primary&gt;O</property>
+                <property name="action-name">article.open</property>
               </object>
             </child>
           </object>
