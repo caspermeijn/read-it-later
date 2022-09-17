@@ -28,7 +28,6 @@
     </child>
     <child>
       <object class="WebKitWebView" id="webview">
-        <property name="can-focus">True</property>
         <property name="settings">settings1</property>
         <property name="is-ephemeral">True</property>
         <property name="hexpand">True</property>

@@ -66,7 +66,6 @@
                 </child>
                 <child type="end">
                   <object class="GtkMenuButton" id="appmenu_button">
-                    <property name="focusable">True</property>
                     <property name="receives-default">True</property>
                     <property name="menu-model">app-menu</property>
                     <property name="icon-name">open-menu-symbolic</property>
@@ -84,7 +83,6 @@
                 <property name="show-end-title-buttons">True</property>
                 <child>
                   <object class="GtkButton">
-                    <property name="focusable">True</property>
                     <property name="receives-default">True</property>
                     <property name="action-name">window.previous</property>
                     <property name="icon-name">go-previous-symbolic</property>
@@ -92,7 +90,6 @@
                 </child>
                 <child type="end">
                   <object class="GtkMenuButton" id="articlemenu_button">
-                    <property name="focusable">True</property>
                     <property name="receives-default">True</property>
                     <property name="menu-model">article-menu</property>
                     <property name="icon-name">view-more-symbolic</property>
@@ -100,7 +97,6 @@
                 </child>
                 <child type="end">
                   <object class="GtkToggleButton" id="favorite_togglebtn">
-                    <property name="focusable">True</property>
                     <property name="receives-default">True</property>
                     <property name="action-name">article.favorite</property>
                     <property name="tooltip-text" translatable="yes">Favorite</property>
@@ -109,7 +105,6 @@
                 </child>
                 <child type="end">
                   <object class="GtkToggleButton" id="archive_togglebtn">
-                    <property name="focusable">True</property>
                     <property name="receives-default">True</property>
                     <property name="action-name">article.archive</property>
                     <property name="tooltip-text" translatable="yes">Archive</property>
@@ -139,7 +134,6 @@
                 <property name="centering-policy">strict</property>
                 <child>
                   <object class="GtkButton" id="new_article_back_btn">
-                    <property name="focusable">True</property>
                     <property name="receives-default">True</property>
                     <property name="action-name">window.previous</property>
                     <property name="icon-name">go-previous-symbolic</property>
@@ -150,7 +144,6 @@
                     <property name="hexpand">True</property>
                     <child>
                       <object class="GtkEntry" id="article_url_entry">
-                        <property name="focusable">True</property>
                         <property name="activates-default">True</property>
                         <property name="input-purpose">url</property>
                         <property name="placeholder-text" translatable="yes">Paste the article URL here</property>
@@ -161,7 +154,6 @@
                 <child type="end">
                   <object class="GtkButton" id="save_article_btn">
                     <property name="label" translatable="yes">Save</property>
-                    <property name="focusable">True</property>
                     <property name="receives-default">True</property>
                   </object>
                 </child>
@@ -201,7 +193,6 @@
                 </child>
                 <child>
                   <object class="GtkButton">
-                    <property name="focusable">True</property>
                     <property name="receives-default">True</property>
                     <property name="action-name">window.close-notification</property>
                     <property name="icon-name">window-close-symbolic</property>
@@ -220,7 +211,6 @@
         </child>
         <child>
           <object class="GtkScrolledWindow">
-            <property name="focusable">True</property>
             <property name="min-content-width">340</property>
             <property name="min-content-height">228</property>
             <property name="hexpand">True</property>

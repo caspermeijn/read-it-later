@@ -15,7 +15,6 @@
                 <property name="title" translatable="yes">User Name</property>
                 <child>
                   <object class="GtkLabel" id="username_label">
-                    <property name="focusable">True</property>
                     <property name="valign">center</property>
                     <property name="halign">end</property>
                   </object>
@@ -27,7 +26,6 @@
                 <property name="title" translatable="yes">Email</property>
                 <child>
                   <object class="GtkLabel" id="email_label">
-                    <property name="focusable">True</property>
                     <property name="valign">center</property>
                     <property name="halign">end</property>
                   </object>
