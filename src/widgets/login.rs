@@ -32,10 +32,10 @@ impl LoginWidget {
         let instance = instance.trim_end_matches('/').to_string();
         if let Err(err) = url::Url::parse(&instance) {
             error!("The instance url is invalid {}", err);
-            instance_entry.style_context().add_class("error");
+            instance_entry.add_css_class("error");
             return None;
         }
-        instance_entry.style_context().remove_class("error");
+        instance_entry.remove_css_class("error");
 
         Some(Config {
             client_id: client_id_entry.text().to_string(),

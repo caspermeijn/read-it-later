@@ -37,7 +37,7 @@ impl Window {
         get_widget!(builder, gtk::ApplicationWindow, window);
 
         if PROFILE == "Devel" {
-            window.style_context().add_class("devel");
+            window.add_css_class("devel");
         }
         let actions = gio::SimpleActionGroup::new();
 
@@ -137,17 +137,17 @@ impl Window {
 
     fn update_size_class(widget: &gtk::ApplicationWindow) {
         if widget.default_width() <= 450 {
-            widget.style_context().add_class("sm");
-            widget.style_context().remove_class("md");
-            widget.style_context().remove_class("lg");
+            widget.add_css_class("sm");
+            widget.remove_css_class("md");
+            widget.remove_css_class("lg");
         } else if widget.default_width() <= 600 {
-            widget.style_context().add_class("md");
-            widget.style_context().remove_class("sm");
-            widget.style_context().remove_class("lg");
+            widget.add_css_class("md");
+            widget.remove_css_class("sm");
+            widget.remove_css_class("lg");
         } else {
-            widget.style_context().add_class("lg");
-            widget.style_context().remove_class("sm");
-            widget.style_context().remove_class("md");
+            widget.add_css_class("lg");
+            widget.remove_css_class("sm");
+            widget.remove_css_class("md");
         }
     }
 
