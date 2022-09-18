@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2022-09-10 11:40+0000\n"
-"PO-Revision-Date: 2022-09-11 15:28+0200\n"
+"POT-Creation-Date: 2022-09-15 08:01+0000\n"
+"PO-Revision-Date: 2022-09-18 16:44+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -114,9 +114,9 @@ msgstr "Nazwa zalogowanego użytkownika"
 msgid "Latest successful sync in ms"
 msgstr "Ostatnia pomyślna synchronizacja w milisekundach"
 
-#: data/resources/ui/articles_list.ui:52
-msgid "No articles found"
-msgstr "Nie odnaleziono żadnych artykułów"
+#: data/resources/ui/articles_list.ui:33
+msgid "Pretty clean!"
+msgstr "Coś tu pusto!"
 
 #: data/resources/ui/gtk/help-overlay.ui:13
 msgctxt "shortcut window"
@@ -178,35 +178,35 @@ msgctxt "shortcut window"
 msgid "Open Article in Browser"
 msgstr "Otwarcie artykułu w przeglądarce"
 
-#: data/resources/ui/login.ui:53
+#: data/resources/ui/login.ui:49
 msgid "Welcome to Read It Later"
 msgstr "Witamy"
 
-#: data/resources/ui/login.ui:67
+#: data/resources/ui/login.ui:62
 msgid "Please sign in using your Wallabag instance information"
 msgstr "Proszę się zalogować za pomocą informacji o używanym serwerze Wallabag"
 
-#: data/resources/ui/login.ui:92
+#: data/resources/ui/login.ui:86
 msgid "Instance URL"
 msgstr "Adres URL serwera"
 
-#: data/resources/ui/login.ui:108
+#: data/resources/ui/login.ui:102
 msgid "Client ID"
 msgstr "Identyfikator klienta"
 
-#: data/resources/ui/login.ui:123
+#: data/resources/ui/login.ui:117
 msgid "Client Secret"
 msgstr "Hasło klienta"
 
-#: data/resources/ui/login.ui:140 data/resources/ui/settings.ui:16
+#: data/resources/ui/login.ui:134 data/resources/ui/settings.ui:16
 msgid "User Name"
 msgstr "Nazwa użytkownika"
 
-#: data/resources/ui/login.ui:155
+#: data/resources/ui/login.ui:149
 msgid "Password"
 msgstr "Hasło"
 
-#: data/resources/ui/login.ui:175
+#: data/resources/ui/login.ui:169
 msgid "Log In"
 msgstr "Zaloguj się"
 
@@ -222,7 +222,7 @@ msgstr "Adres e-mail"
 msgid "Created At"
 msgstr "Utworzono"
 
-#: data/resources/ui/settings.ui:58
+#: data/resources/ui/settings.ui:57
 msgid "Updated At"
 msgstr "Zaktualizowano"
 
@@ -254,19 +254,19 @@ msgstr "Skróty klawiszowe"
 msgid "About Read It Later"
 msgstr "O programie"
 
-#: data/resources/ui/window.ui:144
+#: data/resources/ui/window.ui:133
 msgid "Favorite"
 msgstr "Dodaje do ulubionych"
 
-#: data/resources/ui/window.ui:163
+#: data/resources/ui/window.ui:151
 msgid "Archive"
 msgstr "Archiwizuje"
 
-#: data/resources/ui/window.ui:231
+#: data/resources/ui/window.ui:208
 msgid "Paste the article URL here"
 msgstr "Tutaj należy wkleić adres URL artykułu"
 
-#: data/resources/ui/window.ui:238
+#: data/resources/ui/window.ui:215
 msgid "Save"
 msgstr "Zapisz"
 
