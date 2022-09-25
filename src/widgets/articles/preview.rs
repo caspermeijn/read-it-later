@@ -1,61 +1,50 @@
-use gtk::gdk_pixbuf::Pixbuf;
 use gtk::prelude::*;
-use gtk_macros::get_widget;
-use std::cell::RefCell;
-use std::f64;
-use std::rc::Rc;
+use gtk::subclass::prelude::*;
+use gtk::{gdk_pixbuf::Pixbuf, glib};
 
-pub struct ArticlePreviewImage {
-    pub widget: gtk::Stack,
-    image: gtk::DrawingArea,
-    pixbuf: Rc<RefCell<Option<Pixbuf>>>,
+mod imp {
+    use super::*;
+    use gtk::glib::subclass::InitializingObject;
+    use gtk::CompositeTemplate;
+
+    #[derive(CompositeTemplate, Default)]
+    #[template(resource = "/com/belmoussaoui/ReadItLater/article_preview.ui")]
+    pub struct ArticlePreview {
+        #[template_child]
+        pub spinner: TemplateChild<gtk::Spinner>,
+        #[template_child]
+        pub image: TemplateChild<gtk::Picture>,
+    }
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for ArticlePreview {
+        const NAME: &'static str = "ArticlePreview";
+        type Type = super::ArticlePreview;
+        type ParentType = gtk::Widget;
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.bind_template();
+        }
+
+        fn instance_init(obj: &InitializingObject<Self>) {
+            obj.init_template();
+        }
+    }
+
+    impl ObjectImpl for ArticlePreview {}
+
+    impl WidgetImpl for ArticlePreview {}
 }
 
-impl ArticlePreviewImage {
-    pub fn new() -> Rc<Self> {
-        let builder = gtk::Builder::from_resource("/com/belmoussaoui/ReadItLater/article_preview.ui");
-        get_widget!(builder, gtk::Stack, article_preview);
-        get_widget!(builder, gtk::DrawingArea, image);
-        let pixbuf = Rc::new(RefCell::new(None));
+glib::wrapper! {
+    pub struct ArticlePreview(ObjectSubclass<imp::ArticlePreview>)
+        @extends gtk::Widget;
+}
 
-        let favicon = Rc::new(Self {
-            widget: article_preview,
-            image,
-            pixbuf,
-        });
-        favicon.setup_signals(favicon.clone());
-        favicon
-    }
-
-    pub fn set_pixbuf(&self, pixbuf: Pixbuf) {
-        *self.pixbuf.borrow_mut() = Some(pixbuf);
-        self.image.queue_draw();
-        self.widget.set_visible_child_name("image");
-    }
-
-    fn setup_signals(&self, d: Rc<Self>) {
-        self.widget.set_visible_child_name("loading");
-
-        self.image.set_draw_func(move |dr, ctx, width, height| {
-            let style = dr.style_context();
-            gtk::render_background(&style, ctx, 0.0, 0.0, width.into(), height.into());
-            gtk::render_frame(&style, ctx, 0.0, 0.0, width.into(), height.into());
-
-            if let Some(pixbuf) = &*d.pixbuf.borrow() {
-                match pixbuf.width().cmp(&width) {
-                    std::cmp::Ordering::Greater => {
-                        let pixbuf = pixbuf.scale_simple(width, height, gtk::gdk_pixbuf::InterpType::Bilinear).unwrap();
-                        ctx.set_source_pixbuf(&pixbuf, 0.0, 0.0);
-                    }
-                    std::cmp::Ordering::Less => {
-                        ctx.set_source_pixbuf(pixbuf, (width - pixbuf.width()) as f64, 0.0);
-                    }
-                    std::cmp::Ordering::Equal => {
-                        ctx.set_source_pixbuf(pixbuf, 0.0, 0.0);
-                    }
-                };
-                ctx.paint().unwrap();
-            }
-        });
+impl ArticlePreview {
+    pub fn set_pixbuf(&self, pixbuf: &Pixbuf) {
+        self.imp().image.set_pixbuf(Some(pixbuf));
+        self.imp().image.show();
+        self.imp().spinner.hide();
     }
 }

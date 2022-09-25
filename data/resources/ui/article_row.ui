@@ -4,6 +4,7 @@
   <object class="GtkListBoxRow" id="article_row">
     <child>
       <object class="GtkBox" id="article_container">
+        <property name="spacing">12</property>
         <child>
           <object class="GtkBox" id="content_box">
             <property name="hexpand">true</property>
@@ -47,6 +48,9 @@
               </object>
             </child>
           </object>
+        </child>
+        <child>
+          <object class="ArticlePreview" id="preview_image"/>
         </child>
       </object>
     </child>

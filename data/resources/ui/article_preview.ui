@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
-  <object class="GtkStack" id="article_preview">
-    <property name="halign">end</property>
-    <property name="valign">start</property>
-    <property name="transition-type">crossfade</property>
+  <template class="ArticlePreview" parent="GtkWidget">
+    <property name="layout-manager">
+      <object class="GtkBinLayout"/>
+    </property>
     <child>
-      <object class="GtkStackPage">
-        <property name="name">image</property>
-        <property name="child">
-          <object class="GtkDrawingArea" id="image"/>
-        </property>
+      <object class="GtkPicture" id="image">
+        <property name="visible">false</property>
       </object>
     </child>
     <child>
-      <object class="GtkStackPage">
-        <property name="name">loading</property>
-        <property name="child">
-          <object class="GtkSpinner">
-            <property name="spinning">True</property>
-          </object>
-        </property>
+      <object class="GtkSpinner" id="spinner">
+        <property name="halign">center</property>
+        <property name="valign">center</property>
+        <property name="spinning">True</property>
       </object>
     </child>
-  </object>
+  </template>
 </interface>
