@@ -35,7 +35,7 @@ fn main() {
     let res = gio::Resource::load(RESOURCES_FILE).expect("Could not load gresource file");
     gio::resources_register(&res);
 
-    adw::init();
+    adw::init().unwrap();
     webkit2gtk::WebView::new();
 
     let app = Application::new();
