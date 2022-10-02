@@ -152,10 +152,6 @@ impl Window {
     }
 
     fn init(&self) {
-        let application_name = glib::application_name().unwrap();
-        get_widget!(self.builder, adw::ViewSwitcherTitle, view_switcher_title);
-        view_switcher_title.set_title(&application_name);
-
         get_widget!(self.builder, gtk::Stack, headerbar_stack);
         get_widget!(self.builder, adw::ViewSwitcherBar, view_switcher_bar);
 

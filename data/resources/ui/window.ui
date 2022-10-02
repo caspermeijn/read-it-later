@@ -62,6 +62,7 @@
                 <child type="title">
                   <object class="AdwViewSwitcherTitle" id="view_switcher_title">
                     <property name="halign">center</property>
+                    <property name="title" translatable="yes">Read It Later</property>
                   </object>
                 </child>
                 <child type="end">

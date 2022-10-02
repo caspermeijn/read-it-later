@@ -18,7 +18,7 @@ mod widgets;
 
 use application::Application;
 
-use self::config::{GETTEXT_PACKAGE, LOCALEDIR, NAME_SUFFIX, RESOURCES_FILE};
+use self::config::{GETTEXT_PACKAGE, LOCALEDIR, RESOURCES_FILE};
 
 fn main() {
     pretty_env_logger::init();
@@ -29,8 +29,7 @@ fn main() {
     bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR).unwrap();
     textdomain(GETTEXT_PACKAGE).unwrap();
 
-    glib::set_prgname(Some("read-it-later"));
-    glib::set_application_name(&format!("Read It Later{}", NAME_SUFFIX));
+    glib::set_application_name(&gettext("Read It Later"));
 
     let res = gio::Resource::load(RESOURCES_FILE).expect("Could not load gresource file");
     gio::resources_register(&res);

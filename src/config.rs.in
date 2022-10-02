@@ -3,6 +3,5 @@ pub const GETTEXT_PACKAGE: &str = @GETTEXT_PACKAGE@;
 pub const LOCALEDIR: &str = @LOCALEDIR@;
 pub const PKGDATADIR: &str = @PKGDATADIR@;
 pub const PROFILE: &str = @PROFILE@;
-pub const NAME_SUFFIX: &str = @NAME_SUFFIX@;
 pub const RESOURCES_FILE: &str = concat!(@PKGDATADIR@, "/resources.gresource");
 pub const VERSION: &str = @VERSION@;

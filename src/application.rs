@@ -70,7 +70,7 @@ impl Application {
     }
 
     pub fn run(&self, app: Rc<Self>) {
-        info!("Read It Later{} ({})", config::NAME_SUFFIX, config::APP_ID);
+        info!("Read It Later ({})", config::APP_ID);
         info!("Version: {} ({})", config::VERSION, config::PROFILE);
         info!("Datadir: {}", config::PKGDATADIR);
 
