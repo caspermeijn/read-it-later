@@ -4,15 +4,18 @@
 
 # Read It Later
 
-<img src="https://gitlab.gnome.org/World/read-it-later/raw/master/data/icons/com.belmoussaoui.ReadItLater.svg" width="128" height="128" />
+![logo](data/icons/hicolor/scalable/apps/com.belmoussaoui.ReadItLater.svg)
 
 A Wallabag Client
-
 
 ## Screenshots
 
 <div align="center">
-![screenshot](data/resources/screenshots/screenshot1.png)![screenshot](data/resources/screenshots/screenshot2.png)
+
+![screenshot](data/resources/screenshots/screenshot1.png)
+
+![screenshot](data/resources/screenshots/screenshot2.png)
+
 </div>
 
 ## Hack on Read It Later
