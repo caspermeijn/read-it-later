@@ -2,22 +2,6 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.1"/>
-  <object class="GtkTreeStore" id="instances_store">
-    <columns>
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkEntryCompletion" id="entrycompletion1">
-    <property name="model">instances_store</property>
-    <property name="text-column">0</property>
-    <property name="inline-completion">True</property>
-    <child>
-      <object class="GtkCellRendererText"/>
-      <attributes>
-        <attribute name="text">0</attribute>
-      </attributes>
-    </child>
-  </object>
   <object class="AdwClamp" id="login">
     <property name="maximum-size">450</property>
     <child>
@@ -72,7 +56,6 @@
                 <child>
                   <object class="GtkEntry" id="instance_entry">
                     <property name="valign">center</property>
-                    <property name="completion">entrycompletion1</property>
                     <property name="activates-default">True</property>
                   </object>
                 </child>
