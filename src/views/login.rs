@@ -1,21 +1,18 @@
-use gtk::glib::object::Cast;
 use gtk::glib::Sender;
 use gtk_macros::send;
 use log::error;
-use std::rc::Rc;
 
 use crate::application::Action;
-use crate::widgets::LoginWidget;
 
 pub struct LoginView {
-    pub widget: Rc<LoginWidget>,
+    pub widget: crate::widgets::Login,
     pub name: String,
     sender: Sender<Action>,
 }
 
 impl LoginView {
     pub fn new(sender: Sender<Action>) -> Self {
-        let widget = LoginWidget::new();
+        let widget = crate::widgets::Login::new();
 
         let view = Self {
             widget,
@@ -24,11 +21,6 @@ impl LoginView {
         };
         view.init();
         view
-    }
-
-    pub fn get_widget(&self) -> gtk::Widget {
-        let widget = self.widget.widget.clone();
-        widget.upcast::<gtk::Widget>()
     }
 
     fn init(&self) {

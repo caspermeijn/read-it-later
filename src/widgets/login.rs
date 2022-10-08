@@ -1,62 +1,103 @@
-use crate::config::APP_ID;
+use glib::subclass::InitializingObject;
+use glib::Object;
 use gtk::prelude::*;
-use gtk_macros::get_widget;
+use gtk::subclass::prelude::*;
+use gtk::{glib, CompositeTemplate};
 use log::error;
-use std::rc::Rc;
 use wallabag_api::types::Config;
 
-pub struct LoginWidget {
-    pub widget: adw::Clamp,
-    pub builder: gtk::Builder,
-}
+mod imp {
+    use super::*;
 
-impl LoginWidget {
-    pub fn new() -> Rc<Self> {
-        let builder = gtk::Builder::from_resource("/com/belmoussaoui/ReadItLater/login.ui");
-        get_widget!(builder, adw::Clamp, login);
+    #[derive(CompositeTemplate, Default)]
+    #[template(resource = "/com/belmoussaoui/ReadItLater/login.ui")]
+    pub struct Login {
+        #[template_child]
+        pub icon: TemplateChild<gtk::Image>,
 
-        let login_widget = Rc::new(Self { widget: login, builder });
+        #[template_child]
+        pub login_button: TemplateChild<gtk::Button>,
 
-        login_widget.init();
-        login_widget
+        #[template_child]
+        pub instance_entry: TemplateChild<gtk::Entry>,
+
+        #[template_child]
+        pub client_id_entry: TemplateChild<gtk::Entry>,
+
+        #[template_child]
+        pub client_secret_entry: TemplateChild<gtk::Entry>,
+
+        #[template_child]
+        pub username_entry: TemplateChild<gtk::Entry>,
+
+        #[template_child]
+        pub password_entry: TemplateChild<gtk::Entry>,
     }
 
-    pub fn get_wallabag_client_config(&self) -> Option<Config> {
-        get_widget!(self.builder, gtk::Entry, instance_entry);
-        get_widget!(self.builder, gtk::Entry, client_id_entry);
-        get_widget!(self.builder, gtk::Entry, client_secret_entry);
-        get_widget!(self.builder, gtk::Entry, username_entry);
-        get_widget!(self.builder, gtk::Entry, password_entry);
+    #[glib::object_subclass]
+    impl ObjectSubclass for Login {
+        const NAME: &'static str = "Login";
+        type Type = super::Login;
+        type ParentType = gtk::Widget;
 
-        let instance = instance_entry.text();
-        let instance = instance.trim_end_matches('/').to_string();
-        if let Err(err) = url::Url::parse(&instance) {
-            error!("The instance url is invalid {}", err);
-            instance_entry.add_css_class("error");
-            return None;
+        fn class_init(klass: &mut Self::Class) {
+            klass.bind_template();
         }
-        instance_entry.remove_css_class("error");
 
-        Some(Config {
-            client_id: client_id_entry.text().to_string(),
-            client_secret: client_secret_entry.text().to_string(),
-            username: username_entry.text().to_string(),
-            password: password_entry.text().to_string(),
-            base_url: instance,
-        })
+        fn instance_init(obj: &InitializingObject<Self>) {
+            obj.init_template();
+        }
+    }
+
+    impl ObjectImpl for Login {
+        fn constructed(&self, obj: &Self::Type) {
+            // Call "constructed" on parent
+            self.parent_constructed(obj);
+
+            self.icon.set_icon_name(Some(&format!("{}-symbolic", crate::config::APP_ID)));
+        }
+    }
+
+    impl WidgetImpl for Login {}
+}
+
+glib::wrapper! {
+    pub struct Login(ObjectSubclass<imp::Login>)
+        @extends gtk::Widget;
+}
+
+impl Login {
+    pub fn new() -> Self {
+        Object::new(&[]).expect("Failed to create Window")
     }
 
     pub fn on_login_clicked<F>(&self, callback: F)
     where
         for<'r> F: std::ops::Fn(&'r gtk::Button) + 'static,
     {
-        get_widget!(self.builder, gtk::Button, login_button);
-
-        login_button.connect_clicked(callback);
+        self.imp().login_button.connect_clicked(callback);
     }
 
-    fn init(&self) {
-        get_widget!(self.builder, gtk::Image, icon);
-        icon.set_icon_name(Some(&format!("{}-symbolic", APP_ID)));
+    pub fn get_wallabag_client_config(&self) -> Option<Config> {
+        let instance = self.imp().instance_entry.text();
+        let instance = instance.trim_end_matches('/').to_string();
+        if let Err(err) = url::Url::parse(&instance) {
+            error!("The instance url is invalid {}", err);
+            self.imp().instance_entry.add_css_class("error");
+            return None;
+        }
+        self.imp().instance_entry.remove_css_class("error");
+
+        Some(Config {
+            client_id: self.imp().client_id_entry.text().to_string(),
+            client_secret: self.imp().client_secret_entry.text().to_string(),
+            username: self.imp().username_entry.text().to_string(),
+            password: self.imp().password_entry.text().to_string(),
+            base_url: instance,
+        })
+    }
+
+    pub fn get_login_button(&self) -> &gtk::Button {
+        &self.imp().login_button
     }
 }

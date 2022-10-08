@@ -103,8 +103,8 @@ impl Window {
             View::Login => {
                 main_stack.set_visible_child_name("login");
                 headerbar_stack.set_visible_child_name("login");
-                get_widget!(self.login_view.widget.builder, gtk::Button, login_button);
-                window.set_default_widget(Some(&login_button));
+
+                window.set_default_widget(Some(self.login_view.widget.get_login_button()));
             }
             View::Syncing(state) => {
                 get_widget!(self.builder, gtk::ProgressBar, loading_progress);
@@ -166,7 +166,7 @@ impl Window {
     fn init_views(&self) {
         get_widget!(self.builder, gtk::Stack, main_stack);
         // Login Form
-        main_stack.add_named(&self.login_view.get_widget(), Some(&self.login_view.name));
+        main_stack.add_named(&self.login_view.widget, Some(&self.login_view.name));
 
         // Articles
         get_widget!(self.builder, adw::ViewSwitcherTitle, view_switcher_title);
