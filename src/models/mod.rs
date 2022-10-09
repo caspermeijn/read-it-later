@@ -1,3 +1,4 @@
+mod account;
 mod article;
 mod article_filter;
 mod articles;
@@ -6,6 +7,7 @@ mod object_wrapper;
 mod preview_image;
 mod secret;
 
+pub use account::Account;
 pub use article::Article;
 pub use article_filter::ArticlesFilter;
 pub use articles::{ArticleAction, ArticlesManager};

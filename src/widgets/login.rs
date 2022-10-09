@@ -1,10 +1,10 @@
+use crate::models::Account;
 use glib::subclass::InitializingObject;
 use glib::Object;
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
 use gtk::{glib, CompositeTemplate};
 use log::error;
-use wallabag_api::types::Config;
 
 mod imp {
     use super::*;
@@ -51,7 +51,6 @@ mod imp {
 
     impl ObjectImpl for Login {
         fn constructed(&self, obj: &Self::Type) {
-            // Call "constructed" on parent
             self.parent_constructed(obj);
 
             self.icon.set_icon_name(Some(&format!("{}-symbolic", crate::config::APP_ID)));
@@ -68,17 +67,26 @@ glib::wrapper! {
 
 impl Login {
     pub fn new() -> Self {
-        Object::new(&[]).expect("Failed to create Window")
+        let login: Self = Object::new(&[]).expect("Failed to create Window");
+        login.init();
+        login
     }
 
-    pub fn on_login_clicked<F>(&self, callback: F)
-    where
-        for<'r> F: std::ops::Fn(&'r gtk::Button) + 'static,
-    {
-        self.imp().login_button.connect_clicked(callback);
+    fn init(&self) {
+        self.imp()
+            .login_button
+            .connect_clicked(glib::clone!(@weak self as login => move |button| {
+                let account = login.get_account();
+
+                if let Some(account) = account {
+                    button
+                    .activate_action("app.login", Some(&account.to_variant()))
+                    .expect("The action does not exist.");
+                }
+            }));
     }
 
-    pub fn get_wallabag_client_config(&self) -> Option<Config> {
+    pub fn get_account(&self) -> Option<Account> {
         let instance = self.imp().instance_entry.text();
         let instance = instance.trim_end_matches('/').to_string();
         if let Err(err) = url::Url::parse(&instance) {
@@ -88,12 +96,12 @@ impl Login {
         }
         self.imp().instance_entry.remove_css_class("error");
 
-        Some(Config {
+        Some(Account {
+            instance_url: instance,
             client_id: self.imp().client_id_entry.text().to_string(),
             client_secret: self.imp().client_secret_entry.text().to_string(),
             username: self.imp().username_entry.text().to_string(),
             password: self.imp().password_entry.text().to_string(),
-            base_url: instance,
         })
     }
 

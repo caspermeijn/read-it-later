@@ -1,6 +1,7 @@
 use self::config::{APP_ID, VERSION};
 use crate::config;
 use crate::database;
+use crate::models::Account;
 use crate::models::CACHE_DIR;
 use crate::models::{Article, ArticleAction, ClientManager, SecretManager};
 use crate::settings::{Key, SettingsManager};
@@ -169,6 +170,15 @@ impl Application {
             "sync",
             clone!(@strong self.sender as sender => move |_, _| {
                 send!(sender, Action::Sync);
+            })
+        );
+        action!(
+            self.app,
+            "login",
+            Some(&crate::models::Account::static_variant_type()),
+            clone!(@strong self.sender as sender => move |_, parameter| {
+                let account: Account = parameter.unwrap().get().unwrap();
+                send!(sender, Action::SetClientConfig(account.into()));
             })
         );
 
