@@ -10,7 +10,7 @@ use url::Url;
 use crate::application::Action;
 use crate::config::PROFILE;
 use crate::models::{Article, ArticlesManager};
-use crate::views::{ArticleView, ArticlesView, LoginView};
+use crate::views::{ArticleView, ArticlesView, Login};
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 pub enum View {
@@ -27,7 +27,7 @@ pub struct Window {
     sender: Sender<Action>,
     article_view: ArticleView,
     pub articles_view: ArticlesView,
-    login_view: LoginView,
+    login_view: Login,
     actions: gio::SimpleActionGroup,
 }
 
@@ -48,7 +48,7 @@ impl Window {
             builder,
             article_view: ArticleView::new(articles_manager.sender.clone()),
             articles_view: ArticlesView::new(articles_manager.sender.clone()),
-            login_view: LoginView::new(),
+            login_view: Login::new(),
             sender,
             actions,
         };
@@ -104,7 +104,7 @@ impl Window {
                 main_stack.set_visible_child_name("login");
                 headerbar_stack.set_visible_child_name("login");
 
-                window.set_default_widget(Some(self.login_view.widget.get_login_button()));
+                window.set_default_widget(Some(self.login_view.get_login_button()));
             }
             View::Syncing(state) => {
                 get_widget!(self.builder, gtk::ProgressBar, loading_progress);
@@ -166,7 +166,7 @@ impl Window {
     fn init_views(&self) {
         get_widget!(self.builder, gtk::Stack, main_stack);
         // Login Form
-        main_stack.add_named(&self.login_view.widget, Some(&self.login_view.name));
+        main_stack.add_named(&self.login_view, Some("login"));
 
         // Articles
         get_widget!(self.builder, adw::ViewSwitcherTitle, view_switcher_title);

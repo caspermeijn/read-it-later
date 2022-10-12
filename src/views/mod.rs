@@ -6,4 +6,4 @@ mod login;
 pub use article::ArticleView;
 pub use articles::ArticlesView;
 pub use articles_list::ArticlesListView;
-pub use login::LoginView;
+pub use login::Login;
