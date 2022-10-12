@@ -19,19 +19,19 @@ mod imp {
         pub login_button: TemplateChild<gtk::Button>,
 
         #[template_child]
-        pub instance_entry: TemplateChild<gtk::Entry>,
+        pub instance_entry: TemplateChild<adw::EntryRow>,
 
         #[template_child]
-        pub client_id_entry: TemplateChild<gtk::Entry>,
+        pub client_id_entry: TemplateChild<adw::EntryRow>,
 
         #[template_child]
-        pub client_secret_entry: TemplateChild<gtk::Entry>,
+        pub client_secret_entry: TemplateChild<adw::PasswordEntryRow>,
 
         #[template_child]
-        pub username_entry: TemplateChild<gtk::Entry>,
+        pub username_entry: TemplateChild<adw::EntryRow>,
 
         #[template_child]
-        pub password_entry: TemplateChild<gtk::Entry>,
+        pub password_entry: TemplateChild<adw::PasswordEntryRow>,
     }
 
     #[glib::object_subclass]
