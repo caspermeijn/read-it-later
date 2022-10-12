@@ -86,6 +86,7 @@
             </child>
             <child>
               <object class="GtkButton" id="login_button">
+                <signal name="clicked" handler="login_button_clicked" swapped="true"/>
                 <property name="margin-top">24</property>
                 <property name="label" translatable="yes">Log In</property>
                 <property name="width-request">110</property>

@@ -42,6 +42,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+            klass.bind_template_instance_callbacks();
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {
@@ -65,25 +66,21 @@ glib::wrapper! {
         @extends gtk::Widget;
 }
 
+#[gtk::template_callbacks]
 impl Login {
     pub fn new() -> Self {
-        let login: Self = Object::new(&[]).expect("Failed to create Window");
-        login.init();
-        login
+        Object::new(&[]).expect("Failed to create Window")
     }
 
-    fn init(&self) {
-        self.imp()
-            .login_button
-            .connect_clicked(glib::clone!(@weak self as login => move |button| {
-                let account = login.get_account();
+    #[template_callback]
+    fn login_button_clicked(&self, button: &gtk::Button) {
+        let account = self.get_account();
 
-                if let Some(account) = account {
-                    button
-                    .activate_action("app.login", Some(&account.to_variant()))
-                    .expect("The action does not exist.");
-                }
-            }));
+        if let Some(account) = account {
+            button
+                .activate_action("app.login", Some(&account.to_variant()))
+                .expect("The action does not exist.");
+        }
     }
 
     pub fn get_account(&self) -> Option<Account> {
