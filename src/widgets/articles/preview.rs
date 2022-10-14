@@ -31,7 +31,13 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for ArticlePreview {}
+    impl ObjectImpl for ArticlePreview {
+        fn dispose(&self, _obj: &Self::Type) {
+            while let Some(child) = self.instance().first_child() {
+                child.unparent();
+            }
+        }
+    }
 
     impl WidgetImpl for ArticlePreview {}
 }

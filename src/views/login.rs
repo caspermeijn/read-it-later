@@ -56,6 +56,12 @@ mod imp {
 
             self.icon.set_icon_name(Some(&format!("{}-symbolic", crate::config::APP_ID)));
         }
+
+        fn dispose(&self, _obj: &Self::Type) {
+            while let Some(child) = self.instance().first_child() {
+                child.unparent();
+            }
+        }
     }
 
     impl WidgetImpl for Login {}
