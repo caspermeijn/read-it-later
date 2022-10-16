@@ -177,7 +177,7 @@ impl Window {
         view_switcher_bar.set_stack(Some(&self.articles_view.widget));
 
         // Article View
-        main_stack.add_named(&self.article_view.get_widget(), Some(&self.article_view.name));
+        main_stack.add_named(self.article_view.get_widget(), Some(&self.article_view.name));
         self.widget.insert_action_group("article", self.article_view.get_actions());
 
         main_stack.connect_visible_child_name_notify(clone!(@strong self.article_view as article_view => move |stack| {

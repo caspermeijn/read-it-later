@@ -1,48 +1,83 @@
 use crate::models::{Article, ArticleAction};
 use anyhow::Result;
-use gtk::gio;
+use glib::subclass::InitializingObject;
+use glib::Object;
 use gtk::gio::prelude::*;
-use gtk::glib;
 use gtk::glib::clone;
 use gtk::glib::Sender;
-use gtk_macros::{action, get_widget, send, stateful_action};
+use gtk::prelude::*;
+use gtk::subclass::prelude::*;
+use gtk::{gio, glib, CompositeTemplate};
+use gtk_macros::{action, send, stateful_action};
 use log::{error, info};
-use std::{cell::RefCell, rc::Rc};
-use webkit::prelude::*;
+use once_cell::sync::OnceCell;
+use std::cell::RefCell;
+use webkit::traits::{ContextMenuExt, ContextMenuItemExt, WebViewExt};
 use webkit::Settings;
 use webkit::WebView;
 
-pub struct ArticleWidget {
-    pub widget: gtk::Box,
-    builder: gtk::Builder,
-    sender: Sender<ArticleAction>,
-    pub actions: gio::SimpleActionGroup,
-    article: RefCell<Option<Article>>,
+mod imp {
+    use super::*;
+
+    #[derive(CompositeTemplate, Default)]
+    #[template(resource = "/com/belmoussaoui/ReadItLater/article.ui")]
+    pub struct ArticleWidget {
+        #[template_child]
+        pub webview: TemplateChild<WebView>,
+        #[template_child]
+        pub revealer: TemplateChild<gtk::Revealer>,
+        #[template_child]
+        pub progressbar: TemplateChild<gtk::ProgressBar>,
+        pub sender: OnceCell<Sender<ArticleAction>>,
+        pub actions: gio::SimpleActionGroup,
+        pub article: RefCell<Option<Article>>,
+    }
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for ArticleWidget {
+        const NAME: &'static str = "ArticleWidget";
+        type Type = super::ArticleWidget;
+        type ParentType = gtk::Widget;
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.bind_template();
+        }
+
+        fn instance_init(obj: &InitializingObject<Self>) {
+            obj.init_template();
+        }
+    }
+
+    impl ObjectImpl for ArticleWidget {
+        fn dispose(&self) {
+            while let Some(child) = self.instance().first_child() {
+                child.unparent();
+            }
+        }
+    }
+
+    impl WidgetImpl for ArticleWidget {}
+}
+
+glib::wrapper! {
+    pub struct ArticleWidget(ObjectSubclass<imp::ArticleWidget>)
+        @extends gtk::Widget;
 }
 
 impl ArticleWidget {
-    pub fn new(sender: Sender<ArticleAction>) -> Rc<Self> {
+    pub fn new(sender: Sender<ArticleAction>) -> Self {
         WebView::ensure_type();
         Settings::ensure_type();
 
-        let builder = gtk::Builder::from_resource("/com/belmoussaoui/ReadItLater/article.ui");
-        get_widget!(builder, gtk::Box, article);
-
-        let actions = gio::SimpleActionGroup::new();
-
-        let article_widget = Rc::new(Self {
-            widget: article,
-            builder,
-            actions,
-            sender,
-            article: RefCell::new(None),
-        });
-        article_widget.init();
-        article_widget.setup_actions(article_widget.clone());
+        let article_widget: Self = Object::new(&[]);
+        article_widget.init(sender);
+        article_widget.setup_actions();
         article_widget
     }
 
-    fn init(&self) {
+    fn init(&self, sender: Sender<ArticleAction>) {
+        self.imp().sender.set(sender).unwrap();
+
         // Right/Left Click context menu
         let forbidden_actions = vec![
             webkit::ContextMenuAction::OpenLink,
@@ -52,9 +87,8 @@ impl ArticleWidget {
             webkit::ContextMenuAction::Reload,
             webkit::ContextMenuAction::InspectElement,
         ];
-        get_widget!(self.builder, WebView, webview);
 
-        webview.connect_context_menu(move |_, context_menu, _, _| {
+        self.imp().webview.connect_context_menu(move |_, context_menu, _, _| {
             for menu_item in context_menu.items() {
                 let action = menu_item.stock_action();
 
@@ -67,35 +101,36 @@ impl ArticleWidget {
         });
 
         // Progress bar
-        get_widget!(self.builder, gtk::Revealer, revealer);
-        get_widget!(self.builder, gtk::ProgressBar, progressbar);
-        webview.connect_estimated_load_progress_notify(move |webview| {
-            let progress = webview.estimated_load_progress();
-            revealer.set_reveal_child(true);
-            progressbar.set_fraction(progress);
-            if (progress - 1.0).abs() < std::f64::EPSILON {
-                revealer.set_reveal_child(false);
-            }
-        });
+        self.imp()
+            .webview
+            .connect_estimated_load_progress_notify(clone!(@strong self as aw => move |webview|{
+                let progress = webview.estimated_load_progress();
+                aw.imp().revealer.set_reveal_child(true);
+                aw.imp().progressbar.set_fraction(progress);
+                if (progress - 1.0).abs() < std::f64::EPSILON {
+                    aw.imp().revealer.set_reveal_child(false);
+                }
+            }));
     }
 
-    fn setup_actions(&self, aw: Rc<Self>) {
+    fn setup_actions(&self) {
+        let sender = self.imp().sender.get().unwrap();
         // Delete article
         action!(
-            self.actions,
+            self.imp().actions,
             "delete",
-            clone!(@strong aw, @strong self.sender as sender => move |_, _| {
-                if let Some(article) = aw.article.borrow().clone() {
+            clone!(@strong self as aw, @strong sender => move |_, _| {
+                if let Some(article) = aw.imp().article.borrow().clone() {
                     send!(sender, ArticleAction::Delete(article));
                 }
             })
         );
         // Share article
         action!(
-            self.actions,
+            self.imp().actions,
             "open",
-            clone!(@strong aw => move |_, _| {
-                if let Some(article) = aw.article.borrow().clone() {
+            clone!(@strong self as aw => move |_, _| {
+                if let Some(article) = aw.imp().article.borrow().clone() {
                     glib::idle_add(clone!(@strong article => move || {
                         let article_url = article.url.clone();
                         gtk::show_uri(gtk::Window::NONE, &article_url.unwrap(), 0);
@@ -104,33 +139,34 @@ impl ArticleWidget {
                 }
             })
         );
+
         // Archive article
         stateful_action!(
-            self.actions,
+            self.imp().actions,
             "archive",
             false,
-            clone!(@strong aw, @strong self.sender as sender => move |action, _|{
+            clone!(@strong self as aw, @strong sender => move |action, _|{
                 let state = action.state().unwrap();
                 let action_state: bool = state.get().unwrap();
                 let is_archived = !action_state;
                 action.set_state(&is_archived.to_variant());
-                if let Some(article) = aw.article.borrow_mut().clone() {
+                if let Some(article) = aw.imp().article.borrow_mut().clone() {
                     send!(sender, ArticleAction::Archive(article));
                 }
             })
         );
         // Favorite article
         stateful_action!(
-            self.actions,
+            self.imp().actions,
             "favorite",
             false,
-            clone!(@strong aw, @strong self.sender as sender => move |action, _|{
+            clone!(@strong self as aw, @strong sender => move |action, _|{
                 let state = action.state().unwrap();
                 let action_state: bool = state.get().unwrap();
                 let is_starred = !action_state;
                 action.set_state(&is_starred.to_variant());
 
-                if let Some(article) = aw.article.borrow_mut().clone() {
+                if let Some(article) = aw.imp().article.borrow_mut().clone() {
                     send!(sender, ArticleAction::Favorite(article));
                 }
             })
@@ -138,9 +174,8 @@ impl ArticleWidget {
     }
 
     pub fn load_article(&self, article: Article) -> Result<()> {
-        get_widget!(self.builder, WebView, webview);
         info!("Loading the article {:#?}", article.title);
-        self.article.replace(Some(article.clone()));
+        self.imp().article.replace(Some(article.clone()));
 
         let mut layout_html = load_resource("layout.html")?;
 
@@ -161,9 +196,13 @@ impl ArticleWidget {
 
         let layout_js = load_resource("layout.js")?;
         layout_html = layout_html.replace("{js}", &layout_js);
-        webview.load_html(&layout_html, None);
+        self.imp().webview.load_html(&layout_html, None);
 
         Ok(())
+    }
+
+    pub fn get_actions(&self) -> Option<&gio::SimpleActionGroup> {
+        Some(&self.imp().actions)
     }
 }
 

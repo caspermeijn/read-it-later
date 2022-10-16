@@ -10,7 +10,7 @@ use crate::widgets::articles::ArticleWidget;
 
 #[derive(Clone)]
 pub struct ArticleView {
-    widget: std::rc::Rc<ArticleWidget>,
+    widget: ArticleWidget,
     pub name: String,
 }
 
@@ -27,19 +27,19 @@ impl ArticleView {
     }
 
     pub fn get_actions(&self) -> Option<&gio::SimpleActionGroup> {
-        Some(&self.widget.actions)
+        self.widget.get_actions()
     }
 
     pub fn set_enable_actions(&self, state: bool) {
-        get_action!(self.widget.actions, @open).set_enabled(state);
-        get_action!(self.widget.actions, @archive).set_enabled(state);
-        get_action!(self.widget.actions, @delete).set_enabled(state);
-        get_action!(self.widget.actions, @favorite).set_enabled(state);
+        let action_group = self.get_actions().unwrap();
+        get_action!(action_group, @open).set_enabled(state);
+        get_action!(action_group, @archive).set_enabled(state);
+        get_action!(action_group, @delete).set_enabled(state);
+        get_action!(action_group, @favorite).set_enabled(state);
     }
 
-    pub fn get_widget(&self) -> gtk::Widget {
-        let widget = self.widget.widget.clone();
-        widget.upcast::<gtk::Widget>()
+    pub fn get_widget(&self) -> &ArticleWidget {
+        &self.widget
     }
 
     pub fn load(&self, article: Article) {
