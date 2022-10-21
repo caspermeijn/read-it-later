@@ -139,8 +139,8 @@ impl Application {
             "settings",
             clone!(@strong self.window.widget as window, @strong self.client as client =>  move |_, _| {
                 let settings_widget = SettingsWidget::new(client.clone());
-                settings_widget.widget.set_transient_for(Some(&window));
-                settings_widget.widget.show();
+                settings_widget.set_transient_for(Some(&window));
+                settings_widget.present();
             })
         );
         // About

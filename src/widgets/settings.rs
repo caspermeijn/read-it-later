@@ -1,9 +1,59 @@
 use crate::models::ClientManager;
+use adw::subclass::prelude::*;
 use async_std::sync::{Arc, Mutex};
 use gtk::glib;
-use gtk_macros::{get_widget, send, spawn};
+use gtk_macros::{send, spawn};
 use log::error;
-use std::rc::Rc;
+
+mod imp {
+    use super::*;
+    use gtk::glib::subclass::InitializingObject;
+    use gtk::prelude::*;
+    use gtk::CompositeTemplate;
+
+    #[derive(CompositeTemplate, Default)]
+    #[template(resource = "/com/belmoussaoui/ReadItLater/settings.ui")]
+    pub struct SettingsWidget {
+        #[template_child]
+        pub username_label: TemplateChild<gtk::Label>,
+        #[template_child]
+        pub email_label: TemplateChild<gtk::Label>,
+        #[template_child]
+        pub created_at_label: TemplateChild<gtk::Label>,
+        #[template_child]
+        pub updated_at_label: TemplateChild<gtk::Label>,
+    }
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for SettingsWidget {
+        const NAME: &'static str = "SettingsWidget";
+        type Type = super::SettingsWidget;
+        type ParentType = adw::PreferencesWindow;
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.bind_template();
+        }
+
+        fn instance_init(obj: &InitializingObject<Self>) {
+            obj.init_template();
+        }
+    }
+
+    impl ObjectImpl for SettingsWidget {}
+
+    impl WidgetImpl for SettingsWidget {}
+
+    impl WindowImpl for SettingsWidget {}
+
+    impl AdwWindowImpl for SettingsWidget {}
+
+    impl PreferencesWindowImpl for SettingsWidget {}
+}
+
+glib::wrapper! {
+    pub struct SettingsWidget(ObjectSubclass<imp::SettingsWidget>)
+        @extends gtk::Widget, gtk::Window, adw::Window, adw::PreferencesWindow;
+}
 
 struct ClientInfo {
     pub username: String,
@@ -16,28 +66,21 @@ enum SettingsAction {
     ClientInfoLoaded(ClientInfo),
 }
 
-pub struct SettingsWidget {
-    pub widget: adw::PreferencesWindow,
-    builder: gtk::Builder,
-}
-
 impl SettingsWidget {
-    pub fn new(client: Arc<Mutex<ClientManager>>) -> Rc<Self> {
-        let builder = gtk::Builder::from_resource("/com/belmoussaoui/ReadItLater/settings.ui");
-        get_widget!(builder, adw::PreferencesWindow, settings_window);
-
-        let window = Rc::new(Self {
-            builder,
-            widget: settings_window,
-        });
-
-        window.init(window.clone(), client);
+    pub fn new(client: Arc<Mutex<ClientManager>>) -> Self {
+        let window: Self = glib::Object::new(&[]).unwrap();
+        window.init(client);
         window
     }
 
-    fn init(&self, settings: Rc<Self>, client: Arc<Mutex<ClientManager>>) {
+    fn init(&self, client: Arc<Mutex<ClientManager>>) {
         let (sender, receiver) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
-        receiver.attach(None, move |action| settings.do_action(action));
+        receiver.attach(
+            None,
+            glib::clone!(@strong self as window =>  move |action| {
+                    window.do_action(action)
+            }),
+        );
 
         spawn!(async move {
             let client = client.lock().await;
@@ -56,20 +99,16 @@ impl SettingsWidget {
     }
 
     fn do_action(&self, action: SettingsAction) -> glib::Continue {
-        get_widget!(self.builder, gtk::Label, username_label);
-        get_widget!(self.builder, gtk::Label, email_label);
-        get_widget!(self.builder, gtk::Label, created_at_label);
-        get_widget!(self.builder, gtk::Label, updated_at_label);
-
         match action {
             SettingsAction::ClientInfoLoaded(client_info) => {
-                username_label.set_text(&client_info.username);
-                email_label.set_text(&client_info.email);
+                let imp = self.imp();
+                imp.username_label.set_text(&client_info.username);
+                imp.email_label.set_text(&client_info.email);
                 if let Some(created_at) = client_info.created_at {
-                    created_at_label.set_text(&created_at.format("%Y-%m-%d %H:%M:%S").to_string());
+                    imp.created_at_label.set_text(&created_at.format("%Y-%m-%d %H:%M:%S").to_string());
                 }
                 if let Some(updated_at) = client_info.updated_at {
-                    updated_at_label.set_text(&updated_at.format("%Y-%m-%d %H:%M:%S").to_string());
+                    imp.updated_at_label.set_text(&updated_at.format("%Y-%m-%d %H:%M:%S").to_string());
                 }
             }
         }

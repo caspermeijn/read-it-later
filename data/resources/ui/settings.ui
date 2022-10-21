@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
-  <requires lib="libadwaita" version="1.1"/>
-  <object class="AdwPreferencesWindow" id="settings_window">
+  <template class="SettingsWidget" parent="AdwPreferencesWindow">
     <child>
       <object class="AdwPreferencesPage">
         <property name="icon-name">user-info-symbolic</property>
@@ -14,10 +12,7 @@
               <object class="AdwActionRow">
                 <property name="title" translatable="yes">User Name</property>
                 <child>
-                  <object class="GtkLabel" id="username_label">
-                    <property name="valign">center</property>
-                    <property name="halign">end</property>
-                  </object>
+                  <object class="GtkLabel" id="username_label" />
                 </child>
               </object>
             </child>
@@ -25,10 +20,7 @@
               <object class="AdwActionRow">
                 <property name="title" translatable="yes">Email</property>
                 <child>
-                  <object class="GtkLabel" id="email_label">
-                    <property name="valign">center</property>
-                    <property name="halign">end</property>
-                  </object>
+                  <object class="GtkLabel" id="email_label" />
                 </child>
               </object>
             </child>
@@ -36,10 +28,7 @@
               <object class="AdwActionRow">
                 <property name="title" translatable="yes">Created At</property>
                 <child>
-                  <object class="GtkLabel" id="created_at_label">
-                    <property name="halign">start</property>
-                    <property name="wrap">True</property>
-                  </object>
+                  <object class="GtkLabel" id="created_at_label" />
                 </child>
               </object>
             </child>
@@ -47,10 +36,7 @@
               <object class="AdwActionRow">
                 <property name="title" translatable="yes">Updated At</property>
                 <child>
-                  <object class="GtkLabel" id="updated_at_label">
-                    <property name="halign">start</property>
-                    <property name="wrap">True</property>
-                  </object>
+                  <object class="GtkLabel" id="updated_at_label" />
                 </child>
               </object>
             </child>
@@ -58,5 +44,5 @@
         </child>
       </object>
     </child>
-  </object>
+  </template>
 </interface>
