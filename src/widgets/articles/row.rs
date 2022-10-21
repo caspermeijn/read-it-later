@@ -1,15 +1,11 @@
 use crate::models::Article;
-use crate::models::ArticleAction;
 use crate::widgets::articles::preview::ArticlePreview;
 use glib::subclass::InitializingObject;
 use glib::Object;
-use gtk::glib::clone;
-use gtk::glib::Sender;
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
 use gtk::{glib, CompositeTemplate};
-use gtk_macros::{send, spawn};
-use log::error;
+use gtk_macros::spawn;
 use once_cell::sync::OnceCell;
 use std::rc::Rc;
 
@@ -20,8 +16,6 @@ mod imp {
     #[template(resource = "/com/belmoussaoui/ReadItLater/article_row.ui")]
     pub struct ArticleRow {
         #[template_child]
-        pub article_row: TemplateChild<gtk::ListBoxRow>,
-        #[template_child]
         pub preview_image: TemplateChild<ArticlePreview>,
         #[template_child]
         pub title_label: TemplateChild<gtk::Label>,
@@ -31,7 +25,6 @@ mod imp {
         pub content_label: TemplateChild<gtk::Label>,
 
         pub article: OnceCell<Article>,
-        pub sender: OnceCell<Sender<ArticleAction>>,
         pub client: OnceCell<Rc<isahc::HttpClient>>,
     }
 
@@ -39,7 +32,7 @@ mod imp {
     impl ObjectSubclass for ArticleRow {
         const NAME: &'static str = "ArticleRow";
         type Type = super::ArticleRow;
-        type ParentType = gtk::Widget;
+        type ParentType = gtk::ListBoxRow;
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -59,36 +52,29 @@ mod imp {
     }
 
     impl WidgetImpl for ArticleRow {}
+
+    impl ListBoxRowImpl for ArticleRow {}
 }
 
 glib::wrapper! {
     pub struct ArticleRow(ObjectSubclass<imp::ArticleRow>)
-        @extends gtk::Widget;
+        @extends gtk::ListBoxRow, gtk::Widget;
 }
 
 impl ArticleRow {
-    pub fn new(article: Article, client: Rc<isahc::HttpClient>, sender: Sender<ArticleAction>) -> Self {
+    pub fn new(article: Article, client: Rc<isahc::HttpClient>) -> Self {
         let article_row: Self = Object::new(&[]).unwrap();
-        article_row.init(article, client, sender);
+        article_row.init(article, client);
         article_row
     }
 
-    fn article(&self) -> &Article {
+    pub fn article(&self) -> &Article {
         self.imp().article.get().unwrap()
     }
 
-    fn init(&self, article: Article, client: Rc<isahc::HttpClient>, sender: Sender<ArticleAction>) {
+    fn init(&self, article: Article, client: Rc<isahc::HttpClient>) {
         self.imp().article.set(article).unwrap();
         self.imp().client.set(client).unwrap();
-        self.imp().sender.set(sender).unwrap();
-
-        let event_controller = gtk::GestureClick::new();
-        self.imp().article_row.add_controller(&event_controller);
-        event_controller.connect_pressed(clone!(@strong self as article_row => move |_, _, _, _| {
-            let sender = article_row.imp().sender.get().unwrap();
-            let article = article_row.imp().article.get().unwrap();
-            send!(sender, ArticleAction::Open(article.clone()));
-        }));
 
         if let Some(title) = &self.article().title {
             self.imp().title_label.set_text(title);
@@ -114,9 +100,5 @@ impl ArticleRow {
                 _ => preview_image.hide(),
             };
         });
-    }
-
-    pub fn get_list_box_row(&self) -> &gtk::ListBoxRow {
-        &self.imp().article_row
     }
 }
