@@ -25,7 +25,6 @@ mod imp {
         pub content_label: TemplateChild<gtk::Label>,
 
         pub article: OnceCell<Article>,
-        pub client: OnceCell<Rc<isahc::HttpClient>>,
     }
 
     #[glib::object_subclass]
@@ -74,7 +73,6 @@ impl ArticleRow {
 
     fn init(&self, article: Article, client: Rc<isahc::HttpClient>) {
         self.imp().article.set(article).unwrap();
-        self.imp().client.set(client).unwrap();
 
         if let Some(title) = &self.article().title {
             self.imp().title_label.set_text(title);
@@ -93,7 +91,6 @@ impl ArticleRow {
 
         let article = self.article().clone();
         let preview_image = self.imp().preview_image.clone();
-        let client = self.imp().client.get().unwrap().clone();
         spawn!(async move {
             match article.get_preview_picture(client).await {
                 Ok(Some(pixbuf)) => preview_image.set_pixbuf(&pixbuf),
