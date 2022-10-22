@@ -1,15 +1,14 @@
 use crate::models::Account;
-use glib::subclass::InitializingObject;
-use glib::Object;
+use gtk::glib;
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
-use gtk::{glib, CompositeTemplate};
 use log::error;
 
 mod imp {
     use super::*;
+    use glib::subclass::InitializingObject;
 
-    #[derive(CompositeTemplate, Default)]
+    #[derive(gtk::CompositeTemplate, Default)]
     #[template(resource = "/com/belmoussaoui/ReadItLater/login.ui")]
     pub struct Login {
         #[template_child]
@@ -75,7 +74,7 @@ glib::wrapper! {
 #[gtk::template_callbacks]
 impl Login {
     pub fn new() -> Self {
-        Object::new(&[]).expect("Failed to create Window")
+        glib::Object::new(&[]).expect("Failed to create Window")
     }
 
     #[template_callback]

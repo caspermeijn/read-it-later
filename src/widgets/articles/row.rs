@@ -1,18 +1,17 @@
 use crate::models::Article;
-use crate::widgets::articles::preview::ArticlePreview;
-use glib::subclass::InitializingObject;
-use glib::Object;
+use gtk::glib;
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
-use gtk::{glib, CompositeTemplate};
 use gtk_macros::spawn;
-use once_cell::sync::OnceCell;
 use std::rc::Rc;
 
 mod imp {
     use super::*;
+    use crate::widgets::articles::preview::ArticlePreview;
+    use glib::subclass::InitializingObject;
+    use once_cell::sync::OnceCell;
 
-    #[derive(CompositeTemplate, Default)]
+    #[derive(gtk::CompositeTemplate, Default)]
     #[template(resource = "/com/belmoussaoui/ReadItLater/article_row.ui")]
     pub struct ArticleRow {
         #[template_child]
@@ -57,12 +56,12 @@ mod imp {
 
 glib::wrapper! {
     pub struct ArticleRow(ObjectSubclass<imp::ArticleRow>)
-        @extends gtk::ListBoxRow, gtk::Widget;
+        @extends gtk::Widget, gtk::ListBoxRow;
 }
 
 impl ArticleRow {
     pub fn new(article: Article, client: Rc<isahc::HttpClient>) -> Self {
-        let article_row: Self = Object::new(&[]).unwrap();
+        let article_row: Self = glib::Object::new(&[]).unwrap();
         article_row.init(article, client);
         article_row
     }
@@ -72,25 +71,26 @@ impl ArticleRow {
     }
 
     fn init(&self, article: Article, client: Rc<isahc::HttpClient>) {
-        self.imp().article.set(article).unwrap();
+        let imp = self.imp();
+        imp.article.set(article).unwrap();
 
         if let Some(title) = &self.article().title {
-            self.imp().title_label.set_text(title);
+            imp.title_label.set_text(title);
         }
 
         match self.article().get_article_info(false) {
-            Some(article_info) => self.imp().info_label.set_text(&article_info),
+            Some(article_info) => imp.info_label.set_text(&article_info),
             None => {
-                self.imp().info_label.hide();
+                imp.info_label.hide();
             }
         };
 
         if let Ok(Some(preview)) = self.article().get_preview() {
-            self.imp().content_label.set_text(&preview);
+            imp.content_label.set_text(&preview);
         }
 
         let article = self.article().clone();
-        let preview_image = self.imp().preview_image.clone();
+        let preview_image = imp.preview_image.clone();
         spawn!(async move {
             match article.get_preview_picture(client).await {
                 Ok(Some(pixbuf)) => preview_image.set_pixbuf(&pixbuf),

@@ -5,9 +5,8 @@ use gtk::{gdk_pixbuf::Pixbuf, glib};
 mod imp {
     use super::*;
     use gtk::glib::subclass::InitializingObject;
-    use gtk::CompositeTemplate;
 
-    #[derive(CompositeTemplate, Default)]
+    #[derive(gtk::CompositeTemplate, Default)]
     #[template(resource = "/com/belmoussaoui/ReadItLater/article_preview.ui")]
     pub struct ArticlePreview {
         #[template_child]
