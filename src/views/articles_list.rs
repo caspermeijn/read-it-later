@@ -7,7 +7,6 @@ use gtk::glib;
 use gtk::glib::Sender;
 use gtk_macros::send;
 use log::error;
-use std::rc::Rc;
 
 pub struct ArticlesListView {
     widget: ArticlesListWidget,
@@ -20,16 +19,9 @@ pub struct ArticlesListView {
 }
 
 impl ArticlesListView {
-    pub fn new(
-        name: &str,
-        title: &str,
-        icon: &str,
-        filter: ArticlesFilter,
-        client: Rc<isahc::HttpClient>,
-        sender: Sender<ArticleAction>,
-    ) -> Self {
+    pub fn new(name: &str, title: &str, icon: &str, filter: ArticlesFilter, sender: Sender<ArticleAction>) -> Self {
         let model = gio::ListStore::new(ObjectWrapper::static_type());
-        let widget = ArticlesListWidget::new(sender.clone(), client);
+        let widget = ArticlesListWidget::new(sender.clone());
 
         let articles_view = Self {
             widget,

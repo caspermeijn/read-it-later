@@ -5,7 +5,6 @@ use gtk::glib;
 use gtk::glib::Cast;
 use sanitize_html::sanitize_str;
 use serde::{Deserialize, Serialize};
-use std::rc::Rc;
 use std::str::FromStr;
 use url::Url;
 use wallabag_api::types::{Entry, PatchEntry};
@@ -166,11 +165,11 @@ impl Article {
         Ok(())
     }
 
-    pub async fn get_preview_picture(&self, client: Rc<isahc::HttpClient>) -> Result<Option<Pixbuf>> {
+    pub async fn get_preview_picture(&self) -> Result<Option<Pixbuf>> {
         if let Some(preview_picture) = &self.preview_picture {
             let preview_image = PreviewImage::new(Url::from_str(preview_picture)?);
             if !preview_image.exists() {
-                preview_image.download(client).await?;
+                preview_image.download().await?;
             }
 
             return Ok(Some(Pixbuf::from_file(&preview_image.cache)?));

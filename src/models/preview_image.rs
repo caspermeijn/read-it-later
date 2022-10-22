@@ -6,7 +6,6 @@ use isahc::prelude::*;
 use lazy_static::lazy_static;
 use log::info;
 use std::path::PathBuf;
-use std::rc::Rc;
 use url::Url;
 
 lazy_static! {
@@ -35,8 +34,8 @@ impl PreviewImage {
         self.cache.exists()
     }
 
-    pub async fn download(&self, client: Rc<isahc::HttpClient>) -> Result<()> {
-        if let Ok(mut resp) = client.get_async(&self.url.to_string()).await {
+    pub async fn download(&self) -> Result<()> {
+        if let Ok(mut resp) = isahc::get_async(&self.url.to_string()).await {
             info!("Downloading preview image {} into {:#?}", self.url, self.cache);
             let body = resp.bytes().await?;
             async_std::fs::write(self.cache.clone(), body).await?;

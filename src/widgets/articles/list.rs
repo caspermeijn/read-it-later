@@ -7,17 +7,15 @@ use gtk::glib::Sender;
 use gtk_macros::get_widget;
 use gtk_macros::send;
 use log::error;
-use std::rc::Rc;
 
 pub struct ArticlesListWidget {
     pub widget: adw::Clamp,
     builder: gtk::Builder,
     sender: Sender<ArticleAction>,
-    client: Rc<isahc::HttpClient>,
 }
 
 impl ArticlesListWidget {
-    pub fn new(sender: Sender<ArticleAction>, client: Rc<isahc::HttpClient>) -> Self {
+    pub fn new(sender: Sender<ArticleAction>) -> Self {
         let builder = gtk::Builder::from_resource("/com/belmoussaoui/ReadItLater/articles_list.ui");
         get_widget!(builder, adw::Clamp, articles_list);
 
@@ -25,7 +23,6 @@ impl ArticlesListWidget {
             builder,
             widget: articles_list,
             sender,
-            client,
         }
     }
 
@@ -53,13 +50,10 @@ impl ArticlesListWidget {
             send!(sender, ArticleAction::Open(article_row.article().clone()));
         }));
 
-        articles_listbox.bind_model(
-            Some(model),
-            clone!(@strong self.client as client => move |article| {
-                let article: Article = article.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
-                let row = ArticleRow::new(article, client.clone());
-                row.upcast::<gtk::Widget>()
-            }),
-        );
+        articles_listbox.bind_model(Some(model), move |article| {
+            let article: Article = article.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
+            let row = ArticleRow::new(article);
+            row.upcast::<gtk::Widget>()
+        });
     }
 }

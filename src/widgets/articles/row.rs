@@ -3,7 +3,6 @@ use gtk::glib;
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
 use gtk_macros::spawn;
-use std::rc::Rc;
 
 mod imp {
     use super::*;
@@ -60,9 +59,9 @@ glib::wrapper! {
 }
 
 impl ArticleRow {
-    pub fn new(article: Article, client: Rc<isahc::HttpClient>) -> Self {
+    pub fn new(article: Article) -> Self {
         let article_row: Self = glib::Object::new(&[]).unwrap();
-        article_row.init(article, client);
+        article_row.init(article);
         article_row
     }
 
@@ -70,7 +69,7 @@ impl ArticleRow {
         self.imp().article.get().unwrap()
     }
 
-    fn init(&self, article: Article, client: Rc<isahc::HttpClient>) {
+    fn init(&self, article: Article) {
         let imp = self.imp();
         imp.article.set(article).unwrap();
 
@@ -92,7 +91,7 @@ impl ArticleRow {
         let article = self.article().clone();
         let preview_image = imp.preview_image.clone();
         spawn!(async move {
-            match article.get_preview_picture(client).await {
+            match article.get_preview_picture().await {
                 Ok(Some(pixbuf)) => preview_image.set_pixbuf(&pixbuf),
                 _ => preview_image.hide(),
             };

@@ -2,7 +2,6 @@ use crate::models::{Article, ArticleAction, ArticlesFilter};
 use crate::views::ArticlesListView;
 use gtk::glib::Sender;
 use gtk::prelude::*;
-use std::rc::Rc;
 
 pub struct ArticlesView {
     pub widget: adw::ViewStack,
@@ -13,24 +12,15 @@ pub struct ArticlesView {
 
 impl ArticlesView {
     pub fn new(sender: Sender<ArticleAction>) -> Self {
-        let client = Rc::new(isahc::HttpClient::new().unwrap());
         let favorites_view = ArticlesListView::new(
             "favorites",
             "Favorites",
             "favorites-symbolic",
             ArticlesFilter::favorites(),
-            client.clone(),
             sender.clone(),
         );
-        let archive_view = ArticlesListView::new(
-            "archive",
-            "Archive",
-            "archive-symbolic",
-            ArticlesFilter::archive(),
-            client.clone(),
-            sender.clone(),
-        );
-        let unread_view = ArticlesListView::new("unread", "Unread", "unread-symbolic", ArticlesFilter::unread(), client, sender);
+        let archive_view = ArticlesListView::new("archive", "Archive", "archive-symbolic", ArticlesFilter::archive(), sender.clone());
+        let unread_view = ArticlesListView::new("unread", "Unread", "unread-symbolic", ArticlesFilter::unread(), sender);
         let widget = adw::ViewStack::new();
 
         let articles_view = Self {
