@@ -1,3 +1,4 @@
+use crate::models::{Article, ArticleAction};
 use anyhow::Result;
 use gtk::gio;
 use gtk::gio::prelude::*;
@@ -7,10 +8,9 @@ use gtk::glib::Sender;
 use gtk_macros::{action, get_widget, send, stateful_action};
 use log::{error, info};
 use std::{cell::RefCell, rc::Rc};
-use webkit2gtk::traits::{ContextMenuExt, ContextMenuItemExt, WebViewExt};
-use webkit2gtk::WebView;
-
-use crate::models::{Article, ArticleAction};
+use webkit::prelude::*;
+use webkit::Settings;
+use webkit::WebView;
 
 pub struct ArticleWidget {
     pub widget: gtk::Box,
@@ -22,6 +22,9 @@ pub struct ArticleWidget {
 
 impl ArticleWidget {
     pub fn new(sender: Sender<ArticleAction>) -> Rc<Self> {
+        WebView::ensure_type();
+        Settings::ensure_type();
+
         let builder = gtk::Builder::from_resource("/com/belmoussaoui/ReadItLater/article.ui");
         get_widget!(builder, gtk::Box, article);
 
@@ -42,12 +45,12 @@ impl ArticleWidget {
     fn init(&self) {
         // Right/Left Click context menu
         let forbidden_actions = vec![
-            webkit2gtk::ContextMenuAction::OpenLink,
-            webkit2gtk::ContextMenuAction::GoBack,
-            webkit2gtk::ContextMenuAction::GoForward,
-            webkit2gtk::ContextMenuAction::Stop,
-            webkit2gtk::ContextMenuAction::Reload,
-            webkit2gtk::ContextMenuAction::InspectElement,
+            webkit::ContextMenuAction::OpenLink,
+            webkit::ContextMenuAction::GoBack,
+            webkit::ContextMenuAction::GoForward,
+            webkit::ContextMenuAction::Stop,
+            webkit::ContextMenuAction::Reload,
+            webkit::ContextMenuAction::InspectElement,
         ];
         get_widget!(self.builder, WebView, webview);
 

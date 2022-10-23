@@ -35,7 +35,6 @@ fn main() {
     gio::resources_register(&res);
 
     adw::init().unwrap();
-    webkit2gtk::WebView::new();
 
     let app = Application::new();
     app.run(app.clone());
