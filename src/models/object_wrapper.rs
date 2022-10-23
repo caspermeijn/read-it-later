@@ -47,7 +47,7 @@ mod imp {
             PROPERTIES.as_ref()
         }
 
-        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
+        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "data" => {
                     let data = value.get().expect("Failed to get `data` property");
@@ -57,7 +57,7 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+        fn property(&self, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
             match pspec.name() {
                 "data" => self.data.borrow().to_value(),
                 _ => unimplemented!(),
@@ -75,7 +75,7 @@ impl ObjectWrapper {
     where
         O: serde::ser::Serialize,
     {
-        glib::Object::new(&[("data", &serde_json::to_string(&object).unwrap())]).unwrap()
+        glib::Object::new(&[("data", &serde_json::to_string(&object).unwrap())])
     }
 
     pub fn deserialize<O>(&self) -> O

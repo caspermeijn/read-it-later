@@ -50,13 +50,13 @@ mod imp {
     }
 
     impl ObjectImpl for Login {
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
+        fn constructed(&self) {
+            self.parent_constructed();
 
             self.icon.set_icon_name(Some(&format!("{}-symbolic", crate::config::APP_ID)));
         }
 
-        fn dispose(&self, _obj: &Self::Type) {
+        fn dispose(&self) {
             while let Some(child) = self.instance().first_child() {
                 child.unparent();
             }
@@ -74,7 +74,7 @@ glib::wrapper! {
 #[gtk::template_callbacks]
 impl Login {
     pub fn new() -> Self {
-        glib::Object::new(&[]).expect("Failed to create Window")
+        glib::Object::new(&[])
     }
 
     #[template_callback]

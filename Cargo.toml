@@ -5,9 +5,9 @@ authors = ["Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-gtk = {version = "0.4", package = "gtk4"}
-adw = { version = "0.2.0-alpha.2", package = "libadwaita", features = ["v1_2"] }
-webkit2gtk5 = { version = "0.1" }
+gtk = {version = "0.5", package = "gtk4"}
+adw = { version = "0.2.0", package = "libadwaita", features = ["v1_2"] }
+webkit2gtk5 = { version = "0.2" }
 log = "0.4"
 gettext-rs= { version = "0.7", features = ["gettext-system"] }
 lazy_static = "1.4"

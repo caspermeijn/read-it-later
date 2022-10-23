@@ -41,7 +41,7 @@ mod imp {
     }
 
     impl ObjectImpl for ArticleRow {
-        fn dispose(&self, _obj: &Self::Type) {
+        fn dispose(&self) {
             while let Some(child) = self.instance().first_child() {
                 child.unparent();
             }
@@ -60,7 +60,7 @@ glib::wrapper! {
 
 impl ArticleRow {
     pub fn new(article: Article) -> Self {
-        let article_row: Self = glib::Object::new(&[]).unwrap();
+        let article_row: Self = glib::Object::new(&[]);
         article_row.init(article);
         article_row
     }

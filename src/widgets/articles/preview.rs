@@ -31,7 +31,7 @@ mod imp {
     }
 
     impl ObjectImpl for ArticlePreview {
-        fn dispose(&self, _obj: &Self::Type) {
+        fn dispose(&self) {
             while let Some(child) = self.instance().first_child() {
                 child.unparent();
             }

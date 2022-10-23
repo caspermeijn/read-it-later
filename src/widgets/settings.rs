@@ -68,7 +68,7 @@ enum SettingsAction {
 
 impl SettingsWidget {
     pub fn new(client: Arc<Mutex<ClientManager>>) -> Self {
-        let window: Self = glib::Object::new(&[]).unwrap();
+        let window: Self = glib::Object::new(&[]);
         window.init(client);
         window
     }
