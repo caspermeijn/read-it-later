@@ -25,7 +25,6 @@ secret-service = "2.0"
 chrono = "0.4"
 url = "2.2"
 strum = { version = "0.24", features = ["derive"] }
-html2pango = "0.4"
 rust-crypto = "0.2"
 async-std = "1.9"
 futures = { version = "0.3", features = [ "thread-pool" ] }
