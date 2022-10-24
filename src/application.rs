@@ -21,7 +21,6 @@ use gtk_macros::{action, send, spawn};
 use log::{error, info};
 use std::{cell::RefCell, rc::Rc};
 use url::Url;
-
 use wallabag_api::types::Config;
 
 pub enum Action {
@@ -106,7 +105,7 @@ impl Application {
             Action::Login => self.login(),
             Action::Logout => {
                 if self.logout().is_err() {
-                    send!(self.sender, Action::Notify("Failed to logout".to_string()));
+                    send!(self.sender, Action::Notify(gettext("Failed to logout")));
                 }
             }
         };
@@ -250,12 +249,12 @@ impl Application {
                         }
                         send!(sender, Action::Login);
                     } else {
-                        send!(sender, Action::Notify("Failed to log in".into()));
+                        send!(sender, Action::Notify(gettext("Failed to log in")));
                         send!(sender, Action::SetView(View::Syncing(false)));
                     }
                 }
                 Err(err) => {
-                    send!(sender, Action::Notify("Failed to log in".to_string()));
+                    send!(sender, Action::Notify(gettext("Failed to log in")));
                     send!(sender, Action::SetView(View::Syncing(false)));
                     error!("Failed to setup a new client from current config: {}", err);
                 }
