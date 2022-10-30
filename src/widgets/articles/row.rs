@@ -47,13 +47,23 @@ mod imp {
     impl ObjectImpl for ArticleRow {
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> =
-                Lazy::new(|| vec![ParamSpecObject::builder::<ArticleObject>("article").read_only().build()]);
+                Lazy::new(|| vec![ParamSpecObject::builder::<ArticleObject>("article").construct_only().build()]);
             PROPERTIES.as_ref()
         }
 
         fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
-                "article" => self.article.get().unwrap().to_value(),
+                "article" => self.article.get().to_value(),
+                _ => unimplemented!(),
+            }
+        }
+
+        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
+            match pspec.name() {
+                "article" => {
+                    let article = value.get().unwrap();
+                    self.article.set(article).unwrap();
+                }
                 _ => unimplemented!(),
             }
         }
@@ -77,8 +87,8 @@ glib::wrapper! {
 
 impl ArticleRow {
     pub fn new(article: ArticleObject) -> Self {
-        let article_row: Self = glib::Object::builder().build();
-        article_row.init(article);
+        let article_row: Self = glib::Object::builder().property("article", article).build();
+        article_row.init();
         article_row
     }
 
@@ -86,13 +96,8 @@ impl ArticleRow {
         self.property::<ArticleObject>("article")
     }
 
-    fn init(&self, article: ArticleObject) {
+    fn init(&self) {
         let imp = self.imp();
-        imp.article.set(article).unwrap();
-
-        if let Some(title) = &self.article().article().title {
-            imp.title_label.set_text(title);
-        }
 
         match self.article().article().get_article_info(false) {
             Some(article_info) => imp.info_label.set_text(&article_info),

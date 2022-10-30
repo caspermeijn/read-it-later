@@ -1,5 +1,6 @@
 use crate::models::Article;
 use gtk::glib;
+use gtk::prelude::*;
 use gtk::subclass::prelude::*;
 
 mod imp {
@@ -19,7 +20,22 @@ mod imp {
         type ParentType = glib::Object;
     }
 
-    impl ObjectImpl for ArticleObject {}
+    impl ObjectImpl for ArticleObject {
+        fn properties() -> &'static [glib::ParamSpec] {
+            use once_cell::sync::Lazy;
+            static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| vec![glib::ParamSpecString::builder("title").read_only().build()]);
+
+            PROPERTIES.as_ref()
+        }
+
+        fn property(&self, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            let article = self.article.get().unwrap();
+            match pspec.name() {
+                "title" => article.title.clone().to_value(),
+                _ => unimplemented!(),
+            }
+        }
+    }
 }
 
 glib::wrapper! {
