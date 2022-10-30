@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2022-09-15 08:01+0000\n"
-"PO-Revision-Date: 2022-09-15 17:04+0300\n"
+"POT-Creation-Date: 2022-10-30 12:58+0000\n"
+"PO-Revision-Date: 2022-10-30 17:56+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -21,6 +21,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/resources/ui/window.ui:65
 msgid "Read It Later"
 msgstr "Прочитаю потім"
 
@@ -114,165 +115,173 @@ msgstr "Користувач у системі"
 msgid "Latest successful sync in ms"
 msgstr "Час з останньої успішної синхронізації у мс"
 
-#: data/resources/ui/articles_list.ui:33
+#: data/resources/ui/articles_list.ui:34
 msgid "Pretty clean!"
 msgstr "Абсолютна чистота!"
 
-#: data/resources/ui/gtk/help-overlay.ui:13
+#: data/resources/ui/gtk/help-overlay.ui:12
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Загальні"
 
-#: data/resources/ui/gtk/help-overlay.ui:17
+#: data/resources/ui/gtk/help-overlay.ui:15
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "Показати клавіатурні скорочення"
 
-#: data/resources/ui/gtk/help-overlay.ui:24
+#: data/resources/ui/gtk/help-overlay.ui:21
 msgctxt "shortcut window"
 msgid "Preferences"
 msgstr "Налаштування"
 
-#: data/resources/ui/gtk/help-overlay.ui:31
+#: data/resources/ui/gtk/help-overlay.ui:27
 msgctxt "shortcut window"
 msgid "Back"
 msgstr "Назад"
 
-#: data/resources/ui/gtk/help-overlay.ui:38
+#: data/resources/ui/gtk/help-overlay.ui:33
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Вийти"
 
-#: data/resources/ui/gtk/help-overlay.ui:47
+#: data/resources/ui/gtk/help-overlay.ui:41
 msgctxt "shortcut window"
 msgid "Articles"
 msgstr "Статті"
 
-#: data/resources/ui/gtk/help-overlay.ui:51
+#: data/resources/ui/gtk/help-overlay.ui:44
 msgctxt "shortcut window"
 msgid "Synchronize"
 msgstr "Синхронізувати"
 
-#: data/resources/ui/gtk/help-overlay.ui:58
+#: data/resources/ui/gtk/help-overlay.ui:50
 msgctxt "shortcut window"
 msgid "New Article"
 msgstr "Нова стаття"
 
-#: data/resources/ui/gtk/help-overlay.ui:65
+#: data/resources/ui/gtk/help-overlay.ui:56
 msgctxt "shortcut window"
 msgid "Delete Article"
 msgstr "Вилучити статтю"
 
-#: data/resources/ui/gtk/help-overlay.ui:72
+#: data/resources/ui/gtk/help-overlay.ui:62
 msgctxt "shortcut window"
 msgid "Favorite Article"
 msgstr "Вибрана стаття"
 
-#: data/resources/ui/gtk/help-overlay.ui:79
+#: data/resources/ui/gtk/help-overlay.ui:68
 msgctxt "shortcut window"
 msgid "Archive Article"
 msgstr "Архівувати статтю"
 
-#: data/resources/ui/gtk/help-overlay.ui:86
+#: data/resources/ui/gtk/help-overlay.ui:74
 msgctxt "shortcut window"
 msgid "Open Article in Browser"
 msgstr "Відкрити статтю у браузері"
 
-#: data/resources/ui/login.ui:49
+#: data/resources/ui/login.ui:32
 msgid "Welcome to Read It Later"
 msgstr "Вітаємо у «Прочитаю потім»"
 
-#: data/resources/ui/login.ui:62
+#: data/resources/ui/login.ui:42
 msgid "Please sign in using your Wallabag instance information"
 msgstr ""
 "Будь ласка, увійдіть до системи з використанням ваших даних екземпляра "
 "Wallabag"
 
-#: data/resources/ui/login.ui:86
+#: data/resources/ui/login.ui:57
 msgid "Instance URL"
 msgstr "Адреса екземпляра"
 
-#: data/resources/ui/login.ui:102
+#: data/resources/ui/login.ui:63
 msgid "Client ID"
 msgstr "Ід. клієнта"
 
-#: data/resources/ui/login.ui:117
+#: data/resources/ui/login.ui:69
 msgid "Client Secret"
 msgstr "Ключ клієнта"
 
-#: data/resources/ui/login.ui:134 data/resources/ui/settings.ui:16
+#: data/resources/ui/login.ui:75 data/resources/ui/settings.ui:13
 msgid "User Name"
 msgstr "Користувач"
 
-#: data/resources/ui/login.ui:149
+#: data/resources/ui/login.ui:81
 msgid "Password"
 msgstr "Пароль"
 
-#: data/resources/ui/login.ui:169
+#: data/resources/ui/login.ui:91
 msgid "Log In"
 msgstr "Увійти"
 
-#: data/resources/ui/settings.ui:12
+#: data/resources/ui/settings.ui:10
 msgid "Account Information"
 msgstr "Дані щодо облікового запису"
 
-#: data/resources/ui/settings.ui:30
+#: data/resources/ui/settings.ui:21
 msgid "Email"
 msgstr "Ел. пошта"
 
-#: data/resources/ui/settings.ui:44
+#: data/resources/ui/settings.ui:29
 msgid "Created At"
 msgstr "Створено"
 
-#: data/resources/ui/settings.ui:57
+#: data/resources/ui/settings.ui:37
 msgid "Updated At"
 msgstr "Оновлено"
 
-#: data/resources/ui/window.ui:9
+#: data/resources/ui/window.ui:8
 msgid "Open Website"
 msgstr "Відкрити сайт"
 
-#: data/resources/ui/window.ui:15
+#: data/resources/ui/window.ui:14
 msgid "Delete Article"
 msgstr "Вилучити статтю"
 
-#: data/resources/ui/window.ui:23
+#: data/resources/ui/window.ui:22
 msgid "Add Article…"
 msgstr "Додати статтю…"
 
-#: data/resources/ui/window.ui:29
+#: data/resources/ui/window.ui:28
 msgid "Preferences"
 msgstr "Налаштування"
 
-#: data/resources/ui/window.ui:33
+#: data/resources/ui/window.ui:32
 msgid "Log Out"
 msgstr "Вийти"
 
-#: data/resources/ui/window.ui:39
+#: data/resources/ui/window.ui:38
 msgid "Keyboard Shortcuts"
 msgstr "Клавіатурні скорочення"
 
-#: data/resources/ui/window.ui:43
+#: data/resources/ui/window.ui:42
 msgid "About Read It Later"
 msgstr "Про «Прочитаю потім»"
 
-#: data/resources/ui/window.ui:133
+#: data/resources/ui/window.ui:103
 msgid "Favorite"
 msgstr "Вибране"
 
-#: data/resources/ui/window.ui:151
+#: data/resources/ui/window.ui:111
 msgid "Archive"
 msgstr "Архівувати"
 
-#: data/resources/ui/window.ui:208
+#: data/resources/ui/window.ui:150
 msgid "Paste the article URL here"
 msgstr "Сюди можна вставити адресу статті"
 
-#: data/resources/ui/window.ui:215
+#: data/resources/ui/window.ui:157
 msgid "Save"
 msgstr "Зберегти"
 
-#: src/application.rs:392
+#: src/application.rs:108
+msgid "Failed to logout"
+msgstr "Не вдалося вийти"
+
+#: src/application.rs:252 src/application.rs:257
+msgid "Failed to log in"
+msgstr "Не вдалося увійти"
+
+#: src/application.rs:401
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
