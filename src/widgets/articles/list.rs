@@ -1,5 +1,5 @@
 use super::row::ArticleRow;
-use crate::models::{Article, ArticleAction, ObjectWrapper};
+use crate::models::{ArticleAction, ArticleObject};
 use gtk::gio;
 use gtk::gio::prelude::*;
 use gtk::glib::clone;
@@ -47,12 +47,12 @@ impl ArticlesListWidget {
 
         articles_listbox.connect_row_activated(clone!(@strong self.sender as sender => move |_, list_box_row| {
             let article_row = list_box_row.downcast_ref::<ArticleRow>().unwrap();
-            send!(sender, ArticleAction::Open(article_row.article().clone()));
+            send!(sender, ArticleAction::Open(article_row.article().article().clone()));
         }));
 
         articles_listbox.bind_model(Some(model), move |article| {
-            let article: Article = article.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
-            let row = ArticleRow::new(article);
+            let article = article.downcast_ref::<ArticleObject>().unwrap();
+            let row = ArticleRow::new(article.clone());
             row.upcast::<gtk::Widget>()
         });
     }

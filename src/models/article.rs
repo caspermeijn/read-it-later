@@ -1,3 +1,7 @@
+use crate::database;
+use crate::models::ArticleObject;
+use crate::models::{ArticlesFilter, PreviewImage};
+use crate::schema::articles;
 use anyhow::Result;
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
 use gtk::gdk_pixbuf::Pixbuf;
@@ -8,10 +12,6 @@ use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 use url::Url;
 use wallabag_api::types::{Entry, PatchEntry};
-
-use crate::database;
-use crate::models::{ArticlesFilter, ObjectWrapper, PreviewImage};
-use crate::schema::articles;
 
 #[derive(Insertable, Queryable, Eq, PartialEq, Debug, Clone, Serialize, Deserialize)]
 #[table_name = "articles"]
@@ -34,8 +34,8 @@ pub struct Article {
 
 impl Article {
     pub fn compare(a: &glib::Object, b: &glib::Object) -> std::cmp::Ordering {
-        let article_a: Article = a.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
-        let article_b: Article = b.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
+        let article_a = a.downcast_ref::<ArticleObject>().unwrap().article();
+        let article_b = b.downcast_ref::<ArticleObject>().unwrap().article();
 
         article_b.published_at.cmp(&article_a.published_at)
     }

@@ -1,4 +1,4 @@
-use crate::models::{Article, ArticleAction, ArticlesFilter, ObjectWrapper};
+use crate::models::{Article, ArticleAction, ArticleObject, ArticlesFilter};
 use crate::widgets::articles::ArticlesListWidget;
 use futures::executor::ThreadPool;
 use gtk::gio;
@@ -20,7 +20,7 @@ pub struct ArticlesListView {
 
 impl ArticlesListView {
     pub fn new(name: &str, title: &str, icon: &str, filter: ArticlesFilter, sender: Sender<ArticleAction>) -> Self {
-        let model = gio::ListStore::new(ObjectWrapper::static_type());
+        let model = gio::ListStore::new(ArticleObject::static_type());
         let widget = ArticlesListWidget::new(sender.clone());
 
         let articles_view = Self {
@@ -43,7 +43,7 @@ impl ArticlesListView {
 
     pub fn add(&self, article: &Article) {
         if self.index(article).is_none() {
-            let object = ObjectWrapper::new(Box::new(article));
+            let object = ArticleObject::new(article.clone());
             self.model.insert_sorted(&object, Article::compare);
         }
     }
@@ -83,7 +83,7 @@ impl ArticlesListView {
     fn index(&self, article: &Article) -> Option<u32> {
         for i in 0..self.len() {
             let gobject = self.model.item(i).unwrap();
-            let a: Article = gobject.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
+            let a = gobject.downcast_ref::<ArticleObject>().unwrap().article();
 
             if article.id == a.id {
                 return Some(i);

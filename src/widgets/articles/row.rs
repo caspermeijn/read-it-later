@@ -1,4 +1,4 @@
-use crate::models::Article;
+use crate::models::ArticleObject;
 use gtk::glib;
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
@@ -8,6 +8,10 @@ mod imp {
     use super::*;
     use crate::widgets::articles::preview::ArticlePreview;
     use glib::subclass::InitializingObject;
+    use glib::{ParamSpec, Value};
+    use gtk::glib;
+    use gtk::glib::ParamSpecObject;
+    use once_cell::sync::Lazy;
     use once_cell::sync::OnceCell;
 
     #[derive(gtk::CompositeTemplate, Default)]
@@ -22,7 +26,7 @@ mod imp {
         #[template_child]
         pub content_label: TemplateChild<gtk::Label>,
 
-        pub article: OnceCell<Article>,
+        pub article: OnceCell<ArticleObject>,
     }
 
     #[glib::object_subclass]
@@ -41,6 +45,19 @@ mod imp {
     }
 
     impl ObjectImpl for ArticleRow {
+        fn properties() -> &'static [ParamSpec] {
+            static PROPERTIES: Lazy<Vec<ParamSpec>> =
+                Lazy::new(|| vec![ParamSpecObject::builder::<ArticleObject>("article").read_only().build()]);
+            PROPERTIES.as_ref()
+        }
+
+        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
+            match pspec.name() {
+                "article" => self.article.get().unwrap().to_value(),
+                _ => unimplemented!(),
+            }
+        }
+
         fn dispose(&self) {
             while let Some(child) = self.instance().first_child() {
                 child.unparent();
@@ -59,39 +76,39 @@ glib::wrapper! {
 }
 
 impl ArticleRow {
-    pub fn new(article: Article) -> Self {
-        let article_row: Self = glib::Object::new(&[]);
+    pub fn new(article: ArticleObject) -> Self {
+        let article_row: Self = glib::Object::builder().build();
         article_row.init(article);
         article_row
     }
 
-    pub fn article(&self) -> &Article {
-        self.imp().article.get().unwrap()
+    pub fn article(&self) -> ArticleObject {
+        self.property::<ArticleObject>("article")
     }
 
-    fn init(&self, article: Article) {
+    fn init(&self, article: ArticleObject) {
         let imp = self.imp();
         imp.article.set(article).unwrap();
 
-        if let Some(title) = &self.article().title {
+        if let Some(title) = &self.article().article().title {
             imp.title_label.set_text(title);
         }
 
-        match self.article().get_article_info(false) {
+        match self.article().article().get_article_info(false) {
             Some(article_info) => imp.info_label.set_text(&article_info),
             None => {
                 imp.info_label.hide();
             }
         };
 
-        if let Ok(Some(preview)) = self.article().get_preview() {
+        if let Ok(Some(preview)) = self.article().article().get_preview() {
             imp.content_label.set_text(&preview);
         }
 
         let article = self.article().clone();
         let preview_image = imp.preview_image.clone();
         spawn!(async move {
-            match article.get_preview_picture().await {
+            match article.article().get_preview_picture().await {
                 Ok(Some(pixbuf)) => preview_image.set_pixbuf(&pixbuf),
                 _ => preview_image.hide(),
             };
