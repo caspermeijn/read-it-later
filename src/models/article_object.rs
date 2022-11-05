@@ -23,7 +23,12 @@ mod imp {
     impl ObjectImpl for ArticleObject {
         fn properties() -> &'static [glib::ParamSpec] {
             use once_cell::sync::Lazy;
-            static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| vec![glib::ParamSpecString::builder("title").read_only().build()]);
+            static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
+                vec![
+                    glib::ParamSpecString::builder("title").read_only().build(),
+                    glib::ParamSpecString::builder("preview-text").read_only().build(),
+                ]
+            });
 
             PROPERTIES.as_ref()
         }
@@ -32,6 +37,7 @@ mod imp {
             let article = self.article.get().unwrap();
             match pspec.name() {
                 "title" => article.title.clone().to_value(),
+                "preview-text" => article.get_preview().to_value(),
                 _ => unimplemented!(),
             }
         }

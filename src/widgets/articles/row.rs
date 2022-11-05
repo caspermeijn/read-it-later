@@ -106,10 +106,6 @@ impl ArticleRow {
             }
         };
 
-        if let Ok(Some(preview)) = self.article().article().get_preview() {
-            imp.content_label.set_text(&preview);
-        }
-
         let article = self.article().clone();
         let preview_image = imp.preview_image.clone();
         spawn!(async move {

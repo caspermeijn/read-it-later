@@ -177,11 +177,11 @@ impl Article {
         Ok(None)
     }
 
-    pub fn get_preview(&self) -> Result<Option<String>> {
+    pub fn get_preview(&self) -> Option<String> {
         match &self.content {
             Some(content) => {
                 // Regex to remove duplicate spaces
-                let re = regex::Regex::new(r"\s+")?;
+                let re = regex::Regex::new(r"\s+").ok()?;
 
                 let rules = sanitize_html::rules::Rules::new()
                     .delete("br")
@@ -189,7 +189,7 @@ impl Article {
                     .delete("figcaption")
                     .allow_comments(false);
 
-                let preview = sanitize_str(&rules, content)?.trim().to_string();
+                let preview = sanitize_str(&rules, content).ok()?.trim().to_string();
                 let mut preview_content = Vec::new();
                 let mut counter = 0;
                 for line in preview.lines() {
@@ -205,9 +205,9 @@ impl Article {
                 }
                 let preview = re.replace_all(&preview_content.concat(), " ").to_string(); // Remove duplicate space
 
-                Ok(Some(preview))
+                Some(preview)
             }
-            None => Ok(None),
+            None => None,
         }
     }
 }
