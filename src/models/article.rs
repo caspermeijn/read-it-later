@@ -93,7 +93,7 @@ impl Article {
         }
     }
 
-    pub fn get_article_info(&self, display_date: bool) -> Option<String> {
+    pub fn get_article_info(&self, display_date: bool) -> String {
         let mut article_info = String::from("");
         if let Some(base_url) = &self.base_url {
             article_info.push_str(base_url);
@@ -112,7 +112,7 @@ impl Article {
         if let Some(reading_time) = self.get_reading_time() {
             article_info.push_str(&format!(" | {} ", reading_time));
         }
-        Some(article_info)
+        article_info
     }
 
     pub fn get_reading_time(&self) -> Option<String> {

@@ -99,13 +99,6 @@ impl ArticleRow {
     fn init(&self) {
         let imp = self.imp();
 
-        match self.article().article().get_article_info(false) {
-            Some(article_info) => imp.info_label.set_text(&article_info),
-            None => {
-                imp.info_label.hide();
-            }
-        };
-
         let article = self.article().clone();
         let preview_image = imp.preview_image.clone();
         spawn!(async move {

@@ -27,6 +27,7 @@ mod imp {
                 vec![
                     glib::ParamSpecString::builder("title").read_only().build(),
                     glib::ParamSpecString::builder("preview-text").read_only().build(),
+                    glib::ParamSpecString::builder("description").read_only().build(),
                 ]
             });
 
@@ -38,6 +39,7 @@ mod imp {
             match pspec.name() {
                 "title" => article.title.clone().to_value(),
                 "preview-text" => article.get_preview().to_value(),
+                "description" => article.get_article_info(false).to_value(),
                 _ => unimplemented!(),
             }
         }

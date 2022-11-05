@@ -183,9 +183,8 @@ impl ArticleWidget {
             layout_html = layout_html.replace("{title}", title);
         }
 
-        if let Some(article_info) = article.get_article_info(true) {
-            layout_html = layout_html.replace("{article_info}", &article_info);
-        }
+        let article_info = article.get_article_info(true);
+        layout_html = layout_html.replace("{article_info}", &article_info);
 
         if let Some(content) = &article.content {
             layout_html = layout_html.replace("{content}", content);
