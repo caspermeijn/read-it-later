@@ -1,0 +1,281 @@
+# Hungarian translation for read-it-later.
+# Copyright (C) 2022 Free Software Foundation, Inc.
+# This file is distributed under the same license as the read-it-later package.
+#
+# Balázs Úr <ur.balazs at fsf dot hu>, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: read-it-later master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
+"POT-Creation-Date: 2022-11-05 12:33+0000\n"
+"PO-Revision-Date: 2022-11-06 00:10+0100\n"
+"Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
+"Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 22.08.2\n"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/resources/ui/window.ui:65
+msgid "Read It Later"
+msgstr "Későbbi olvasás"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
+msgid "A Wallabag Client"
+msgstr "Egy Wallabag-ügyfélprogram"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
+msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
+msgstr "Gnome;GTK;Wallabag;Web;Cikk;Offline;Kapcsolat nélkül;"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
+msgid "A Wallabag Client."
+msgstr "Egy Wallabag-ügyfélprogram."
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
+msgid ""
+"Read It Later, is a simple Wallabag client. It has the basic features to "
+"manage your articles"
+msgstr ""
+"A Későbbi olvasás egy egyszerű Wallabag-ügyfélprogram. Rendelkezik az"
+" alapvető funkciókkal a cikkek kezeléséhez."
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+msgid "Add new articles"
+msgstr "Új cikkek hozzáadása"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+msgid "Archive an article"
+msgstr "Egy cikk archiválása"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+msgid "Delete an article"
+msgstr "Egy cikk törlése"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
+msgid "Favorite an article"
+msgstr "Egy cikk kedvencekhez adása"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
+msgid ""
+"It also comes with a nice on eyes reader mode that supports code syntax "
+"highlighting and a dark mode"
+msgstr ""
+"Emellett egy szemet gyönyörködtető olvasó móddal is rendelkezik, amely"
+" támogatja a kód szintaxiskiemelését és a sötét módot"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
+msgid "Main Window"
+msgstr "Főablak"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
+msgid "Article View"
+msgstr "Cikk nézet"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
+msgid "Adaptive view in dark mode"
+msgstr "Alkalmazkodó nézet sötét módban"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
+msgid "Default window width"
+msgstr "Alapértelmezett ablakszélesség"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:10
+msgid "Default window height"
+msgstr "Alapértelmezett ablakmagasság"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
+msgid "Default window x position"
+msgstr "Ablak alapértelmezett X helyzete"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
+msgid "Default window y position"
+msgstr "Ablak alapértelmezett Y helyzete"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
+msgid "Default window maximized behavior"
+msgstr "Teljes méretű ablak alapértelmezett viselkedése"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
+msgid "Logged in user name"
+msgstr "Bejelentkezett felhasználó neve"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
+msgid "Latest successful sync in ms"
+msgstr "Legutolsó sikeres szinkronizáció ezredmásodpercben"
+
+#: data/resources/ui/articles_list.ui:34
+msgid "Pretty clean!"
+msgstr "Elég tiszta!"
+
+#: data/resources/ui/gtk/help-overlay.ui:12
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Általános"
+
+#: data/resources/ui/gtk/help-overlay.ui:15
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Gyorsbillentyűk megjelenítése"
+
+#: data/resources/ui/gtk/help-overlay.ui:21
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "Beállítások"
+
+#: data/resources/ui/gtk/help-overlay.ui:27
+msgctxt "shortcut window"
+msgid "Back"
+msgstr "Vissza"
+
+#: data/resources/ui/gtk/help-overlay.ui:33
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Kilépés"
+
+#: data/resources/ui/gtk/help-overlay.ui:41
+msgctxt "shortcut window"
+msgid "Articles"
+msgstr "Cikkek"
+
+#: data/resources/ui/gtk/help-overlay.ui:44
+msgctxt "shortcut window"
+msgid "Synchronize"
+msgstr "Szinkronizálás"
+
+#: data/resources/ui/gtk/help-overlay.ui:50
+msgctxt "shortcut window"
+msgid "New Article"
+msgstr "Új cikk"
+
+#: data/resources/ui/gtk/help-overlay.ui:56
+msgctxt "shortcut window"
+msgid "Delete Article"
+msgstr "Cikk törlése"
+
+#: data/resources/ui/gtk/help-overlay.ui:62
+msgctxt "shortcut window"
+msgid "Favorite Article"
+msgstr "Cikk kedvencekhez adása"
+
+#: data/resources/ui/gtk/help-overlay.ui:68
+msgctxt "shortcut window"
+msgid "Archive Article"
+msgstr "Cikk archiválása"
+
+#: data/resources/ui/gtk/help-overlay.ui:74
+msgctxt "shortcut window"
+msgid "Open Article in Browser"
+msgstr "Cikk megnyitása a böngészőben"
+
+#: data/resources/ui/login.ui:32
+msgid "Welcome to Read It Later"
+msgstr "Üdvözli a Későbbi olvasás"
+
+#: data/resources/ui/login.ui:42
+msgid "Please sign in using your Wallabag instance information"
+msgstr "Jelentkezzen be a Wallabag-példány információinak használatával"
+
+#: data/resources/ui/login.ui:57
+msgid "Instance URL"
+msgstr "Példány URL-e"
+
+#: data/resources/ui/login.ui:63
+msgid "Client ID"
+msgstr "Ügyfél-azonosító"
+
+#: data/resources/ui/login.ui:69
+msgid "Client Secret"
+msgstr "Ügyféltitok"
+
+#: data/resources/ui/login.ui:75 data/resources/ui/settings.ui:13
+msgid "User Name"
+msgstr "Felhasználónév"
+
+#: data/resources/ui/login.ui:81
+msgid "Password"
+msgstr "Jelszó"
+
+#: data/resources/ui/login.ui:91
+msgid "Log In"
+msgstr "Bejelentkezés"
+
+#: data/resources/ui/settings.ui:10
+msgid "Account Information"
+msgstr "Fiókinformációk"
+
+#: data/resources/ui/settings.ui:21
+msgid "Email"
+msgstr "E-mail"
+
+#: data/resources/ui/settings.ui:29
+msgid "Created At"
+msgstr "Létrehozva"
+
+#: data/resources/ui/settings.ui:37
+msgid "Updated At"
+msgstr "Frissítve"
+
+#: data/resources/ui/window.ui:8
+msgid "Open Website"
+msgstr "Weboldal megnyitása"
+
+#: data/resources/ui/window.ui:14
+msgid "Delete Article"
+msgstr "Cikk törlése"
+
+#: data/resources/ui/window.ui:22
+msgid "Add Article…"
+msgstr "Cikk hozzáadása…"
+
+#: data/resources/ui/window.ui:28
+msgid "Preferences"
+msgstr "Beállítások"
+
+#: data/resources/ui/window.ui:32
+msgid "Log Out"
+msgstr "Kijelentkezés"
+
+#: data/resources/ui/window.ui:38
+msgid "Keyboard Shortcuts"
+msgstr "Gyorsbillentyűk"
+
+#: data/resources/ui/window.ui:42
+msgid "About Read It Later"
+msgstr "A Későbbi olvasás névjegye"
+
+#: data/resources/ui/window.ui:103
+msgid "Favorite"
+msgstr "Kedvenc"
+
+#: data/resources/ui/window.ui:111
+msgid "Archive"
+msgstr "Archiválás"
+
+#: data/resources/ui/window.ui:150
+msgid "Paste the article URL here"
+msgstr "Illessze be ide a cikk URL-ét"
+
+#: data/resources/ui/window.ui:157
+msgid "Save"
+msgstr "Mentés"
+
+#: src/application.rs:108
+msgid "Failed to logout"
+msgstr "Nem sikerült kijelentkezni"
+
+#: src/application.rs:252 src/application.rs:257
+msgid "Failed to log in"
+msgstr "Nem sikerült bejelentkezni"
+
+#: src/application.rs:401
+msgid "translator-credits"
+msgstr "Úr Balázs <ur dot balazs at fsf dot hu>, 2022."
