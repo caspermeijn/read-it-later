@@ -28,6 +28,7 @@ mod imp {
                     glib::ParamSpecString::builder("title").read_only().build(),
                     glib::ParamSpecString::builder("preview-text").read_only().build(),
                     glib::ParamSpecString::builder("description").read_only().build(),
+                    glib::ParamSpecString::builder("cover-picture-url").read_only().build(),
                 ]
             });
 
@@ -40,6 +41,7 @@ mod imp {
                 "title" => article.title.clone().to_value(),
                 "preview-text" => article.get_preview().to_value(),
                 "description" => article.get_article_info(false).to_value(),
+                "cover-picture-url" => article.preview_picture.clone().to_value(),
                 _ => unimplemented!(),
             }
         }

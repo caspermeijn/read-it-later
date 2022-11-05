@@ -2,7 +2,6 @@ use crate::models::ArticleObject;
 use gtk::glib;
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
-use gtk_macros::spawn;
 
 mod imp {
     use super::*;
@@ -87,25 +86,10 @@ glib::wrapper! {
 
 impl ArticleRow {
     pub fn new(article: ArticleObject) -> Self {
-        let article_row: Self = glib::Object::builder().property("article", article).build();
-        article_row.init();
-        article_row
+        glib::Object::builder().property("article", article).build()
     }
 
     pub fn article(&self) -> ArticleObject {
         self.property::<ArticleObject>("article")
-    }
-
-    fn init(&self) {
-        let imp = self.imp();
-
-        let article = self.article().clone();
-        let preview_image = imp.preview_image.clone();
-        spawn!(async move {
-            match article.article().get_preview_picture().await {
-                Ok(Some(pixbuf)) => preview_image.set_pixbuf(&pixbuf),
-                _ => preview_image.hide(),
-            };
-        });
     }
 }

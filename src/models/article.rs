@@ -1,16 +1,13 @@
 use crate::database;
 use crate::models::ArticleObject;
-use crate::models::{ArticlesFilter, PreviewImage};
+use crate::models::ArticlesFilter;
 use crate::schema::articles;
 use anyhow::Result;
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
-use gtk::gdk_pixbuf::Pixbuf;
 use gtk::glib;
 use gtk::glib::Cast;
 use sanitize_html::sanitize_str;
 use serde::{Deserialize, Serialize};
-use std::str::FromStr;
-use url::Url;
 use wallabag_api::types::{Entry, PatchEntry};
 
 #[derive(Insertable, Queryable, Eq, PartialEq, Debug, Clone, Serialize, Deserialize)]
@@ -163,18 +160,6 @@ impl Article {
 
         self.is_archived = !self.is_archived;
         Ok(())
-    }
-
-    pub async fn get_preview_picture(&self) -> Result<Option<Pixbuf>> {
-        if let Some(preview_picture) = &self.preview_picture {
-            let preview_image = PreviewImage::new(Url::from_str(preview_picture)?);
-            if !preview_image.exists() {
-                preview_image.download().await?;
-            }
-
-            return Ok(Some(Pixbuf::from_file(&preview_image.cache)?));
-        }
-        Ok(None)
     }
 
     pub fn get_preview(&self) -> Option<String> {

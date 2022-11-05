@@ -64,7 +64,13 @@
           </object>
         </child>
         <child>
-          <object class="ArticlePreview" id="preview_image" />
+          <object class="ArticlePreview" id="preview_image">
+            <binding name="url">
+              <lookup name="cover-picture-url" type="ArticleObject">
+                <lookup type="ArticleRow" name="article"></lookup>
+              </lookup>
+            </binding>
+          </object>
         </child>
       </object>
     </child>
