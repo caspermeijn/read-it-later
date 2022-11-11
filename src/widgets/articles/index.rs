@@ -43,6 +43,7 @@ mod imp {
             WebView::ensure_type();
             Settings::ensure_type();
             klass.bind_template();
+            klass.bind_template_callbacks();
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {
@@ -59,6 +60,42 @@ mod imp {
     }
 
     impl WidgetImpl for ArticleWidget {}
+
+    #[gtk::template_callbacks]
+    impl ArticleWidget {
+        #[template_callback]
+        fn modify_context_menu(_: &WebView, context_menu: &webkit::ContextMenu, _: &glib::Value, _: &webkit::HitTestResult) -> bool {
+            // Right/Left Click context menu
+            let forbidden_actions = vec![
+                webkit::ContextMenuAction::OpenLink,
+                webkit::ContextMenuAction::GoBack,
+                webkit::ContextMenuAction::GoForward,
+                webkit::ContextMenuAction::Stop,
+                webkit::ContextMenuAction::Reload,
+                webkit::ContextMenuAction::InspectElement,
+            ];
+
+            for menu_item in context_menu.items() {
+                let action = menu_item.stock_action();
+
+                if forbidden_actions.contains(&action) {
+                    // Remove forbidden actions
+                    context_menu.remove(&menu_item);
+                }
+            }
+            false
+        }
+
+        #[template_callback]
+        fn update_load_progress(&self, _pspec: &glib::ParamSpec, webview: &WebView) {
+            let progress = webview.estimated_load_progress();
+            self.revealer.set_reveal_child(true);
+            self.progressbar.set_fraction(progress);
+            if (progress - 1.0).abs() < f64::EPSILON {
+                self.revealer.set_reveal_child(false);
+            }
+        }
+    }
 }
 
 glib::wrapper! {
@@ -76,40 +113,6 @@ impl ArticleWidget {
 
     fn init(&self, sender: Sender<ArticleAction>) {
         self.imp().sender.set(sender).unwrap();
-
-        // Right/Left Click context menu
-        let forbidden_actions = vec![
-            webkit::ContextMenuAction::OpenLink,
-            webkit::ContextMenuAction::GoBack,
-            webkit::ContextMenuAction::GoForward,
-            webkit::ContextMenuAction::Stop,
-            webkit::ContextMenuAction::Reload,
-            webkit::ContextMenuAction::InspectElement,
-        ];
-
-        self.imp().webview.connect_context_menu(move |_, context_menu, _, _| {
-            for menu_item in context_menu.items() {
-                let action = menu_item.stock_action();
-
-                if forbidden_actions.contains(&action) {
-                    // Remove forbidden actions
-                    context_menu.remove(&menu_item);
-                }
-            }
-            false
-        });
-
-        // Progress bar
-        self.imp()
-            .webview
-            .connect_estimated_load_progress_notify(clone!(@strong self as aw => move |webview|{
-                let progress = webview.estimated_load_progress();
-                aw.imp().revealer.set_reveal_child(true);
-                aw.imp().progressbar.set_fraction(progress);
-                if (progress - 1.0).abs() < std::f64::EPSILON {
-                    aw.imp().revealer.set_reveal_child(false);
-                }
-            }));
     }
 
     fn setup_actions(&self) {

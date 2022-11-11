@@ -33,6 +33,8 @@
     </child>
     <child>
       <object class="WebKitWebView" id="webview">
+        <signal name="context-menu" handler="modify_context_menu"/>
+        <signal name="notify::estimated-load-progress" handler="update_load_progress" swapped="true"/>
         <property name="settings">settings1</property>
         <property name="is-ephemeral">True</property>
         <property name="hexpand">True</property>
