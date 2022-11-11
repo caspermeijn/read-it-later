@@ -40,6 +40,8 @@ mod imp {
         type ParentType = gtk::Widget;
 
         fn class_init(klass: &mut Self::Class) {
+            WebView::ensure_type();
+            Settings::ensure_type();
             klass.bind_template();
         }
 
@@ -66,9 +68,6 @@ glib::wrapper! {
 
 impl ArticleWidget {
     pub fn new(sender: Sender<ArticleAction>) -> Self {
-        WebView::ensure_type();
-        Settings::ensure_type();
-
         let article_widget: Self = Object::new(&[]);
         article_widget.init(sender);
         article_widget.setup_actions();
