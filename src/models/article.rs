@@ -7,10 +7,9 @@ use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
 use gtk::glib;
 use gtk::glib::Cast;
 use sanitize_html::sanitize_str;
-use serde::{Deserialize, Serialize};
 use wallabag_api::types::{Entry, PatchEntry};
 
-#[derive(Insertable, Queryable, Eq, PartialEq, Debug, Clone, Serialize, Deserialize)]
+#[derive(Insertable, Queryable, Eq, PartialEq, Debug, Clone)]
 #[table_name = "articles"]
 pub struct Article {
     pub id: i32,

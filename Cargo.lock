@@ -2427,8 +2427,6 @@ dependencies = [
  "rust-crypto",
  "sanitize_html",
  "secret-service",
- "serde",
- "serde_json",
  "strum",
  "url",
  "wallabag-api",
