@@ -26,12 +26,12 @@ impl ArticleView {
         article_view
     }
 
-    pub fn get_actions(&self) -> Option<&gio::SimpleActionGroup> {
+    pub fn get_actions(&self) -> &gio::SimpleActionGroup {
         self.widget.get_actions()
     }
 
     pub fn set_enable_actions(&self, state: bool) {
-        let action_group = self.get_actions().unwrap();
+        let action_group = self.get_actions();
         get_action!(action_group, @open).set_enabled(state);
         get_action!(action_group, @archive).set_enabled(state);
         get_action!(action_group, @delete).set_enabled(state);

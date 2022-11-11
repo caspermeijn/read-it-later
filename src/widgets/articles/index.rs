@@ -199,8 +199,8 @@ impl ArticleWidget {
         Ok(())
     }
 
-    pub fn get_actions(&self) -> Option<&gio::SimpleActionGroup> {
-        Some(&self.imp().actions)
+    pub fn get_actions(&self) -> &gio::SimpleActionGroup {
+        &self.imp().actions
     }
 }
 

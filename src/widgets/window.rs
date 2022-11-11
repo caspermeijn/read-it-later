@@ -60,10 +60,9 @@ impl Window {
     }
 
     pub fn load_article(&self, article: Article) {
-        if let Some(article_view_actions) = self.article_view.get_actions() {
-            get_action!(article_view_actions, @archive).set_state(&article.is_archived.to_variant());
-            get_action!(article_view_actions, @favorite).set_state(&article.is_starred.to_variant());
-        }
+        let article_view_actions = self.article_view.get_actions();
+        get_action!(article_view_actions, @archive).set_state(&article.is_archived.to_variant());
+        get_action!(article_view_actions, @favorite).set_state(&article.is_starred.to_variant());
         self.article_view.load(article);
         self.set_view(View::Article);
     }
@@ -178,7 +177,7 @@ impl Window {
 
         // Article View
         main_stack.add_named(self.article_view.get_widget(), Some(&self.article_view.name));
-        self.widget.insert_action_group("article", self.article_view.get_actions());
+        self.widget.insert_action_group("article", Some(self.article_view.get_actions()));
 
         main_stack.connect_visible_child_name_notify(clone!(@strong self.article_view as article_view => move |stack| {
             if let Some(view_name) = stack.visible_child_name() {
