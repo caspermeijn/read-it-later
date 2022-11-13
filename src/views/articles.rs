@@ -21,7 +21,7 @@ impl ArticlesView {
         );
         let archive_view = ArticlesListView::new("archive", "Archive", "archive-symbolic", ArticlesFilter::archive(), sender.clone());
         let unread_view = ArticlesListView::new("unread", "Unread", "unread-symbolic", ArticlesFilter::unread(), sender);
-        let widget = adw::ViewStack::new();
+        let widget = adw::ViewStack::builder().hhomogeneous(false).vhomogeneous(false).build();
 
         let articles_view = Self {
             widget,
@@ -36,16 +36,12 @@ impl ArticlesView {
     fn init(&self) {
         // Unread View
         self.widget
-            .add_titled(
-                &self.unread_view.get_widget(),
-                Some(&self.unread_view.name),
-                &self.unread_view.title,
-            )
+            .add_titled(self.unread_view.get_widget(), Some(&self.unread_view.name), &self.unread_view.title)
             .set_icon_name(Some(&self.unread_view.icon));
         // Favorites View
         self.widget
             .add_titled(
-                &self.favorites_view.get_widget(),
+                self.favorites_view.get_widget(),
                 Some(&self.favorites_view.name),
                 &self.favorites_view.title,
             )
@@ -53,7 +49,7 @@ impl ArticlesView {
         // Archive View
         self.widget
             .add_titled(
-                &self.archive_view.get_widget(),
+                self.archive_view.get_widget(),
                 Some(&self.archive_view.name),
                 &self.archive_view.title,
             )

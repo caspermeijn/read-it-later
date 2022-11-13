@@ -36,9 +36,8 @@ impl ArticlesListView {
         articles_view
     }
 
-    pub fn get_widget(&self) -> gtk::Widget {
-        let widget = self.widget.widget.clone();
-        widget.upcast::<gtk::Widget>()
+    pub fn get_widget(&self) -> &ArticlesListWidget {
+        &self.widget
     }
 
     pub fn add(&self, article: &Article) {
@@ -77,7 +76,8 @@ impl ArticlesListView {
             pool.spawn_ok(futures);
         });
 
-        self.widget.bind_model(&self.model, &self.icon);
+        self.widget.set_property("placeholder-icon-name", &self.icon);
+        self.widget.bind_model(&self.model);
     }
 
     fn index(&self, article: &Article) -> Option<u32> {
