@@ -3,8 +3,7 @@ use crate::models::{ArticleAction, ArticleObject};
 use gio::prelude::*;
 use glib::clone;
 use glib::Object;
-use gtk::gio::prelude::*;
-use gtk::glib::Sender;
+use glib::Sender;
 use gtk::subclass::prelude::*;
 use gtk::{gio, glib};
 use gtk_macros::send;
@@ -13,10 +12,10 @@ use once_cell::sync::OnceCell;
 
 mod imp {
     use super::*;
-    use gtk::glib::subclass::InitializingObject;
-    use gtk::glib::ParamSpec;
-    use gtk::glib::ParamSpecString;
-    use gtk::glib::Value;
+    use glib::subclass::InitializingObject;
+    use glib::ParamSpec;
+    use glib::ParamSpecString;
+    use glib::Value;
     use gtk::prelude::*;
     use gtk::CompositeTemplate;
     use once_cell::sync::Lazy;

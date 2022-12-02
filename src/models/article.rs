@@ -4,8 +4,8 @@ use crate::models::ArticlesFilter;
 use crate::schema::articles;
 use anyhow::Result;
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
+use glib::Cast;
 use gtk::glib;
-use gtk::glib::Cast;
 use sanitize_html::sanitize_str;
 use wallabag_api::types::{Entry, PatchEntry};
 

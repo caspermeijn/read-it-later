@@ -1,10 +1,9 @@
 use crate::models::{Article, ArticleAction};
 use anyhow::Result;
+use glib::clone;
 use glib::subclass::InitializingObject;
 use glib::Object;
-use gtk::gio::prelude::*;
-use gtk::glib::clone;
-use gtk::glib::Sender;
+use glib::Sender;
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
 use gtk::{gio, glib, CompositeTemplate};

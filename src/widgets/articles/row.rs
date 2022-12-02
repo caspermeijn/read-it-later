@@ -7,9 +7,8 @@ mod imp {
     use super::*;
     use crate::widgets::articles::preview::ArticlePreview;
     use glib::subclass::InitializingObject;
+    use glib::ParamSpecObject;
     use glib::{ParamSpec, Value};
-    use gtk::glib;
-    use gtk::glib::ParamSpecObject;
     use once_cell::sync::Lazy;
     use once_cell::sync::OnceCell;
 

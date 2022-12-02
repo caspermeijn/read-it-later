@@ -1,5 +1,5 @@
+use gio::prelude::*;
 use gtk::gio;
-use gtk::gio::prelude::*;
 use gtk::glib::object::Cast;
 use gtk::glib::Sender;
 use gtk_macros::get_action;

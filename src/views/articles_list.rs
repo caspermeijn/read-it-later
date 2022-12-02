@@ -1,10 +1,10 @@
 use crate::models::{Article, ArticleAction, ArticleObject, ArticlesFilter};
 use crate::widgets::articles::ArticlesListWidget;
 use futures::executor::ThreadPool;
+use glib::Sender;
 use gtk::gio;
 use gtk::gio::prelude::*;
 use gtk::glib;
-use gtk::glib::Sender;
 use gtk_macros::send;
 use log::error;
 

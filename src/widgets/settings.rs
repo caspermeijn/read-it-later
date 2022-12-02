@@ -7,7 +7,7 @@ use log::error;
 
 mod imp {
     use super::*;
-    use gtk::glib::subclass::InitializingObject;
+    use glib::subclass::InitializingObject;
     use gtk::prelude::*;
     use gtk::CompositeTemplate;
 
