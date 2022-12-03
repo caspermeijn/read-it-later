@@ -48,7 +48,7 @@ impl Window {
             builder,
             article_view: ArticleView::new(articles_manager.sender.clone()),
             articles_view: ArticlesView::new(articles_manager.sender.clone()),
-            login_view: Login::new(),
+            login_view: Login::default(),
             sender,
             actions,
         };

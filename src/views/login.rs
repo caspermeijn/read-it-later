@@ -74,10 +74,6 @@ glib::wrapper! {
 
 #[gtk::template_callbacks]
 impl Login {
-    pub fn new() -> Self {
-        glib::Object::new(&[])
-    }
-
     #[template_callback]
     fn login_button_clicked(&self, button: &gtk::Button) {
         let account = self.get_account();
@@ -110,5 +106,11 @@ impl Login {
 
     pub fn get_login_button(&self) -> &gtk::Button {
         &self.imp().login_button
+    }
+}
+
+impl Default for Login {
+    fn default() -> Self {
+        glib::Object::new(&[])
     }
 }

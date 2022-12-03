@@ -71,7 +71,7 @@ impl Application {
         info!("Version: {} ({})", config::VERSION, config::PROFILE);
         info!("Datadir: {}", config::PKGDATADIR);
 
-        std::fs::create_dir_all(&CACHE_DIR.to_str().unwrap()).unwrap();
+        std::fs::create_dir_all(&*CACHE_DIR).unwrap();
 
         let receiver = self.receiver.borrow_mut().take().unwrap();
         receiver.attach(None, move |action| app.do_action(action));
@@ -285,10 +285,10 @@ impl Application {
 
     fn sync(&self) {
         send!(self.sender, Action::SetView(View::Syncing(true)));
-        let mut since = Utc.timestamp(0, 0);
+        let mut since = Utc.timestamp_opt(0, 0).unwrap();
         let last_sync = SettingsManager::integer(Key::LatestSync);
         if last_sync != 0 {
-            since = Utc.timestamp(last_sync.into(), 0);
+            since = Utc.timestamp_opt(last_sync.into(), 0).unwrap();
         }
         info!("Last sync was at {}", since);
 

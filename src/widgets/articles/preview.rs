@@ -79,15 +79,18 @@ mod imp {
 
     impl ArticlePreview {
         pub async fn get_preview_picture(&self) -> Option<Pixbuf> {
-            if let Some(preview_picture) = self.url.borrow().clone() {
-                let preview_image = PreviewImage::new(Url::from_str(&preview_picture).ok()?);
-                if !preview_image.exists() {
-                    preview_image.download().await.ok()?;
-                }
+            let url = self.url.borrow().clone();
+            match url {
+                Some(preview_picture) => {
+                    let preview_image = PreviewImage::new(Url::from_str(&preview_picture).ok()?);
+                    if !preview_image.exists() {
+                        preview_image.download().await.ok()?;
+                    }
 
-                return Some(Pixbuf::from_file(&preview_image.cache).ok()?);
+                    Pixbuf::from_file(&preview_image.cache).ok()
+                }
+                None => None,
             }
-            None
         }
 
         pub fn set_pixbuf(&self, pixbuf: &Pixbuf) {
