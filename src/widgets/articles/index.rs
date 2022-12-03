@@ -49,9 +49,7 @@ mod imp {
 
     impl ObjectImpl for ArticleWidget {
         fn dispose(&self) {
-            while let Some(child) = self.obj().first_child() {
-                child.unparent();
-            }
+            self.obj().dispose_template(Self::Type::static_type());
         }
     }
 

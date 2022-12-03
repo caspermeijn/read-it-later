@@ -5,7 +5,7 @@ authors = ["Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>"]
 edition = "2021"
 
 [dependencies]
-gtk = {version = "0.5", package = "gtk4"}
+gtk = {version = "0.5", package = "gtk4", features = ["gnome_43"]}
 adw = { version = "0.2", package = "libadwaita", features = ["v1_2"] }
 webkit = { version = "0.2", package = "webkit2gtk5" }
 log = "0.4"

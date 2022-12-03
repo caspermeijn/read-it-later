@@ -40,7 +40,11 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for SettingsWidget {}
+    impl ObjectImpl for SettingsWidget {
+        fn dispose(&self) {
+            self.obj().dispose_template(Self::Type::static_type());
+        }
+    }
 
     impl WidgetImpl for SettingsWidget {}
 
