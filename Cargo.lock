@@ -2413,7 +2413,6 @@ dependencies = [
  "gtk-macros",
  "gtk4",
  "isahc 1.7.2",
- "lazy_static",
  "libadwaita",
  "log",
  "once_cell",

@@ -4,13 +4,11 @@ use anyhow::Result;
 use crypto::{digest::Digest, sha1::Sha1};
 use gtk::glib;
 use isahc::prelude::*;
-use lazy_static::lazy_static;
 use log::info;
+use once_cell::sync::Lazy;
 use url::Url;
 
-lazy_static! {
-    pub static ref CACHE_DIR: PathBuf = glib::user_cache_dir().join("read-it-later");
-}
+pub static CACHE_DIR: Lazy<PathBuf> = Lazy::new(|| glib::user_cache_dir().join("read-it-later"));
 
 pub struct PreviewImage {
     pub url: Url,

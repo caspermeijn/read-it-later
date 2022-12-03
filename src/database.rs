@@ -3,15 +3,13 @@ use std::{fs, fs::File, path::PathBuf};
 use anyhow::Result;
 use diesel::{prelude::*, r2d2, r2d2::ConnectionManager};
 use gtk::glib;
-use lazy_static::lazy_static;
 use log::info;
+use once_cell::sync::Lazy;
 
 type Pool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 
-lazy_static! {
-    static ref DB_PATH: PathBuf = glib::user_data_dir().join("read-it-later");
-    static ref POOL: Pool = init_pool().expect("Failed to create a Pool");
-}
+static DB_PATH: Lazy<PathBuf> = Lazy::new(|| glib::user_data_dir().join("read-it-later"));
+static POOL: Lazy<Pool> = Lazy::new(|| init_pool().expect("Failed to create a Pool"));
 
 embed_migrations!("migrations/");
 
