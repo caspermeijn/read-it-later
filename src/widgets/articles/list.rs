@@ -1,5 +1,5 @@
 use gio::prelude::*;
-use glib::{clone, Object, Sender};
+use glib::{clone, Sender};
 use gtk::{gio, glib, subclass::prelude::*};
 use gtk_macros::send;
 use log::error;
@@ -10,12 +10,12 @@ use crate::models::{ArticleAction, ArticleObject};
 
 mod imp {
     use glib::{subclass::InitializingObject, ParamSpec, ParamSpecString, Value};
-    use gtk::{prelude::*, CompositeTemplate};
+    use gtk::prelude::*;
     use once_cell::sync::Lazy;
 
     use super::*;
 
-    #[derive(CompositeTemplate, Default)]
+    #[derive(gtk::CompositeTemplate, Default)]
     #[template(resource = "/com/belmoussaoui/ReadItLater/articles_list.ui")]
     pub struct ArticlesListWidget {
         #[template_child]
@@ -95,7 +95,7 @@ glib::wrapper! {
 
 impl ArticlesListWidget {
     pub fn new(sender: Sender<ArticleAction>) -> Self {
-        let list_widget: Self = Object::new(&[]);
+        let list_widget = glib::Object::new::<Self>(&[]);
         list_widget.imp().sender.set(sender).unwrap();
         list_widget
     }

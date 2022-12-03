@@ -1,22 +1,21 @@
 use std::cell::RefCell;
 
 use anyhow::Result;
-use glib::{clone, subclass::InitializingObject, Object, Sender};
-use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+use glib::{clone, Sender};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use gtk_macros::{action, send, stateful_action};
 use log::{error, info};
 use once_cell::sync::OnceCell;
-use webkit::{
-    traits::{ContextMenuExt, ContextMenuItemExt, WebViewExt},
-    Settings, WebView,
-};
+use webkit::{prelude::*, Settings, WebView};
 
 use crate::models::{Article, ArticleAction};
 
 mod imp {
+    use glib::subclass::InitializingObject;
+
     use super::*;
 
-    #[derive(CompositeTemplate, Default)]
+    #[derive(gtk::CompositeTemplate, Default)]
     #[template(resource = "/com/belmoussaoui/ReadItLater/article.ui")]
     pub struct ArticleWidget {
         #[template_child]
@@ -107,7 +106,7 @@ glib::wrapper! {
 
 impl ArticleWidget {
     pub fn new(sender: Sender<ArticleAction>) -> Self {
-        let article_widget: Self = Object::new(&[]);
+        let article_widget = glib::Object::new::<Self>(&[]);
         article_widget.init(sender);
         article_widget.setup_actions();
         article_widget

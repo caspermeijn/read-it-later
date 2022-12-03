@@ -8,11 +8,11 @@ use crate::models::ClientManager;
 
 mod imp {
     use glib::subclass::InitializingObject;
-    use gtk::{prelude::*, CompositeTemplate};
+    use gtk::prelude::*;
 
     use super::*;
 
-    #[derive(CompositeTemplate, Default)]
+    #[derive(gtk::CompositeTemplate, Default)]
     #[template(resource = "/com/belmoussaoui/ReadItLater/settings.ui")]
     pub struct SettingsWidget {
         #[template_child]
@@ -69,7 +69,7 @@ enum SettingsAction {
 
 impl SettingsWidget {
     pub fn new(client: Arc<Mutex<ClientManager>>) -> Self {
-        let window: Self = glib::Object::new(&[]);
+        let window = glib::Object::new::<Self>(&[]);
         window.init(client);
         window
     }

@@ -16,7 +16,6 @@ mod imp {
     impl ObjectSubclass for ArticleObject {
         const NAME: &'static str = "ArticleObject";
         type Type = super::ArticleObject;
-        type ParentType = glib::Object;
     }
 
     impl ObjectImpl for ArticleObject {
@@ -59,7 +58,7 @@ glib::wrapper! {
 
 impl ArticleObject {
     pub fn new(article: Article) -> Self {
-        let obj: Self = glib::Object::new(&[]);
+        let obj = glib::Object::new::<Self>(&[]);
         obj.imp().article.set(article).unwrap();
         obj
     }

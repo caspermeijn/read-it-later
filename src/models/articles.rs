@@ -50,8 +50,8 @@ impl ArticlesManager {
             ArticleAction::Open(article) => self.open(article),
             ArticleAction::Archive(article) => self.archive(article),
             ArticleAction::Favorite(article) => self.favorite(article),
-            ArticleAction::Update(article) => self.update(article), /* Update article values by
-                                                                      * their ID. */
+            ArticleAction::Update(article) => self.update(article), // Update article values by
+            // their ID.
             ArticleAction::Add(article) => self.add(article),
         };
         glib::Continue(true)
