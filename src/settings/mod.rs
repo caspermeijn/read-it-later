@@ -1,6 +1,4 @@
-/*
-* Heavily inspired from Shortwave :P
-*/
+// Heavily inspired from Shortwave :P
 
 mod key;
 mod settings_manager;

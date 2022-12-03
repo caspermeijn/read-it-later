@@ -1,12 +1,13 @@
-use crate::models::{Article, ArticleAction, ArticleObject, ArticlesFilter};
-use crate::widgets::articles::ArticlesListWidget;
 use futures::executor::ThreadPool;
 use glib::Sender;
-use gtk::gio;
-use gtk::gio::prelude::*;
-use gtk::glib;
+use gtk::{gio, gio::prelude::*, glib};
 use gtk_macros::send;
 use log::error;
+
+use crate::{
+    models::{Article, ArticleAction, ArticleObject, ArticlesFilter},
+    widgets::articles::ArticlesListWidget,
+};
 
 pub struct ArticlesListView {
     widget: ArticlesListWidget,
@@ -19,7 +20,13 @@ pub struct ArticlesListView {
 }
 
 impl ArticlesListView {
-    pub fn new(name: &str, title: &str, icon: &str, filter: ArticlesFilter, sender: Sender<ArticleAction>) -> Self {
+    pub fn new(
+        name: &str,
+        title: &str,
+        icon: &str,
+        filter: ArticlesFilter,
+        sender: Sender<ArticleAction>,
+    ) -> Self {
         let model = gio::ListStore::new(ArticleObject::static_type());
         let widget = ArticlesListWidget::new(sender.clone());
 
@@ -76,7 +83,8 @@ impl ArticlesListView {
             pool.spawn_ok(futures);
         });
 
-        self.widget.set_property("placeholder-icon-name", &self.icon);
+        self.widget
+            .set_property("placeholder-icon-name", &self.icon);
         self.widget.bind_model(&self.model);
     }
 

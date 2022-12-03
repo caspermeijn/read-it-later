@@ -1,12 +1,11 @@
+use gtk::{glib, prelude::*, subclass::prelude::*};
+
 use crate::models::Article;
-use gtk::glib;
-use gtk::prelude::*;
-use gtk::subclass::prelude::*;
 
 mod imp {
-    use super::*;
-
     use once_cell::sync::OnceCell;
+
+    use super::*;
 
     #[derive(Default)]
     pub struct ArticleObject {
@@ -26,9 +25,15 @@ mod imp {
             static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
                 vec![
                     glib::ParamSpecString::builder("title").read_only().build(),
-                    glib::ParamSpecString::builder("preview-text").read_only().build(),
-                    glib::ParamSpecString::builder("description").read_only().build(),
-                    glib::ParamSpecString::builder("cover-picture-url").read_only().build(),
+                    glib::ParamSpecString::builder("preview-text")
+                        .read_only()
+                        .build(),
+                    glib::ParamSpecString::builder("description")
+                        .read_only()
+                        .build(),
+                    glib::ParamSpecString::builder("cover-picture-url")
+                        .read_only()
+                        .build(),
                 ]
             });
 

@@ -4,8 +4,7 @@ extern crate diesel_migrations;
 extern crate diesel;
 
 use gettextrs::*;
-use gtk::gio;
-use gtk::glib;
+use gtk::{gio, glib};
 
 mod application;
 mod config;

@@ -1,24 +1,24 @@
-use self::config::{APP_ID, VERSION};
-use crate::config;
-use crate::database;
-use crate::models::Account;
-use crate::models::CACHE_DIR;
-use crate::models::{Article, ArticleAction, ClientManager, SecretManager};
-use crate::settings::{Key, SettingsManager};
-use crate::widgets::{SettingsWidget, View, Window};
+use std::{cell::RefCell, rc::Rc};
+
 use anyhow::Result;
 use async_std::sync::{Arc, Mutex};
 use chrono::{TimeZone, Utc};
 use futures::executor::ThreadPool;
 use gettextrs::gettext;
 use glib::{clone, Receiver, Sender};
-use gtk::prelude::*;
-use gtk::{gio, glib};
+use gtk::{gio, glib, prelude::*};
 use gtk_macros::{action, send, spawn};
 use log::{error, info};
-use std::{cell::RefCell, rc::Rc};
 use url::Url;
 use wallabag_api::types::Config;
+
+use self::config::{APP_ID, VERSION};
+use crate::{
+    config, database,
+    models::{Account, Article, ArticleAction, ClientManager, SecretManager, CACHE_DIR},
+    settings::{Key, SettingsManager},
+    widgets::{SettingsWidget, View, Window},
+};
 
 pub enum Action {
     Articles(Box<ArticleAction>),
@@ -88,15 +88,15 @@ impl Application {
 
     fn do_action(&self, action: Action) -> glib::Continue {
         match action {
-            /* Articles */
+            // Articles
             Action::Articles(article_action) => self.do_article_action(article_action),
             Action::SaveArticle(url) => self.save_article(url),
             Action::LoadArticles(articles) => self.load_articles(articles),
-            /* UI */
+            // UI
             Action::SetView(view) => self.window.set_view(view),
             Action::PreviousView => self.window.previous_view(),
             Action::Notify(err_msg) => self.window.notify(err_msg),
-            /* Auth */
+            // Auth
             Action::SetClientConfig(config) => self.set_client_config(config),
             Action::Sync => self.sync(),
             Action::Login => self.login(),
@@ -178,19 +178,28 @@ impl Application {
             })
         );
 
-        self.app.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
-        self.app.set_accels_for_action("window.previous", &["Escape"]);
+        self.app
+            .set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
+        self.app
+            .set_accels_for_action("window.previous", &["Escape"]);
 
         self.app.set_accels_for_action("app.quit", &["<primary>q"]);
-        self.app.set_accels_for_action("app.settings", &["<primary>comma"]);
-        self.app.set_accels_for_action("app.new-article", &["<primary>N"]);
+        self.app
+            .set_accels_for_action("app.settings", &["<primary>comma"]);
+        self.app
+            .set_accels_for_action("app.new-article", &["<primary>N"]);
         self.app.set_accels_for_action("app.sync", &["F5"]);
         // Articles
-        self.app.set_accels_for_action("article.delete", &["Delete"]);
-        self.app.set_accels_for_action("article.favorite", &["<primary><alt>F"]);
-        self.app.set_accels_for_action("article.archive", &["<primary><alt>A"]);
-        self.app.set_accels_for_action("article.open", &["<primary>O"]);
-        self.app.set_accels_for_action("article.search", &["<primary>F"]);
+        self.app
+            .set_accels_for_action("article.delete", &["Delete"]);
+        self.app
+            .set_accels_for_action("article.favorite", &["<primary><alt>F"]);
+        self.app
+            .set_accels_for_action("article.archive", &["<primary><alt>A"]);
+        self.app
+            .set_accels_for_action("article.open", &["<primary>O"]);
+        self.app
+            .set_accels_for_action("article.search", &["<primary>F"]);
     }
 
     fn setup_signals(&self) {
@@ -213,9 +222,7 @@ impl Application {
         }
     }
 
-    /**
-     * Auth
-     */
+    /// Auth
     fn init_client(&self) {
         let username = SettingsManager::string(Key::Username);
         match SecretManager::is_logged(&username) {
@@ -302,9 +309,7 @@ impl Application {
         });
     }
 
-    /**
-     *   Articles
-     */
+    ///   Articles
 
     fn add_article(&self, article: Article) {
         self.window.articles_view.add(&article);
@@ -317,8 +322,14 @@ impl Application {
             let futures = async move {
                 articles.iter().for_each(|article| {
                     match article.insert() {
-                        Ok(_) => send!(sender, Action::Articles(Box::new(ArticleAction::Add(article.clone())))),
-                        Err(_) => send!(sender, Action::Articles(Box::new(ArticleAction::Update(article.clone())))),
+                        Ok(_) => send!(
+                            sender,
+                            Action::Articles(Box::new(ArticleAction::Add(article.clone())))
+                        ),
+                        Err(_) => send!(
+                            sender,
+                            Action::Articles(Box::new(ArticleAction::Update(article.clone())))
+                        ),
                     };
                 })
             };
@@ -345,7 +356,10 @@ impl Application {
     }
 
     fn archive_article(&self, article: Article) {
-        info!("(Un)archiving the article \"{:#?}\" with ID: {}", article.title, article.id);
+        info!(
+            "(Un)archiving the article \"{:#?}\" with ID: {}",
+            article.title, article.id
+        );
         send!(self.sender, Action::SetView(View::Syncing(true)));
         self.window.articles_view.archive(&article);
 
@@ -359,7 +373,10 @@ impl Application {
     }
 
     fn favorite_article(&self, article: Article) {
-        info!("(Un)favoriting the article \"{:#?}\" with ID: {}", article.title, article.id);
+        info!(
+            "(Un)favoriting the article \"{:#?}\" with ID: {}",
+            article.title, article.id
+        );
         send!(self.sender, Action::SetView(View::Syncing(true)));
         self.window.articles_view.favorite(&article);
 
@@ -373,7 +390,10 @@ impl Application {
     }
 
     fn delete_article(&self, article: Article) {
-        info!("Deleting the article \"{:#?}\" with ID: {}", article.title, article.id);
+        info!(
+            "Deleting the article \"{:#?}\" with ID: {}",
+            article.title, article.id
+        );
         send!(self.sender, Action::SetView(View::Syncing(true)));
         self.window.articles_view.delete(&article);
 

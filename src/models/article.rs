@@ -1,13 +1,15 @@
-use crate::database;
-use crate::models::ArticleObject;
-use crate::models::ArticlesFilter;
-use crate::schema::articles;
 use anyhow::Result;
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
 use glib::Cast;
 use gtk::glib;
 use sanitize_html::sanitize_str;
 use wallabag_api::types::{Entry, PatchEntry};
+
+use crate::{
+    database,
+    models::{ArticleObject, ArticlesFilter},
+    schema::articles,
+};
 
 #[derive(Insertable, Queryable, Eq, PartialEq, Debug, Clone)]
 #[table_name = "articles"]
@@ -122,7 +124,9 @@ impl Article {
         let db = database::connection();
         let conn = db.get()?;
 
-        diesel::insert_into(articles::table).values(self).execute(&conn)?;
+        diesel::insert_into(articles::table)
+            .values(self)
+            .execute(&conn)?;
 
         Ok(())
     }
@@ -143,7 +147,9 @@ impl Article {
         use crate::schema::articles::dsl::*;
 
         let target = articles.filter(id.eq(&self.id));
-        diesel::update(target).set(is_starred.eq(!self.is_starred)).execute(&conn)?;
+        diesel::update(target)
+            .set(is_starred.eq(!self.is_starred))
+            .execute(&conn)?;
 
         self.is_starred = !self.is_starred;
         Ok(())
@@ -155,7 +161,9 @@ impl Article {
         use crate::schema::articles::dsl::*;
 
         let target = articles.filter(id.eq(&self.id));
-        diesel::update(target).set(is_archived.eq(!self.is_archived)).execute(&conn)?;
+        diesel::update(target)
+            .set(is_archived.eq(!self.is_archived))
+            .execute(&conn)?;
 
         self.is_archived = !self.is_archived;
         Ok(())

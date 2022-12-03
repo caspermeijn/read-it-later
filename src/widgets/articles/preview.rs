@@ -1,15 +1,15 @@
-use gtk::prelude::*;
-use gtk::subclass::prelude::*;
-use gtk::{gdk_pixbuf::Pixbuf, glib};
+use gtk::{gdk_pixbuf::Pixbuf, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
-    use super::*;
-    use crate::models::PreviewImage;
+    use std::{cell::RefCell, str::FromStr};
+
     use gtk::glib::{clone, subclass::InitializingObject, ParamSpec, Value};
     use gtk_macros::spawn;
     use once_cell::sync::Lazy;
-    use std::{cell::RefCell, str::FromStr};
     use url::Url;
+
+    use super::*;
+    use crate::models::PreviewImage;
 
     #[derive(gtk::CompositeTemplate, Default)]
     #[template(resource = "/com/belmoussaoui/ReadItLater/article_preview.ui")]
@@ -39,7 +39,8 @@ mod imp {
 
     impl ObjectImpl for ArticlePreview {
         fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| vec![glib::ParamSpecString::builder("url").build()]);
+            static PROPERTIES: Lazy<Vec<ParamSpec>> =
+                Lazy::new(|| vec![glib::ParamSpecString::builder("url").build()]);
             PROPERTIES.as_ref()
         }
 

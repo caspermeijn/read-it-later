@@ -1,12 +1,10 @@
+use std::{fs, fs::File, path::PathBuf};
+
 use anyhow::Result;
-use diesel::prelude::*;
-use diesel::r2d2;
-use diesel::r2d2::ConnectionManager;
+use diesel::{prelude::*, r2d2, r2d2::ConnectionManager};
 use gtk::glib;
 use lazy_static::lazy_static;
 use log::info;
-use std::path::PathBuf;
-use std::{fs, fs::File};
 
 type Pool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 

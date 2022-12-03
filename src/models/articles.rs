@@ -1,9 +1,9 @@
+use std::{cell::RefCell, rc::Rc};
+
 use glib::{Receiver, Sender};
 use gtk::glib;
 use gtk_macros::send;
 use log::error;
-use std::cell::RefCell;
-use std::rc::Rc;
 
 use super::article::Article;
 use crate::application::Action;
@@ -50,41 +50,60 @@ impl ArticlesManager {
             ArticleAction::Open(article) => self.open(article),
             ArticleAction::Archive(article) => self.archive(article),
             ArticleAction::Favorite(article) => self.favorite(article),
-            ArticleAction::Update(article) => self.update(article), // Update article values by their ID.
+            ArticleAction::Update(article) => self.update(article), /* Update article values by
+                                                                      * their ID. */
             ArticleAction::Add(article) => self.add(article),
         };
         glib::Continue(true)
     }
 
     fn add(&self, article: Article) {
-        send!(self.main_sender, Action::Articles(Box::new(ArticleAction::Add(article))));
+        send!(
+            self.main_sender,
+            Action::Articles(Box::new(ArticleAction::Add(article)))
+        );
     }
 
     fn open(&self, article: Article) {
-        send!(self.main_sender, Action::Articles(Box::new(ArticleAction::Open(article))));
+        send!(
+            self.main_sender,
+            Action::Articles(Box::new(ArticleAction::Open(article)))
+        );
     }
 
     fn update(&self, article: Article) {
-        send!(self.main_sender, Action::Articles(Box::new(ArticleAction::Update(article))));
+        send!(
+            self.main_sender,
+            Action::Articles(Box::new(ArticleAction::Update(article)))
+        );
     }
 
     fn archive(&self, mut article: Article) {
         match article.toggle_archive() {
-            Ok(_) => send!(self.main_sender, Action::Articles(Box::new(ArticleAction::Archive(article)))),
+            Ok(_) => send!(
+                self.main_sender,
+                Action::Articles(Box::new(ArticleAction::Archive(article)))
+            ),
             Err(err) => error!("Failed to (un)archive the article {}", err),
         }
     }
 
     fn favorite(&self, mut article: Article) {
         match article.toggle_favorite() {
-            Ok(_) => send!(self.main_sender, Action::Articles(Box::new(ArticleAction::Favorite(article)))),
+            Ok(_) => send!(
+                self.main_sender,
+                Action::Articles(Box::new(ArticleAction::Favorite(article)))
+            ),
             Err(err) => error!("Failed to (un)favorite the article {}", err),
         }
     }
 
     fn delete(&self, article: Article) {
         match article.delete() {
-            Ok(_) => send!(self.main_sender, Action::Articles(Box::new(ArticleAction::Delete(article)))),
+            Ok(_) => send!(
+                self.main_sender,
+                Action::Articles(Box::new(ArticleAction::Delete(article)))
+            ),
             Err(err) => error!("Failed to delete the article {}", err),
         }
     }

@@ -1,15 +1,16 @@
-use crate::models::ClientManager;
 use adw::subclass::prelude::*;
 use async_std::sync::{Arc, Mutex};
 use gtk::glib;
 use gtk_macros::{send, spawn};
 use log::error;
 
+use crate::models::ClientManager;
+
 mod imp {
-    use super::*;
     use glib::subclass::InitializingObject;
-    use gtk::prelude::*;
-    use gtk::CompositeTemplate;
+    use gtk::{prelude::*, CompositeTemplate};
+
+    use super::*;
 
     #[derive(CompositeTemplate, Default)]
     #[template(resource = "/com/belmoussaoui/ReadItLater/settings.ui")]
@@ -105,10 +106,12 @@ impl SettingsWidget {
                 imp.username_label.set_text(&client_info.username);
                 imp.email_label.set_text(&client_info.email);
                 if let Some(created_at) = client_info.created_at {
-                    imp.created_at_label.set_text(&created_at.format("%Y-%m-%d %H:%M:%S").to_string());
+                    imp.created_at_label
+                        .set_text(&created_at.format("%Y-%m-%d %H:%M:%S").to_string());
                 }
                 if let Some(updated_at) = client_info.updated_at {
-                    imp.updated_at_label.set_text(&updated_at.format("%Y-%m-%d %H:%M:%S").to_string());
+                    imp.updated_at_label
+                        .set_text(&updated_at.format("%Y-%m-%d %H:%M:%S").to_string());
                 }
             }
         }

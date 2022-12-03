@@ -1,7 +1,9 @@
-use crate::models::{Article, ArticleAction, ArticlesFilter};
-use crate::views::ArticlesListView;
-use gtk::glib::Sender;
-use gtk::prelude::*;
+use gtk::{glib::Sender, prelude::*};
+
+use crate::{
+    models::{Article, ArticleAction, ArticlesFilter},
+    views::ArticlesListView,
+};
 
 pub struct ArticlesView {
     pub widget: adw::ViewStack,
@@ -19,9 +21,24 @@ impl ArticlesView {
             ArticlesFilter::favorites(),
             sender.clone(),
         );
-        let archive_view = ArticlesListView::new("archive", "Archive", "archive-symbolic", ArticlesFilter::archive(), sender.clone());
-        let unread_view = ArticlesListView::new("unread", "Unread", "unread-symbolic", ArticlesFilter::unread(), sender);
-        let widget = adw::ViewStack::builder().hhomogeneous(false).vhomogeneous(false).build();
+        let archive_view = ArticlesListView::new(
+            "archive",
+            "Archive",
+            "archive-symbolic",
+            ArticlesFilter::archive(),
+            sender.clone(),
+        );
+        let unread_view = ArticlesListView::new(
+            "unread",
+            "Unread",
+            "unread-symbolic",
+            ArticlesFilter::unread(),
+            sender,
+        );
+        let widget = adw::ViewStack::builder()
+            .hhomogeneous(false)
+            .vhomogeneous(false)
+            .build();
 
         let articles_view = Self {
             widget,
@@ -36,7 +53,11 @@ impl ArticlesView {
     fn init(&self) {
         // Unread View
         self.widget
-            .add_titled(self.unread_view.get_widget(), Some(&self.unread_view.name), &self.unread_view.title)
+            .add_titled(
+                self.unread_view.get_widget(),
+                Some(&self.unread_view.name),
+                &self.unread_view.title,
+            )
             .set_icon_name(Some(&self.unread_view.icon));
         // Favorites View
         self.widget

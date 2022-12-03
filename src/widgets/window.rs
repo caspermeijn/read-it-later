@@ -1,16 +1,16 @@
 use adw::prelude::*;
-use glib::clone;
-use glib::{timeout_future_seconds, MainContext, Sender};
-use gtk::gio;
-use gtk::glib;
+use glib::{clone, timeout_future_seconds, MainContext, Sender};
+use gtk::{gio, glib};
 use gtk_macros::{action, get_action, get_widget, send};
 use log::error;
 use url::Url;
 
-use crate::application::Action;
-use crate::config::PROFILE;
-use crate::models::{Article, ArticlesManager};
-use crate::views::{ArticleView, ArticlesView, Login};
+use crate::{
+    application::Action,
+    config::PROFILE,
+    models::{Article, ArticlesManager},
+    views::{ArticleView, ArticlesView, Login},
+};
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 pub enum View {
@@ -158,7 +158,8 @@ impl Window {
             let visible_headerbar_stack = headerbar_stack.visible_child_name().unwrap();
             view_switcher_bar.set_visible(visible_headerbar_stack == "articles");
         });
-        self.widget.connect_default_width_notify(Self::update_size_class);
+        self.widget
+            .connect_default_width_notify(Self::update_size_class);
         Self::update_size_class(&self.widget);
     }
 
@@ -176,14 +177,20 @@ impl Window {
         view_switcher_bar.set_stack(Some(&self.articles_view.widget));
 
         // Article View
-        main_stack.add_named(self.article_view.get_widget(), Some(&self.article_view.name));
-        self.widget.insert_action_group("article", Some(self.article_view.get_actions()));
+        main_stack.add_named(
+            self.article_view.get_widget(),
+            Some(&self.article_view.name),
+        );
+        self.widget
+            .insert_action_group("article", Some(self.article_view.get_actions()));
 
-        main_stack.connect_visible_child_name_notify(clone!(@strong self.article_view as article_view => move |stack| {
-            if let Some(view_name) = stack.visible_child_name() {
-                article_view.set_enable_actions(view_name == "article");
-            }
-        }));
+        main_stack.connect_visible_child_name_notify(
+            clone!(@strong self.article_view as article_view => move |stack| {
+                if let Some(view_name) = stack.visible_child_name() {
+                    article_view.set_enable_actions(view_name == "article");
+                }
+            }),
+        );
 
         get_widget!(self.builder, gtk::Button, save_article_btn);
         get_widget!(self.builder, gtk::Entry, article_url_entry);
@@ -212,6 +219,7 @@ impl Window {
             })
         );
 
-        self.widget.insert_action_group("window", Some(&self.actions));
+        self.widget
+            .insert_action_group("window", Some(&self.actions));
     }
 }

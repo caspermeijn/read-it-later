@@ -1,19 +1,17 @@
-use crate::models::{Article, ArticleAction};
+use std::cell::RefCell;
+
 use anyhow::Result;
-use glib::clone;
-use glib::subclass::InitializingObject;
-use glib::Object;
-use glib::Sender;
-use gtk::prelude::*;
-use gtk::subclass::prelude::*;
-use gtk::{gio, glib, CompositeTemplate};
+use glib::{clone, subclass::InitializingObject, Object, Sender};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::{action, send, stateful_action};
 use log::{error, info};
 use once_cell::sync::OnceCell;
-use std::cell::RefCell;
-use webkit::traits::{ContextMenuExt, ContextMenuItemExt, WebViewExt};
-use webkit::Settings;
-use webkit::WebView;
+use webkit::{
+    traits::{ContextMenuExt, ContextMenuItemExt, WebViewExt},
+    Settings, WebView,
+};
+
+use crate::models::{Article, ArticleAction};
 
 mod imp {
     use super::*;
@@ -63,7 +61,12 @@ mod imp {
     #[gtk::template_callbacks]
     impl ArticleWidget {
         #[template_callback]
-        fn modify_context_menu(_: &WebView, context_menu: &webkit::ContextMenu, _: &glib::Value, _: &webkit::HitTestResult) -> bool {
+        fn modify_context_menu(
+            _: &WebView,
+            context_menu: &webkit::ContextMenu,
+            _: &glib::Value,
+            _: &webkit::HitTestResult,
+        ) -> bool {
             // Right/Left Click context menu
             let forbidden_actions = vec![
                 webkit::ContextMenuAction::OpenLink,
@@ -207,7 +210,10 @@ impl ArticleWidget {
 }
 
 pub fn load_resource(file: &str) -> Result<String> {
-    let file = gio::File::for_uri(&format!("resource:///com/belmoussaoui/ReadItLater/{}", file));
+    let file = gio::File::for_uri(&format!(
+        "resource:///com/belmoussaoui/ReadItLater/{}",
+        file
+    ));
     let (bytes, _) = file.load_bytes(gio::Cancellable::NONE)?;
     String::from_utf8(bytes.to_vec()).map_err(From::from)
 }

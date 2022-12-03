@@ -1,24 +1,19 @@
-use super::row::ArticleRow;
-use crate::models::{ArticleAction, ArticleObject};
 use gio::prelude::*;
-use glib::clone;
-use glib::Object;
-use glib::Sender;
-use gtk::subclass::prelude::*;
-use gtk::{gio, glib};
+use glib::{clone, Object, Sender};
+use gtk::{gio, glib, subclass::prelude::*};
 use gtk_macros::send;
 use log::error;
 use once_cell::sync::OnceCell;
 
+use super::row::ArticleRow;
+use crate::models::{ArticleAction, ArticleObject};
+
 mod imp {
-    use super::*;
-    use glib::subclass::InitializingObject;
-    use glib::ParamSpec;
-    use glib::ParamSpecString;
-    use glib::Value;
-    use gtk::prelude::*;
-    use gtk::CompositeTemplate;
+    use glib::{subclass::InitializingObject, ParamSpec, ParamSpecString, Value};
+    use gtk::{prelude::*, CompositeTemplate};
     use once_cell::sync::Lazy;
+
+    use super::*;
 
     #[derive(CompositeTemplate, Default)]
     #[template(resource = "/com/belmoussaoui/ReadItLater/articles_list.ui")]
@@ -49,7 +44,8 @@ mod imp {
 
     impl ObjectImpl for ArticlesListWidget {
         fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| vec![ParamSpecString::builder("placeholder-icon-name").build()]);
+            static PROPERTIES: Lazy<Vec<ParamSpec>> =
+                Lazy::new(|| vec![ParamSpecString::builder("placeholder-icon-name").build()]);
             PROPERTIES.as_ref()
         }
 
@@ -84,7 +80,10 @@ mod imp {
         #[template_callback]
         fn handle_row_activated(&self, article_row: &ArticleRow, _list_box: &gtk::ListBox) {
             let sender = self.sender.get().unwrap();
-            send!(sender, ArticleAction::Open(article_row.article().article().clone()));
+            send!(
+                sender,
+                ArticleAction::Open(article_row.article().article().clone())
+            );
         }
     }
 }
@@ -111,14 +110,18 @@ impl ArticlesListWidget {
 
     pub fn bind_model(&self, model: &gio::ListStore) {
         self.update_model_empty(model);
-        model.connect_items_changed(clone!(@strong self as list_widget => move |model, _, _, _| {
-            list_widget.update_model_empty(model);
-        }));
+        model.connect_items_changed(
+            clone!(@strong self as list_widget => move |model, _, _, _| {
+                list_widget.update_model_empty(model);
+            }),
+        );
 
-        self.imp().articles_listbox.bind_model(Some(model), move |article| {
-            let article = article.downcast_ref::<ArticleObject>().unwrap();
-            let row = ArticleRow::new(article.clone());
-            row.upcast::<gtk::Widget>()
-        });
+        self.imp()
+            .articles_listbox
+            .bind_model(Some(model), move |article| {
+                let article = article.downcast_ref::<ArticleObject>().unwrap();
+                let row = ArticleRow::new(article.clone());
+                row.upcast::<gtk::Widget>()
+            });
     }
 }

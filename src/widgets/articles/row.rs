@@ -1,16 +1,13 @@
+use gtk::{glib, prelude::*, subclass::prelude::*};
+
 use crate::models::ArticleObject;
-use gtk::glib;
-use gtk::prelude::*;
-use gtk::subclass::prelude::*;
 
 mod imp {
+    use glib::{subclass::InitializingObject, ParamSpec, ParamSpecObject, Value};
+    use once_cell::sync::{Lazy, OnceCell};
+
     use super::*;
     use crate::widgets::articles::preview::ArticlePreview;
-    use glib::subclass::InitializingObject;
-    use glib::ParamSpecObject;
-    use glib::{ParamSpec, Value};
-    use once_cell::sync::Lazy;
-    use once_cell::sync::OnceCell;
 
     #[derive(gtk::CompositeTemplate, Default)]
     #[template(resource = "/com/belmoussaoui/ReadItLater/article_row.ui")]
@@ -44,8 +41,11 @@ mod imp {
 
     impl ObjectImpl for ArticleRow {
         fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> =
-                Lazy::new(|| vec![ParamSpecObject::builder::<ArticleObject>("article").construct_only().build()]);
+            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
+                vec![ParamSpecObject::builder::<ArticleObject>("article")
+                    .construct_only()
+                    .build()]
+            });
             PROPERTIES.as_ref()
         }
 

@@ -1,12 +1,15 @@
 use gio::prelude::*;
-use gtk::gio;
-use gtk::glib::object::Cast;
-use gtk::glib::Sender;
+use gtk::{
+    gio,
+    glib::{object::Cast, Sender},
+};
 use gtk_macros::get_action;
 use log::error;
 
-use crate::models::{Article, ArticleAction};
-use crate::widgets::articles::ArticleWidget;
+use crate::{
+    models::{Article, ArticleAction},
+    widgets::articles::ArticleWidget,
+};
 
 #[derive(Clone)]
 pub struct ArticleView {

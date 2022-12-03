@@ -1,12 +1,12 @@
-use crate::models::Account;
-use gtk::glib;
-use gtk::prelude::*;
-use gtk::subclass::prelude::*;
+use gtk::{glib, prelude::*, subclass::prelude::*};
 use log::error;
 
+use crate::models::Account;
+
 mod imp {
-    use super::*;
     use glib::subclass::InitializingObject;
+
+    use super::*;
 
     #[derive(gtk::CompositeTemplate, Default)]
     #[template(resource = "/com/belmoussaoui/ReadItLater/login.ui")]
@@ -53,7 +53,8 @@ mod imp {
         fn constructed(&self) {
             self.parent_constructed();
 
-            self.icon.set_icon_name(Some(&format!("{}-symbolic", crate::config::APP_ID)));
+            self.icon
+                .set_icon_name(Some(&format!("{}-symbolic", crate::config::APP_ID)));
         }
 
         fn dispose(&self) {

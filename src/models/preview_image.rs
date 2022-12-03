@@ -1,11 +1,11 @@
+use std::path::PathBuf;
+
 use anyhow::Result;
-use crypto::digest::Digest;
-use crypto::sha1::Sha1;
+use crypto::{digest::Digest, sha1::Sha1};
 use gtk::glib;
 use isahc::prelude::*;
 use lazy_static::lazy_static;
 use log::info;
-use std::path::PathBuf;
 use url::Url;
 
 lazy_static! {
@@ -36,7 +36,10 @@ impl PreviewImage {
 
     pub async fn download(&self) -> Result<()> {
         if let Ok(mut resp) = isahc::get_async(&self.url.to_string()).await {
-            info!("Downloading preview image {} into {:#?}", self.url, self.cache);
+            info!(
+                "Downloading preview image {} into {:#?}",
+                self.url, self.cache
+            );
             let body = resp.bytes().await?;
             async_std::fs::write(self.cache.clone(), body).await?;
         }

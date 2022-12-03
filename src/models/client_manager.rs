@@ -5,11 +5,15 @@ use gtk::glib::Sender;
 use gtk_macros::send;
 use log::{debug, error, warn};
 use url::Url;
-use wallabag_api::types::{EntriesFilter, NewEntry, PatchEntry, SortBy, SortOrder, User};
-use wallabag_api::Client;
+use wallabag_api::{
+    types::{EntriesFilter, NewEntry, PatchEntry, SortBy, SortOrder, User},
+    Client,
+};
 
-use crate::application::Action;
-use crate::models::{Article, ArticleAction};
+use crate::{
+    application::Action,
+    models::{Article, ArticleAction},
+};
 
 #[derive(Clone, Debug)]
 pub struct ClientManager {
@@ -23,7 +27,11 @@ impl ClientManager {
         let client: Option<Arc<Mutex<Client>>> = None;
         let user: Option<Arc<Mutex<User>>> = None;
 
-        Self { client, sender, user }
+        Self {
+            client,
+            sender,
+            user,
+        }
     }
 
     pub async fn update_entry(&self, entry_id: i32, patch: PatchEntry) {
@@ -53,7 +61,10 @@ impl ClientManager {
             let new_entry = NewEntry::new_with_url(url.into());
             if let Ok(entry) = client.create_entry(&new_entry).await {
                 let article = Article::from(entry);
-                send!(self.sender, Action::Articles(Box::new(ArticleAction::Add(article))));
+                send!(
+                    self.sender,
+                    Action::Articles(Box::new(ArticleAction::Add(article)))
+                );
             }
         }
     }
@@ -72,7 +83,10 @@ impl ClientManager {
         if let Some(client) = self.client.clone() {
             let mut client = client.lock().await;
             let entries = client.get_entries_with_filter(&filter).await?;
-            let articles = entries.into_iter().map(Article::from).collect::<Vec<Article>>();
+            let articles = entries
+                .into_iter()
+                .map(Article::from)
+                .collect::<Vec<Article>>();
             return Ok(articles);
         }
         bail!("No client set yet")

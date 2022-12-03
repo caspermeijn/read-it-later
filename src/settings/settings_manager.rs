@@ -1,14 +1,11 @@
-/*
-Source: https://gitlab.gnome.org/World/Shortwave/blob/master/src/settings/settings_manager.rs
-Thanks Felix!
-*/
+// Source: https://gitlab.gnome.org/World/Shortwave/blob/master/src/settings/settings_manager.rs
+// Thanks Felix!
 
 use gio::prelude::*;
 use gtk::gio;
 use log::error;
 
-use crate::config;
-use crate::settings::Key;
+use crate::{config, settings::Key};
 
 pub struct SettingsManager {}
 
