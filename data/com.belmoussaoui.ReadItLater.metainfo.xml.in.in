@@ -5,30 +5,30 @@
   <metadata_license>CC0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>Read It Later</name>
-  <summary>A Wallabag Client.</summary>
+  <summary>A Wallabag Client</summary>
   <description>
-    <p>Read It Later, is a simple Wallabag client. It has the basic features to manage your articles</p>
+    <p>Read It Later, is a simple Wallabag client. It has the basic features to manage your articles.</p>
     <ul>
       <li>Add new articles</li>
       <li>Archive an article</li>
       <li>Delete an article</li>
       <li>Favorite an article</li>
     </ul>
-    <p>It also comes with a nice on eyes reader mode that supports code syntax highlighting and a dark mode</p>
+    <p>It also comes with a nice on eyes reader mode that supports code syntax highlighting and a dark mode.</p>
   </description>
   <screenshots>
-      <screenshot type="default">
-        <image>https://gitlab.gnome.org/World/read-it-later/raw/master/data/resources/screenshots/screenshot1.png</image>
-        <caption>Main Window</caption>
-      </screenshot>
-      <screenshot>
-        <image>https://gitlab.gnome.org/World/read-it-later/raw/master/data/resources/screenshots/screenshot2.png</image>
-        <caption>Article View</caption>
-      </screenshot>
-      <screenshot>
-        <image>https://gitlab.gnome.org/World/read-it-later/raw/master/data/resources/screenshots/screenshot3.png</image>
-        <caption>Adaptive view in dark mode</caption>
-      </screenshot>
+    <screenshot type="default">
+      <image>https://gitlab.gnome.org/World/read-it-later/raw/master/data/resources/screenshots/screenshot1.png</image>
+      <caption>Main Window</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://gitlab.gnome.org/World/read-it-later/raw/master/data/resources/screenshots/screenshot2.png</image>
+      <caption>Article View</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://gitlab.gnome.org/World/read-it-later/raw/master/data/resources/screenshots/screenshot3.png</image>
+      <caption>Adaptive view in dark mode</caption>
+    </screenshot>
   </screenshots>
   <url type="homepage">https://gitlab.gnome.org/World/read-it-later</url>
   <url type="bugtracker">https://gitlab.gnome.org/World/read-it-later/issues</url>
@@ -38,22 +38,20 @@
   <releases>
     <release version="0.0.2" date="2020-02-26">
       <description>
-        <ul>
-          <li>Unlock the keyring instead of crashing</li>
-          <li>Fix crash in headers parsing</li>
-          <li>Other minor fixes</li>
-        </ul>
+        <p>Unlock the keyring instead of crashing</p>
+        <p>Fix crash in headers parsing</p>
+        <p>Other minor fixes</p>
       </description>
     </release>
     <release version="0.0.1" date="2020-02-05" />
   </releases>
   <kudos>
-      <!--
+    <!--
         GNOME Software kudos:
         https://gitlab.gnome.org/GNOME/gnome-software/blob/master/doc/kudos.md
       -->
-      <kudo>ModernToolkit</kudo>
-      <kudo>HiDpiIcon</kudo>
+    <kudo>ModernToolkit</kudo>
+    <kudo>HiDpiIcon</kudo>
   </kudos>
   <developer_name>Bilal Elmoussaoui</developer_name>
   <update_contact>bilal.elmoussaoui@gnome.org</update_contact>
@@ -64,4 +62,3 @@
     <value key="Purism::form_factor">mobile</value>
   </custom>
 </component>
-
