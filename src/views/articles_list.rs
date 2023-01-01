@@ -9,6 +9,7 @@ use crate::{
     widgets::articles::ArticlesListWidget,
 };
 
+#[derive(Clone, Debug)]
 pub struct ArticlesListView {
     widget: ArticlesListWidget,
     pub name: String,

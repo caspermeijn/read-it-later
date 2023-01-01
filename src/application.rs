@@ -133,7 +133,7 @@ impl Application {
         action!(
             self.app,
             "settings",
-            clone!(@strong self.window.widget as window, @strong self.client as client =>  move |_, _| {
+            clone!(@strong self.window as window, @strong self.client as client =>  move |_, _| {
                 let settings_widget = SettingsWidget::new(client.clone());
                 settings_widget.set_transient_for(Some(&window));
                 settings_widget.present();
@@ -143,7 +143,7 @@ impl Application {
         action!(
             self.app,
             "about",
-            clone!(@strong self.window.widget as window => move |_, _| {
+            clone!(@strong self.window as window => move |_, _| {
                 Application::show_about_dialog(&window);
             })
         );
@@ -203,7 +203,7 @@ impl Application {
     }
 
     fn setup_signals(&self) {
-        let window = self.window.widget.clone();
+        let window = self.window.clone();
         self.app.connect_activate(move |app| {
             window.set_application(Some(app));
             app.add_window(&window);
@@ -274,7 +274,7 @@ impl Application {
     fn logout(&self) -> Result<()> {
         let username = SettingsManager::string(Key::Username);
         database::wipe()?;
-        self.window.articles_view.clear();
+        self.window.articles_view().clear();
         if SecretManager::logout(&username).is_ok() {
             SettingsManager::set_string(Key::Username, "".into());
             SettingsManager::set_integer(Key::LatestSync, 0);
@@ -312,7 +312,7 @@ impl Application {
     ///   Articles
 
     fn add_article(&self, article: Article) {
-        self.window.articles_view.add(&article);
+        self.window.articles_view().add(&article);
     }
 
     fn load_articles(&self, articles: Vec<Article>) {
@@ -338,7 +338,7 @@ impl Application {
     }
 
     fn update_article(&self, article: Article) {
-        self.window.articles_view.update(&article);
+        self.window.articles_view().update(&article);
     }
 
     fn save_article(&self, url: Url) {
@@ -361,7 +361,7 @@ impl Application {
             article.title, article.id
         );
         send!(self.sender, Action::SetView(View::Syncing(true)));
-        self.window.articles_view.archive(&article);
+        self.window.articles_view().archive(&article);
 
         let sender = self.sender.clone();
         let client = self.client.clone();
@@ -378,7 +378,7 @@ impl Application {
             article.title, article.id
         );
         send!(self.sender, Action::SetView(View::Syncing(true)));
-        self.window.articles_view.favorite(&article);
+        self.window.articles_view().favorite(&article);
 
         let sender = self.sender.clone();
         let client = self.client.clone();
@@ -395,7 +395,7 @@ impl Application {
             article.title, article.id
         );
         send!(self.sender, Action::SetView(View::Syncing(true)));
-        self.window.articles_view.delete(&article);
+        self.window.articles_view().delete(&article);
 
         let sender = self.sender.clone();
         let client = self.client.clone();

@@ -5,6 +5,7 @@ use crate::{
     views::ArticlesListView,
 };
 
+#[derive(Clone, Debug)]
 pub struct ArticlesView {
     pub widget: adw::ViewStack,
     unread_view: ArticlesListView,

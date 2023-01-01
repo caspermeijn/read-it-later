@@ -1,7 +1,7 @@
 use adw::prelude::*;
-use glib::{clone, timeout_future_seconds, MainContext, Sender};
-use gtk::{gio, glib};
-use gtk_macros::{action, get_action, get_widget, send};
+use glib::{clone, timeout_future_seconds, MainContext, Object, Sender};
+use gtk::{gio, glib, subclass::prelude::*};
+use gtk_macros::{action, get_action, send};
 use log::error;
 use url::Url;
 
@@ -12,6 +12,74 @@ use crate::{
     views::{ArticleView, ArticlesView, Login},
 };
 
+mod imp {
+    use glib::subclass::InitializingObject;
+    use gtk::prelude::*;
+    use once_cell::sync::OnceCell;
+
+    use super::*;
+
+    #[derive(gtk::CompositeTemplate, Default)]
+    #[template(resource = "/com/belmoussaoui/ReadItLater/window.ui")]
+    pub struct Window {
+        #[template_child]
+        pub notification: TemplateChild<gtk::Revealer>,
+        #[template_child]
+        pub notification_label: TemplateChild<gtk::Label>,
+        #[template_child]
+        pub main_stack: TemplateChild<gtk::Stack>,
+        #[template_child]
+        pub headerbar_stack: TemplateChild<gtk::Stack>,
+        #[template_child]
+        pub loading_progress: TemplateChild<gtk::ProgressBar>,
+        #[template_child]
+        pub article_url_entry: TemplateChild<gtk::Entry>,
+        #[template_child]
+        pub save_article_btn: TemplateChild<gtk::Button>,
+        #[template_child]
+        pub view_switcher_bar: TemplateChild<adw::ViewSwitcherBar>,
+        #[template_child]
+        pub view_switcher_title: TemplateChild<adw::ViewSwitcherTitle>,
+        pub sender: OnceCell<Sender<Action>>,
+        pub article_view: OnceCell<ArticleView>,
+        pub articles_view: OnceCell<ArticlesView>,
+        pub login_view: Login,
+        pub actions: gio::SimpleActionGroup,
+    }
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for Window {
+        const NAME: &'static str = "Window";
+        type Type = super::Window;
+        type ParentType = gtk::ApplicationWindow;
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.bind_template();
+        }
+
+        fn instance_init(obj: &InitializingObject<Self>) {
+            obj.init_template();
+        }
+    }
+
+    impl ObjectImpl for Window {
+        fn dispose(&self) {
+            self.obj().dispose_template(Self::Type::static_type());
+        }
+    }
+
+    impl WidgetImpl for Window {}
+
+    impl WindowImpl for Window {}
+
+    impl ApplicationWindowImpl for Window {}
+}
+
+glib::wrapper! {
+    pub struct Window(ObjectSubclass<imp::Window>)
+    @extends gtk::ApplicationWindow, gtk::Window, gtk::Widget;
+}
+
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 pub enum View {
     Article,       // Article
@@ -21,63 +89,31 @@ pub enum View {
     NewArticle,    // New Article
 }
 
-pub struct Window {
-    pub widget: gtk::ApplicationWindow,
-    builder: gtk::Builder,
-    sender: Sender<Action>,
-    article_view: ArticleView,
-    pub articles_view: ArticlesView,
-    login_view: Login,
-    actions: gio::SimpleActionGroup,
-}
-
 impl Window {
     pub fn new(sender: Sender<Action>) -> Self {
-        let builder = gtk::Builder::from_resource("/com/belmoussaoui/ReadItLater/window.ui");
-        get_widget!(builder, gtk::ApplicationWindow, window);
-
-        if PROFILE == "Devel" {
-            window.add_css_class("devel");
-        }
-        let actions = gio::SimpleActionGroup::new();
-
-        let articles_manager = ArticlesManager::new(sender.clone());
-
-        let window_widget = Window {
-            widget: window,
-            builder,
-            article_view: ArticleView::new(articles_manager.sender.clone()),
-            articles_view: ArticlesView::new(articles_manager.sender.clone()),
-            login_view: Login::default(),
-            sender,
-            actions,
-        };
-
-        window_widget.init();
-        window_widget.init_views();
-        window_widget.setup_actions();
-        window_widget
+        let window: Self = Object::new(&[]);
+        window.init(sender);
+        window
     }
 
     pub fn load_article(&self, article: Article) {
-        let article_view_actions = self.article_view.get_actions();
+        let article_view = self.imp().article_view.get().unwrap();
+        let article_view_actions = article_view.get_actions();
         get_action!(article_view_actions, @archive).set_state(&article.is_archived.to_variant());
         get_action!(article_view_actions, @favorite).set_state(&article.is_starred.to_variant());
-        self.article_view.load(article);
+        article_view.load(article);
         self.set_view(View::Article);
     }
 
     pub fn notify(&self, message: String) {
-        get_widget!(self.builder, gtk::Revealer, notification);
-        get_widget!(self.builder, gtk::Label, notification_label);
-
-        notification_label.set_text(&message);
-        notification.set_reveal_child(true);
+        let imp = self.imp();
+        imp.notification_label.set_text(&message);
+        imp.notification.set_reveal_child(true);
 
         let main_context = MainContext::default();
-        main_context.spawn_local(clone!(@weak notification => async move {
+        main_context.spawn_local(clone!(@weak imp => async move {
             timeout_future_seconds(5).await;
-            notification.set_reveal_child(false);
+            imp.notification.set_reveal_child(false);
         }));
     }
 
@@ -86,55 +122,50 @@ impl Window {
     }
 
     pub fn set_view(&self, view: View) {
-        get_widget!(self.builder, gtk::ApplicationWindow, window);
-        window.set_default_widget(gtk::Widget::NONE);
-        get_widget!(self.builder, gtk::Stack, main_stack);
-        get_widget!(self.builder, gtk::Stack, headerbar_stack);
+        let imp = self.imp();
+        self.set_default_widget(gtk::Widget::NONE);
         match view {
             View::Article => {
-                main_stack.set_visible_child_name("article");
-                headerbar_stack.set_visible_child_name("article");
+                imp.main_stack.set_visible_child_name("article");
+                imp.headerbar_stack.set_visible_child_name("article");
             }
             View::Articles => {
-                main_stack.set_visible_child_name("articles");
-                headerbar_stack.set_visible_child_name("articles");
+                imp.main_stack.set_visible_child_name("articles");
+                imp.headerbar_stack.set_visible_child_name("articles");
             }
             View::Login => {
-                main_stack.set_visible_child_name("login");
-                headerbar_stack.set_visible_child_name("login");
+                imp.main_stack.set_visible_child_name("login");
+                imp.headerbar_stack.set_visible_child_name("login");
 
-                window.set_default_widget(Some(self.login_view.get_login_button()));
+                self.set_default_widget(Some(imp.login_view.get_login_button()));
             }
             View::Syncing(state) => {
-                get_widget!(self.builder, gtk::ProgressBar, loading_progress);
-                loading_progress.set_visible(state);
+                imp.loading_progress.set_visible(state);
                 if !state {
                     // If we hide the progress bar
-                    loading_progress.set_fraction(0.0); // Reset the fraction
+                    imp.loading_progress.set_fraction(0.0); // Reset the fraction
                 } else {
                     let main_context = MainContext::default();
 
-                    loading_progress.pulse();
+                    imp.loading_progress.pulse();
 
-                    let future = clone!(@weak loading_progress => async move {
+                    let future = clone!(@weak imp => async move {
                         timeout_future_seconds(1).await;
-                        loading_progress.pulse();
+                        imp.loading_progress.pulse();
                     });
 
                     main_context.spawn_local(future);
                 }
             }
             View::NewArticle => {
-                headerbar_stack.set_visible_child_name("new-article");
-                get_widget!(self.builder, gtk::Entry, article_url_entry);
-                article_url_entry.grab_focus_without_selecting();
-                get_widget!(self.builder, gtk::Button, save_article_btn);
-                window.set_default_widget(Some(&save_article_btn));
+                imp.headerbar_stack.set_visible_child_name("new-article");
+                imp.article_url_entry.grab_focus_without_selecting();
+                self.set_default_widget(Some(&imp.save_article_btn.get()));
             }
         }
     }
 
-    fn update_size_class(widget: &gtk::ApplicationWindow) {
+    fn update_size_class(widget: &Self) {
         if widget.default_width() <= 450 {
             widget.add_css_class("sm");
             widget.remove_css_class("md");
@@ -150,76 +181,100 @@ impl Window {
         }
     }
 
-    fn init(&self) {
-        get_widget!(self.builder, gtk::Stack, headerbar_stack);
-        get_widget!(self.builder, adw::ViewSwitcherBar, view_switcher_bar);
+    pub fn init(&self, sender: Sender<Action>) {
+        let imp = self.imp();
 
-        headerbar_stack.connect_visible_child_name_notify(move |headerbar_stack| {
-            let visible_headerbar_stack = headerbar_stack.visible_child_name().unwrap();
-            view_switcher_bar.set_visible(visible_headerbar_stack == "articles");
-        });
-        self.widget
-            .connect_default_width_notify(Self::update_size_class);
-        Self::update_size_class(&self.widget);
+        if PROFILE == "Devel" {
+            self.add_css_class("devel");
+        }
+        let articles_manager = ArticlesManager::new(sender.clone());
+
+        imp.sender.set(sender).unwrap();
+        imp.article_view
+            .set(ArticleView::new(articles_manager.sender.clone()))
+            .unwrap();
+        imp.articles_view
+            .set(ArticlesView::new(articles_manager.sender.clone()))
+            .unwrap();
+
+        imp.headerbar_stack.connect_visible_child_name_notify(
+            clone!(@weak imp => move |headerbar_stack| {
+                let visible_headerbar_stack = headerbar_stack.visible_child_name().unwrap();
+                imp.view_switcher_bar
+                    .set_visible(visible_headerbar_stack == "articles");
+            }),
+        );
+        self.connect_default_width_notify(Self::update_size_class);
+        Self::update_size_class(&self);
+
+        self.init_views();
+        self.setup_actions();
     }
 
     fn init_views(&self) {
-        get_widget!(self.builder, gtk::Stack, main_stack);
+        let imp = self.imp();
+
         // Login Form
-        main_stack.add_named(&self.login_view, Some("login"));
+        imp.main_stack.add_named(&imp.login_view, Some("login"));
 
         // Articles
-        get_widget!(self.builder, adw::ViewSwitcherTitle, view_switcher_title);
-        get_widget!(self.builder, adw::ViewSwitcherBar, view_switcher_bar);
-
-        main_stack.add_named(&self.articles_view.widget, Some("articles"));
-        view_switcher_title.set_stack(Some(&self.articles_view.widget));
-        view_switcher_bar.set_stack(Some(&self.articles_view.widget));
+        let articles_view = imp.articles_view.get().unwrap();
+        imp.main_stack
+            .add_named(&articles_view.widget, Some("articles"));
+        imp.view_switcher_title
+            .set_stack(Some(&articles_view.widget));
+        imp.view_switcher_bar.set_stack(Some(&articles_view.widget));
 
         // Article View
-        main_stack.add_named(
-            self.article_view.get_widget(),
-            Some(&self.article_view.name),
-        );
-        self.widget
-            .insert_action_group("article", Some(self.article_view.get_actions()));
+        let article_view = imp.article_view.get().unwrap();
+        imp.main_stack
+            .add_named(article_view.get_widget(), Some(&article_view.name));
+        self.insert_action_group("article", Some(article_view.get_actions()));
 
-        main_stack.connect_visible_child_name_notify(
-            clone!(@strong self.article_view as article_view => move |stack| {
+        imp.main_stack.connect_visible_child_name_notify(
+            clone!(@strong article_view => move |stack| {
                 if let Some(view_name) = stack.visible_child_name() {
                     article_view.set_enable_actions(view_name == "article");
                 }
             }),
         );
 
-        get_widget!(self.builder, gtk::Button, save_article_btn);
-        get_widget!(self.builder, gtk::Entry, article_url_entry);
-        save_article_btn.connect_clicked(clone!(@strong self.sender as sender => move |_| {
-            if let Ok(url) = Url::parse(&article_url_entry.text()) {
-                send!(sender, Action::SaveArticle(url));
-                article_url_entry.set_text("");
-            }
-        }));
+        let sender = imp.sender.get().unwrap();
+        imp.save_article_btn
+            .connect_clicked(clone!(@weak imp, @strong sender => move |_| {
+                if let Ok(url) = Url::parse(&imp.article_url_entry.text()) {
+                    send!(sender, Action::SaveArticle(url));
+                    imp.article_url_entry.set_text("");
+                }
+            }));
 
         self.set_view(View::Login);
     }
 
     fn setup_actions(&self) {
-        get_widget!(self.builder, gtk::Revealer, notification);
-
-        action!(self.actions, "close-notification", move |_, _| {
-            notification.set_reveal_child(false);
-        });
+        let imp = self.imp();
 
         action!(
-            self.actions,
+            imp.actions,
+            "close-notification",
+            clone!(@weak imp => move |_, _| {
+                imp.notification.set_reveal_child(false);
+            })
+        );
+
+        let sender = imp.sender.get().unwrap();
+        action!(
+            imp.actions,
             "previous",
-            clone!(@strong self.sender as sender => move |_, _| {
+            clone!(@strong sender => move |_, _| {
                 send!(sender, Action::PreviousView);
             })
         );
 
-        self.widget
-            .insert_action_group("window", Some(&self.actions));
+        self.insert_action_group("window", Some(&imp.actions));
+    }
+
+    pub fn articles_view(&self) -> &ArticlesView {
+        self.imp().articles_view.get().unwrap()
     }
 }

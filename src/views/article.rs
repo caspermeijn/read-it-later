@@ -11,7 +11,7 @@ use crate::{
     widgets::articles::ArticleWidget,
 };
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct ArticleView {
     widget: ArticleWidget,
     pub name: String,
