@@ -23,9 +23,7 @@ mod imp {
     #[template(resource = "/com/belmoussaoui/ReadItLater/window.ui")]
     pub struct Window {
         #[template_child]
-        pub notification: TemplateChild<gtk::Revealer>,
-        #[template_child]
-        pub notification_label: TemplateChild<gtk::Label>,
+        pub toast_overlay: TemplateChild<adw::ToastOverlay>,
         #[template_child]
         pub main_stack: TemplateChild<gtk::Stack>,
         #[template_child]
@@ -105,16 +103,8 @@ impl Window {
         self.set_view(View::Article);
     }
 
-    pub fn notify(&self, message: String) {
-        let imp = self.imp();
-        imp.notification_label.set_text(&message);
-        imp.notification.set_reveal_child(true);
-
-        let main_context = MainContext::default();
-        main_context.spawn_local(clone!(@weak imp => async move {
-            timeout_future_seconds(5).await;
-            imp.notification.set_reveal_child(false);
-        }));
+    pub fn add_toast(&self, toast: adw::Toast) {
+        self.imp().toast_overlay.add_toast(&toast);
     }
 
     pub fn previous_view(&self) {
@@ -253,14 +243,6 @@ impl Window {
 
     fn setup_actions(&self) {
         let imp = self.imp();
-
-        action!(
-            imp.actions,
-            "close-notification",
-            clone!(@weak imp => move |_, _| {
-                imp.notification.set_reveal_child(false);
-            })
-        );
 
         let sender = imp.sender.get().unwrap();
         action!(

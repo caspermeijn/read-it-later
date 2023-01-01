@@ -95,7 +95,7 @@ impl Application {
             // UI
             Action::SetView(view) => self.window.set_view(view),
             Action::PreviousView => self.window.previous_view(),
-            Action::Notify(err_msg) => self.window.notify(err_msg),
+            Action::Notify(err_msg) => self.window.add_toast(adw::Toast::new(&err_msg)),
             // Auth
             Action::SetClientConfig(config) => self.set_client_config(config),
             Action::Sync => self.sync(),
