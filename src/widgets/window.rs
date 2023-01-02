@@ -13,6 +13,7 @@ use crate::{
 };
 
 mod imp {
+    use adw::subclass::prelude::*;
     use glib::subclass::InitializingObject;
     use gtk::prelude::*;
     use once_cell::sync::OnceCell;
@@ -49,7 +50,7 @@ mod imp {
     impl ObjectSubclass for Window {
         const NAME: &'static str = "Window";
         type Type = super::Window;
-        type ParentType = gtk::ApplicationWindow;
+        type ParentType = adw::ApplicationWindow;
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -71,11 +72,13 @@ mod imp {
     impl WindowImpl for Window {}
 
     impl ApplicationWindowImpl for Window {}
+
+    impl AdwApplicationWindowImpl for Window {}
 }
 
 glib::wrapper! {
     pub struct Window(ObjectSubclass<imp::Window>)
-    @extends gtk::ApplicationWindow, gtk::Window, gtk::Widget;
+    @extends adw::ApplicationWindow, gtk::ApplicationWindow, gtk::Window, gtk::Widget;
 }
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
