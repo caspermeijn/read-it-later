@@ -188,6 +188,15 @@
                     <property name="hhomogeneous">False</property>
                     <property name="vhomogeneous">False</property>
                     <property name="transition-type">slide-left-right</property>
+                    <child>
+                      <object class="GtkStackPage">
+                        <property name="name">login</property>
+                        <property name="child">
+                          <object class="Login" id="login_view">
+                          </object>
+                        </property>
+                      </object>
+                    </child>
                   </object>
                 </property>
               </object>

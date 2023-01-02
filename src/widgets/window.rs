@@ -39,10 +39,11 @@ mod imp {
         pub view_switcher_bar: TemplateChild<adw::ViewSwitcherBar>,
         #[template_child]
         pub view_switcher_title: TemplateChild<adw::ViewSwitcherTitle>,
+        #[template_child]
+        pub login_view: TemplateChild<Login>,
         pub sender: OnceCell<Sender<Action>>,
         pub article_view: OnceCell<ArticleView>,
         pub articles_view: OnceCell<ArticlesView>,
-        pub login_view: Login,
         pub actions: gio::SimpleActionGroup,
     }
 
@@ -206,9 +207,6 @@ impl Window {
 
     fn init_views(&self) {
         let imp = self.imp();
-
-        // Login Form
-        imp.main_stack.add_named(&imp.login_view, Some("login"));
 
         // Articles
         let articles_view = imp.articles_view.get().unwrap();
