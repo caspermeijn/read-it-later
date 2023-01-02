@@ -1,7 +1,7 @@
 use adw::prelude::*;
 use glib::{clone, timeout_future_seconds, MainContext, Object, Sender};
 use gtk::{gio, glib, subclass::prelude::*};
-use gtk_macros::{action, get_action, send};
+use gtk_macros::{get_action, send};
 use log::error;
 use url::Url;
 
@@ -55,6 +55,11 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+
+            klass.install_action("window.previous", None, move |window, _, _| {
+                let sender = window.imp().sender.get().unwrap();
+                send!(sender, Action::PreviousView);
+            });
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {
@@ -184,7 +189,6 @@ impl Window {
         );
 
         self.init_views();
-        self.setup_actions();
     }
 
     fn init_views(&self) {
@@ -222,21 +226,6 @@ impl Window {
             }));
 
         self.set_view(View::Login);
-    }
-
-    fn setup_actions(&self) {
-        let imp = self.imp();
-
-        let sender = imp.sender.get().unwrap();
-        action!(
-            imp.actions,
-            "previous",
-            clone!(@strong sender => move |_, _| {
-                send!(sender, Action::PreviousView);
-            })
-        );
-
-        self.insert_action_group("window", Some(&imp.actions));
     }
 
     pub fn articles_view(&self) -> &ArticlesView {
