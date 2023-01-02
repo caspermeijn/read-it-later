@@ -159,22 +159,6 @@ impl Window {
         }
     }
 
-    fn update_size_class(widget: &Self) {
-        if widget.default_width() <= 450 {
-            widget.add_css_class("sm");
-            widget.remove_css_class("md");
-            widget.remove_css_class("lg");
-        } else if widget.default_width() <= 600 {
-            widget.add_css_class("md");
-            widget.remove_css_class("sm");
-            widget.remove_css_class("lg");
-        } else {
-            widget.add_css_class("lg");
-            widget.remove_css_class("sm");
-            widget.remove_css_class("md");
-        }
-    }
-
     pub fn init(&self, sender: Sender<Action>) {
         let imp = self.imp();
 
@@ -198,8 +182,6 @@ impl Window {
                     .set_visible(visible_headerbar_stack == "articles");
             }),
         );
-        self.connect_default_width_notify(Self::update_size_class);
-        Self::update_size_class(&self);
 
         self.init_views();
         self.setup_actions();
