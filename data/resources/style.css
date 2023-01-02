@@ -4,16 +4,7 @@
 }
 .articles-list {
   background-color: transparent;
-}
-.lg .articles-list {
-  margin: 24px;
-}
-.md .articles-list{
-  margin: 12px;
-  margin: 12px;
-}
-.sm .articles-list{
-  margin:6px;
+  margin:10px;
 }
 .article-row {
   padding: 12px;
