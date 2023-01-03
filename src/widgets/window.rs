@@ -1,6 +1,6 @@
-use adw::prelude::*;
+use adw::{prelude::*, subclass::prelude::*};
 use glib::{clone, timeout_future_seconds, MainContext, Object, Sender};
-use gtk::{gio, glib, subclass::prelude::*};
+use gtk::{gio, glib};
 use gtk_macros::{get_action, send};
 use log::error;
 use url::Url;
@@ -13,9 +13,7 @@ use crate::{
 };
 
 mod imp {
-    use adw::subclass::prelude::*;
     use glib::subclass::InitializingObject;
-    use gtk::prelude::*;
     use once_cell::sync::OnceCell;
 
     use super::*;
