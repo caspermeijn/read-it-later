@@ -25,7 +25,7 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Back</property>
-                <property name="action-name">window.previous</property>
+                <property name="action-name">win.previous</property>
               </object>
             </child>
             <child>

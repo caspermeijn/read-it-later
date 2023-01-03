@@ -56,7 +56,7 @@ mod imp {
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
 
-            klass.install_action("window.previous", None, move |window, _, _| {
+            klass.install_action("win.previous", None, move |window, _, _| {
                 let sender = window.imp().sender.get().unwrap();
                 send!(sender, Action::PreviousView);
             });
