@@ -2,14 +2,15 @@
 # Copyright (C) 2020 read-it-later's COPYRIGHT HOLDER
 # This file is distributed under the same license as the read-it-later package.
 # scootergrisen, 2020.
+# Alan Mortensen <alanmortensen.am@gmail.com>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/"
 "issues\n"
-"POT-Creation-Date: 2022-09-10 11:40+0000\n"
-"PO-Revision-Date: 2022-09-12 19:12+0200\n"
+"POT-Creation-Date: 2022-10-30 12:58+0000\n"
+"PO-Revision-Date: 2023-01-01 16:16+0100\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -21,6 +22,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/resources/ui/window.ui:65
 msgid "Read It Later"
 msgstr "Read It Later"
 
@@ -112,165 +114,176 @@ msgstr "Brugernavn ved login"
 msgid "Latest successful sync in ms"
 msgstr "Seneste synkronisering der lykkedes, i ms"
 
-#: data/resources/ui/articles_list.ui:52
-msgid "No articles found"
-msgstr "Ingen artikler fundet"
+#: data/resources/ui/articles_list.ui:34
+msgid "Pretty clean!"
+msgstr "Rimelig godt!"
 
-#: data/resources/ui/gtk/help-overlay.ui:13
+#: data/resources/ui/gtk/help-overlay.ui:12
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Generelt"
 
-#: data/resources/ui/gtk/help-overlay.ui:17
+#: data/resources/ui/gtk/help-overlay.ui:15
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "Vis genveje"
 
-#: data/resources/ui/gtk/help-overlay.ui:24
+#: data/resources/ui/gtk/help-overlay.ui:21
 msgctxt "shortcut window"
 msgid "Preferences"
 msgstr "Indstillinger"
 
-#: data/resources/ui/gtk/help-overlay.ui:31
+#: data/resources/ui/gtk/help-overlay.ui:27
 msgctxt "shortcut window"
 msgid "Back"
 msgstr "Tilbage"
 
-#: data/resources/ui/gtk/help-overlay.ui:38
+#: data/resources/ui/gtk/help-overlay.ui:33
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Afslut"
 
-#: data/resources/ui/gtk/help-overlay.ui:47
+#: data/resources/ui/gtk/help-overlay.ui:41
 msgctxt "shortcut window"
 msgid "Articles"
 msgstr "Artikler"
 
-#: data/resources/ui/gtk/help-overlay.ui:51
+#: data/resources/ui/gtk/help-overlay.ui:44
 msgctxt "shortcut window"
 msgid "Synchronize"
 msgstr "Synkroniser"
 
-#: data/resources/ui/gtk/help-overlay.ui:58
+#: data/resources/ui/gtk/help-overlay.ui:50
 msgctxt "shortcut window"
 msgid "New Article"
 msgstr "Ny artikel"
 
-#: data/resources/ui/gtk/help-overlay.ui:65
+#: data/resources/ui/gtk/help-overlay.ui:56
 msgctxt "shortcut window"
 msgid "Delete Article"
 msgstr "Slet artikel"
 
-#: data/resources/ui/gtk/help-overlay.ui:72
+#: data/resources/ui/gtk/help-overlay.ui:62
 msgctxt "shortcut window"
 msgid "Favorite Article"
 msgstr "Tilføj artikel som favorit"
 
-#: data/resources/ui/gtk/help-overlay.ui:79
+#: data/resources/ui/gtk/help-overlay.ui:68
 msgctxt "shortcut window"
 msgid "Archive Article"
 msgstr "Arkivér artikel"
 
-#: data/resources/ui/gtk/help-overlay.ui:86
+#: data/resources/ui/gtk/help-overlay.ui:74
 msgctxt "shortcut window"
 msgid "Open Article in Browser"
 msgstr "Åbn artikel i browser"
 
-#: data/resources/ui/login.ui:53
+#: data/resources/ui/login.ui:32
 msgid "Welcome to Read It Later"
 msgstr "Velkommen til Read It Later"
 
-#: data/resources/ui/login.ui:67
+#: data/resources/ui/login.ui:42
 msgid "Please sign in using your Wallabag instance information"
 msgstr "Log på med information fra din Wallabag-instans"
 
-#: data/resources/ui/login.ui:92
+#: data/resources/ui/login.ui:57
 msgid "Instance URL"
 msgstr "Instans-URL"
 
-#: data/resources/ui/login.ui:108
+#: data/resources/ui/login.ui:63
 msgid "Client ID"
 msgstr "Klient-ID"
 
-#: data/resources/ui/login.ui:123
+#: data/resources/ui/login.ui:69
 msgid "Client Secret"
 msgstr "Klienthemmelighed"
 
-#: data/resources/ui/login.ui:140 data/resources/ui/settings.ui:16
+#: data/resources/ui/login.ui:75 data/resources/ui/settings.ui:13
 msgid "User Name"
 msgstr "Brugernavn"
 
-#: data/resources/ui/login.ui:155
+#: data/resources/ui/login.ui:81
 msgid "Password"
 msgstr "Adgangskode"
 
-#: data/resources/ui/login.ui:175
+#: data/resources/ui/login.ui:91
 msgid "Log In"
 msgstr "Log ind"
 
-#: data/resources/ui/settings.ui:12
+#: data/resources/ui/settings.ui:10
 msgid "Account Information"
 msgstr "Kontooplysninger"
 
-#: data/resources/ui/settings.ui:30
+#: data/resources/ui/settings.ui:21
 msgid "Email"
 msgstr "E-mail"
 
-#: data/resources/ui/settings.ui:44
+#: data/resources/ui/settings.ui:29
 msgid "Created At"
 msgstr "Oprettet"
 
-#: data/resources/ui/settings.ui:58
+#: data/resources/ui/settings.ui:37
 msgid "Updated At"
 msgstr "Opdateret"
 
-#: data/resources/ui/window.ui:9
+#: data/resources/ui/window.ui:8
 msgid "Open Website"
 msgstr "Åbn websted"
 
-#: data/resources/ui/window.ui:15
+#: data/resources/ui/window.ui:14
 msgid "Delete Article"
 msgstr "Slet artikel"
 
-#: data/resources/ui/window.ui:23
+#: data/resources/ui/window.ui:22
 msgid "Add Article…"
 msgstr "Tilføj artikel …"
 
-#: data/resources/ui/window.ui:29
+#: data/resources/ui/window.ui:28
 msgid "Preferences"
 msgstr "Indstillinger"
 
-#: data/resources/ui/window.ui:33
+#: data/resources/ui/window.ui:32
 msgid "Log Out"
 msgstr "Log ud"
 
-#: data/resources/ui/window.ui:39
+#: data/resources/ui/window.ui:38
 msgid "Keyboard Shortcuts"
 msgstr "Tastaturgenveje"
 
-#: data/resources/ui/window.ui:43
+#: data/resources/ui/window.ui:42
 msgid "About Read It Later"
 msgstr "Om Read It Later"
 
-#: data/resources/ui/window.ui:144
+#: data/resources/ui/window.ui:103
 msgid "Favorite"
 msgstr "Favorit"
 
-#: data/resources/ui/window.ui:163
+#: data/resources/ui/window.ui:111
 msgid "Archive"
 msgstr "Arkivér"
 
-#: data/resources/ui/window.ui:231
+#: data/resources/ui/window.ui:150
 msgid "Paste the article URL here"
 msgstr "Indsæt artiklens URL her"
 
-#: data/resources/ui/window.ui:238
+#: data/resources/ui/window.ui:157
 msgid "Save"
 msgstr "Gem"
 
-#: src/application.rs:392
+#: src/application.rs:108
+msgid "Failed to logout"
+msgstr "Kunne ikke logge ud"
+
+#: src/application.rs:252 src/application.rs:257
+msgid "Failed to log in"
+msgstr "Kunne ikke logge ind"
+
+#: src/application.rs:401
 msgid "translator-credits"
 msgstr "scootergrisen"
+
+#~ msgid "No articles found"
+#~ msgstr "Ingen artikler fundet"
 
 #~ msgid "Whether we should use a dark theme or not"
 #~ msgstr "Om vi skal bruge det mørke tema"
