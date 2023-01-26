@@ -148,8 +148,7 @@
                           <object class="GtkEntry" id="article_url_entry">
                             <property name="activates-default">True</property>
                             <property name="input-purpose">url</property>
-                            <property name="placeholder-text" translatable="yes">Paste the article
-                              URL here</property>
+                            <property name="placeholder-text" translatable="yes">Paste the article URL here</property>
                           </object>
                         </child>
                       </object>
