@@ -2,13 +2,13 @@
 # Copyright (C) 2020 read-it-later's COPYRIGHT HOLDER
 # This file is distributed under the same license as the read-it-later package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2022-10-30 12:58+0000\n"
-"PO-Revision-Date: 2022-10-30 17:56+0200\n"
+"POT-Creation-Date: 2023-01-25 21:49+0000\n"
+"PO-Revision-Date: 2023-01-27 19:26+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:65
+#: data/resources/ui/window.ui:66
 msgid "Read It Later"
 msgstr "Прочитаю потім"
 
@@ -229,59 +229,64 @@ msgstr "Створено"
 msgid "Updated At"
 msgstr "Оновлено"
 
-#: data/resources/ui/window.ui:8
+#: data/resources/ui/window.ui:6
 msgid "Open Website"
 msgstr "Відкрити сайт"
 
-#: data/resources/ui/window.ui:14
+#: data/resources/ui/window.ui:12
 msgid "Delete Article"
 msgstr "Вилучити статтю"
 
-#: data/resources/ui/window.ui:22
+#: data/resources/ui/window.ui:20
 msgid "Add Article…"
 msgstr "Додати статтю…"
 
-#: data/resources/ui/window.ui:28
+#: data/resources/ui/window.ui:26
 msgid "Preferences"
 msgstr "Налаштування"
 
-#: data/resources/ui/window.ui:32
+#: data/resources/ui/window.ui:30
 msgid "Log Out"
 msgstr "Вийти"
 
-#: data/resources/ui/window.ui:38
+#: data/resources/ui/window.ui:36
 msgid "Keyboard Shortcuts"
 msgstr "Клавіатурні скорочення"
 
-#: data/resources/ui/window.ui:42
+#: data/resources/ui/window.ui:40
 msgid "About Read It Later"
 msgstr "Про «Прочитаю потім»"
 
-#: data/resources/ui/window.ui:103
+#: data/resources/ui/window.ui:104
 msgid "Favorite"
 msgstr "Вибране"
 
-#: data/resources/ui/window.ui:111
+#: data/resources/ui/window.ui:112
 msgid "Archive"
 msgstr "Архівувати"
 
-#: data/resources/ui/window.ui:150
-msgid "Paste the article URL here"
-msgstr "Сюди можна вставити адресу статті"
+#: data/resources/ui/window.ui:151
+#| msgid "Paste the article URL here"
+msgid ""
+"Paste the article\n"
+"                              URL here"
+msgstr ""
+"Сюди можна вставити\n"
+"                           адресу статті"
 
-#: data/resources/ui/window.ui:157
+#: data/resources/ui/window.ui:159
 msgid "Save"
 msgstr "Зберегти"
 
-#: src/application.rs:108
+#: src/application.rs:105
 msgid "Failed to logout"
 msgstr "Не вдалося вийти"
 
-#: src/application.rs:252 src/application.rs:257
+#: src/application.rs:255 src/application.rs:260
 msgid "Failed to log in"
 msgstr "Не вдалося увійти"
 
-#: src/application.rs:401
+#: src/application.rs:417
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
