@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-01-25 21:49+0000\n"
-"PO-Revision-Date: 2023-01-27 19:26+0200\n"
+"POT-Creation-Date: 2023-01-28 18:39+0000\n"
+"PO-Revision-Date: 2023-01-28 21:02+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -266,15 +266,13 @@ msgid "Archive"
 msgstr "Архівувати"
 
 #: data/resources/ui/window.ui:151
-#| msgid "Paste the article URL here"
-msgid ""
-"Paste the article\n"
-"                              URL here"
-msgstr ""
-"Сюди можна вставити\n"
-"                           адресу статті"
+#| msgid ""
+#| "Paste the article\n"
+#| "                              URL here"
+msgid "Paste the article URL here"
+msgstr "Сюди можна вставити адресу статті"
 
-#: data/resources/ui/window.ui:159
+#: data/resources/ui/window.ui:158
 msgid "Save"
 msgstr "Зберегти"
 
