@@ -3,7 +3,7 @@ use std::cell::RefCell;
 use anyhow::Result;
 use glib::{clone, Sender};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
-use gtk_macros::{action, send, stateful_action};
+use gtk_macros::{action, send};
 use log::{error, info};
 use once_cell::sync::OnceCell;
 use webkit::{prelude::*, Settings, WebView};
@@ -142,10 +142,8 @@ impl ArticleWidget {
         );
 
         // Archive article
-        stateful_action!(
-            self.imp().actions,
-            "archive",
-            false,
+        let simple_action = gio::SimpleAction::new_stateful("archive", None, &false.to_variant());
+        simple_action.connect_activate(
             clone!(@strong self as aw, @strong sender => move |action, _|{
                 let state = action.state().unwrap();
                 let action_state: bool = state.get().unwrap();
@@ -154,13 +152,13 @@ impl ArticleWidget {
                 if let Some(article) = aw.imp().article.borrow_mut().clone() {
                     send!(sender, ArticleAction::Archive(article));
                 }
-            })
+            }),
         );
+        self.imp().actions.add_action(&simple_action);
+
         // Favorite article
-        stateful_action!(
-            self.imp().actions,
-            "favorite",
-            false,
+        let simple_action = gio::SimpleAction::new_stateful("favorite", None, &false.to_variant());
+        simple_action.connect_activate(
             clone!(@strong self as aw, @strong sender => move |action, _|{
                 let state = action.state().unwrap();
                 let action_state: bool = state.get().unwrap();
@@ -170,8 +168,9 @@ impl ArticleWidget {
                 if let Some(article) = aw.imp().article.borrow_mut().clone() {
                     send!(sender, ArticleAction::Favorite(article));
                 }
-            })
+            }),
         );
+        self.imp().actions.add_action(&simple_action);
     }
 
     pub fn load_article(&self, article: Article) -> Result<()> {
