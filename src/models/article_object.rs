@@ -58,7 +58,7 @@ glib::wrapper! {
 
 impl ArticleObject {
     pub fn new(article: Article) -> Self {
-        let obj = glib::Object::new::<Self>(&[]);
+        let obj = glib::Object::new::<Self>();
         obj.imp().article.set(article).unwrap();
         obj
     }

@@ -8,7 +8,6 @@ use crate::models::ClientManager;
 
 mod imp {
     use glib::subclass::InitializingObject;
-    use gtk::prelude::*;
 
     use super::*;
 
@@ -42,7 +41,7 @@ mod imp {
 
     impl ObjectImpl for SettingsWidget {
         fn dispose(&self) {
-            self.obj().dispose_template(Self::Type::static_type());
+            self.dispose_template();
         }
     }
 
@@ -73,7 +72,7 @@ enum SettingsAction {
 
 impl SettingsWidget {
     pub fn new(client: Arc<Mutex<ClientManager>>) -> Self {
-        let window = glib::Object::new::<Self>(&[]);
+        let window = glib::Object::new::<Self>();
         window.init(client);
         window
     }

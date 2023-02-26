@@ -69,7 +69,7 @@ mod imp {
         }
 
         fn dispose(&self) {
-            self.obj().dispose_template(Self::Type::static_type());
+            self.dispose_template();
         }
     }
 

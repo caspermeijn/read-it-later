@@ -67,7 +67,7 @@ mod imp {
 
     impl ObjectImpl for Window {
         fn dispose(&self) {
-            self.obj().dispose_template(Self::Type::static_type());
+            self.dispose_template();
         }
     }
 
@@ -96,7 +96,7 @@ pub enum View {
 
 impl Window {
     pub fn new(sender: Sender<Action>) -> Self {
-        let window: Self = Object::new(&[]);
+        let window: Self = Object::new();
         window.init(sender);
         window
     }
@@ -104,14 +104,14 @@ impl Window {
     pub fn load_article(&self, article: Article) {
         let article_view = self.imp().article_view.get().unwrap();
         let article_view_actions = article_view.get_actions();
-        get_action!(article_view_actions, @archive).set_state(&article.is_archived.to_variant());
-        get_action!(article_view_actions, @favorite).set_state(&article.is_starred.to_variant());
+        get_action!(article_view_actions, @archive).set_state(article.is_archived.into());
+        get_action!(article_view_actions, @favorite).set_state(article.is_starred.into());
         article_view.load(article);
         self.set_view(View::Article);
     }
 
     pub fn add_toast(&self, toast: adw::Toast) {
-        self.imp().toast_overlay.add_toast(&toast);
+        self.imp().toast_overlay.add_toast(toast);
     }
 
     pub fn previous_view(&self) {

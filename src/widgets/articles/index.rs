@@ -49,7 +49,7 @@ mod imp {
 
     impl ObjectImpl for ArticleWidget {
         fn dispose(&self) {
-            self.obj().dispose_template(Self::Type::static_type());
+            self.dispose_template();
         }
     }
 
@@ -104,7 +104,7 @@ glib::wrapper! {
 
 impl ArticleWidget {
     pub fn new(sender: Sender<ArticleAction>) -> Self {
-        let article_widget = glib::Object::new::<Self>(&[]);
+        let article_widget = glib::Object::new::<Self>();
         article_widget.init(sender);
         article_widget.setup_actions();
         article_widget
@@ -142,13 +142,13 @@ impl ArticleWidget {
         );
 
         // Archive article
-        let simple_action = gio::SimpleAction::new_stateful("archive", None, &false.to_variant());
+        let simple_action = gio::SimpleAction::new_stateful("archive", None, false.into());
         simple_action.connect_activate(
             clone!(@strong self as aw, @strong sender => move |action, _|{
                 let state = action.state().unwrap();
                 let action_state: bool = state.get().unwrap();
                 let is_archived = !action_state;
-                action.set_state(&is_archived.to_variant());
+                action.set_state(is_archived.into());
                 if let Some(article) = aw.imp().article.borrow_mut().clone() {
                     send!(sender, ArticleAction::Archive(article));
                 }
@@ -157,13 +157,13 @@ impl ArticleWidget {
         self.imp().actions.add_action(&simple_action);
 
         // Favorite article
-        let simple_action = gio::SimpleAction::new_stateful("favorite", None, &false.to_variant());
+        let simple_action = gio::SimpleAction::new_stateful("favorite", None, false.into());
         simple_action.connect_activate(
             clone!(@strong self as aw, @strong sender => move |action, _|{
                 let state = action.state().unwrap();
                 let action_state: bool = state.get().unwrap();
                 let is_starred = !action_state;
-                action.set_state(&is_starred.to_variant());
+                action.set_state(is_starred.into());
 
                 if let Some(article) = aw.imp().article.borrow_mut().clone() {
                     send!(sender, ArticleAction::Favorite(article));

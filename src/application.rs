@@ -409,14 +409,14 @@ impl Application {
 
     fn show_about_dialog(parent: &impl IsA<gtk::Window>) {
         let dialog = adw::AboutWindow::builder()
-            .application_name(&glib::application_name().unwrap())
+            .application_name(glib::application_name().unwrap())
             .application_icon(APP_ID)
             .license_type(gtk::License::Gpl30)
             .website("https://gitlab.gnome.org/World/read-it-later/")
             .version(VERSION)
             .translator_credits(&gettext("translator-credits"))
-            .developers(vec!["Bilal Elmoussaoui".into(), "Casper Meijn".into()])
-            .artists(vec!["Tobias Bernard".into()])
+            .developers(["Bilal Elmoussaoui", "Casper Meijn"])
+            .artists(["Tobias Bernard"])
             .transient_for(parent)
             .build();
 

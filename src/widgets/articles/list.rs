@@ -67,7 +67,7 @@ mod imp {
         }
 
         fn dispose(&self) {
-            self.obj().dispose_template(Self::Type::static_type());
+            self.dispose_template();
         }
     }
 
@@ -93,7 +93,7 @@ glib::wrapper! {
 
 impl ArticlesListWidget {
     pub fn new(sender: Sender<ArticleAction>) -> Self {
-        let list_widget = glib::Object::new::<Self>(&[]);
+        let list_widget = glib::Object::new::<Self>();
         list_widget.imp().sender.set(sender).unwrap();
         list_widget
     }

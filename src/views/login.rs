@@ -58,7 +58,7 @@ mod imp {
         }
 
         fn dispose(&self) {
-            self.obj().dispose_template(Self::Type::static_type());
+            self.dispose_template();
         }
     }
 
@@ -109,6 +109,6 @@ impl Login {
 
 impl Default for Login {
     fn default() -> Self {
-        glib::Object::new(&[])
+        glib::Object::new()
     }
 }
