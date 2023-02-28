@@ -26,6 +26,7 @@ fn main() {
     setlocale(LocaleCategory::LcAll, "");
     bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR).unwrap();
     textdomain(GETTEXT_PACKAGE).unwrap();
+    bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8").unwrap();
 
     adw::init().unwrap();
 
