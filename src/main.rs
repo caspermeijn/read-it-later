@@ -22,18 +22,17 @@ use self::config::{GETTEXT_PACKAGE, LOCALEDIR, RESOURCES_FILE};
 fn main() {
     pretty_env_logger::init();
 
-    gtk::init().expect("Unable to start GTK3");
     // Prepare i18n
     setlocale(LocaleCategory::LcAll, "");
     bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR).unwrap();
     textdomain(GETTEXT_PACKAGE).unwrap();
 
+    adw::init().unwrap();
+
     glib::set_application_name(&gettext("Read It Later"));
 
     let res = gio::Resource::load(RESOURCES_FILE).expect("Could not load gresource file");
     gio::resources_register(&res);
-
-    adw::init().unwrap();
 
     let app = Application::new();
     app.run(app.clone());
