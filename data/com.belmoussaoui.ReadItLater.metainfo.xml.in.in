@@ -36,6 +36,13 @@
   <url type="translate">https://l10n.gnome.org/module/read-it-later/</url>
   <content_rating type="oars-1.0" />
   <releases>
+    <release version="0.3" date="2023-03-01">
+      <description>
+        <p>Fix aspect ratio of preview pictures</p>
+        <p>Update to GTK 4</p>
+        <p>Update translations and add more languages</p>
+      </description>
+    </release>
     <release version="0.0.2" date="2020-02-26">
       <description>
         <p>Unlock the keyring instead of crashing</p>
