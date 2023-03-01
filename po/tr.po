@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2022-10-30 12:58+0000\n"
-"PO-Revision-Date: 2022-11-06 21:06+0300\n"
+"POT-Creation-Date: 2023-01-28 18:39+0000\n"
+"PO-Revision-Date: 2023-02-23 06:51+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:65
+#: data/resources/ui/window.ui:66
 msgid "Read It Later"
 msgstr "Read It Later"
 
@@ -227,58 +227,58 @@ msgstr "Oluşturulma:"
 msgid "Updated At"
 msgstr "Güncellenme:"
 
-#: data/resources/ui/window.ui:8
+#: data/resources/ui/window.ui:6
 msgid "Open Website"
 msgstr "Web Sitesini Aç"
 
-#: data/resources/ui/window.ui:14
+#: data/resources/ui/window.ui:12
 msgid "Delete Article"
 msgstr "Makaleyi Sil"
 
-#: data/resources/ui/window.ui:22
+#: data/resources/ui/window.ui:20
 msgid "Add Article…"
 msgstr "Makale Ekle…"
 
-#: data/resources/ui/window.ui:28
+#: data/resources/ui/window.ui:26
 msgid "Preferences"
 msgstr "Tercihler"
 
-#: data/resources/ui/window.ui:32
+#: data/resources/ui/window.ui:30
 msgid "Log Out"
 msgstr "Oturumu Kapat"
 
-#: data/resources/ui/window.ui:38
+#: data/resources/ui/window.ui:36
 msgid "Keyboard Shortcuts"
 msgstr "Klavye Kısayolları"
 
-#: data/resources/ui/window.ui:42
+#: data/resources/ui/window.ui:40
 msgid "About Read It Later"
 msgstr "Read It Later Hakkında"
 
-#: data/resources/ui/window.ui:103
+#: data/resources/ui/window.ui:104
 msgid "Favorite"
 msgstr "Gözde"
 
-#: data/resources/ui/window.ui:111
+#: data/resources/ui/window.ui:112
 msgid "Archive"
 msgstr "Arşivle"
 
-#: data/resources/ui/window.ui:150
+#: data/resources/ui/window.ui:151
 msgid "Paste the article URL here"
 msgstr "Makale adresini buraya yapıştır"
 
-#: data/resources/ui/window.ui:157
+#: data/resources/ui/window.ui:158
 msgid "Save"
 msgstr "Kaydet"
 
-#: src/application.rs:108
+#: src/application.rs:105
 msgid "Failed to logout"
-msgstr "Oturumu kapatma başarısız"
+msgstr "Oturum kapatılamadı"
 
-#: src/application.rs:252 src/application.rs:257
+#: src/application.rs:255 src/application.rs:260
 msgid "Failed to log in"
-msgstr "Oturum açma başarısız"
+msgstr "Oturum açılamadı"
 
-#: src/application.rs:401
+#: src/application.rs:417
 msgid "translator-credits"
 msgstr "Muhammet Kara <muhammetk@gmail.com>"
