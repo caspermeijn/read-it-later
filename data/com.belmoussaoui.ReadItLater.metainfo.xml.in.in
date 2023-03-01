@@ -53,6 +53,14 @@
     <kudo>ModernToolkit</kudo>
     <kudo>HiDpiIcon</kudo>
   </kudos>
+  <recommends>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+  </recommends>
+  <requires>
+    <display_length compare="ge">small</display_length>
+  </requires>
   <developer_name>Bilal Elmoussaoui</developer_name>
   <update_contact>bilal.elmoussaoui@gnome.org</update_contact>
   <translation type="gettext">@gettext-package@</translation>
