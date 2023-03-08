@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-01-28 18:39+0000\n"
-"PO-Revision-Date: 2023-01-28 21:02+0200\n"
+"POT-Creation-Date: 2023-03-07 21:45+0000\n"
+"PO-Revision-Date: 2023-03-08 08:18+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -26,6 +26,7 @@ msgid "Read It Later"
 msgstr "Прочитаю потім"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
 msgid "A Wallabag Client"
 msgstr "Клієнт Wallabag"
 
@@ -35,17 +36,16 @@ msgstr ""
 "Gnome;GTK;Wallabag;Web;Article;Offline;гноме;гном;жтека;гтк;воллабег;веб;"
 "інтернет;стаття;автономний;читання;"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
-msgid "A Wallabag Client."
-msgstr "Клієнт Wallabag."
-
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
+#| msgid ""
+#| "Read It Later, is a simple Wallabag client. It has the basic features to "
+#| "manage your articles"
 msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
-"manage your articles"
+"manage your articles."
 msgstr ""
 "«Прочитаю потім» — простий клієнт Wallabag. Має базові можливості із "
-"керування вашими статтями"
+"керування вашими статтями."
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
 msgid "Add new articles"
@@ -64,9 +64,12 @@ msgid "Favorite an article"
 msgstr "Зробити статтю вибраною"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
+#| msgid ""
+#| "It also comes with a nice on eyes reader mode that supports code syntax "
+#| "highlighting and a dark mode"
 msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
-"highlighting and a dark mode"
+"highlighting and a dark mode."
 msgstr ""
 "Крім того, у програмі передбачено чудовий режим читання, у якому передбачено "
 "можливість підсвічування синтаксичних конструкцій та нічні кольори."
@@ -83,7 +86,7 @@ msgstr "Перегляд статей"
 msgid "Adaptive view in dark mode"
 msgstr "Адаптація перегляду до нічного режиму"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:71
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -266,9 +269,6 @@ msgid "Archive"
 msgstr "Архівувати"
 
 #: data/resources/ui/window.ui:151
-#| msgid ""
-#| "Paste the article\n"
-#| "                              URL here"
 msgid "Paste the article URL here"
 msgstr "Сюди можна вставити адресу статті"
 
@@ -287,6 +287,9 @@ msgstr "Не вдалося увійти"
 #: src/application.rs:417
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
+
+#~ msgid "A Wallabag Client."
+#~ msgstr "Клієнт Wallabag."
 
 #~ msgid "No articles found"
 #~ msgstr "Статей не знайдено"
