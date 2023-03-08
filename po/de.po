@@ -4,15 +4,14 @@
 # Sven <l10n.gnome.org@linux4tw.de>, 2020.
 # Christian Kirbach <christian.kirbach@gmail.com>, 2020.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2020.
-# Jürgen Benvenuti <gastornis@posteo.org>, 2022.
+# Jürgen Benvenuti <gastornis@posteo.org>, 2022,2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/"
-"issues\n"
-"POT-Creation-Date: 2022-10-30 15:57+0000\n"
-"PO-Revision-Date: 2022-10-31 10:49+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
+"POT-Creation-Date: 2023-03-07 21:45+0000\n"
+"PO-Revision-Date: 2023-03-08 22:41+0100\n"
 "Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -24,11 +23,12 @@ msgstr ""
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:65
+#: data/resources/ui/window.ui:66
 msgid "Read It Later"
 msgstr "Read It Later"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
 msgid "A Wallabag Client"
 msgstr "Eine Wallabag-Anwendung"
 
@@ -36,17 +36,13 @@ msgstr "Eine Wallabag-Anwendung"
 msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
 msgstr "Gnome;GTK;Wallabag;Web;Article;Offline;Artikel;"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
-msgid "A Wallabag Client."
-msgstr "Eine Wallabag-Anwendung."
-
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
 msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
-"manage your articles"
+"manage your articles."
 msgstr ""
 "Read It Later ist eine einfache Wallabag-Anwendung. Sie besitzt alle "
-"wesentlichen Funktionen, um Ihre Artikel zu verwalten"
+"wesentlichen Funktionen, um Ihre Artikel zu verwalten."
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
 msgid "Add new articles"
@@ -69,10 +65,10 @@ msgstr "Einen Artikel favorisieren"
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
 msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
-"highlighting and a dark mode"
+"highlighting and a dark mode."
 msgstr ""
 "Sie hat außerdem einen augenfreundlichen Lesemodus, der Code-Hervorhebung "
-"und den dunklen Modus unterstützt"
+"und den dunklen Modus unterstützt."
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
 msgid "Main Window"
@@ -86,7 +82,7 @@ msgstr "Artikelansicht"
 msgid "Adaptive view in dark mode"
 msgstr "Anpassungsfähige Ansicht im dunklen Modus"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:71
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -230,64 +226,67 @@ msgstr "Erstellt am"
 msgid "Updated At"
 msgstr "Aktualisiert am"
 
-#: data/resources/ui/window.ui:8
+#: data/resources/ui/window.ui:6
 msgid "Open Website"
 msgstr "Internetseite öffnen"
 
-#: data/resources/ui/window.ui:14
+#: data/resources/ui/window.ui:12
 msgid "Delete Article"
 msgstr "Artikel löschen"
 
-#: data/resources/ui/window.ui:22
+#: data/resources/ui/window.ui:20
 msgid "Add Article…"
 msgstr "Artikel hinzufügen …"
 
-#: data/resources/ui/window.ui:28
+#: data/resources/ui/window.ui:26
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: data/resources/ui/window.ui:32
+#: data/resources/ui/window.ui:30
 msgid "Log Out"
 msgstr "Abmelden"
 
-#: data/resources/ui/window.ui:38
+#: data/resources/ui/window.ui:36
 msgid "Keyboard Shortcuts"
 msgstr "Tastaturkürzel"
 
-#: data/resources/ui/window.ui:42
+#: data/resources/ui/window.ui:40
 msgid "About Read It Later"
 msgstr "Info zu Read It Later"
 
-#: data/resources/ui/window.ui:103
+#: data/resources/ui/window.ui:104
 msgid "Favorite"
 msgstr "Favorisieren"
 
-#: data/resources/ui/window.ui:111
+#: data/resources/ui/window.ui:112
 msgid "Archive"
 msgstr "Archivieren"
 
-#: data/resources/ui/window.ui:150
+#: data/resources/ui/window.ui:151
 msgid "Paste the article URL here"
 msgstr "Adresse des Artikels hier einfügen"
 
-#: data/resources/ui/window.ui:157
+#: data/resources/ui/window.ui:158
 msgid "Save"
 msgstr "Speichern"
 
-#: src/application.rs:108
+#: src/application.rs:105
 msgid "Failed to logout"
 msgstr "Abmelden fehlgeschlagen"
 
-#: src/application.rs:252 src/application.rs:257
+#: src/application.rs:255 src/application.rs:260
 msgid "Failed to log in"
 msgstr "Anmelden fehlgeschlagen"
 
-#: src/application.rs:401
+#: src/application.rs:417
 msgid "translator-credits"
 msgstr ""
 "Sven Fischer <l10n.gnome.org@linux4tw.de>, 2020\n"
 "Christian Kirbach <christian.kirbach@gmail.com>, 2020\n"
-"Jürgen Benvenuti <gastornis@posteo.org>, 2022"
+"Jürgen Benvenuti <gastornis@posteo.org>, 2022, 2023"
+
+#~ msgid "A Wallabag Client."
+#~ msgstr "Eine Wallabag-Anwendung."
 
 #~ msgid "No articles found"
 #~ msgstr "Keine Artikel gefunden"
