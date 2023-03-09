@@ -1,6 +1,6 @@
 [package]
 name = "read-it-later"
-version = "0.0.2"
+version = "0.3.0"
 authors = ["Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>"]
 edition = "2021"
 
