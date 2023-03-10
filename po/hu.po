@@ -1,14 +1,14 @@
 # Hungarian translation for read-it-later.
-# Copyright (C) 2022 Free Software Foundation, Inc.
+# Copyright (C) 2022, 2023 Free Software Foundation, Inc.
 # This file is distributed under the same license as the read-it-later package.
 #
-# Balázs Úr <ur.balazs at fsf dot hu>, 2022.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2022-11-05 12:33+0000\n"
-"PO-Revision-Date: 2022-11-06 00:10+0100\n"
+"POT-Creation-Date: 2023-03-07 21:45+0000\n"
+"PO-Revision-Date: 2023-03-11 00:50+0100\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
@@ -20,11 +20,12 @@ msgstr ""
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:65
+#: data/resources/ui/window.ui:66
 msgid "Read It Later"
 msgstr "Későbbi olvasás"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
 msgid "A Wallabag Client"
 msgstr "Egy Wallabag-ügyfélprogram"
 
@@ -32,17 +33,16 @@ msgstr "Egy Wallabag-ügyfélprogram"
 msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
 msgstr "Gnome;GTK;Wallabag;Web;Cikk;Offline;Kapcsolat nélkül;"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
-msgid "A Wallabag Client."
-msgstr "Egy Wallabag-ügyfélprogram."
-
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
+#| msgid ""
+#| "Read It Later, is a simple Wallabag client. It has the basic features to "
+#| "manage your articles"
 msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
-"manage your articles"
+"manage your articles."
 msgstr ""
-"A Későbbi olvasás egy egyszerű Wallabag-ügyfélprogram. Rendelkezik az"
-" alapvető funkciókkal a cikkek kezeléséhez."
+"A Későbbi olvasás egy egyszerű Wallabag-ügyfélprogram. Rendelkezik az "
+"alapvető funkciókkal a cikkek kezeléséhez."
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
 msgid "Add new articles"
@@ -61,12 +61,15 @@ msgid "Favorite an article"
 msgstr "Egy cikk kedvencekhez adása"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
+#| msgid ""
+#| "It also comes with a nice on eyes reader mode that supports code syntax "
+#| "highlighting and a dark mode"
 msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
-"highlighting and a dark mode"
+"highlighting and a dark mode."
 msgstr ""
-"Emellett egy szemet gyönyörködtető olvasó móddal is rendelkezik, amely"
-" támogatja a kód szintaxiskiemelését és a sötét módot"
+"Emellett egy szemet gyönyörködtető olvasó móddal is rendelkezik, amely "
+"támogatja a kód szintaxiskiemelését és a sötét módot."
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
 msgid "Main Window"
@@ -80,7 +83,7 @@ msgstr "Cikk nézet"
 msgid "Adaptive view in dark mode"
 msgstr "Alkalmazkodó nézet sötét módban"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:71
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -224,58 +227,58 @@ msgstr "Létrehozva"
 msgid "Updated At"
 msgstr "Frissítve"
 
-#: data/resources/ui/window.ui:8
+#: data/resources/ui/window.ui:6
 msgid "Open Website"
 msgstr "Weboldal megnyitása"
 
-#: data/resources/ui/window.ui:14
+#: data/resources/ui/window.ui:12
 msgid "Delete Article"
 msgstr "Cikk törlése"
 
-#: data/resources/ui/window.ui:22
+#: data/resources/ui/window.ui:20
 msgid "Add Article…"
 msgstr "Cikk hozzáadása…"
 
-#: data/resources/ui/window.ui:28
+#: data/resources/ui/window.ui:26
 msgid "Preferences"
 msgstr "Beállítások"
 
-#: data/resources/ui/window.ui:32
+#: data/resources/ui/window.ui:30
 msgid "Log Out"
 msgstr "Kijelentkezés"
 
-#: data/resources/ui/window.ui:38
+#: data/resources/ui/window.ui:36
 msgid "Keyboard Shortcuts"
 msgstr "Gyorsbillentyűk"
 
-#: data/resources/ui/window.ui:42
+#: data/resources/ui/window.ui:40
 msgid "About Read It Later"
 msgstr "A Későbbi olvasás névjegye"
 
-#: data/resources/ui/window.ui:103
+#: data/resources/ui/window.ui:104
 msgid "Favorite"
 msgstr "Kedvenc"
 
-#: data/resources/ui/window.ui:111
+#: data/resources/ui/window.ui:112
 msgid "Archive"
 msgstr "Archiválás"
 
-#: data/resources/ui/window.ui:150
+#: data/resources/ui/window.ui:151
 msgid "Paste the article URL here"
 msgstr "Illessze be ide a cikk URL-ét"
 
-#: data/resources/ui/window.ui:157
+#: data/resources/ui/window.ui:158
 msgid "Save"
 msgstr "Mentés"
 
-#: src/application.rs:108
+#: src/application.rs:105
 msgid "Failed to logout"
 msgstr "Nem sikerült kijelentkezni"
 
-#: src/application.rs:252 src/application.rs:257
+#: src/application.rs:255 src/application.rs:260
 msgid "Failed to log in"
 msgstr "Nem sikerült bejelentkezni"
 
-#: src/application.rs:401
+#: src/application.rs:417
 msgid "translator-credits"
-msgstr "Úr Balázs <ur dot balazs at fsf dot hu>, 2022."
+msgstr "Úr Balázs <ur dot balazs at fsf dot hu>, 2022, 2023."
