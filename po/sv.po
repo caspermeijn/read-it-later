@@ -1,16 +1,15 @@
 # Swedish translation for read-it-later.
-# Copyright © 2020-2022 read-it-later's COPYRIGHT HOLDER
+# Copyright © 2020-2023 read-it-later's COPYRIGHT HOLDER
 # This file is distributed under the same license as the read-it-later package.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2020, 2022.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2020, 2022, 2023.
 # Luna Jernberg <droidbittin@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/"
-"issues\n"
-"POT-Creation-Date: 2022-10-30 12:58+0000\n"
-"PO-Revision-Date: 2022-11-03 15:55+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
+"POT-Creation-Date: 2023-03-07 21:45+0000\n"
+"PO-Revision-Date: 2023-03-07 22:58+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -18,15 +17,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:65
+#: data/resources/ui/window.ui:66
 msgid "Read It Later"
 msgstr "Läs det senare"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
 msgid "A Wallabag Client"
 msgstr "En Wallabag-klient"
 
@@ -34,17 +34,13 @@ msgstr "En Wallabag-klient"
 msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
 msgstr "Gnome;GTK;Wallabag;Webb;Artikel;Frånkopplat;Offline;"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
-msgid "A Wallabag Client."
-msgstr "En Wallabag-klient."
-
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
 msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
-"manage your articles"
+"manage your articles."
 msgstr ""
 "Läs det senare, en enkel Wallabag-klient. Den har grundläggande "
-"funktionalitet för att hantera dina artiklar"
+"funktionalitet för att hantera dina artiklar."
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
 msgid "Add new articles"
@@ -65,10 +61,10 @@ msgstr "Gör en artikel till favorit"
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
 msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
-"highlighting and a dark mode"
+"highlighting and a dark mode."
 msgstr ""
 "Den kommer också med ett läsläge som är snällt mot ögonen och stöder "
-"syntaxmarkering av kod och ett mörkt läge"
+"syntaxmarkering av kod och ett mörkt läge."
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
 msgid "Main Window"
@@ -82,7 +78,7 @@ msgstr "Artikelvy"
 msgid "Adaptive view in dark mode"
 msgstr "Adaptiv vy i mörkt läge"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:71
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -226,59 +222,59 @@ msgstr "Skapades"
 msgid "Updated At"
 msgstr "Uppdaterades"
 
-#: data/resources/ui/window.ui:8
+#: data/resources/ui/window.ui:6
 msgid "Open Website"
 msgstr "Öppna webbplats"
 
-#: data/resources/ui/window.ui:14
+#: data/resources/ui/window.ui:12
 msgid "Delete Article"
 msgstr "Ta bort artikel"
 
-#: data/resources/ui/window.ui:22
+#: data/resources/ui/window.ui:20
 msgid "Add Article…"
 msgstr "Lägg till artikel…"
 
-#: data/resources/ui/window.ui:28
+#: data/resources/ui/window.ui:26
 msgid "Preferences"
 msgstr "Inställningar"
 
-#: data/resources/ui/window.ui:32
+#: data/resources/ui/window.ui:30
 msgid "Log Out"
 msgstr "Logga ut"
 
-#: data/resources/ui/window.ui:38
+#: data/resources/ui/window.ui:36
 msgid "Keyboard Shortcuts"
 msgstr "Tangentbordsgenvägar"
 
-#: data/resources/ui/window.ui:42
+#: data/resources/ui/window.ui:40
 msgid "About Read It Later"
 msgstr "Om Läs det senare"
 
-#: data/resources/ui/window.ui:103
+#: data/resources/ui/window.ui:104
 msgid "Favorite"
 msgstr "Gör till favorit"
 
-#: data/resources/ui/window.ui:111
+#: data/resources/ui/window.ui:112
 msgid "Archive"
 msgstr "Arkivera"
 
-#: data/resources/ui/window.ui:150
+#: data/resources/ui/window.ui:151
 msgid "Paste the article URL here"
 msgstr "Klistra in artikel-URL här"
 
-#: data/resources/ui/window.ui:157
+#: data/resources/ui/window.ui:158
 msgid "Save"
 msgstr "Spara"
 
-#: src/application.rs:108
+#: src/application.rs:105
 msgid "Failed to logout"
 msgstr "Misslyckades med att logga ut"
 
-#: src/application.rs:252 src/application.rs:257
+#: src/application.rs:255 src/application.rs:260
 msgid "Failed to log in"
 msgstr "Misslyckades med att logga in"
 
-#: src/application.rs:401
+#: src/application.rs:417
 msgid "translator-credits"
 msgstr ""
 "Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
@@ -286,6 +282,9 @@ msgstr ""
 "\n"
 "Skicka synpunkter på översättningen till\n"
 "<tp-sv@listor.tp-sv.se>"
+
+#~ msgid "A Wallabag Client."
+#~ msgstr "En Wallabag-klient."
 
 #~ msgid "No articles found"
 #~ msgstr "Inga artiklar hittades"
