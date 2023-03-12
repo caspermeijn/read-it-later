@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-01-28 18:39+0000\n"
-"PO-Revision-Date: 2023-02-23 06:51+0300\n"
+"POT-Creation-Date: 2023-03-07 21:45+0000\n"
+"PO-Revision-Date: 2023-03-10 21:59+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -28,6 +28,7 @@ msgid "Read It Later"
 msgstr "Read It Later"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
 msgid "A Wallabag Client"
 msgstr "Bir Wallabag İstemcisi"
 
@@ -35,17 +36,13 @@ msgstr "Bir Wallabag İstemcisi"
 msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
 msgstr "Gnome;GTK;Wallabag;Web;Makale;Çevrimdışı;Çevrim dışı;"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
-msgid "A Wallabag Client."
-msgstr "Wallabag İstemcisi."
-
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
 msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
-"manage your articles"
+"manage your articles."
 msgstr ""
 "Read It Later, yalın bir Wallabag istemcisidir. Makalelerinizi yönetmek için "
-"temel özellikleri vardır"
+"temel özellikleri vardır."
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
 msgid "Add new articles"
@@ -66,10 +63,10 @@ msgstr "Makaleyi gözdelere ekle"
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
 msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
-"highlighting and a dark mode"
+"highlighting and a dark mode."
 msgstr ""
 "Ayrıca, kod söz dizimi vurgulamayı ve karanlık kipi destekleyen, göze hoş "
-"gelen okuyucu kipi ile birlikte gelir"
+"gelen okuyucu kipi ile birlikte gelir."
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
 msgid "Main Window"
@@ -83,7 +80,7 @@ msgstr "Makale Görünümü"
 msgid "Adaptive view in dark mode"
 msgstr "Karanlık kipte uyarlanabilir görünüm"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:71
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -282,3 +279,6 @@ msgstr "Oturum açılamadı"
 #: src/application.rs:417
 msgid "translator-credits"
 msgstr "Muhammet Kara <muhammetk@gmail.com>"
+
+#~ msgid "A Wallabag Client."
+#~ msgstr "Wallabag İstemcisi."
