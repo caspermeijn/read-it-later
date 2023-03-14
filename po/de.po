@@ -9,9 +9,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-03-07 21:45+0000\n"
-"PO-Revision-Date: 2023-03-08 22:41+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/"
+"issues\n"
+"POT-Creation-Date: 2023-03-13 12:41+0000\n"
+"PO-Revision-Date: 2023-03-14 09:21+0100\n"
 "Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -28,13 +29,16 @@ msgid "Read It Later"
 msgstr "Read It Later"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
 msgid "A Wallabag Client"
 msgstr "Eine Wallabag-Anwendung"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
 msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
 msgstr "Gnome;GTK;Wallabag;Web;Article;Offline;Artikel;"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
+msgid "Save and read web articles"
+msgstr "Web-Artikel speichern und lesen"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
 msgid ""
