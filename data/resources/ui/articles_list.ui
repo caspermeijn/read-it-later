@@ -31,7 +31,7 @@
             <property name="child">
               <object class="AdwStatusPage" id="empty_status">
                 <property name="icon-name">dialog-missing-symbolic</property>
-                <property name="title" translatable="yes">Pretty clean!</property>
+                <property name="title" translatable="yes" comments="Translators: This status is shown when the list of articles is empty">Pretty clean!</property>
               </object>
             </property>
           </object>
