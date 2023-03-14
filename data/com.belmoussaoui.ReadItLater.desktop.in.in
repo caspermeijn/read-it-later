@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Read It Later
-Comment=A Wallabag Client
+Comment=Save and read web articles
 Type=Application
 Exec=read-it-later
 Terminal=false
