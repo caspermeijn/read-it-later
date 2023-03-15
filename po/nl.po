@@ -1,40 +1,54 @@
 # Dutch translation for read-it-later.
 # Copyright (C) 2020 read-it-later's COPYRIGHT HOLDER
 # This file is distributed under the same license as the read-it-later package.
-# Nathan Follens <nthn@unseen.is>, 2020.
+# Nathan Follens <nfollens@gnome.org>, 2020, 2023.
+# Casper Meijn <casper@meijn.net>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/"
-"issues\n"
-"POT-Creation-Date: 2020-08-10 10:33+0000\n"
-"PO-Revision-Date: 2020-08-25 22:24+0200\n"
-"Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
+"POT-Creation-Date: 2023-03-14 08:49+0000\n"
+"PO-Revision-Date: 2023-03-15 17:37+0100\n"
+"Last-Translator: Nathan Follens <nfollens@gnome.org>\n"
+"Language-Team: Dutch <https://matrix.to/#/#nl:gnome.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Last-Translator: Nathan Follens <nthn@unseen.is>\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 3.2.2\n"
+"X-DL-Team: nl\n"
+"X-DL-Module: read-it-later\n"
+"X-DL-Branch: master\n"
+"X-DL-Domain: po\n"
+"X-DL-State: Translating\n"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/resources/ui/window.ui:66
 msgid "Read It Later"
 msgstr "Later lezen"
 
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
+msgid "A Wallabag Client"
+msgstr "Een Wallabag-cliënt"
+
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
+msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
+msgstr "Gnome;GTK;Wallabag;Web;Article;Offline;artikels;"
+
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
-msgid "A Wallabag Client."
-msgstr "Een Wallabag-cliënt."
+msgid "Save and read web articles"
+msgstr "Internet artikelen bewaren en lezen"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
 msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
-"manage your articles"
+"manage your articles."
 msgstr ""
 "Later lezen is een eenvoudige Wallabag-cliënt. Hij beschikt over de "
-"basisfuncties om uw artikels te beheren"
+"basisfuncties om uw artikels te beheren."
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
 msgid "Add new articles"
@@ -55,10 +69,10 @@ msgstr "Een artikel toevoegen aan uw favorieten"
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
 msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
-"highlighting and a dark mode"
+"highlighting and a dark mode."
 msgstr ""
-"Het bevat ook een aangename leesmodus met markering voor "
-"broncodesyntaxis, en een donkere modus"
+"Het bevat ook een aangename leesmodus met markering voor broncodesyntaxis, "
+"en een donkere modus."
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
 msgid "Main Window"
@@ -72,17 +86,9 @@ msgstr "Artikelweergave"
 msgid "Adaptive view in dark mode"
 msgstr "Adaptieve weergave in donkere modus"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:71
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
-
-#: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-msgid "A Wallabag Client"
-msgstr "Een Wallabag-cliënt"
-
-#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
-msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
-msgstr "Gnome;GTK;Wallabag;Web;Article;Offline;artikels;"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
 msgid "Default window width"
@@ -101,160 +107,205 @@ msgid "Default window y position"
 msgstr "Standaardpositie van venster op y-as"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
-msgid "Default window maximized behaviour"
+msgid "Default window maximized behavior"
 msgstr "Standaardgedrag van gemaximaliseerd venster"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
-msgid "Logged in username"
+msgid "Logged in user name"
 msgstr "Aangemelde gebruikersnaam"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
 msgid "Latest successful sync in ms"
 msgstr "Laatste geslaagde synchronisatie in ms"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:34
-msgid "Whether we should use a dark theme or not"
-msgstr "Of Later lezen een donker thema moet gebruiken"
+#: data/resources/ui/articles_list.ui:34
+msgid "Pretty clean!"
+msgstr "Helemaal opgeruimd!"
 
-#: data/resources/ui/about_dialog.ui.in:13
-msgid "translator-credits"
-msgstr ""
-"Nathan Follens <nthn@unseen.is>\n"
-"\n"
-"Meer info over Gnome-NL http://nl.gnome.org/"
-
-#: data/resources/ui/articles_list.ui:59
-msgid "No articles found"
-msgstr "Geen artikels gevonden"
-
-#: data/resources/ui/menu.ui:19
-msgid "Add Article..."
-msgstr "Artikel toevoegen…"
-
-#: data/resources/ui/menu.ui:44
-msgid "Settings"
-msgstr "Instellingen"
-
-#: data/resources/ui/menu.ui:58
-msgid "Logout"
-msgstr "Afmelden"
-
-#: data/resources/ui/menu.ui:83
-msgid "Keyboard Shortcuts"
-msgstr "Sneltoetsen"
-
-#: data/resources/ui/menu.ui:97
-msgid "About Read It Later"
-msgstr "Over Later lezen"
-
-#: data/resources/ui/settings.ui:15
-msgid "Appearance"
-msgstr "Uiterlijk"
-
-#: data/resources/ui/settings.ui:19
-msgid "Enable dark mode"
-msgstr "Donkere modus inschakelen"
-
-#: data/resources/ui/settings.ui:41
-msgid "Account Settings"
-msgstr "Accountinstellingen"
-
-#: data/resources/ui/settings.ui:45
-msgid "Username"
-msgstr "Gebruikersnaam"
-
-#: data/resources/ui/settings.ui:59
-msgid "Email"
-msgstr "E-mailadres"
-
-#: data/resources/ui/settings.ui:73
-msgid "Created At"
-msgstr "Aangemaakt op"
-
-#: data/resources/ui/settings.ui:87
-msgid "Updated At"
-msgstr "Bijgewerkt op"
-
-#: data/resources/ui/shortcuts.ui:13
+#: data/resources/ui/gtk/help-overlay.ui:12
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Algemeen"
 
-#: data/resources/ui/shortcuts.ui:17
+#: data/resources/ui/gtk/help-overlay.ui:15
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "Sneltoetsen tonen"
 
-#: data/resources/ui/shortcuts.ui:24
+#: data/resources/ui/gtk/help-overlay.ui:21
 msgctxt "shortcut window"
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#: data/resources/ui/shortcuts.ui:31
+#: data/resources/ui/gtk/help-overlay.ui:27
 msgctxt "shortcut window"
 msgid "Back"
 msgstr "Terug"
 
-#: data/resources/ui/shortcuts.ui:38
+#: data/resources/ui/gtk/help-overlay.ui:33
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Afsluiten"
 
-#: data/resources/ui/shortcuts.ui:47
+#: data/resources/ui/gtk/help-overlay.ui:41
 msgctxt "shortcut window"
 msgid "Articles"
 msgstr "Artikels"
 
-#: data/resources/ui/shortcuts.ui:51
+#: data/resources/ui/gtk/help-overlay.ui:44
 msgctxt "shortcut window"
 msgid "Synchronize"
 msgstr "Synchroniseren"
 
-#: data/resources/ui/shortcuts.ui:58
+#: data/resources/ui/gtk/help-overlay.ui:50
 msgctxt "shortcut window"
 msgid "New Article"
 msgstr "Nieuw artikel"
 
-#: data/resources/ui/shortcuts.ui:65
+#: data/resources/ui/gtk/help-overlay.ui:56
 msgctxt "shortcut window"
 msgid "Delete Article"
 msgstr "Artikel verwijderen"
 
-#: data/resources/ui/shortcuts.ui:72
+#: data/resources/ui/gtk/help-overlay.ui:62
 msgctxt "shortcut window"
 msgid "Favorite Article"
 msgstr "Artikel toevoegen aan favorieten"
 
-#: data/resources/ui/shortcuts.ui:79
+#: data/resources/ui/gtk/help-overlay.ui:68
 msgctxt "shortcut window"
 msgid "Archive Article"
 msgstr "Artikel archiveren"
 
-#: data/resources/ui/shortcuts.ui:86
+#: data/resources/ui/gtk/help-overlay.ui:74
 msgctxt "shortcut window"
-msgid "Open Article In Browser"
+msgid "Open Article in Browser"
 msgstr "Artikel openen in browser"
 
-#: data/resources/ui/window.ui.in:25
+#: data/resources/ui/login.ui:32
+msgid "Welcome to Read It Later"
+msgstr "Welkom bij Later lezen"
+
+#: data/resources/ui/login.ui:42
+msgid "Please sign in using your Wallabag instance information"
+msgstr "Meld u aan met de gegevens van uw Wallabag-instantie"
+
+#: data/resources/ui/login.ui:57
+msgid "Instance URL"
+msgstr "Instantie-URL"
+
+#: data/resources/ui/login.ui:63
+msgid "Client ID"
+msgstr "Cliënt-ID"
+
+#: data/resources/ui/login.ui:69
+msgid "Client Secret"
+msgstr "Cliëntgeheim"
+
+#: data/resources/ui/login.ui:75 data/resources/ui/settings.ui:13
+msgid "User Name"
+msgstr "Gebruikersnaam"
+
+#: data/resources/ui/login.ui:81
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: data/resources/ui/login.ui:91
+msgid "Log In"
+msgstr "Aanmelden"
+
+#: data/resources/ui/settings.ui:10
+msgid "Account Information"
+msgstr "Accountinformatie"
+
+#: data/resources/ui/settings.ui:21
+msgid "Email"
+msgstr "E-mailadres"
+
+#: data/resources/ui/settings.ui:29
+msgid "Created At"
+msgstr "Aangemaakt op"
+
+#: data/resources/ui/settings.ui:37
+msgid "Updated At"
+msgstr "Bijgewerkt op"
+
+#: data/resources/ui/window.ui:6
 msgid "Open Website"
 msgstr "Website openen"
 
-#: data/resources/ui/window.ui.in:50
+#: data/resources/ui/window.ui:12
 msgid "Delete Article"
 msgstr "Artikel verwijderen"
 
-#: data/resources/ui/window.ui.in:181
+#: data/resources/ui/window.ui:20
+msgid "Add Article…"
+msgstr "Artikel toevoegen…"
+
+#: data/resources/ui/window.ui:26
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+#: data/resources/ui/window.ui:30
+msgid "Log Out"
+msgstr "Afmelden"
+
+#: data/resources/ui/window.ui:36
+msgid "Keyboard Shortcuts"
+msgstr "Sneltoetsen"
+
+#: data/resources/ui/window.ui:40
+msgid "About Read It Later"
+msgstr "Over Later lezen"
+
+#: data/resources/ui/window.ui:104
 msgid "Favorite"
 msgstr "Toevoegen aan favorieten"
 
-#: data/resources/ui/window.ui.in:201
+#: data/resources/ui/window.ui:112
 msgid "Archive"
 msgstr "Archiveren"
 
-#: data/resources/ui/window.ui.in:273
-msgid "Paste the article url here"
+#: data/resources/ui/window.ui:151
+msgid "Paste the article URL here"
 msgstr "Plak hier de artikel-URL"
 
-#: data/resources/ui/window.ui.in:283
+#: data/resources/ui/window.ui:158
 msgid "Save"
 msgstr "Opslaan"
+
+#: src/application.rs:105
+msgid "Failed to logout"
+msgstr "Afmelden mislukt"
+
+#: src/application.rs:255 src/application.rs:260
+msgid "Failed to log in"
+msgstr "Aanmelden mislukt"
+
+#: src/application.rs:417
+msgid "translator-credits"
+msgstr ""
+"Nathan Follens <nfollens@gnome.org>\n"
+"Casper Meijn <casper@meijn.net>\n"
+"Meer info over Gnome-NL https://nl.gnome.org/"
+
+#~ msgid "A Wallabag Client."
+#~ msgstr "Een Wallabag-cliënt."
+
+#~ msgid "Whether we should use a dark theme or not"
+#~ msgstr "Of Later lezen een donker thema moet gebruiken"
+
+#~ msgid "No articles found"
+#~ msgstr "Geen artikels gevonden"
+
+#~ msgid "Settings"
+#~ msgstr "Instellingen"
+
+#~ msgid "Logout"
+#~ msgstr "Afmelden"
+
+#~ msgid "Appearance"
+#~ msgstr "Uiterlijk"
+
+#~ msgid "Enable dark mode"
+#~ msgstr "Donkere modus inschakelen"
