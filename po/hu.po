@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-03-07 21:45+0000\n"
-"PO-Revision-Date: 2023-03-11 00:50+0100\n"
+"POT-Creation-Date: 2023-03-13 12:41+0000\n"
+"PO-Revision-Date: 2023-03-15 01:36+0100\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
@@ -25,7 +25,6 @@ msgid "Read It Later"
 msgstr "Későbbi olvasás"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
 msgid "A Wallabag Client"
 msgstr "Egy Wallabag-ügyfélprogram"
 
@@ -33,10 +32,12 @@ msgstr "Egy Wallabag-ügyfélprogram"
 msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
 msgstr "Gnome;GTK;Wallabag;Web;Cikk;Offline;Kapcsolat nélkül;"
 
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
+#| msgid "Favorite an article"
+msgid "Save and read web articles"
+msgstr "Webes cikkek mentése és olvasása"
+
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
-#| msgid ""
-#| "Read It Later, is a simple Wallabag client. It has the basic features to "
-#| "manage your articles"
 msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
 "manage your articles."
@@ -61,9 +62,6 @@ msgid "Favorite an article"
 msgstr "Egy cikk kedvencekhez adása"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
-#| msgid ""
-#| "It also comes with a nice on eyes reader mode that supports code syntax "
-#| "highlighting and a dark mode"
 msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
 "highlighting and a dark mode."
