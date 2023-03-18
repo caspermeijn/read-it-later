@@ -1,15 +1,15 @@
 # Polish translation for read-it-later.
-# Copyright © 2020-2022 the read-it-later authors.
+# Copyright © 2020-2023 the read-it-later authors.
 # This file is distributed under the same license as the read-it-later package.
-# Piotr Drąg <piotrdrag@gmail.com>, 2020-2022.
-# Aviary.pl <community-poland@mozilla.org>, 2020-2022.
+# Piotr Drąg <piotrdrag@gmail.com>, 2020-2023.
+# Aviary.pl <community-poland@mozilla.org>, 2020-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-03-07 21:45+0000\n"
-"PO-Revision-Date: 2022-10-30 14:10+0100\n"
+"POT-Creation-Date: 2023-03-17 08:39+0000\n"
+"PO-Revision-Date: 2023-03-18 13:42+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -27,8 +27,8 @@ msgstr "Przeczytaj później"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
-msgid "A Wallabag Client"
-msgstr "Klient serwisu Wallabag"
+msgid "Save and read web articles"
+msgstr "Zapisywanie i czytanie artykułów w Internecie"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
 msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
@@ -112,6 +112,7 @@ msgstr "Nazwa zalogowanego użytkownika"
 msgid "Latest successful sync in ms"
 msgstr "Ostatnia pomyślna synchronizacja w milisekundach"
 
+#. Translators: This status is shown when the list of articles is empty
 #: data/resources/ui/articles_list.ui:34
 msgid "Pretty clean!"
 msgstr "Coś tu pusto!"
@@ -279,5 +280,5 @@ msgstr "Zalogowanie się nie powiodło"
 #: src/application.rs:417
 msgid "translator-credits"
 msgstr ""
-"Piotr Drąg <piotrdrag@gmail.com>, 2020-2022\n"
-"Aviary.pl <community-poland@mozilla.org>, 2020-2022"
+"Piotr Drąg <piotrdrag@gmail.com>, 2020-2023\n"
+"Aviary.pl <community-poland@mozilla.org>, 2020-2023"
