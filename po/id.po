@@ -1,47 +1,45 @@
 # Indonesian translation for read-it-later.
 # Copyright (C) 2020 read-it-later's COPYRIGHT HOLDER
 # This file is distributed under the same license as the read-it-later package.
-# Andika Triwidada <atriwidada@gnome.org>, 2020.
+# Andika Triwidada <andika@gmail.com>, 2020, 2023.
+# "Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2022-10-30 12:58+0000\n"
-"PO-Revision-Date: 2022-11-16 11:06+0700\n"
-"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
+"POT-Creation-Date: 2023-03-17 08:39+0000\n"
+"PO-Revision-Date: 2023-03-21 08:29+0700\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.2.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:65
+#: data/resources/ui/window.ui:66
 msgid "Read It Later"
 msgstr "Baca Nanti"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-msgid "A Wallabag Client"
-msgstr "Sebuah Klien Wallabag"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
+msgid "Save and read web articles"
+msgstr "Simpan dan baca artikel web"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
 msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
 msgstr "Gnome;GTK;Wallabag;Web;Artikel;Luring;"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
-msgid "A Wallabag Client."
-msgstr "Sebuah Klien Wallabag."
-
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
 msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
-"manage your articles"
+"manage your articles."
 msgstr ""
 "Baca Nanti, adalah klien Wallabag sederhana. Ini memiliki fitur dasar untuk "
-"mengelola artikel Anda"
+"mengelola artikel Anda."
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
 msgid "Add new articles"
@@ -62,10 +60,10 @@ msgstr "Memfavoritkan artikel"
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
 msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
-"highlighting and a dark mode"
+"highlighting and a dark mode."
 msgstr ""
 "Ini juga dilengkapi dengan mode pembaca yang bersahabat untuk mata yang "
-"mendukung penyorotan sintaks kode dan mode gelap"
+"mendukung penyorotan sintaks kode dan mode gelap."
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
 msgid "Main Window"
@@ -79,7 +77,7 @@ msgstr "Tilikan Artikel"
 msgid "Adaptive view in dark mode"
 msgstr "Tampilan adaptif dalam mode gelap"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:71
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -111,6 +109,7 @@ msgstr "Nama pengguna yang login"
 msgid "Latest successful sync in ms"
 msgstr "Penyelarasan sukses terakhir dalam ms"
 
+#. Translators: This status is shown when the list of articles is empty
 #: data/resources/ui/articles_list.ui:34
 msgid "Pretty clean!"
 msgstr "Cukup bersih!"
@@ -223,78 +222,60 @@ msgstr "Dibuat Pada"
 msgid "Updated At"
 msgstr "Dimutakhirkan Pada"
 
-#: data/resources/ui/window.ui:8
+#: data/resources/ui/window.ui:6
 msgid "Open Website"
 msgstr "Buka Situs Web"
 
-#: data/resources/ui/window.ui:14
+#: data/resources/ui/window.ui:12
 msgid "Delete Article"
 msgstr "Hapus Artikel"
 
-#: data/resources/ui/window.ui:22
+#: data/resources/ui/window.ui:20
 msgid "Add Article…"
 msgstr "Tambahkan Artikel…"
 
-#: data/resources/ui/window.ui:28
+#: data/resources/ui/window.ui:26
 msgid "Preferences"
 msgstr "Preferensi"
 
-#: data/resources/ui/window.ui:32
+#: data/resources/ui/window.ui:30
 msgid "Log Out"
 msgstr "Keluar"
 
-#: data/resources/ui/window.ui:38
+#: data/resources/ui/window.ui:36
 msgid "Keyboard Shortcuts"
 msgstr "Pintasan Papan Tik"
 
-#: data/resources/ui/window.ui:42
+#: data/resources/ui/window.ui:40
 msgid "About Read It Later"
 msgstr "Tentang Baca Nanti"
 
-#: data/resources/ui/window.ui:103
+#: data/resources/ui/window.ui:104
 msgid "Favorite"
 msgstr "Favorit"
 
-#: data/resources/ui/window.ui:111
+#: data/resources/ui/window.ui:112
 msgid "Archive"
 msgstr "Arsip"
 
-#: data/resources/ui/window.ui:150
+#: data/resources/ui/window.ui:151
 msgid "Paste the article URL here"
 msgstr "Tempel URL artikel di sini"
 
-#: data/resources/ui/window.ui:157
+#: data/resources/ui/window.ui:158
 msgid "Save"
 msgstr "Simpan"
 
-#: src/application.rs:108
+#: src/application.rs:105
 msgid "Failed to logout"
 msgstr "Gagal keluar"
 
-#: src/application.rs:252 src/application.rs:257
+#: src/application.rs:255 src/application.rs:260
 msgid "Failed to log in"
 msgstr "Gagal masuk"
 
-#: src/application.rs:401
+#: src/application.rs:417
 msgid "translator-credits"
 msgstr ""
-"Andika Triwidada <andika@gmail.com>, 2020.\n"
+"Andika Triwidada <andika@gmail.com>, 2020, 2023.\n"
 "Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2022."
-
-#~ msgid "Whether we should use a dark theme or not"
-#~ msgstr "Apakah kita harus menggunakan tema gelap atau tidak"
-
-#~ msgid "No articles found"
-#~ msgstr "Tidak ada artikel yang ditemukan"
-
-#~ msgid "Settings"
-#~ msgstr "Pengaturan"
-
-#~ msgid "Logout"
-#~ msgstr "Keluar"
-
-#~ msgid "Appearance"
-#~ msgstr "Penampilan"
-
-#~ msgid "Enable dark mode"
-#~ msgstr "Mengaktifkan mode gelap"
