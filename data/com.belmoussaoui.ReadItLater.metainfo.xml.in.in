@@ -51,6 +51,9 @@
     </release>
     <release version="0.0.1" date="2020-02-05" />
   </releases>
+  <provides>
+    <binary>read-it-later</binary>
+  </provides>
   <requires>
     <display_length compare="ge">small</display_length>
     <internet>first-run</internet>
