@@ -407,6 +407,10 @@ impl Application {
         });
     }
 
+    fn authors() -> Vec<&'static str> {
+        env!("CARGO_PKG_AUTHORS").split(":").collect()
+    }
+
     fn show_about_dialog(parent: &impl IsA<gtk::Window>) {
         let dialog = adw::AboutWindow::builder()
             .application_name(glib::application_name().unwrap())
@@ -415,7 +419,7 @@ impl Application {
             .website("https://gitlab.gnome.org/World/read-it-later/")
             .version(VERSION)
             .translator_credits(&gettext("translator-credits"))
-            .developers(["Bilal Elmoussaoui", "Casper Meijn"])
+            .developers(Self::authors())
             .artists(["Tobias Bernard"])
             .transient_for(parent)
             .build();

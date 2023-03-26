@@ -1,7 +1,7 @@
 [package]
 name = "read-it-later"
 version = "0.3.0"
-authors = ["Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>"]
+authors = ["Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>", "Casper Meijn <casper@meijn.net>"]
 edition = "2021"
 
 [dependencies]
