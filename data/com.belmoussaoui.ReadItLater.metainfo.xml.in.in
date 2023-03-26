@@ -2,7 +2,7 @@
 <!-- Bilal Elmoussaoui 2019 <bilal.elmoussaoui@gnome.org> -->
 <component type="desktop-application">
   <id>@app-id@</id>
-  <metadata_license>CC0</metadata_license>
+  <metadata_license>CC0-1.0</metadata_license>
   <name>Read It Later</name>
   <summary>Save and read web articles</summary>
   <description>
@@ -64,7 +64,7 @@
     <control>touch</control>
     <internet>always</internet>
   </recommends>
-  <project_license>GPL-3.0+</project_license>
+  <project_license>GPL-3.0-or-later</project_license>
   <developer_name>Bilal Elmoussaoui</developer_name>
   <screenshots>
     <screenshot type="default">
