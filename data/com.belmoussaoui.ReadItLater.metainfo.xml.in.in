@@ -15,6 +15,20 @@
     </ul>
     <p>It also comes with a nice on eyes reader mode that supports code syntax highlighting and a dark mode.</p>
   </description>
+  <categories>
+    <category>GNOME</category>
+    <category>GTK</category>
+    <category>Utility</category>
+    <category>Network</category>
+  </categories>
+  <keywords>
+    <keyword>GNOME</keyword>
+    <keyword>GTK</keyword>
+    <keyword>Wallabag</keyword>
+    <keyword>Web</keyword>
+    <keyword>Article</keyword>
+    <keyword>Offline</keyword>
+  </keywords>
   <url type="homepage">https://gitlab.gnome.org/World/read-it-later</url>
   <url type="bugtracker">https://gitlab.gnome.org/World/read-it-later/issues</url>
   <url type="donation">https://liberapay.com/bielmoussaoui</url>
