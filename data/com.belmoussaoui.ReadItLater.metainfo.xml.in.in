@@ -3,7 +3,6 @@
 <component type="desktop-application">
   <id>@app-id@</id>
   <metadata_license>CC0</metadata_license>
-  <project_license>GPL-3.0+</project_license>
   <name>Read It Later</name>
   <summary>Save and read web articles</summary>
   <description>
@@ -16,25 +15,11 @@
     </ul>
     <p>It also comes with a nice on eyes reader mode that supports code syntax highlighting and a dark mode.</p>
   </description>
-  <screenshots>
-    <screenshot type="default">
-      <image>https://gitlab.gnome.org/World/read-it-later/raw/master/data/resources/screenshots/screenshot1.png</image>
-      <caption>Main Window</caption>
-    </screenshot>
-    <screenshot>
-      <image>https://gitlab.gnome.org/World/read-it-later/raw/master/data/resources/screenshots/screenshot2.png</image>
-      <caption>Article View</caption>
-    </screenshot>
-    <screenshot>
-      <image>https://gitlab.gnome.org/World/read-it-later/raw/master/data/resources/screenshots/screenshot3.png</image>
-      <caption>Adaptive view in dark mode</caption>
-    </screenshot>
-  </screenshots>
   <url type="homepage">https://gitlab.gnome.org/World/read-it-later</url>
   <url type="bugtracker">https://gitlab.gnome.org/World/read-it-later/issues</url>
   <url type="donation">https://liberapay.com/bielmoussaoui</url>
   <url type="translate">https://l10n.gnome.org/module/read-it-later/</url>
-  <content_rating type="oars-1.0" />
+  <launchable type="desktop-id">@app-id@.desktop</launchable>
   <releases>
     <release version="0.3.0" date="2023-03-09">
       <description>
@@ -52,6 +37,37 @@
     </release>
     <release version="0.0.1" date="2020-02-05" />
   </releases>
+  <requires>
+    <display_length compare="ge">small</display_length>
+  </requires>
+  <recommends>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+  </recommends>
+  <project_license>GPL-3.0+</project_license>
+  <developer_name>Bilal Elmoussaoui</developer_name>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://gitlab.gnome.org/World/read-it-later/raw/master/data/resources/screenshots/screenshot1.png</image>
+      <caption>Main Window</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://gitlab.gnome.org/World/read-it-later/raw/master/data/resources/screenshots/screenshot2.png</image>
+      <caption>Article View</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://gitlab.gnome.org/World/read-it-later/raw/master/data/resources/screenshots/screenshot3.png</image>
+      <caption>Adaptive view in dark mode</caption>
+    </screenshot>
+  </screenshots>
+  <translation type="gettext">@gettext-package@</translation>
+  <content_rating type="oars-1.0" />
+  <update_contact>bilal.elmoussaoui@gnome.org</update_contact>
+  <custom>
+    <value key="Purism::form_factor">workstation</value>
+    <value key="Purism::form_factor">mobile</value>
+  </custom>
   <kudos>
     <!--
         GNOME Software kudos:
@@ -60,20 +76,4 @@
     <kudo>ModernToolkit</kudo>
     <kudo>HiDpiIcon</kudo>
   </kudos>
-  <recommends>
-    <control>keyboard</control>
-    <control>pointing</control>
-    <control>touch</control>
-  </recommends>
-  <requires>
-    <display_length compare="ge">small</display_length>
-  </requires>
-  <developer_name>Bilal Elmoussaoui</developer_name>
-  <update_contact>bilal.elmoussaoui@gnome.org</update_contact>
-  <translation type="gettext">@gettext-package@</translation>
-  <launchable type="desktop-id">@app-id@.desktop</launchable>
-  <custom>
-    <value key="Purism::form_factor">workstation</value>
-    <value key="Purism::form_factor">mobile</value>
-  </custom>
 </component>
