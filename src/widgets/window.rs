@@ -171,9 +171,11 @@ impl Window {
         let articles_manager = ArticlesManager::new(sender.clone());
 
         imp.sender.set(sender).unwrap();
-        imp.article_view
-            .set(ArticleView::new(articles_manager.sender.clone()))
-            .unwrap();
+
+        let article_view = ArticleView::new();
+        article_view.set_sender(articles_manager.sender.clone());
+        imp.article_view.set(article_view).unwrap();
+
         imp.articles_view
             .set(ArticlesView::new(articles_manager.sender.clone()))
             .unwrap();
@@ -202,8 +204,7 @@ impl Window {
 
         // Article View
         let article_view = imp.article_view.get().unwrap();
-        imp.main_stack
-            .add_named(article_view.get_widget(), Some("article"));
+        imp.main_stack.add_named(article_view, Some("article"));
         self.insert_action_group("article", Some(article_view.get_actions()));
 
         imp.main_stack.connect_visible_child_name_notify(
