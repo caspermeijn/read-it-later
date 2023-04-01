@@ -39,11 +39,13 @@
   </releases>
   <requires>
     <display_length compare="ge">small</display_length>
+    <internet>first-run</internet>
   </requires>
   <recommends>
     <control>keyboard</control>
     <control>pointing</control>
     <control>touch</control>
+    <internet>always</internet>
   </recommends>
   <project_license>GPL-3.0+</project_license>
   <developer_name>Bilal Elmoussaoui</developer_name>
