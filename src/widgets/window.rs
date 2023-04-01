@@ -203,7 +203,7 @@ impl Window {
         // Article View
         let article_view = imp.article_view.get().unwrap();
         imp.main_stack
-            .add_named(article_view.get_widget(), Some(&article_view.name));
+            .add_named(article_view.get_widget(), Some("article"));
         self.insert_action_group("article", Some(article_view.get_actions()));
 
         imp.main_stack.connect_visible_child_name_notify(

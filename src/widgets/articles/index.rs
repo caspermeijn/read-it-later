@@ -3,7 +3,7 @@ use std::cell::RefCell;
 use anyhow::Result;
 use glib::{clone, Sender};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
-use gtk_macros::{action, send};
+use gtk_macros::{action, get_action, send};
 use log::{error, info};
 use once_cell::sync::OnceCell;
 use webkit::{prelude::*, Settings, WebView};
@@ -103,15 +103,13 @@ glib::wrapper! {
 }
 
 impl ArticleWidget {
-    pub fn new(sender: Sender<ArticleAction>) -> Self {
-        let article_widget = glib::Object::new::<Self>();
-        article_widget.init(sender);
-        article_widget.setup_actions();
-        article_widget
+    pub fn new() -> Self {
+        glib::Object::new()
     }
 
-    fn init(&self, sender: Sender<ArticleAction>) {
+    pub fn set_sender(&self, sender: Sender<ArticleAction>) {
         self.imp().sender.set(sender).unwrap();
+        self.setup_actions();
     }
 
     fn setup_actions(&self) {
@@ -173,6 +171,12 @@ impl ArticleWidget {
         self.imp().actions.add_action(&simple_action);
     }
 
+    pub fn load(&self, article: Article) {
+        if let Err(err) = self.load_article(article) {
+            error!("Failed to load article {}", err);
+        }
+    }
+
     pub fn load_article(&self, article: Article) -> Result<()> {
         info!("Loading the article {:#?}", article.title);
         self.imp().article.replace(Some(article.clone()));
@@ -202,6 +206,14 @@ impl ArticleWidget {
 
     pub fn get_actions(&self) -> &gio::SimpleActionGroup {
         &self.imp().actions
+    }
+
+    pub fn set_enable_actions(&self, state: bool) {
+        let action_group = self.get_actions();
+        get_action!(action_group, @open).set_enabled(state);
+        get_action!(action_group, @archive).set_enabled(state);
+        get_action!(action_group, @delete).set_enabled(state);
+        get_action!(action_group, @favorite).set_enabled(state);
     }
 }
 
