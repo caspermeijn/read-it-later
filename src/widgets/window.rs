@@ -39,8 +39,9 @@ mod imp {
         pub view_switcher_title: TemplateChild<adw::ViewSwitcherTitle>,
         #[template_child]
         pub login_view: TemplateChild<Login>,
+        #[template_child]
+        pub article_view: TemplateChild<ArticleView>,
         pub sender: OnceCell<Sender<Action>>,
-        pub article_view: OnceCell<ArticleView>,
         pub articles_view: OnceCell<ArticlesView>,
         pub actions: gio::SimpleActionGroup,
     }
@@ -102,7 +103,7 @@ impl Window {
     }
 
     pub fn load_article(&self, article: Article) {
-        let article_view = self.imp().article_view.get().unwrap();
+        let article_view = self.imp().article_view.get();
         let article_view_actions = article_view.get_actions();
         get_action!(article_view_actions, @archive).set_state(article.is_archived.into());
         get_action!(article_view_actions, @favorite).set_state(article.is_starred.into());
@@ -172,9 +173,7 @@ impl Window {
 
         imp.sender.set(sender).unwrap();
 
-        let article_view = ArticleView::new();
-        article_view.set_sender(articles_manager.sender.clone());
-        imp.article_view.set(article_view).unwrap();
+        imp.article_view.set_sender(articles_manager.sender.clone());
 
         imp.articles_view
             .set(ArticlesView::new(articles_manager.sender.clone()))
@@ -203,8 +202,7 @@ impl Window {
         imp.view_switcher_bar.set_stack(Some(&articles_view.widget));
 
         // Article View
-        let article_view = imp.article_view.get().unwrap();
-        imp.main_stack.add_named(article_view, Some("article"));
+        let article_view = imp.article_view.get();
         self.insert_action_group("article", Some(article_view.get_actions()));
 
         imp.main_stack.connect_visible_child_name_notify(
