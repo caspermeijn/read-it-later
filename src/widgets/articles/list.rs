@@ -98,7 +98,7 @@ impl ArticlesListWidget {
         list_widget
     }
 
-    fn update_model_empty(&self, model: &gio::ListStore) {
+    fn update_model_empty(&self, model: &impl IsA<gio::ListModel>) {
         if model.n_items() == 0 {
             self.imp().stack.set_visible_child_name("empty")
         } else {
@@ -106,7 +106,7 @@ impl ArticlesListWidget {
         }
     }
 
-    pub fn bind_model(&self, model: &gio::ListStore) {
+    pub fn bind_model(&self, model: &impl IsA<gio::ListModel>) {
         self.update_model_empty(model);
         model.connect_items_changed(
             clone!(@strong self as list_widget => move |model, _, _, _| {

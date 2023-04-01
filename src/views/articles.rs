@@ -1,7 +1,10 @@
-use gtk::{glib::Sender, prelude::*};
+use futures::executor::ThreadPool;
+use gtk::{gio, glib, glib::Sender, prelude::*};
+use gtk_macros::send;
+use log::error;
 
 use crate::{
-    models::{Article, ArticleAction, ArticlesFilter},
+    models::{Article, ArticleAction, ArticleObject, ArticlesFilter},
     views::ArticlesListView,
 };
 
@@ -11,16 +14,20 @@ pub struct ArticlesView {
     unread_view: ArticlesListView,
     favorites_view: ArticlesListView,
     archive_view: ArticlesListView,
+    model: gio::ListStore,
 }
 
 impl ArticlesView {
     pub fn new(sender: Sender<ArticleAction>) -> Self {
+        let model = gio::ListStore::new(ArticleObject::static_type());
+
         let favorites_view = ArticlesListView::new(
             "favorites",
             "Favorites",
             "favorites-symbolic",
             ArticlesFilter::favorites(),
             sender.clone(),
+            model.clone(),
         );
         let archive_view = ArticlesListView::new(
             "archive",
@@ -28,13 +35,15 @@ impl ArticlesView {
             "archive-symbolic",
             ArticlesFilter::archive(),
             sender.clone(),
+            model.clone(),
         );
         let unread_view = ArticlesListView::new(
             "unread",
             "Unread",
             "unread-symbolic",
             ArticlesFilter::unread(),
-            sender,
+            sender.clone(),
+            model.clone(),
         );
         let widget = adw::ViewStack::builder()
             .hhomogeneous(false)
@@ -46,12 +55,13 @@ impl ArticlesView {
             archive_view,
             favorites_view,
             unread_view,
+            model,
         };
-        articles_view.init();
+        articles_view.init(sender);
         articles_view
     }
 
-    fn init(&self) {
+    fn init(&self, sender: Sender<ArticleAction>) {
         // Unread View
         self.widget
             .add_titled(
@@ -78,34 +88,42 @@ impl ArticlesView {
             .set_icon_name(Some(&self.archive_view.icon));
 
         self.widget.set_visible(true);
+
+        let filter = ArticlesFilter::none();
+        let articles = Article::load(&filter).unwrap();
+        let pool = ThreadPool::new().expect("Failed to build pool");
+
+        let ctx = glib::MainContext::default();
+        ctx.spawn(async move {
+            let futures = async move {
+                articles.into_iter().for_each(|article| {
+                    send!(sender, ArticleAction::Add(article));
+                })
+            };
+            pool.spawn_ok(futures);
+        });
     }
 
     pub fn add(&self, article: &Article) {
-        if !article.is_starred && !article.is_archived {
-            self.unread_view.add(article);
-        } else {
-            if article.is_starred {
-                self.favorites_view.add(article);
-            }
-            if article.is_archived {
-                self.archive_view.add(article);
-            }
+        if self.index(article).is_none() {
+            let object = ArticleObject::new(article.clone());
+            self.model.insert_sorted(&object, Article::compare);
         }
     }
 
     pub fn clear(&self) {
-        self.unread_view.clear();
-        self.archive_view.clear();
-        self.favorites_view.clear();
+        self.model.remove_all();
     }
 
     pub fn update(&self, article: &Article) {
-        self.remove_from_view(article);
+        self.delete(article);
         self.add(article);
     }
 
     pub fn delete(&self, article: &Article) {
-        self.remove_from_view(article);
+        if let Some(pos) = self.index(article) {
+            self.model.remove(pos);
+        }
     }
 
     pub fn favorite(&self, article: &Article) {
@@ -116,9 +134,15 @@ impl ArticlesView {
         self.update(article);
     }
 
-    fn remove_from_view(&self, article: &Article) {
-        self.unread_view.delete(article);
-        self.archive_view.delete(article);
-        self.favorites_view.delete(article);
+    fn index(&self, article: &Article) -> Option<u32> {
+        for i in 0..self.model.n_items() {
+            let gobject = self.model.item(i).unwrap();
+            let a = gobject.downcast_ref::<ArticleObject>().unwrap().article();
+
+            if article.id == a.id {
+                return Some(i);
+            }
+        }
+        None
     }
 }
