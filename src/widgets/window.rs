@@ -1,7 +1,6 @@
 use adw::{prelude::*, subclass::prelude::*};
 use glib::{clone, timeout_future_seconds, MainContext, Object, Sender};
 use gtk::{gio, glib};
-use gtk_macros::{get_action, send};
 use log::error;
 use url::Url;
 
@@ -61,7 +60,7 @@ mod imp {
 
             klass.install_action("win.previous", None, move |window, _, _| {
                 let sender = window.imp().sender.get().unwrap();
-                send!(sender, Action::PreviousView);
+                gtk_macros::send!(sender, Action::PreviousView);
             });
         }
 
@@ -109,8 +108,10 @@ impl Window {
     pub fn load_article(&self, article: Article) {
         let article_widget = self.imp().article_widget.get();
         let article_widget_actions = article_widget.get_actions();
-        get_action!(article_widget_actions, @archive).set_state(article.is_archived.into());
-        get_action!(article_widget_actions, @favorite).set_state(article.is_starred.into());
+        gtk_macros::get_action!(article_widget_actions, @archive)
+            .set_state(article.is_archived.into());
+        gtk_macros::get_action!(article_widget_actions, @favorite)
+            .set_state(article.is_starred.into());
         article_widget.load(article);
         self.set_view(View::Article);
     }
@@ -220,7 +221,7 @@ impl Window {
         imp.save_article_btn
             .connect_clicked(clone!(@weak imp, @strong sender => move |_| {
                 if let Ok(url) = Url::parse(&imp.article_url_entry.text()) {
-                    send!(sender, Action::SaveArticle(url));
+                    gtk_macros::send!(sender, Action::SaveArticle(url));
                     imp.article_url_entry.set_text("");
                 }
             }));

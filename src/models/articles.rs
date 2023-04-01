@@ -2,7 +2,6 @@ use std::{cell::RefCell, rc::Rc};
 
 use glib::{Receiver, Sender};
 use gtk::glib;
-use gtk_macros::send;
 use log::error;
 
 use super::article::Article;
@@ -58,21 +57,21 @@ impl ArticlesManager {
     }
 
     fn add(&self, article: Article) {
-        send!(
+        gtk_macros::send!(
             self.main_sender,
             Action::Articles(Box::new(ArticleAction::Add(article)))
         );
     }
 
     fn open(&self, article: Article) {
-        send!(
+        gtk_macros::send!(
             self.main_sender,
             Action::Articles(Box::new(ArticleAction::Open(article)))
         );
     }
 
     fn update(&self, article: Article) {
-        send!(
+        gtk_macros::send!(
             self.main_sender,
             Action::Articles(Box::new(ArticleAction::Update(article)))
         );
@@ -80,7 +79,7 @@ impl ArticlesManager {
 
     fn archive(&self, mut article: Article) {
         match article.toggle_archive() {
-            Ok(_) => send!(
+            Ok(_) => gtk_macros::send!(
                 self.main_sender,
                 Action::Articles(Box::new(ArticleAction::Archive(article)))
             ),
@@ -90,7 +89,7 @@ impl ArticlesManager {
 
     fn favorite(&self, mut article: Article) {
         match article.toggle_favorite() {
-            Ok(_) => send!(
+            Ok(_) => gtk_macros::send!(
                 self.main_sender,
                 Action::Articles(Box::new(ArticleAction::Favorite(article)))
             ),
@@ -100,7 +99,7 @@ impl ArticlesManager {
 
     fn delete(&self, article: Article) {
         match article.delete() {
-            Ok(_) => send!(
+            Ok(_) => gtk_macros::send!(
                 self.main_sender,
                 Action::Articles(Box::new(ArticleAction::Delete(article)))
             ),

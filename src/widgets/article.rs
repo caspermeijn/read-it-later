@@ -3,7 +3,6 @@ use std::cell::RefCell;
 use anyhow::Result;
 use glib::{clone, Sender};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
-use gtk_macros::{action, get_action, send};
 use log::{error, info};
 use webkit::{prelude::*, NetworkSession, Settings, WebView};
 
@@ -140,17 +139,17 @@ impl ArticleWidget {
     fn setup_actions(&self) {
         let sender = self.imp().sender.get().unwrap();
         // Delete article
-        action!(
+        gtk_macros::action!(
             self.imp().actions,
             "delete",
             clone!(@strong self as aw, @strong sender => move |_, _| {
                 if let Some(article) = aw.imp().article.borrow().clone() {
-                    send!(sender, ArticleAction::Delete(article));
+                    gtk_macros::send!(sender, ArticleAction::Delete(article));
                 }
             })
         );
         // Share article
-        action!(
+        gtk_macros::action!(
             self.imp().actions,
             "open",
             clone!(@strong self as aw => move |_, _| {
@@ -170,7 +169,7 @@ impl ArticleWidget {
                 let is_archived = !action_state;
                 action.set_state(is_archived.into());
                 if let Some(article) = aw.imp().article.borrow_mut().clone() {
-                    send!(sender, ArticleAction::Archive(article));
+                    gtk_macros::send!(sender, ArticleAction::Archive(article));
                 }
             }),
         );
@@ -186,7 +185,7 @@ impl ArticleWidget {
                 action.set_state(is_starred.into());
 
                 if let Some(article) = aw.imp().article.borrow_mut().clone() {
-                    send!(sender, ArticleAction::Favorite(article));
+                    gtk_macros::send!(sender, ArticleAction::Favorite(article));
                 }
             }),
         );
@@ -232,10 +231,10 @@ impl ArticleWidget {
 
     pub fn set_enable_actions(&self, state: bool) {
         let action_group = self.get_actions();
-        get_action!(action_group, @open).set_enabled(state);
-        get_action!(action_group, @archive).set_enabled(state);
-        get_action!(action_group, @delete).set_enabled(state);
-        get_action!(action_group, @favorite).set_enabled(state);
+        gtk_macros::get_action!(action_group, @open).set_enabled(state);
+        gtk_macros::get_action!(action_group, @archive).set_enabled(state);
+        gtk_macros::get_action!(action_group, @delete).set_enabled(state);
+        gtk_macros::get_action!(action_group, @favorite).set_enabled(state);
     }
 }
 

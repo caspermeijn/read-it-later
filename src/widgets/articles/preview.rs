@@ -4,7 +4,6 @@ mod imp {
     use std::{cell::RefCell, str::FromStr};
 
     use gtk::glib::{clone, subclass::InitializingObject, ParamSpec, Value};
-    use gtk_macros::spawn;
     use once_cell::sync::Lazy;
     use url::Url;
 
@@ -57,7 +56,7 @@ mod imp {
                     let url = value.get().unwrap();
                     self.url.replace(url);
 
-                    spawn!(clone!(@weak self as article_preview => async move {
+                    gtk_macros::spawn!(clone!(@weak self as article_preview => async move {
                         match article_preview.get_preview_picture().await {
                             Some(pixbuf) => article_preview.set_pixbuf(&pixbuf),
                             _ => article_preview.obj().set_visible(false),

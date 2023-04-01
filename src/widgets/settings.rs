@@ -1,7 +1,6 @@
 use adw::subclass::prelude::*;
 use async_std::sync::{Arc, Mutex};
 use gtk::glib;
-use gtk_macros::{send, spawn};
 use log::error;
 
 use crate::models::ClientManager;
@@ -86,10 +85,10 @@ impl SettingsWidget {
             }),
         );
 
-        spawn!(async move {
+        gtk_macros::spawn!(async move {
             let client = client.lock().await;
             if let Ok(user) = client.fetch_user().await {
-                send!(
+                gtk_macros::send!(
                     sender,
                     SettingsAction::ClientInfoLoaded(ClientInfo {
                         username: user.username.clone(),
