@@ -1,51 +1,129 @@
-use glib::Sender;
-use gtk::{gio, gio::prelude::*, glib};
+use gio::prelude::*;
+use glib::{clone, Sender};
+use gtk::{gio, glib, subclass::prelude::*};
+use gtk_macros::send;
+use log::error;
+use once_cell::sync::OnceCell;
 
 use crate::{
-    models::{ArticleAction, ArticlesFilter},
-    widgets::articles::ArticlesListWidget,
+    models::{ArticleAction, ArticleObject},
+    widgets::articles::ArticleRow,
 };
 
-#[derive(Clone, Debug)]
-pub struct ArticlesListView {
-    widget: ArticlesListWidget,
-    pub name: String,
-    pub title: String,
-    pub icon: String,
-    model: gtk::FilterListModel,
+mod imp {
+    use glib::{subclass::InitializingObject, ParamSpec, ParamSpecString, Value};
+    use gtk::prelude::*;
+    use once_cell::sync::Lazy;
+
+    use super::*;
+
+    #[derive(gtk::CompositeTemplate, Default)]
+    #[template(resource = "/com/belmoussaoui/ReadItLater/articles_list.ui")]
+    pub struct ArticlesListView {
+        #[template_child]
+        pub empty_status: TemplateChild<adw::StatusPage>,
+        #[template_child]
+        pub stack: TemplateChild<gtk::Stack>,
+        #[template_child]
+        pub articles_listbox: TemplateChild<gtk::ListBox>,
+        pub sender: OnceCell<Sender<ArticleAction>>,
+    }
+    #[glib::object_subclass]
+    impl ObjectSubclass for ArticlesListView {
+        const NAME: &'static str = "ArticlesListView";
+        type Type = super::ArticlesListView;
+        type ParentType = gtk::Widget;
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.bind_template();
+            klass.bind_template_callbacks()
+        }
+
+        fn instance_init(obj: &InitializingObject<Self>) {
+            obj.init_template();
+        }
+    }
+
+    impl ObjectImpl for ArticlesListView {
+        fn properties() -> &'static [ParamSpec] {
+            static PROPERTIES: Lazy<Vec<ParamSpec>> =
+                Lazy::new(|| vec![ParamSpecString::builder("placeholder-icon-name").build()]);
+            PROPERTIES.as_ref()
+        }
+
+        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
+            match pspec.name() {
+                "placeholder-icon-name" => self.empty_status.icon_name().to_value(),
+                _ => unimplemented!(),
+            }
+        }
+
+        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
+            match pspec.name() {
+                "placeholder-icon-name" => {
+                    let icon_name = value.get().unwrap();
+                    self.empty_status.set_icon_name(icon_name)
+                }
+                _ => unimplemented!(),
+            }
+        }
+
+        fn dispose(&self) {
+            self.dispose_template();
+        }
+    }
+
+    impl WidgetImpl for ArticlesListView {}
+
+    #[gtk::template_callbacks]
+    impl ArticlesListView {
+        #[template_callback]
+        fn handle_row_activated(&self, article_row: &ArticleRow, _list_box: &gtk::ListBox) {
+            let sender = self.sender.get().unwrap();
+            send!(
+                sender,
+                ArticleAction::Open(article_row.article().article().clone())
+            );
+        }
+    }
+}
+
+glib::wrapper! {
+    pub struct ArticlesListView(ObjectSubclass<imp::ArticlesListView>)
+        @extends gtk::Widget;
 }
 
 impl ArticlesListView {
-    pub fn new(
-        name: &str,
-        title: &str,
-        icon: &str,
-        filter: ArticlesFilter,
-        sender: Sender<ArticleAction>,
-        model: gio::ListStore,
-    ) -> Self {
-        let filter: gtk::Filter = filter.into();
-        let model = gtk::FilterListModel::new(Some(model), Some(filter));
-        let widget = ArticlesListWidget::new(sender);
-
-        let articles_view = Self {
-            widget,
-            model,
-            name: name.to_string(),
-            title: title.to_string(),
-            icon: icon.to_string(),
-        };
-        articles_view.init();
-        articles_view
+    pub fn new() -> Self {
+        glib::Object::new::<Self>()
     }
 
-    pub fn get_widget(&self) -> &ArticlesListWidget {
-        &self.widget
+    fn update_model_empty(&self, model: &impl IsA<gio::ListModel>) {
+        if model.n_items() == 0 {
+            self.imp().stack.set_visible_child_name("empty")
+        } else {
+            self.imp().stack.set_visible_child_name("list")
+        }
     }
 
-    fn init(&self) {
-        self.widget
-            .set_property("placeholder-icon-name", &self.icon);
-        self.widget.bind_model(&self.model);
+    pub fn bind_model(&self, model: &impl IsA<gio::ListModel>) {
+        self.update_model_empty(model);
+        model.connect_items_changed(
+            clone!(@strong self as list_widget => move |model, _, _, _| {
+                list_widget.update_model_empty(model);
+            }),
+        );
+
+        self.imp()
+            .articles_listbox
+            .bind_model(Some(model), move |article| {
+                let article = article.downcast_ref::<ArticleObject>().unwrap();
+                let row = ArticleRow::new(article.clone());
+                row.upcast::<gtk::Widget>()
+            });
+    }
+
+    pub fn set_sender(&self, sender: Sender<ArticleAction>) {
+        self.imp().sender.set(sender).unwrap();
     }
 }

@@ -21,30 +21,27 @@ impl ArticlesView {
     pub fn new(sender: Sender<ArticleAction>) -> Self {
         let model = gio::ListStore::new(ArticleObject::static_type());
 
-        let favorites_view = ArticlesListView::new(
-            "favorites",
-            "Favorites",
-            "favorites-symbolic",
-            ArticlesFilter::favorites(),
-            sender.clone(),
-            model.clone(),
-        );
-        let archive_view = ArticlesListView::new(
-            "archive",
-            "Archive",
-            "archive-symbolic",
-            ArticlesFilter::archive(),
-            sender.clone(),
-            model.clone(),
-        );
-        let unread_view = ArticlesListView::new(
-            "unread",
-            "Unread",
-            "unread-symbolic",
-            ArticlesFilter::unread(),
-            sender.clone(),
-            model.clone(),
-        );
+        let favorites_view = ArticlesListView::new();
+        favorites_view.set_property("placeholder-icon-name", "favorites-symbolic");
+        favorites_view.set_sender(sender.clone());
+        let filter: gtk::Filter = ArticlesFilter::favorites().into();
+        let favorites_model = gtk::FilterListModel::new(Some(model.clone()), Some(filter));
+        favorites_view.bind_model(&favorites_model);
+
+        let archive_view = ArticlesListView::new();
+        archive_view.set_property("placeholder-icon-name", "archive-symbolic");
+        archive_view.set_sender(sender.clone());
+        let filter: gtk::Filter = ArticlesFilter::archive().into();
+        let archive_model = gtk::FilterListModel::new(Some(model.clone()), Some(filter));
+        archive_view.bind_model(&archive_model);
+
+        let unread_view = ArticlesListView::new();
+        unread_view.set_property("placeholder-icon-name", "unread-symbolic");
+        unread_view.set_sender(sender.clone());
+        let filter: gtk::Filter = ArticlesFilter::unread().into();
+        let unread_model = gtk::FilterListModel::new(Some(model.clone()), Some(filter));
+        unread_view.bind_model(&unread_model);
+
         let widget = adw::ViewStack::builder()
             .hhomogeneous(false)
             .vhomogeneous(false)
@@ -64,28 +61,16 @@ impl ArticlesView {
     fn init(&self, sender: Sender<ArticleAction>) {
         // Unread View
         self.widget
-            .add_titled(
-                self.unread_view.get_widget(),
-                Some(&self.unread_view.name),
-                &self.unread_view.title,
-            )
-            .set_icon_name(Some(&self.unread_view.icon));
+            .add_titled(&self.unread_view, Some("unread"), &"Unread")
+            .set_icon_name(Some("unread-symbolic"));
         // Favorites View
         self.widget
-            .add_titled(
-                self.favorites_view.get_widget(),
-                Some(&self.favorites_view.name),
-                &self.favorites_view.title,
-            )
-            .set_icon_name(Some(&self.favorites_view.icon));
+            .add_titled(&self.favorites_view, Some("favorites"), "Favorites")
+            .set_icon_name(Some("favorites-symbolic"));
         // Archive View
         self.widget
-            .add_titled(
-                self.archive_view.get_widget(),
-                Some(&self.archive_view.name),
-                &self.archive_view.title,
-            )
-            .set_icon_name(Some(&self.archive_view.icon));
+            .add_titled(&self.archive_view, Some("archive"), "Archive")
+            .set_icon_name(Some("archive-symbolic"));
 
         self.widget.set_visible(true);
 
