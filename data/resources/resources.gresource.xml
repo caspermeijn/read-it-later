@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/com/belmoussaoui/ReadItLater">
-      <file compressed="true" preprocess="xml-stripblanks" alias="article.ui">ui/article.ui</file>
-      <file compressed="true" preprocess="xml-stripblanks" alias="articles_list.ui">ui/articles_list.ui</file>
-      <file compressed="true" preprocess="xml-stripblanks" alias="article_row.ui">ui/article_row.ui</file>
-      <file compressed="true" preprocess="xml-stripblanks" alias="article_preview.ui">ui/article_preview.ui</file>
-      <file compressed="true" preprocess="xml-stripblanks" alias="settings.ui">ui/settings.ui</file>
-      <file compressed="true" preprocess="xml-stripblanks" alias="gtk/help-overlay.ui">ui/gtk/help-overlay.ui</file>
-      <file compressed="true" preprocess="xml-stripblanks" alias="login.ui">ui/login.ui</file>
-      <file compressed="true" preprocess="xml-stripblanks" alias="window.ui">ui/window.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="article_preview.ui">ui/article_preview.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="article_row.ui">ui/article_row.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="article.ui">ui/article.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="articles_list.ui">ui/articles_list.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="articles.ui">ui/articles.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="login.ui">ui/login.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="settings.ui">ui/settings.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="window.ui">ui/window.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="gtk/help-overlay.ui">ui/gtk/help-overlay.ui</file>
 
-      <file compressed="true" alias="layout.css">article/layout.css</file>
-      <file compressed="true" alias="layout.js">article/layout.js</file>
-      <file alias="layout.html">article/layout.html</file>
-      <file compressed="true" alias="style.css">style.css</file>
+    <file compressed="true" alias="layout.css">article/layout.css</file>
+    <file compressed="true" alias="layout.js">article/layout.js</file>
+    <file alias="layout.html">article/layout.html</file>
+    <file compressed="true" alias="style.css">style.css</file>
   </gresource>
   <gresource prefix="/com/belmoussaoui/ReadItLater/icons/scalable/status">
-      <file alias="archive-symbolic.svg">../icons/hicolor/scalable/status/archive-symbolic.svg</file>
-      <file alias="favorites-symbolic.svg">../icons/hicolor/scalable/status/favorites-symbolic.svg</file>
-      <file alias="unread-symbolic.svg">../icons/hicolor/scalable/status/unread-symbolic.svg</file>
+    <file alias="archive-symbolic.svg">../icons/hicolor/scalable/status/archive-symbolic.svg</file>
+    <file alias="favorites-symbolic.svg">../icons/hicolor/scalable/status/favorites-symbolic.svg</file>
+    <file alias="unread-symbolic.svg">../icons/hicolor/scalable/status/unread-symbolic.svg</file>
   </gresource>
 </gresources>

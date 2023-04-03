@@ -42,8 +42,10 @@ mod imp {
         pub login_view: TemplateChild<Login>,
         #[template_child]
         pub article_widget: TemplateChild<ArticleWidget>,
+        #[template_child]
+        pub articles_view: TemplateChild<ArticlesView>,
+
         pub sender: OnceCell<Sender<Action>>,
-        pub articles_view: OnceCell<ArticlesView>,
         pub actions: gio::SimpleActionGroup,
     }
 
@@ -178,8 +180,7 @@ impl Window {
             .set_sender(articles_manager.sender.clone());
 
         imp.articles_view
-            .set(ArticlesView::new(articles_manager.sender.clone()))
-            .unwrap();
+            .set_sender(articles_manager.sender.clone());
 
         imp.headerbar_stack.connect_visible_child_name_notify(
             clone!(@weak imp => move |headerbar_stack| {
@@ -196,12 +197,11 @@ impl Window {
         let imp = self.imp();
 
         // Articles
-        let articles_view = imp.articles_view.get().unwrap();
-        imp.main_stack
-            .add_named(&articles_view.widget, Some("articles"));
+        let articles_view = imp.articles_view.get();
         imp.view_switcher_title
-            .set_stack(Some(&articles_view.widget));
-        imp.view_switcher_bar.set_stack(Some(&articles_view.widget));
+            .set_stack(Some(articles_view.get_stack()));
+        imp.view_switcher_bar
+            .set_stack(Some(articles_view.get_stack()));
 
         // Article View
         let article_widget = imp.article_widget.get();
@@ -228,6 +228,6 @@ impl Window {
     }
 
     pub fn articles_view(&self) -> &ArticlesView {
-        self.imp().articles_view.get().unwrap()
+        &self.imp().articles_view
     }
 }

@@ -1,78 +1,82 @@
 use futures::executor::ThreadPool;
-use gtk::{gio, glib, glib::Sender, prelude::*};
+use gtk::{gio, glib, glib::Sender, prelude::*, subclass::prelude::*};
 use gtk_macros::send;
 use log::error;
 
-use crate::{
-    models::{Article, ArticleAction, ArticleObject, ArticlesFilter},
-    views::ArticlesListView,
-};
+use crate::models::{Article, ArticleAction, ArticleObject, ArticlesFilter};
 
-#[derive(Clone, Debug)]
-pub struct ArticlesView {
-    pub widget: adw::ViewStack,
-    unread_view: ArticlesListView,
-    favorites_view: ArticlesListView,
-    archive_view: ArticlesListView,
-    model: gio::ListStore,
+mod imp {
+    use gtk::glib::subclass::InitializingObject;
+
+    use super::*;
+    use crate::views::ArticlesListView;
+
+    #[derive(gtk::CompositeTemplate, Default)]
+    #[template(resource = "/com/belmoussaoui/ReadItLater/articles.ui")]
+    pub struct ArticlesView {
+        #[template_child]
+        pub stack: TemplateChild<adw::ViewStack>,
+        #[template_child]
+        pub unread_view: TemplateChild<ArticlesListView>,
+        #[template_child]
+        pub favorites_view: TemplateChild<ArticlesListView>,
+        #[template_child]
+        pub archive_view: TemplateChild<ArticlesListView>,
+
+        pub model: gio::ListStore,
+    }
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for ArticlesView {
+        const NAME: &'static str = "ArticlesView";
+        type Type = super::ArticlesView;
+        type ParentType = gtk::Widget;
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.bind_template();
+        }
+
+        fn instance_init(obj: &InitializingObject<Self>) {
+            obj.init_template();
+        }
+    }
+
+    impl ObjectImpl for ArticlesView {
+        fn constructed(&self) {
+            self.parent_constructed();
+
+            let filter: gtk::Filter = ArticlesFilter::favorites().into();
+            let favorites_model = gtk::FilterListModel::new(Some(self.model.clone()), Some(filter));
+            self.favorites_view.bind_model(&favorites_model);
+
+            let filter: gtk::Filter = ArticlesFilter::archive().into();
+            let archive_model = gtk::FilterListModel::new(Some(self.model.clone()), Some(filter));
+            self.archive_view.bind_model(&archive_model);
+
+            let filter: gtk::Filter = ArticlesFilter::unread().into();
+            let unread_model = gtk::FilterListModel::new(Some(self.model.clone()), Some(filter));
+            self.unread_view.bind_model(&unread_model);
+        }
+
+        fn dispose(&self) {
+            self.dispose_template();
+        }
+    }
+
+    impl WidgetImpl for ArticlesView {}
+}
+
+glib::wrapper! {
+    pub struct ArticlesView(ObjectSubclass<imp::ArticlesView>)
+        @extends gtk::Widget;
 }
 
 impl ArticlesView {
-    pub fn new(sender: Sender<ArticleAction>) -> Self {
-        let model = gio::ListStore::new(ArticleObject::static_type());
-
-        let favorites_view = ArticlesListView::new();
-        favorites_view.set_property("placeholder-icon-name", "favorites-symbolic");
-        favorites_view.set_sender(sender.clone());
-        let filter: gtk::Filter = ArticlesFilter::favorites().into();
-        let favorites_model = gtk::FilterListModel::new(Some(model.clone()), Some(filter));
-        favorites_view.bind_model(&favorites_model);
-
-        let archive_view = ArticlesListView::new();
-        archive_view.set_property("placeholder-icon-name", "archive-symbolic");
-        archive_view.set_sender(sender.clone());
-        let filter: gtk::Filter = ArticlesFilter::archive().into();
-        let archive_model = gtk::FilterListModel::new(Some(model.clone()), Some(filter));
-        archive_view.bind_model(&archive_model);
-
-        let unread_view = ArticlesListView::new();
-        unread_view.set_property("placeholder-icon-name", "unread-symbolic");
-        unread_view.set_sender(sender.clone());
-        let filter: gtk::Filter = ArticlesFilter::unread().into();
-        let unread_model = gtk::FilterListModel::new(Some(model.clone()), Some(filter));
-        unread_view.bind_model(&unread_model);
-
-        let widget = adw::ViewStack::builder()
-            .hhomogeneous(false)
-            .vhomogeneous(false)
-            .build();
-
-        let articles_view = Self {
-            widget,
-            archive_view,
-            favorites_view,
-            unread_view,
-            model,
-        };
-        articles_view.init(sender);
-        articles_view
-    }
-
-    fn init(&self, sender: Sender<ArticleAction>) {
-        // Unread View
-        self.widget
-            .add_titled(&self.unread_view, Some("unread"), &"Unread")
-            .set_icon_name(Some("unread-symbolic"));
-        // Favorites View
-        self.widget
-            .add_titled(&self.favorites_view, Some("favorites"), "Favorites")
-            .set_icon_name(Some("favorites-symbolic"));
-        // Archive View
-        self.widget
-            .add_titled(&self.archive_view, Some("archive"), "Archive")
-            .set_icon_name(Some("archive-symbolic"));
-
-        self.widget.set_visible(true);
+    pub fn set_sender(&self, sender: Sender<ArticleAction>) {
+        let imp = self.imp();
+        imp.favorites_view.set_sender(sender.clone());
+        imp.archive_view.set_sender(sender.clone());
+        imp.unread_view.set_sender(sender.clone());
 
         let filter = ArticlesFilter::none();
         let articles = Article::load(&filter).unwrap();
@@ -90,14 +94,16 @@ impl ArticlesView {
     }
 
     pub fn add(&self, article: &Article) {
+        let imp = self.imp();
         if self.index(article).is_none() {
             let object = ArticleObject::new(article.clone());
-            self.model.insert_sorted(&object, Article::compare);
+            imp.model.insert_sorted(&object, Article::compare);
         }
     }
 
     pub fn clear(&self) {
-        self.model.remove_all();
+        let imp = self.imp();
+        imp.model.remove_all();
     }
 
     pub fn update(&self, article: &Article) {
@@ -106,8 +112,9 @@ impl ArticlesView {
     }
 
     pub fn delete(&self, article: &Article) {
+        let imp = self.imp();
         if let Some(pos) = self.index(article) {
-            self.model.remove(pos);
+            imp.model.remove(pos);
         }
     }
 
@@ -120,8 +127,9 @@ impl ArticlesView {
     }
 
     fn index(&self, article: &Article) -> Option<u32> {
-        for i in 0..self.model.n_items() {
-            let gobject = self.model.item(i).unwrap();
+        let imp = self.imp();
+        for i in 0..imp.model.n_items() {
+            let gobject = imp.model.item(i).unwrap();
             let a = gobject.downcast_ref::<ArticleObject>().unwrap().article();
 
             if article.id == a.id {
@@ -129,5 +137,9 @@ impl ArticlesView {
             }
         }
         None
+    }
+
+    pub fn get_stack(&self) -> &adw::ViewStack {
+        &self.imp().stack
     }
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="ArticlesView" parent="GtkWidget">
+    <property name="layout-manager">
+      <object class="GtkBinLayout" />
+    </property>
+    <child>
+      <object class="AdwViewStack" id="stack">
+        <property name="hhomogeneous">False</property>
+        <property name="vhomogeneous">False</property>
+        <child>
+          <object class="AdwViewStackPage">
+            <property name="name">unread</property>
+            <property name="title" translatable="yes">Unread</property>
+            <property name="icon-name">unread-symbolic</property>
+            <property name="child">
+              <object class="ArticlesListView" id="unread_view">
+                <property name="placeholder-icon-name">unread-symbolic</property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwViewStackPage">
+            <property name="name">favorites</property>
+            <property name="title" translatable="yes">Favorites</property>
+            <property name="icon-name">favorites-symbolic</property>
+            <property name="child">
+              <object class="ArticlesListView" id="favorites_view">
+                <property name="placeholder-icon-name">favorites-symbolic</property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwViewStackPage">
+            <property name="name">archive</property>
+            <property name="title" translatable="yes">Archive</property>
+            <property name="icon-name">archive-symbolic</property>
+            <property name="child">
+              <object class="ArticlesListView" id="archive_view">
+                <property name="placeholder-icon-name">archive-symbolic</property>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
