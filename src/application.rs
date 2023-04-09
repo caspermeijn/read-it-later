@@ -207,9 +207,6 @@ impl Application {
             app.add_window(&window);
             window.present();
         });
-
-        let style_manager = adw::StyleManager::default();
-        style_manager.set_color_scheme(adw::ColorScheme::PreferLight);
     }
 
     /// Auth
