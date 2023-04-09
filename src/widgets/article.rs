@@ -130,11 +130,19 @@ impl ArticleWidget {
             "open",
             clone!(@strong self as aw => move |_, _| {
                 if let Some(article) = aw.imp().article.borrow().clone() {
-                    glib::idle_add(clone!(@strong article => move || {
-                        let article_url = article.url.clone();
-                        gtk::show_uri(gtk::Window::NONE, &article_url.unwrap(), 0);
-                        glib::Continue(false)
-                    }));
+                let article_url = article.url.clone().unwrap();
+                    gtk::UriLauncher::builder()
+                        .uri(&article_url)
+                        .build()
+                        .launch(
+                            gtk::Window::NONE,
+                            gio::Cancellable::NONE,
+                            |result| {
+                                if let Err(error) = result {
+                                    log::error!("Failed to launch URI: {}", error)
+                                }
+                            }
+                        );
                 }
             })
         );

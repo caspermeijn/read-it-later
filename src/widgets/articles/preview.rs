@@ -60,7 +60,7 @@ mod imp {
                     spawn!(clone!(@weak self as article_preview => async move {
                         match article_preview.get_preview_picture().await {
                             Some(pixbuf) => article_preview.set_pixbuf(&pixbuf),
-                            _ => article_preview.hide(),
+                            _ => article_preview.obj().set_visible(false),
                         };
                     }));
                 }
@@ -93,8 +93,8 @@ mod imp {
 
         pub fn set_pixbuf(&self, pixbuf: &Pixbuf) {
             self.image.set_pixbuf(Some(pixbuf));
-            self.image.show();
-            self.spinner.hide();
+            self.image.set_visible(true);
+            self.spinner.set_visible(false);
         }
     }
 }

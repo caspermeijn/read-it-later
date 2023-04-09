@@ -5,7 +5,7 @@ authors = ["Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>", "Casper Meijn <caspe
 edition = "2021"
 
 [dependencies]
-gtk = {version = "0.6", package = "gtk4", features = ["gnome_43"]}
+gtk = {version = "0.6", package = "gtk4", features = ["gnome_44"]}
 adw = { version = "0.3", package = "libadwaita", features = ["v1_2"] }
 webkit = { version = "0.1", package = "webkit6" }
 log = "0.4"

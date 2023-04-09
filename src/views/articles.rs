@@ -77,7 +77,7 @@ impl ArticlesView {
             )
             .set_icon_name(Some(&self.archive_view.icon));
 
-        self.widget.show();
+        self.widget.set_visible(true);
     }
 
     pub fn add(&self, article: &Article) {
