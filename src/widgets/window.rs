@@ -1,7 +1,6 @@
 use adw::{prelude::*, subclass::prelude::*};
 use glib::{clone, timeout_future_seconds, MainContext, Object, Sender};
 use gtk::{gio, glib};
-use log::error;
 use url::Url;
 
 use crate::{
@@ -60,7 +59,7 @@ mod imp {
 
             klass.install_action("win.previous", None, move |window, _, _| {
                 let sender = window.imp().sender.get().unwrap();
-                gtk_macros::send!(sender, Action::PreviousView);
+                sender.send(Action::PreviousView).unwrap();
             });
         }
 
@@ -221,7 +220,7 @@ impl Window {
         imp.save_article_btn
             .connect_clicked(clone!(@weak imp, @strong sender => move |_| {
                 if let Ok(url) = Url::parse(&imp.article_url_entry.text()) {
-                    gtk_macros::send!(sender, Action::SaveArticle(url));
+                    sender.send(Action::SaveArticle(url)).unwrap();
                     imp.article_url_entry.set_text("");
                 }
             }));

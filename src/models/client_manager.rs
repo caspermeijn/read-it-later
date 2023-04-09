@@ -2,7 +2,7 @@ use anyhow::{bail, Result};
 use async_std::sync::{Arc, Mutex};
 use chrono::DateTime;
 use gtk::glib::Sender;
-use log::{debug, error, warn};
+use log::{debug, warn};
 use url::Url;
 use wallabag_api::{
     types::{EntriesFilter, NewEntry, PatchEntry, SortBy, SortOrder, User},
@@ -60,10 +60,9 @@ impl ClientManager {
             let new_entry = NewEntry::new_with_url(url.into());
             if let Ok(entry) = client.create_entry(&new_entry).await {
                 let article = Article::from(entry);
-                gtk_macros::send!(
-                    self.sender,
-                    Action::Articles(Box::new(ArticleAction::Add(article)))
-                );
+                self.sender
+                    .send(Action::Articles(Box::new(ArticleAction::Add(article))))
+                    .unwrap();
             }
         }
     }

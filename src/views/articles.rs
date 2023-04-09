@@ -1,6 +1,5 @@
 use futures::executor::ThreadPool;
 use gtk::{gio, glib, glib::Sender, prelude::*, subclass::prelude::*};
-use log::error;
 
 use crate::models::{Article, ArticleAction, ArticleObject, ArticlesFilter};
 
@@ -90,7 +89,7 @@ impl ArticlesView {
         ctx.spawn(async move {
             let futures = async move {
                 articles.into_iter().for_each(|article| {
-                    gtk_macros::send!(sender, ArticleAction::Add(article));
+                    sender.send(ArticleAction::Add(article)).unwrap();
                 })
             };
             pool.spawn_ok(futures);

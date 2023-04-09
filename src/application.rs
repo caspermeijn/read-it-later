@@ -126,7 +126,9 @@ impl Application {
             Action::Login => self.login(),
             Action::Logout => {
                 if self.logout().is_err() {
-                    gtk_macros::send!(sender, Action::Notify(gettext("Failed to logout")));
+                    sender
+                        .send(Action::Notify(gettext("Failed to logout")))
+                        .unwrap();
                 }
             }
         };
@@ -182,21 +184,21 @@ impl Application {
             self,
             "new-article",
             clone!(@strong sender => move |_, _| {
-                gtk_macros::send!(sender, Action::SetView(View::NewArticle));
+                sender.send(Action::SetView(View::NewArticle)).unwrap();
             })
         );
         gtk_macros::action!(
             self,
             "logout",
             clone!(@strong sender => move |_, _| {
-                gtk_macros::send!(sender, Action::Logout);
+                sender.send(Action::Logout).unwrap();
             })
         );
         gtk_macros::action!(
             self,
             "sync",
             clone!(@strong sender => move |_, _| {
-                gtk_macros::send!(sender, Action::Sync);
+                sender.send(Action::Sync).unwrap();
             })
         );
         gtk_macros::action!(
@@ -205,7 +207,7 @@ impl Application {
             Some(&crate::models::Account::static_variant_type()),
             clone!(@strong sender => move |_, parameter| {
                 let account: Account = parameter.unwrap().get().unwrap();
-                gtk_macros::send!(sender, Action::SetClientConfig(account.into()));
+                sender.send(Action::SetClientConfig(account.into())).unwrap();
             })
         );
 
@@ -232,10 +234,10 @@ impl Application {
         let username = SettingsManager::string(Key::Username);
         match SecretManager::is_logged(&username) {
             Ok(config) => {
-                gtk_macros::send!(sender, Action::SetView(View::Articles));
+                sender.send(Action::SetView(View::Articles)).unwrap();
                 self.set_client_config(config);
             }
-            _ => gtk_macros::send!(sender, Action::SetView(View::Login)),
+            _ => sender.send(Action::SetView(View::Login)).unwrap(),
         };
     }
 
@@ -244,7 +246,7 @@ impl Application {
         let sender = imp.sender.get().unwrap().clone();
         let client = imp.client.get().unwrap().clone();
 
-        gtk_macros::send!(sender, Action::SetView(View::Syncing(true)));
+        sender.send(Action::SetView(View::Syncing(true))).unwrap();
         let logged_username = SettingsManager::string(Key::Username);
 
         gtk_macros::spawn!(async move {
@@ -258,15 +260,19 @@ impl Application {
                         if let Err(err) = SecretManager::store_from_config(config) {
                             error!("Failed to store credentials {}", err);
                         }
-                        gtk_macros::send!(sender, Action::Login);
+                        sender.send(Action::Login).unwrap();
                     } else {
-                        gtk_macros::send!(sender, Action::Notify(gettext("Failed to log in")));
-                        gtk_macros::send!(sender, Action::SetView(View::Syncing(false)));
+                        sender
+                            .send(Action::Notify(gettext("Failed to log in")))
+                            .unwrap();
+                        sender.send(Action::SetView(View::Syncing(false))).unwrap();
                     }
                 }
                 Err(err) => {
-                    gtk_macros::send!(sender, Action::Notify(gettext("Failed to log in")));
-                    gtk_macros::send!(sender, Action::SetView(View::Syncing(false)));
+                    sender
+                        .send(Action::Notify(gettext("Failed to log in")))
+                        .unwrap();
+                    sender.send(Action::SetView(View::Syncing(false))).unwrap();
                     error!("Failed to setup a new client from current config: {}", err);
                 }
             }
@@ -278,7 +284,7 @@ impl Application {
         let sender = imp.sender.get().unwrap();
 
         self.sync();
-        gtk_macros::send!(sender, Action::SetView(View::Articles));
+        sender.send(Action::SetView(View::Articles)).unwrap();
     }
 
     fn logout(&self) -> Result<()> {
@@ -293,7 +299,7 @@ impl Application {
             SettingsManager::set_string(Key::Username, "".into());
             SettingsManager::set_integer(Key::LatestSync, 0);
         }
-        gtk_macros::send!(sender, Action::SetView(View::Login));
+        sender.send(Action::SetView(View::Login)).unwrap();
         Ok(())
     }
 
@@ -302,7 +308,7 @@ impl Application {
         let sender = imp.sender.get().unwrap().clone();
         let client = imp.client.get().unwrap().clone();
 
-        gtk_macros::send!(sender, Action::SetView(View::Syncing(true)));
+        sender.send(Action::SetView(View::Syncing(true))).unwrap();
         let mut since = Utc.timestamp_opt(0, 0).unwrap();
         let last_sync = SettingsManager::integer(Key::LatestSync);
         if last_sync != 0 {
@@ -316,12 +322,12 @@ impl Application {
             info!("Starting a new sync");
             match client.sync(since).await {
                 Ok(articles) => {
-                    gtk_macros::send!(sender, Action::LoadArticles(articles));
+                    sender.send(Action::LoadArticles(articles)).unwrap();
                     SettingsManager::set_integer(Key::LatestSync, now as i32);
                 }
                 Err(err) => error!("Failed to sync {:#?}", err),
             };
-            gtk_macros::send!(sender, Action::SetView(View::Syncing(false)));
+            sender.send(Action::SetView(View::Syncing(false))).unwrap();
         });
     }
 
@@ -342,14 +348,16 @@ impl Application {
             let futures = async move {
                 articles.iter().for_each(|article| {
                     match article.insert() {
-                        Ok(_) => gtk_macros::send!(
-                            sender,
-                            Action::Articles(Box::new(ArticleAction::Add(article.clone())))
-                        ),
-                        Err(_) => gtk_macros::send!(
-                            sender,
-                            Action::Articles(Box::new(ArticleAction::Update(article.clone())))
-                        ),
+                        Ok(_) => sender
+                            .send(Action::Articles(Box::new(ArticleAction::Add(
+                                article.clone(),
+                            ))))
+                            .unwrap(),
+                        Err(_) => sender
+                            .send(Action::Articles(Box::new(ArticleAction::Update(
+                                article.clone(),
+                            ))))
+                            .unwrap(),
                     };
                 })
             };
@@ -369,13 +377,13 @@ impl Application {
         let client = imp.client.get().unwrap().clone();
 
         info!("Saving new article \"{:#?}\"", url);
-        gtk_macros::send!(sender, Action::PreviousView);
-        gtk_macros::send!(sender, Action::SetView(View::Syncing(true)));
+        sender.send(Action::PreviousView).unwrap();
+        sender.send(Action::SetView(View::Syncing(true))).unwrap();
         gtk_macros::spawn!(async move {
             let client = client.lock().await;
             client.save_url(url).await;
-            gtk_macros::send!(sender, Action::SetView(View::Syncing(false)));
-            gtk_macros::send!(sender, Action::Sync);
+            sender.send(Action::SetView(View::Syncing(false))).unwrap();
+            sender.send(Action::Sync).unwrap();
         });
     }
 
@@ -389,13 +397,13 @@ impl Application {
             "(Un)archiving the article \"{:#?}\" with ID: {}",
             article.title, article.id
         );
-        gtk_macros::send!(sender, Action::SetView(View::Syncing(true)));
+        sender.send(Action::SetView(View::Syncing(true))).unwrap();
         window.articles_view().archive(&article);
 
         gtk_macros::spawn!(async move {
             let client = client.lock().await;
             client.update_entry(article.id, article.get_patch()).await;
-            gtk_macros::send!(sender, Action::SetView(View::Syncing(false)));
+            sender.send(Action::SetView(View::Syncing(false))).unwrap();
         });
     }
 
@@ -409,13 +417,13 @@ impl Application {
             "(Un)favoriting the article \"{:#?}\" with ID: {}",
             article.title, article.id
         );
-        gtk_macros::send!(sender, Action::SetView(View::Syncing(true)));
+        sender.send(Action::SetView(View::Syncing(true))).unwrap();
         window.articles_view().favorite(&article);
 
         gtk_macros::spawn!(async move {
             let client = client.lock().await;
             client.update_entry(article.id, article.get_patch()).await;
-            gtk_macros::send!(sender, Action::SetView(View::Syncing(false)));
+            sender.send(Action::SetView(View::Syncing(false))).unwrap();
         });
     }
 
@@ -429,15 +437,15 @@ impl Application {
             "Deleting the article \"{:#?}\" with ID: {}",
             article.title, article.id
         );
-        gtk_macros::send!(sender, Action::SetView(View::Syncing(true)));
+        sender.send(Action::SetView(View::Syncing(true))).unwrap();
         window.articles_view().delete(&article);
 
         let article_id: i32 = article.id;
         gtk_macros::spawn!(async move {
             let client = client.lock().await;
             client.delete_entry(article_id).await;
-            gtk_macros::send!(sender, Action::SetView(View::Syncing(false)));
-            gtk_macros::send!(sender, Action::PreviousView);
+            sender.send(Action::SetView(View::Syncing(false))).unwrap();
+            sender.send(Action::PreviousView).unwrap();
         });
     }
 

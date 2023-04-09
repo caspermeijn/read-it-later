@@ -57,52 +57,49 @@ impl ArticlesManager {
     }
 
     fn add(&self, article: Article) {
-        gtk_macros::send!(
-            self.main_sender,
-            Action::Articles(Box::new(ArticleAction::Add(article)))
-        );
+        self.main_sender
+            .send(Action::Articles(Box::new(ArticleAction::Add(article))))
+            .unwrap();
     }
 
     fn open(&self, article: Article) {
-        gtk_macros::send!(
-            self.main_sender,
-            Action::Articles(Box::new(ArticleAction::Open(article)))
-        );
+        self.main_sender
+            .send(Action::Articles(Box::new(ArticleAction::Open(article))))
+            .unwrap();
     }
 
     fn update(&self, article: Article) {
-        gtk_macros::send!(
-            self.main_sender,
-            Action::Articles(Box::new(ArticleAction::Update(article)))
-        );
+        self.main_sender
+            .send(Action::Articles(Box::new(ArticleAction::Update(article))))
+            .unwrap();
     }
 
     fn archive(&self, mut article: Article) {
         match article.toggle_archive() {
-            Ok(_) => gtk_macros::send!(
-                self.main_sender,
-                Action::Articles(Box::new(ArticleAction::Archive(article)))
-            ),
+            Ok(_) => self
+                .main_sender
+                .send(Action::Articles(Box::new(ArticleAction::Archive(article))))
+                .unwrap(),
             Err(err) => error!("Failed to (un)archive the article {}", err),
         }
     }
 
     fn favorite(&self, mut article: Article) {
         match article.toggle_favorite() {
-            Ok(_) => gtk_macros::send!(
-                self.main_sender,
-                Action::Articles(Box::new(ArticleAction::Favorite(article)))
-            ),
+            Ok(_) => self
+                .main_sender
+                .send(Action::Articles(Box::new(ArticleAction::Favorite(article))))
+                .unwrap(),
             Err(err) => error!("Failed to (un)favorite the article {}", err),
         }
     }
 
     fn delete(&self, article: Article) {
         match article.delete() {
-            Ok(_) => gtk_macros::send!(
-                self.main_sender,
-                Action::Articles(Box::new(ArticleAction::Delete(article)))
-            ),
+            Ok(_) => self
+                .main_sender
+                .send(Action::Articles(Box::new(ArticleAction::Delete(article))))
+                .unwrap(),
             Err(err) => error!("Failed to delete the article {}", err),
         }
     }

@@ -1,7 +1,6 @@
 use gio::prelude::*;
 use glib::{clone, Sender};
 use gtk::{gio, glib, subclass::prelude::*};
-use log::error;
 
 use crate::{
     models::{ArticleAction, ArticleObject},
@@ -80,10 +79,9 @@ mod imp {
         #[template_callback]
         fn handle_row_activated(&self, article_row: &ArticleRow, _list_box: &gtk::ListBox) {
             let sender = self.sender.get().unwrap();
-            gtk_macros::send!(
-                sender,
-                ArticleAction::Open(article_row.article().article().clone())
-            );
+            sender
+                .send(ArticleAction::Open(article_row.article().article().clone()))
+                .unwrap();
         }
     }
 }

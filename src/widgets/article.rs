@@ -144,7 +144,7 @@ impl ArticleWidget {
             "delete",
             clone!(@strong self as aw, @strong sender => move |_, _| {
                 if let Some(article) = aw.imp().article.borrow().clone() {
-                    gtk_macros::send!(sender, ArticleAction::Delete(article));
+                    sender.send(ArticleAction::Delete(article)).unwrap();
                 }
             })
         );
@@ -169,7 +169,7 @@ impl ArticleWidget {
                 let is_archived = !action_state;
                 action.set_state(is_archived.into());
                 if let Some(article) = aw.imp().article.borrow_mut().clone() {
-                    gtk_macros::send!(sender, ArticleAction::Archive(article));
+                    sender.send(ArticleAction::Archive(article)).unwrap();
                 }
             }),
         );
@@ -185,7 +185,7 @@ impl ArticleWidget {
                 action.set_state(is_starred.into());
 
                 if let Some(article) = aw.imp().article.borrow_mut().clone() {
-                    gtk_macros::send!(sender, ArticleAction::Favorite(article));
+                    sender.send(ArticleAction::Favorite(article)).unwrap();
                 }
             }),
         );
