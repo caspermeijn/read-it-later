@@ -34,7 +34,7 @@ pub enum Action {
 }
 
 pub struct Application {
-    app: gtk::Application,
+    app: adw::Application,
     window: Window,
     sender: Sender<Action>,
     receiver: RefCell<Option<Receiver<Action>>>,
@@ -45,7 +45,7 @@ impl Application {
     pub fn new() -> Rc<Self> {
         gtk::Window::set_default_icon_name(APP_ID);
 
-        let app = gtk::Application::builder()
+        let app = adw::Application::builder()
             .application_id(config::APP_ID)
             .resource_base_path("/com/belmoussaoui/ReadItLater")
             .build();
@@ -82,7 +82,6 @@ impl Application {
     fn init(&self) {
         self.setup_gactions();
         self.setup_signals();
-        self.setup_css();
         self.init_client();
     }
 
@@ -211,14 +210,6 @@ impl Application {
 
         let style_manager = adw::StyleManager::default();
         style_manager.set_color_scheme(adw::ColorScheme::PreferLight);
-    }
-
-    fn setup_css(&self) {
-        let p = gtk::CssProvider::new();
-        gtk::CssProvider::load_from_resource(&p, "/com/belmoussaoui/ReadItLater/style.css");
-        if let Some(display) = gtk::gdk::Display::default() {
-            gtk::StyleContext::add_provider_for_display(&display, &p, 500);
-        }
     }
 
     /// Auth
