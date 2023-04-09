@@ -6,7 +6,7 @@ use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use gtk_macros::{action, get_action, send};
 use log::{error, info};
 use once_cell::sync::OnceCell;
-use webkit::{prelude::*, Settings, WebView};
+use webkit::{prelude::*, NetworkSession, Settings, WebView};
 
 use crate::models::{Article, ArticleAction};
 
@@ -37,6 +37,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             Settings::ensure_type();
+            NetworkSession::ensure_type();
             klass.bind_template();
             klass.bind_template_callbacks();
         }

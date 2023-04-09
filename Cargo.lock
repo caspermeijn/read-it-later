@@ -1542,21 +1542,23 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "453ad9f582a441959e5f0d088b02ce04cfe8d51a8eaf077f12ac6d3e94164ca6"
 
 [[package]]
-name = "javascriptcore5-rs"
-version = "0.3.1"
+name = "javascriptcore6"
+version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8c8bf93532f314ffcbe50a139a1182f4efc1a9f8466f182f86068612bf22ea74"
+checksum = "a84a054e5552a8042518ad0fdf9b7db6016c905c8f43e80b6f60ebeaee1d7a9b"
 dependencies = [
  "bitflags",
  "glib",
- "javascriptcore5-rs-sys",
+ "javascriptcore6-sys",
+ "libc",
+ "once_cell",
 ]
 
 [[package]]
-name = "javascriptcore5-rs-sys"
-version = "0.3.1"
+name = "javascriptcore6-sys"
+version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "aa11e9a4a8e50984041179f56d2e54dacbe58d5de186b646046f1bce6417e461"
+checksum = "d7b459b87377e33b68abba4a334b27159101c371c539e5484346f8e64528ef8c"
 dependencies = [
  "glib-sys",
  "gobject-sys",
@@ -2450,7 +2452,7 @@ dependencies = [
  "strum",
  "url",
  "wallabag-api",
- "webkit2gtk5",
+ "webkit6",
 ]
 
 [[package]]
@@ -2780,6 +2782,21 @@ checksum = "64a4a911eed85daf18834cfaa86a79b7d266ff93ff5ba14005426219480ed662"
 dependencies = [
  "libc",
  "winapi",
+]
+
+[[package]]
+name = "soup3"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5efe3b0d8335955d6433720767503233dc50ef4fb7fb72cd66634dbf764bb019"
+dependencies = [
+ "bitflags",
+ "futures-channel",
+ "gio",
+ "glib",
+ "libc",
+ "once_cell",
+ "soup3-sys",
 ]
 
 [[package]]
@@ -3384,39 +3401,36 @@ dependencies = [
 ]
 
 [[package]]
-name = "webkit2gtk5"
-version = "0.3.0"
+name = "webkit6"
+version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1305e95243043dffd795d8154d8d9e16af25ddc3594ce069698a66317c84eb29"
+checksum = "546f0c71d9a3a5e5cc22f581f1308dfc730a887acc65f8cefb0a6106460aafd8"
 dependencies = [
  "bitflags",
- "cairo-rs",
  "gdk4",
  "gio",
  "glib",
  "gtk4",
- "javascriptcore5-rs",
+ "javascriptcore6",
  "libc",
  "once_cell",
- "webkit2gtk5-sys",
+ "soup3",
+ "webkit6-sys",
 ]
 
 [[package]]
-name = "webkit2gtk5-sys"
-version = "0.3.0"
+name = "webkit6-sys"
+version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5c270ac606b723bea496c85bbfdbfe7bb7a8f5c5f3e000c4082321d57367d528"
+checksum = "f0a64fe6a3afbb8029994bddd1918c65d9e76d555a86363444f11f166c3f46c2"
 dependencies = [
- "bitflags",
- "cairo-sys-rs",
  "gdk4-sys",
  "gio-sys",
  "glib-sys",
  "gobject-sys",
  "gtk4-sys",
- "javascriptcore5-rs-sys",
+ "javascriptcore6-sys",
  "libc",
- "pkg-config",
  "soup3-sys",
  "system-deps",
 ]
