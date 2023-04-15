@@ -23,8 +23,7 @@
     "build-options": {
         "append-path": "/usr/lib/sdk/rust-stable/bin",
         "build-args": [
-            "--share=network",
-            "--env=CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse"
+            "--share=network"
         ]
     },
     "modules": [
