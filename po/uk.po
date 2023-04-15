@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-03-13 12:41+0000\n"
-"PO-Revision-Date: 2023-03-13 22:30+0200\n"
+"POT-Creation-Date: 2023-04-15 06:48+0000\n"
+"PO-Revision-Date: 2023-04-15 18:52+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -20,27 +20,24 @@ msgstr ""
 "X-Generator: Lokalize 20.12.0\n"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:6
 #: data/resources/ui/window.ui:66
 msgid "Read It Later"
 msgstr "Прочитаю потім"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-msgid "A Wallabag Client"
-msgstr "Клієнт Wallabag"
-
-#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
-msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
-msgstr ""
-"Gnome;GTK;Wallabag;Web;Article;Offline;гноме;гном;жтека;гтк;воллабег;веб;"
-"інтернет;стаття;автономний;читання;"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
-#| msgid "Favorite an article"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
 msgid "Save and read web articles"
 msgstr "Збереження і читання статей з інтернету"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
+#| msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
+msgid "GNOME;GTK;Wallabag;Web;Article;Offline;"
+msgstr ""
+"GNOME;GTK;Wallabag;Web;Article;Offline;гноме;гном;жтека;гтк;воллабег;веб;"
+"інтернет;стаття;автономний;читання;"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:9
 msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
 "manage your articles."
@@ -48,23 +45,23 @@ msgstr ""
 "«Прочитаю потім» — простий клієнт Wallabag. Має базові можливості із "
 "керування вашими статтями."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:11
 msgid "Add new articles"
 msgstr "Додати нові статті"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
 msgid "Archive an article"
 msgstr "Архівувати статтю"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
 msgid "Delete an article"
 msgstr "Вилучити статтю"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
 msgid "Favorite an article"
 msgstr "Зробити статтю вибраною"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:16
 msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
 "highlighting and a dark mode."
@@ -72,21 +69,21 @@ msgstr ""
 "Крім того, у програмі передбачено чудовий режим читання, у якому передбачено "
 "можливість підсвічування синтаксичних конструкцій та нічні кольори."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:68
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:72
 msgid "Main Window"
 msgstr "Головне вікно"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:76
 msgid "Article View"
 msgstr "Перегляд статей"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:80
 msgid "Adaptive view in dark mode"
 msgstr "Адаптація перегляду до нічного режиму"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:71
-msgid "Bilal Elmoussaoui"
-msgstr "Bilal Elmoussaoui"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
 msgid "Default window width"
@@ -116,6 +113,7 @@ msgstr "Користувач у системі"
 msgid "Latest successful sync in ms"
 msgstr "Час з останньої успішної синхронізації у мс"
 
+#. Translators: This status is shown when the list of articles is empty
 #: data/resources/ui/articles_list.ui:34
 msgid "Pretty clean!"
 msgstr "Абсолютна чистота!"
@@ -282,9 +280,12 @@ msgstr "Не вдалося вийти"
 msgid "Failed to log in"
 msgstr "Не вдалося увійти"
 
-#: src/application.rs:417
+#: src/application.rs:421
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
+
+#~ msgid "A Wallabag Client"
+#~ msgstr "Клієнт Wallabag"
 
 #~ msgid "A Wallabag Client."
 #~ msgstr "Клієнт Wallabag."
