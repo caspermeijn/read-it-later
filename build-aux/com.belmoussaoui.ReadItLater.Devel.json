@@ -18,7 +18,8 @@
         "--talk-name=org.freedesktop.secrets",
         "--env=RUST_LOG=read_it_later=debug",
         "--env=G_MESSAGES_DEBUG=none",
-        "--env=RUST_BACKTRACE=1"
+        "--env=RUST_BACKTRACE=1",
+        "--env=G_ENABLE_DIAGNOSTIC=1"
     ],
     "build-options": {
         "append-path": "/usr/lib/sdk/rust-stable/bin",
