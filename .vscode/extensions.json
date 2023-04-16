@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "bilelmoussaoui.flatpak-vscode",
+        "editorconfig.editorconfig",
+        "mesonbuild.mesonbuild",
+        "redhat.vscode-xml",
+        "rust-lang.rust-analyzer",
+    ]
+}
