@@ -6,7 +6,7 @@ edition = "2021"
 
 [dependencies]
 gtk = {version = "0.6", package = "gtk4", features = ["gnome_44"]}
-adw = { version = "0.3", package = "libadwaita", features = ["v1_2"] }
+adw = { version = "0.4", package = "libadwaita", features = ["v1_3"] }
 webkit = { version = "0.1", package = "webkit6" }
 log = "0.4"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
