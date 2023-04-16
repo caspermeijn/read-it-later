@@ -18,7 +18,7 @@
                 <property name="yalign">0</property>
                 <binding name="label">
                   <lookup name="title" type="ArticleObject">
-                    <lookup type="ArticleRow" name="article"></lookup>
+                    <lookup type="ArticleRow" name="article" />
                   </lookup>
                 </binding>
                 <style>
@@ -35,7 +35,7 @@
                 <property name="yalign">0</property>
                 <binding name="label">
                   <lookup name="description" type="ArticleObject">
-                    <lookup type="ArticleRow" name="article"></lookup>
+                    <lookup type="ArticleRow" name="article" />
                   </lookup>
                 </binding>
                 <style>
@@ -53,7 +53,7 @@
                 <property name="yalign">0</property>
                 <binding name="label">
                   <lookup name="preview-text" type="ArticleObject">
-                    <lookup type="ArticleRow" name="article"></lookup>
+                    <lookup type="ArticleRow" name="article" />
                   </lookup>
                 </binding>
                 <style>
@@ -67,7 +67,7 @@
           <object class="ArticlePreview" id="preview_image">
             <binding name="url">
               <lookup name="cover-picture-url" type="ArticleObject">
-                <lookup type="ArticleRow" name="article"></lookup>
+                <lookup type="ArticleRow" name="article" />
               </lookup>
             </binding>
           </object>
@@ -79,4 +79,3 @@
     </style>
   </template>
 </interface>
-      

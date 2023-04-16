@@ -2,7 +2,7 @@
 <interface>
   <template class="ArticlePreview" parent="GtkWidget">
     <property name="layout-manager">
-      <object class="GtkBinLayout"/>
+      <object class="GtkBinLayout" />
     </property>
     <child>
       <object class="GtkPicture" id="image">
