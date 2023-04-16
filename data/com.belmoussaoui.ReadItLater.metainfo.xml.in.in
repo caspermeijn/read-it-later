@@ -35,6 +35,12 @@
   <url type="translate">https://l10n.gnome.org/module/read-it-later/</url>
   <launchable type="desktop-id">@app-id@.desktop</launchable>
   <releases>
+    <release version="0.4.0" type="2023-04-19">
+      <description>
+        <p>Fix article sync for some users with older accounts</p>
+        <p>Update translations</p>
+      </description>
+    </release>
     <release version="0.3.0" date="2023-03-09">
       <description>
         <p>Fix aspect ratio of preview pictures</p>
