@@ -9,7 +9,8 @@ use crate::{
     application::Action,
     config::PROFILE,
     models::{Article, ArticlesManager},
-    views::{ArticleView, ArticlesView, Login},
+    views::{ArticlesView, Login},
+    widgets::ArticleWidget,
 };
 
 mod imp {
@@ -40,7 +41,7 @@ mod imp {
         #[template_child]
         pub login_view: TemplateChild<Login>,
         #[template_child]
-        pub article_view: TemplateChild<ArticleView>,
+        pub article_widget: TemplateChild<ArticleWidget>,
         pub sender: OnceCell<Sender<Action>>,
         pub articles_view: OnceCell<ArticlesView>,
         pub actions: gio::SimpleActionGroup,
@@ -103,11 +104,11 @@ impl Window {
     }
 
     pub fn load_article(&self, article: Article) {
-        let article_view = self.imp().article_view.get();
-        let article_view_actions = article_view.get_actions();
-        get_action!(article_view_actions, @archive).set_state(article.is_archived.into());
-        get_action!(article_view_actions, @favorite).set_state(article.is_starred.into());
-        article_view.load(article);
+        let article_widget = self.imp().article_widget.get();
+        let article_widget_actions = article_widget.get_actions();
+        get_action!(article_widget_actions, @archive).set_state(article.is_archived.into());
+        get_action!(article_widget_actions, @favorite).set_state(article.is_starred.into());
+        article_widget.load(article);
         self.set_view(View::Article);
     }
 
@@ -173,7 +174,8 @@ impl Window {
 
         imp.sender.set(sender).unwrap();
 
-        imp.article_view.set_sender(articles_manager.sender.clone());
+        imp.article_widget
+            .set_sender(articles_manager.sender.clone());
 
         imp.articles_view
             .set(ArticlesView::new(articles_manager.sender.clone()))
@@ -202,13 +204,13 @@ impl Window {
         imp.view_switcher_bar.set_stack(Some(&articles_view.widget));
 
         // Article View
-        let article_view = imp.article_view.get();
-        self.insert_action_group("article", Some(article_view.get_actions()));
+        let article_widget = imp.article_widget.get();
+        self.insert_action_group("article", Some(article_widget.get_actions()));
 
         imp.main_stack.connect_visible_child_name_notify(
-            clone!(@strong article_view => move |stack| {
+            clone!(@strong article_widget => move |stack| {
                 if let Some(view_name) = stack.visible_child_name() {
-                    article_view.set_enable_actions(view_name == "article");
+                    article_widget.set_enable_actions(view_name == "article");
                 }
             }),
         );

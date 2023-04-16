@@ -200,7 +200,7 @@
                       <object class="GtkStackPage">
                         <property name="name">article</property>
                         <property name="child">
-                          <object class="ArticleView" id="article_view" />
+                          <object class="ArticleWidget" id="article_widget" />
                         </property>
                       </object>
                     </child>

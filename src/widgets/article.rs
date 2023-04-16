@@ -17,7 +17,7 @@ mod imp {
 
     #[derive(gtk::CompositeTemplate, Default)]
     #[template(resource = "/com/belmoussaoui/ReadItLater/article.ui")]
-    pub struct ArticleView {
+    pub struct ArticleWidget {
         #[template_child]
         pub webview: TemplateChild<WebView>,
         #[template_child]
@@ -30,9 +30,9 @@ mod imp {
     }
 
     #[glib::object_subclass]
-    impl ObjectSubclass for ArticleView {
-        const NAME: &'static str = "ArticleView";
-        type Type = super::ArticleView;
+    impl ObjectSubclass for ArticleWidget {
+        const NAME: &'static str = "ArticleWidget";
+        type Type = super::ArticleWidget;
         type ParentType = gtk::Widget;
 
         fn class_init(klass: &mut Self::Class) {
@@ -46,16 +46,16 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for ArticleView {
+    impl ObjectImpl for ArticleWidget {
         fn dispose(&self) {
             self.dispose_template();
         }
     }
 
-    impl WidgetImpl for ArticleView {}
+    impl WidgetImpl for ArticleWidget {}
 
     #[gtk::template_callbacks]
-    impl ArticleView {
+    impl ArticleWidget {
         #[template_callback]
         fn modify_context_menu(
             _: &WebView,
@@ -97,11 +97,11 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct ArticleView(ObjectSubclass<imp::ArticleView>)
+    pub struct ArticleWidget(ObjectSubclass<imp::ArticleWidget>)
         @extends gtk::Widget;
 }
 
-impl ArticleView {
+impl ArticleWidget {
     pub fn new() -> Self {
         glib::Object::new()
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="ArticleView" parent="GtkWidget">
+  <template class="ArticleWidget" parent="GtkWidget">
     <property name="layout-manager">
       <object class="GtkBoxLayout">
         <property name="orientation">vertical</property>
