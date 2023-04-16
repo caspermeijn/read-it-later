@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-03-17 08:39+0000\n"
+"POT-Creation-Date: 2023-04-15 06:48+0000\n"
 "PO-Revision-Date: 2023-03-18 13:42+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
@@ -20,23 +20,23 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:6
 #: data/resources/ui/window.ui:66
 msgid "Read It Later"
 msgstr "Przeczytaj później"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
 msgid "Save and read web articles"
 msgstr "Zapisywanie i czytanie artykułów w Internecie"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
-msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
+msgid "GNOME;GTK;Wallabag;Web;Article;Offline;"
 msgstr ""
 "GNOME;GTK;Wallabag;WWW;Internet;Online;On-line;Web;Artykuły;Offline;Off-line;"
 "Czytaj;Przeczytaj;Poczytaj;Czytanie;"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:9
 msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
 "manage your articles."
@@ -44,23 +44,23 @@ msgstr ""
 "Prosty klient serwisu Wallabag. Ma podstawowe funkcje do zarządzania "
 "artykułami:"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:11
 msgid "Add new articles"
 msgstr "Dodawanie nowych artykułów"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
 msgid "Archive an article"
 msgstr "Archiwizowanie artykułu"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
 msgid "Delete an article"
 msgstr "Usuwanie artykułu"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
 msgid "Favorite an article"
 msgstr "Dodawanie artykułu do ulubionych"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:16
 msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
 "highlighting and a dark mode."
@@ -68,21 +68,21 @@ msgstr ""
 "Ma także łagodny dla oczu tryb czytania obsługujący wyróżnianie elementów "
 "składni i tryb ciemny."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:68
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:72
 msgid "Main Window"
 msgstr "Główne okno"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:76
 msgid "Article View"
 msgstr "Widok artykułu"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:80
 msgid "Adaptive view in dark mode"
 msgstr "Widok adaptacyjny w trybie ciemnym"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:71
-msgid "Bilal Elmoussaoui"
-msgstr "Bilal Elmoussaoui"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
 msgid "Default window width"
@@ -277,7 +277,7 @@ msgstr "Wylogowanie się nie powiodło"
 msgid "Failed to log in"
 msgstr "Zalogowanie się nie powiodło"
 
-#: src/application.rs:417
+#: src/application.rs:421
 msgid "translator-credits"
 msgstr ""
 "Piotr Drąg <piotrdrag@gmail.com>, 2020-2023\n"
