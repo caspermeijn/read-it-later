@@ -14,5 +14,9 @@
     "rust-analyzer.runnables.command": "${workspaceFolder}/.flatpak/cargo.sh",
     "rust-analyzer.files.excludeDirs": [
         ".flatpak"
-    ]
+    ],
+    "xml.format.emptyElements": "collapse",
+    "xml.format.enforceQuoteStyle": "preferred",
+    "xml.format.joinContentLines": true,
+    "xml.format.maxLineWidth": 0,
 }
