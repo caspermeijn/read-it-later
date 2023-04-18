@@ -2,15 +2,15 @@
 # Copyright (C) 2020 read-it-later's COPYRIGHT HOLDER
 # This file is distributed under the same license as the read-it-later package.
 # Andika Triwidada <andika@gmail.com>, 2020, 2023.
-# "Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2022.
+# "Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2022-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-03-17 08:39+0000\n"
-"PO-Revision-Date: 2023-03-21 08:29+0700\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"POT-Creation-Date: 2023-04-15 06:48+0000\n"
+"PO-Revision-Date: 2023-04-18 10:30+0700\n"
+"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -19,21 +19,21 @@ msgstr ""
 "X-Generator: Poedit 3.2.2\n"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:6
 #: data/resources/ui/window.ui:66
 msgid "Read It Later"
 msgstr "Baca Nanti"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
 msgid "Save and read web articles"
 msgstr "Simpan dan baca artikel web"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
-msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
-msgstr "Gnome;GTK;Wallabag;Web;Artikel;Luring;"
+msgid "GNOME;GTK;Wallabag;Web;Article;Offline;"
+msgstr "GNOME;GTK;Wallabag;Web;Artikel;Luring;"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:9
 msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
 "manage your articles."
@@ -41,23 +41,23 @@ msgstr ""
 "Baca Nanti, adalah klien Wallabag sederhana. Ini memiliki fitur dasar untuk "
 "mengelola artikel Anda."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:11
 msgid "Add new articles"
 msgstr "Tambahkan artikel baru"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
 msgid "Archive an article"
 msgstr "Mengarsipkan artikel"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
 msgid "Delete an article"
 msgstr "Menghapus artikel"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
 msgid "Favorite an article"
 msgstr "Memfavoritkan artikel"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:16
 msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
 "highlighting and a dark mode."
@@ -65,21 +65,21 @@ msgstr ""
 "Ini juga dilengkapi dengan mode pembaca yang bersahabat untuk mata yang "
 "mendukung penyorotan sintaks kode dan mode gelap."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:68
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:72
 msgid "Main Window"
 msgstr "Jendela Utama"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:76
 msgid "Article View"
 msgstr "Tilikan Artikel"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:80
 msgid "Adaptive view in dark mode"
 msgstr "Tampilan adaptif dalam mode gelap"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:71
-msgid "Bilal Elmoussaoui"
-msgstr "Bilal Elmoussaoui"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
 msgid "Default window width"
@@ -274,8 +274,8 @@ msgstr "Gagal keluar"
 msgid "Failed to log in"
 msgstr "Gagal masuk"
 
-#: src/application.rs:417
+#: src/application.rs:421
 msgid "translator-credits"
 msgstr ""
 "Andika Triwidada <andika@gmail.com>, 2020, 2023.\n"
-"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2022."
+"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2022-2023."
