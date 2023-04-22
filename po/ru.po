@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-03-14 08:49+0000\n"
-"PO-Revision-Date: 2023-03-14 20:35+1000\n"
-"Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
+"POT-Creation-Date: 2023-04-15 06:48+0000\n"
+"PO-Revision-Date: 2023-04-21 00:00+0300\n"
+"Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -18,27 +18,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:6
 #: data/resources/ui/window.ui:66
 msgid "Read It Later"
 msgstr "Прочтите позже"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-msgid "A Wallabag Client"
-msgstr "Графический клиент для Wallabag"
-
-#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
-msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
-msgstr "Gnome;GTK;Wallabag;Web;Article;Offline;Веб;Статьи;Оффлайн;"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
 msgid "Save and read web articles"
 msgstr "Сохраняйте и читайте статьи из интернета"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
+msgid "GNOME;GTK;Wallabag;Web;Article;Offline;"
+msgstr "GNOME;GTK;Wallabag;Web;Article;Offline;Веб;Статьи;Оффлайн;"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:9
 msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
 "manage your articles."
@@ -46,23 +43,23 @@ msgstr ""
 "Прочтите позже - это простой графический клиент для Wallabag. В нём "
 "присутствуют базовые функции для управления вашими сохранёнными статьями."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:11
 msgid "Add new articles"
 msgstr "Добавить новые статьи"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
 msgid "Archive an article"
 msgstr "Архивировать статью"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
 msgid "Delete an article"
 msgstr "Удалить статью"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
 msgid "Favorite an article"
 msgstr "Добавить статью в избранное"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:16
 msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
 "highlighting and a dark mode."
@@ -70,21 +67,21 @@ msgstr ""
 "Он также содержит приятный для глаз режим чтения, который поддерживает "
 "подсветку синтаксиса кода и тёмный режим."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:68
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:72
 msgid "Main Window"
 msgstr "Главное окно"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:76
 msgid "Article View"
 msgstr "Просмотр статьи"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:80
 msgid "Adaptive view in dark mode"
 msgstr "Адаптивный просмотр в тёмном режиме"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:71
-msgid "Bilal Elmoussaoui"
-msgstr "Bilal Elmoussaoui"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
 msgid "Default window width"
@@ -114,6 +111,7 @@ msgstr "Вы вошли под именем пользователя"
 msgid "Latest successful sync in ms"
 msgstr "Время последнем успешной синхронизации в мс"
 
+#. Translators: This status is shown when the list of articles is empty
 #: data/resources/ui/articles_list.ui:34
 msgid "Pretty clean!"
 msgstr "Достаточно чисто!"
@@ -280,9 +278,12 @@ msgstr "Не удалось выйти"
 msgid "Failed to log in"
 msgstr "Не удалось войти"
 
-#: src/application.rs:417
+#: src/application.rs:421
 msgid "translator-credits"
 msgstr "Артемий Судаков <finziyr@yandex.ru>, 2020"
+
+#~ msgid "A Wallabag Client"
+#~ msgstr "Графический клиент для Wallabag"
 
 #~ msgid "A Wallabag Client."
 #~ msgstr "Графический клиент для Wallabag."
