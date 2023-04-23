@@ -94,10 +94,6 @@ glib::wrapper! {
 }
 
 impl ArticlesListWidget {
-    pub fn new() -> Self {
-        glib::Object::new::<Self>()
-    }
-
     fn update_model_empty(&self, model: &impl IsA<gio::ListModel>) {
         if model.n_items() == 0 {
             self.imp().stack.set_visible_child_name("empty")

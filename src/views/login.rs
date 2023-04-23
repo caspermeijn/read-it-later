@@ -106,9 +106,3 @@ impl Login {
         &self.imp().login_button
     }
 }
-
-impl Default for Login {
-    fn default() -> Self {
-        glib::Object::new()
-    }
-}

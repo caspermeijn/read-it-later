@@ -103,10 +103,6 @@ glib::wrapper! {
 }
 
 impl ArticleWidget {
-    pub fn new() -> Self {
-        glib::Object::new()
-    }
-
     pub fn set_sender(&self, sender: Sender<ArticleAction>) {
         self.imp().sender.set(sender).unwrap();
         self.setup_actions();
