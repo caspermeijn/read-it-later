@@ -14,7 +14,7 @@
             <property name="title" translatable="yes">Unread</property>
             <property name="icon-name">unread-symbolic</property>
             <property name="child">
-              <object class="ArticlesListView" id="unread_view">
+              <object class="ArticlesListWidget" id="unread_view">
                 <property name="placeholder-icon-name">unread-symbolic</property>
               </object>
             </property>
@@ -26,7 +26,7 @@
             <property name="title" translatable="yes">Favorites</property>
             <property name="icon-name">favorites-symbolic</property>
             <property name="child">
-              <object class="ArticlesListView" id="favorites_view">
+              <object class="ArticlesListWidget" id="favorites_view">
                 <property name="placeholder-icon-name">favorites-symbolic</property>
               </object>
             </property>
@@ -38,7 +38,7 @@
             <property name="title" translatable="yes">Archive</property>
             <property name="icon-name">archive-symbolic</property>
             <property name="child">
-              <object class="ArticlesListView" id="archive_view">
+              <object class="ArticlesListWidget" id="archive_view">
                 <property name="placeholder-icon-name">archive-symbolic</property>
               </object>
             </property>

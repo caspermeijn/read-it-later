@@ -19,7 +19,7 @@ mod imp {
 
     #[derive(gtk::CompositeTemplate, Default)]
     #[template(resource = "/com/belmoussaoui/ReadItLater/articles_list.ui")]
-    pub struct ArticlesListView {
+    pub struct ArticlesListWidget {
         #[template_child]
         pub empty_status: TemplateChild<adw::StatusPage>,
         #[template_child]
@@ -29,9 +29,9 @@ mod imp {
         pub sender: OnceCell<Sender<ArticleAction>>,
     }
     #[glib::object_subclass]
-    impl ObjectSubclass for ArticlesListView {
-        const NAME: &'static str = "ArticlesListView";
-        type Type = super::ArticlesListView;
+    impl ObjectSubclass for ArticlesListWidget {
+        const NAME: &'static str = "ArticlesListWidget";
+        type Type = super::ArticlesListWidget;
         type ParentType = gtk::Widget;
 
         fn class_init(klass: &mut Self::Class) {
@@ -44,7 +44,7 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for ArticlesListView {
+    impl ObjectImpl for ArticlesListWidget {
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> =
                 Lazy::new(|| vec![ParamSpecString::builder("placeholder-icon-name").build()]);
@@ -73,10 +73,10 @@ mod imp {
         }
     }
 
-    impl WidgetImpl for ArticlesListView {}
+    impl WidgetImpl for ArticlesListWidget {}
 
     #[gtk::template_callbacks]
-    impl ArticlesListView {
+    impl ArticlesListWidget {
         #[template_callback]
         fn handle_row_activated(&self, article_row: &ArticleRow, _list_box: &gtk::ListBox) {
             let sender = self.sender.get().unwrap();
@@ -89,11 +89,11 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct ArticlesListView(ObjectSubclass<imp::ArticlesListView>)
+    pub struct ArticlesListWidget(ObjectSubclass<imp::ArticlesListWidget>)
         @extends gtk::Widget;
 }
 
-impl ArticlesListView {
+impl ArticlesListWidget {
     pub fn new() -> Self {
         glib::Object::new::<Self>()
     }

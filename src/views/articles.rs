@@ -9,7 +9,7 @@ mod imp {
     use gtk::glib::subclass::InitializingObject;
 
     use super::*;
-    use crate::views::ArticlesListView;
+    use crate::widgets::articles::ArticlesListWidget;
 
     #[derive(gtk::CompositeTemplate, Default)]
     #[template(resource = "/com/belmoussaoui/ReadItLater/articles.ui")]
@@ -17,11 +17,11 @@ mod imp {
         #[template_child]
         pub stack: TemplateChild<adw::ViewStack>,
         #[template_child]
-        pub unread_view: TemplateChild<ArticlesListView>,
+        pub unread_view: TemplateChild<ArticlesListWidget>,
         #[template_child]
-        pub favorites_view: TemplateChild<ArticlesListView>,
+        pub favorites_view: TemplateChild<ArticlesListWidget>,
         #[template_child]
-        pub archive_view: TemplateChild<ArticlesListView>,
+        pub archive_view: TemplateChild<ArticlesListWidget>,
 
         pub model: gio::ListStore,
     }
