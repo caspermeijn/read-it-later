@@ -5,11 +5,7 @@ use gtk::glib;
 use sanitize_html::sanitize_str;
 use wallabag_api::types::{Entry, PatchEntry};
 
-use crate::{
-    database,
-    models::{ArticleObject, ArticlesFilter},
-    schema::articles,
-};
+use crate::{database, models::ArticleObject, schema::articles};
 
 #[derive(Insertable, Queryable, Eq, PartialEq, Debug, Clone)]
 #[table_name = "articles"]
@@ -38,21 +34,16 @@ impl Article {
         article_b.published_at.cmp(&article_a.published_at)
     }
 
-    pub fn load(filter: &ArticlesFilter) -> Result<Vec<Self>> {
+    pub fn load() -> Result<Vec<Self>> {
         use crate::schema::articles::dsl::*;
         let db = database::connection();
 
         let conn = db.get()?;
 
-        let mut query = articles.order(published_at.asc()).into_boxed();
-
-        if let Some(starred) = &filter.starred {
-            query = query.filter(is_starred.eq(starred));
-        }
-        if let Some(archived) = &filter.archived {
-            query = query.filter(is_archived.eq(archived));
-        }
-        query.get_results::<Article>(&conn).map_err(From::from)
+        articles
+            .order(published_at.asc())
+            .get_results::<Article>(&conn)
+            .map_err(From::from)
     }
 
     pub fn from(entry: Entry) -> Self {

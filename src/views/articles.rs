@@ -78,8 +78,7 @@ impl ArticlesView {
         imp.archive_view.set_sender(sender.clone());
         imp.unread_view.set_sender(sender.clone());
 
-        let filter = ArticlesFilter::none();
-        let articles = Article::load(&filter).unwrap();
+        let articles = Article::load().unwrap();
         let pool = ThreadPool::new().expect("Failed to build pool");
 
         let ctx = glib::MainContext::default();
