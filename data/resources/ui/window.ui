@@ -101,7 +101,7 @@
                       <object class="GtkToggleButton" id="favorite_togglebtn">
                         <property name="receives-default">True</property>
                         <property name="action-name">article.favorite</property>
-                        <property name="tooltip-text" translatable="yes">Favorite</property>
+                        <property name="tooltip-text" translatable="yes" context="action button">Favorite</property>
                         <property name="icon-name">favorites-symbolic</property>
                       </object>
                     </child>
@@ -109,7 +109,7 @@
                       <object class="GtkToggleButton" id="archive_togglebtn">
                         <property name="receives-default">True</property>
                         <property name="action-name">article.archive</property>
-                        <property name="tooltip-text" translatable="yes">Archive</property>
+                        <property name="tooltip-text" translatable="yes" context="action button">Archive</property>
                         <property name="icon-name">archive-symbolic</property>
                       </object>
                     </child>
@@ -155,7 +155,7 @@
                     </child>
                     <child type="end">
                       <object class="GtkButton" id="save_article_btn">
-                        <property name="label" translatable="yes">Save</property>
+                        <property name="label" translatable="yes" context="action button">Save</property>
                         <property name="receives-default">True</property>
                       </object>
                     </child>

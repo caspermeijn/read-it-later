@@ -11,7 +11,7 @@
         <child>
           <object class="AdwViewStackPage">
             <property name="name">unread</property>
-            <property name="title" translatable="yes">Unread</property>
+            <property name="title" translatable="yes" context="view switcher">Unread</property>
             <property name="icon-name">unread-symbolic</property>
             <property name="child">
               <object class="ArticlesListWidget" id="unread_view">
@@ -23,7 +23,7 @@
         <child>
           <object class="AdwViewStackPage">
             <property name="name">favorites</property>
-            <property name="title" translatable="yes">Favorites</property>
+            <property name="title" translatable="yes" context="view switcher">Favorites</property>
             <property name="icon-name">favorites-symbolic</property>
             <property name="child">
               <object class="ArticlesListWidget" id="favorites_view">
@@ -35,7 +35,7 @@
         <child>
           <object class="AdwViewStackPage">
             <property name="name">archive</property>
-            <property name="title" translatable="yes">Archive</property>
+            <property name="title" translatable="yes" context="view switcher">Archive</property>
             <property name="icon-name">archive-symbolic</property>
             <property name="child">
               <object class="ArticlesListWidget" id="archive_view">
