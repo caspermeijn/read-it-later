@@ -7,6 +7,7 @@ use crate::models::{Article, ArticleAction, ArticleObject, ArticlesFilter};
 
 mod imp {
     use gtk::glib::subclass::InitializingObject;
+    use once_cell::sync::OnceCell;
 
     use super::*;
     use crate::widgets::articles::ArticlesListWidget;
@@ -23,7 +24,7 @@ mod imp {
         #[template_child]
         pub archive_view: TemplateChild<ArticlesListWidget>,
 
-        pub model: gio::ListStore,
+        pub model: OnceCell<gio::ListStore>,
     }
 
     #[glib::object_subclass]
@@ -45,17 +46,21 @@ mod imp {
         fn constructed(&self) {
             self.parent_constructed();
 
+            let model = gio::ListStore::new(glib::types::Type::OBJECT);
+
             let filter: gtk::Filter = ArticlesFilter::favorites().into();
-            let favorites_model = gtk::FilterListModel::new(Some(self.model.clone()), Some(filter));
+            let favorites_model = gtk::FilterListModel::new(Some(model.clone()), Some(filter));
             self.favorites_view.bind_model(&favorites_model);
 
             let filter: gtk::Filter = ArticlesFilter::archive().into();
-            let archive_model = gtk::FilterListModel::new(Some(self.model.clone()), Some(filter));
+            let archive_model = gtk::FilterListModel::new(Some(model.clone()), Some(filter));
             self.archive_view.bind_model(&archive_model);
 
             let filter: gtk::Filter = ArticlesFilter::unread().into();
-            let unread_model = gtk::FilterListModel::new(Some(self.model.clone()), Some(filter));
+            let unread_model = gtk::FilterListModel::new(Some(model.clone()), Some(filter));
             self.unread_view.bind_model(&unread_model);
+
+            self.model.set(model).unwrap();
         }
 
         fn dispose(&self) {
@@ -94,15 +99,17 @@ impl ArticlesView {
 
     pub fn add(&self, article: &Article) {
         let imp = self.imp();
+        let model = imp.model.get().unwrap();
         if self.index(article).is_none() {
             let object = ArticleObject::new(article.clone());
-            imp.model.insert_sorted(&object, Article::compare);
+            model.insert_sorted(&object, Article::compare);
         }
     }
 
     pub fn clear(&self) {
         let imp = self.imp();
-        imp.model.remove_all();
+        let model = imp.model.get().unwrap();
+        model.remove_all();
     }
 
     pub fn update(&self, article: &Article) {
@@ -112,8 +119,9 @@ impl ArticlesView {
 
     pub fn delete(&self, article: &Article) {
         let imp = self.imp();
+        let model = imp.model.get().unwrap();
         if let Some(pos) = self.index(article) {
-            imp.model.remove(pos);
+            model.remove(pos);
         }
     }
 
@@ -127,8 +135,9 @@ impl ArticlesView {
 
     fn index(&self, article: &Article) -> Option<u32> {
         let imp = self.imp();
-        for i in 0..imp.model.n_items() {
-            let gobject = imp.model.item(i).unwrap();
+        let model = imp.model.get().unwrap();
+        for i in 0..model.n_items() {
+            let gobject = model.item(i).unwrap();
             let a = gobject.downcast_ref::<ArticleObject>().unwrap().article();
 
             if article.id == a.id {
