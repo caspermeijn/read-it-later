@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-04-15 06:48+0000\n"
-"PO-Revision-Date: 2023-03-18 13:42+0100\n"
+"POT-Creation-Date: 2023-04-25 18:08+0000\n"
+"PO-Revision-Date: 2023-04-30 12:39+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -35,6 +35,34 @@ msgid "GNOME;GTK;Wallabag;Web;Article;Offline;"
 msgstr ""
 "GNOME;GTK;Wallabag;WWW;Internet;Online;On-line;Web;Artykuły;Offline;Off-line;"
 "Czytaj;Przeczytaj;Poczytaj;Czytanie;"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
+msgid "Default window width"
+msgstr "Domyślna szerokość okna"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:10
+msgid "Default window height"
+msgstr "Domyślna wysokość okna"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
+msgid "Default window x position"
+msgstr "Domyślne położenie okna na osi X"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
+msgid "Default window y position"
+msgstr "Domyślne położenie okna na osi Y"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
+msgid "Default window maximized behavior"
+msgstr "Domyślny stan maksymalizacji okna"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
+msgid "Logged in user name"
+msgstr "Nazwa zalogowanego użytkownika"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
+msgid "Latest successful sync in ms"
+msgstr "Ostatnia pomyślna synchronizacja w milisekundach"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:9
 msgid ""
@@ -68,54 +96,41 @@ msgstr ""
 "Ma także łagodny dla oczu tryb czytania obsługujący wyróżnianie elementów "
 "składni i tryb ciemny."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:68
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:74
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:72
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:78
 msgid "Main Window"
 msgstr "Główne okno"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:76
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:82
 msgid "Article View"
 msgstr "Widok artykułu"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:80
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:86
 msgid "Adaptive view in dark mode"
 msgstr "Widok adaptacyjny w trybie ciemnym"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
-msgid "Default window width"
-msgstr "Domyślna szerokość okna"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:10
-msgid "Default window height"
-msgstr "Domyślna wysokość okna"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
-msgid "Default window x position"
-msgstr "Domyślne położenie okna na osi X"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
-msgid "Default window y position"
-msgstr "Domyślne położenie okna na osi Y"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
-msgid "Default window maximized behavior"
-msgstr "Domyślny stan maksymalizacji okna"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
-msgid "Logged in user name"
-msgstr "Nazwa zalogowanego użytkownika"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
-msgid "Latest successful sync in ms"
-msgstr "Ostatnia pomyślna synchronizacja w milisekundach"
 
 #. Translators: This status is shown when the list of articles is empty
 #: data/resources/ui/articles_list.ui:34
 msgid "Pretty clean!"
 msgstr "Coś tu pusto!"
+
+#: data/resources/ui/articles.ui:14
+msgctxt "view switcher"
+msgid "Unread"
+msgstr "Nieprzeczytane"
+
+#: data/resources/ui/articles.ui:26
+msgctxt "view switcher"
+msgid "Favorites"
+msgstr "Ulubione"
+
+#: data/resources/ui/articles.ui:38
+msgctxt "view switcher"
+msgid "Archive"
+msgstr "Archiwum"
 
 #: data/resources/ui/gtk/help-overlay.ui:12
 msgctxt "shortcut window"
@@ -254,10 +269,12 @@ msgid "About Read It Later"
 msgstr "O programie"
 
 #: data/resources/ui/window.ui:104
+msgctxt "action button"
 msgid "Favorite"
 msgstr "Dodaje do ulubionych"
 
 #: data/resources/ui/window.ui:112
+msgctxt "action button"
 msgid "Archive"
 msgstr "Archiwizuje"
 
@@ -266,18 +283,19 @@ msgid "Paste the article URL here"
 msgstr "Tutaj należy wkleić adres URL artykułu"
 
 #: data/resources/ui/window.ui:158
+msgctxt "action button"
 msgid "Save"
 msgstr "Zapisz"
 
-#: src/application.rs:105
+#: src/application.rs:104
 msgid "Failed to logout"
 msgstr "Wylogowanie się nie powiodło"
 
-#: src/application.rs:255 src/application.rs:260
+#: src/application.rs:243 src/application.rs:248
 msgid "Failed to log in"
 msgstr "Zalogowanie się nie powiodło"
 
-#: src/application.rs:421
+#: src/application.rs:409
 msgid "translator-credits"
 msgstr ""
 "Piotr Drąg <piotrdrag@gmail.com>, 2020-2023\n"
