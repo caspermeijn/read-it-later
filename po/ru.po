@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-04-15 06:48+0000\n"
-"PO-Revision-Date: 2023-04-21 00:00+0300\n"
-"Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
+"POT-Creation-Date: 2023-04-25 18:08+0000\n"
+"PO-Revision-Date: 2023-04-27 22:34+1000\n"
+"Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:6
@@ -34,6 +34,34 @@ msgstr "Сохраняйте и читайте статьи из интерне�
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
 msgid "GNOME;GTK;Wallabag;Web;Article;Offline;"
 msgstr "GNOME;GTK;Wallabag;Web;Article;Offline;Веб;Статьи;Оффлайн;"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
+msgid "Default window width"
+msgstr "Ширина окна по умолчанию"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:10
+msgid "Default window height"
+msgstr "Высота окна по умолчанию"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
+msgid "Default window x position"
+msgstr "Расположение окна (x) по умолчанию"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
+msgid "Default window y position"
+msgstr "Расположение окна (y) по умолчанию"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
+msgid "Default window maximized behavior"
+msgstr "Поведение по умолчанию для развёрнутого окна"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
+msgid "Logged in user name"
+msgstr "Вы вошли под именем пользователя"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
+msgid "Latest successful sync in ms"
+msgstr "Время последнем успешной синхронизации в мс"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:9
 msgid ""
@@ -67,54 +95,41 @@ msgstr ""
 "Он также содержит приятный для глаз режим чтения, который поддерживает "
 "подсветку синтаксиса кода и тёмный режим."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:68
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:74
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:72
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:78
 msgid "Main Window"
 msgstr "Главное окно"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:76
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:82
 msgid "Article View"
 msgstr "Просмотр статьи"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:80
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:86
 msgid "Adaptive view in dark mode"
 msgstr "Адаптивный просмотр в тёмном режиме"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
-msgid "Default window width"
-msgstr "Ширина окна по умолчанию"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:10
-msgid "Default window height"
-msgstr "Высота окна по умолчанию"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
-msgid "Default window x position"
-msgstr "Расположение окна (x) по умолчанию"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
-msgid "Default window y position"
-msgstr "Расположение окна (y) по умолчанию"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
-msgid "Default window maximized behavior"
-msgstr "Поведение по умолчанию для развёрнутого окна"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
-msgid "Logged in user name"
-msgstr "Вы вошли под именем пользователя"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
-msgid "Latest successful sync in ms"
-msgstr "Время последнем успешной синхронизации в мс"
 
 #. Translators: This status is shown when the list of articles is empty
 #: data/resources/ui/articles_list.ui:34
 msgid "Pretty clean!"
 msgstr "Достаточно чисто!"
+
+#: data/resources/ui/articles.ui:14
+msgctxt "view switcher"
+msgid "Unread"
+msgstr "Непрочитанное"
+
+#: data/resources/ui/articles.ui:26
+msgctxt "view switcher"
+msgid "Favorites"
+msgstr "Избранное"
+
+#: data/resources/ui/articles.ui:38
+msgctxt "view switcher"
+msgid "Archive"
+msgstr "Архив"
 
 #: data/resources/ui/gtk/help-overlay.ui:12
 msgctxt "shortcut window"
@@ -255,10 +270,12 @@ msgid "About Read It Later"
 msgstr "О приложении"
 
 #: data/resources/ui/window.ui:104
+msgctxt "action button"
 msgid "Favorite"
 msgstr "Избранное"
 
 #: data/resources/ui/window.ui:112
+msgctxt "action button"
 msgid "Archive"
 msgstr "Архив"
 
@@ -267,18 +284,19 @@ msgid "Paste the article URL here"
 msgstr "Вставьте сюда URL статьи"
 
 #: data/resources/ui/window.ui:158
+msgctxt "action button"
 msgid "Save"
 msgstr "Сохранить"
 
-#: src/application.rs:105
+#: src/application.rs:104
 msgid "Failed to logout"
 msgstr "Не удалось выйти"
 
-#: src/application.rs:255 src/application.rs:260
+#: src/application.rs:243 src/application.rs:248
 msgid "Failed to log in"
 msgstr "Не удалось войти"
 
-#: src/application.rs:421
+#: src/application.rs:409
 msgid "translator-credits"
 msgstr "Артемий Судаков <finziyr@yandex.ru>, 2020"
 
