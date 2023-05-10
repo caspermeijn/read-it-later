@@ -2,14 +2,14 @@
 # Copyright (C) 2020 read-it-later's COPYRIGHT HOLDER
 # This file is distributed under the same license as the read-it-later package.
 # Andika Triwidada <andika@gmail.com>, 2020, 2023.
-# "Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2022-2023.
+# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2022-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-04-15 06:48+0000\n"
-"PO-Revision-Date: 2023-04-18 10:30+0700\n"
+"POT-Creation-Date: 2023-04-25 18:08+0000\n"
+"PO-Revision-Date: 2023-05-10 14:37+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
@@ -32,6 +32,34 @@ msgstr "Simpan dan baca artikel web"
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
 msgid "GNOME;GTK;Wallabag;Web;Article;Offline;"
 msgstr "GNOME;GTK;Wallabag;Web;Artikel;Luring;"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
+msgid "Default window width"
+msgstr "Lebar jendela baku"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:10
+msgid "Default window height"
+msgstr "Tinggi jendela baku"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
+msgid "Default window x position"
+msgstr "Posisi jendela x baku"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
+msgid "Default window y position"
+msgstr "Posisi jendela y baku"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
+msgid "Default window maximized behavior"
+msgstr "Perilaku baku jendela dimaksimalkan"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
+msgid "Logged in user name"
+msgstr "Nama pengguna yang login"
+
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
+msgid "Latest successful sync in ms"
+msgstr "Penyelarasan sukses terakhir dalam ms"
 
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:9
 msgid ""
@@ -65,54 +93,41 @@ msgstr ""
 "Ini juga dilengkapi dengan mode pembaca yang bersahabat untuk mata yang "
 "mendukung penyorotan sintaks kode dan mode gelap."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:68
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:74
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:72
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:78
 msgid "Main Window"
 msgstr "Jendela Utama"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:76
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:82
 msgid "Article View"
 msgstr "Tilikan Artikel"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:80
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:86
 msgid "Adaptive view in dark mode"
 msgstr "Tampilan adaptif dalam mode gelap"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
-msgid "Default window width"
-msgstr "Lebar jendela baku"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:10
-msgid "Default window height"
-msgstr "Tinggi jendela baku"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
-msgid "Default window x position"
-msgstr "Posisi jendela x baku"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
-msgid "Default window y position"
-msgstr "Posisi jendela y baku"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
-msgid "Default window maximized behavior"
-msgstr "Perilaku baku jendela dimaksimalkan"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
-msgid "Logged in user name"
-msgstr "Nama pengguna yang login"
-
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
-msgid "Latest successful sync in ms"
-msgstr "Penyelarasan sukses terakhir dalam ms"
 
 #. Translators: This status is shown when the list of articles is empty
 #: data/resources/ui/articles_list.ui:34
 msgid "Pretty clean!"
 msgstr "Cukup bersih!"
+
+#: data/resources/ui/articles.ui:14
+msgctxt "view switcher"
+msgid "Unread"
+msgstr "Belum Dibaca"
+
+#: data/resources/ui/articles.ui:26
+msgctxt "view switcher"
+msgid "Favorites"
+msgstr "Favorit"
+
+#: data/resources/ui/articles.ui:38
+msgctxt "view switcher"
+msgid "Archive"
+msgstr "Arsip"
 
 #: data/resources/ui/gtk/help-overlay.ui:12
 msgctxt "shortcut window"
@@ -251,10 +266,12 @@ msgid "About Read It Later"
 msgstr "Tentang Baca Nanti"
 
 #: data/resources/ui/window.ui:104
+msgctxt "action button"
 msgid "Favorite"
 msgstr "Favorit"
 
 #: data/resources/ui/window.ui:112
+msgctxt "action button"
 msgid "Archive"
 msgstr "Arsip"
 
@@ -263,18 +280,19 @@ msgid "Paste the article URL here"
 msgstr "Tempel URL artikel di sini"
 
 #: data/resources/ui/window.ui:158
+msgctxt "action button"
 msgid "Save"
 msgstr "Simpan"
 
-#: src/application.rs:105
+#: src/application.rs:104
 msgid "Failed to logout"
 msgstr "Gagal keluar"
 
-#: src/application.rs:255 src/application.rs:260
+#: src/application.rs:243 src/application.rs:248
 msgid "Failed to log in"
 msgstr "Gagal masuk"
 
-#: src/application.rs:421
+#: src/application.rs:409
 msgid "translator-credits"
 msgstr ""
 "Andika Triwidada <andika@gmail.com>, 2020, 2023.\n"
