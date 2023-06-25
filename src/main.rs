@@ -28,10 +28,7 @@ fn main() -> glib::ExitCode {
     textdomain(GETTEXT_PACKAGE).unwrap();
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8").unwrap();
 
-    adw::init().unwrap();
-
     glib::set_application_name(&gettext("Read It Later"));
-    gtk::Window::set_default_icon_name(config::APP_ID);
 
     let res = gio::Resource::load(RESOURCES_FILE).expect("Could not load gresource file");
     gio::resources_register(&res);

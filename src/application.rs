@@ -1,12 +1,10 @@
-use std::cell::RefCell;
-
 use adw::{prelude::*, subclass::prelude::*};
 use anyhow::Result;
 use async_std::sync::{Arc, Mutex};
 use chrono::{TimeZone, Utc};
 use futures::executor::ThreadPool;
 use gettextrs::gettext;
-use glib::{clone, Receiver, Sender};
+use glib::{clone, Sender};
 use gtk::{gio, glib};
 use gtk_macros::{action, send, spawn};
 use log::{error, info};
@@ -14,7 +12,6 @@ use once_cell::sync::OnceCell;
 use url::Url;
 use wallabag_api::types::Config;
 
-use self::config::{APP_ID, VERSION};
 use crate::{
     config, database,
     models::{Account, Article, ArticleAction, ClientManager, SecretManager, CACHE_DIR},
@@ -36,11 +33,12 @@ pub enum Action {
 }
 mod imp {
     use super::*;
+
+    #[derive(Default)]
     pub struct Application {
-        pub window: Window,
-        pub sender: Sender<Action>,
-        pub receiver: RefCell<Option<Receiver<Action>>>,
-        pub client: Arc<Mutex<ClientManager>>,
+        pub window: OnceCell<Window>,
+        pub sender: OnceCell<Sender<Action>>,
+        pub client: OnceCell<Arc<Mutex<ClientManager>>>,
     }
 
     #[glib::object_subclass]
@@ -48,21 +46,6 @@ mod imp {
         const NAME: &'static str = "Application";
         type Type = super::Application;
         type ParentType = adw::Application;
-
-        fn new() -> Self {
-            let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
-            let receiver = RefCell::new(Some(r));
-            let client = Arc::new(Mutex::new(ClientManager::new(sender.clone())));
-
-            let window = Window::new(sender.clone());
-
-            Self {
-                sender,
-                receiver,
-                client,
-                window,
-            }
-        }
     }
 
     impl ObjectImpl for Application {}
@@ -75,17 +58,26 @@ mod imp {
 
             let app = self.obj();
 
-            let receiver = app.imp().receiver.borrow_mut().take().unwrap();
+            let (sender, receiver) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+            self.sender.set(sender.clone()).unwrap();
             receiver.attach(
                 None,
                 clone!(@strong app => move |action| app.do_action(action)),
             );
 
+            let client = Arc::new(Mutex::new(ClientManager::new(sender.clone())));
+            self.client.set(client).unwrap();
+
+            let window = Window::new(sender.clone());
+            self.window.set(window.clone()).unwrap();
+
+            gtk::Window::set_default_icon_name(config::APP_ID);
+
             app.setup_gactions();
             app.init_client();
 
-            app.add_window(&self.window);
-            self.window.present();
+            app.add_window(&window);
+            window.present();
         }
     }
 
@@ -109,8 +101,8 @@ impl Application {
         std::fs::create_dir_all(&*CACHE_DIR).unwrap();
 
         let app = glib::Object::builder::<Application>()
-            .property("application-id", Some(config::APP_ID))
-            .property("resource-base-path", Some("/com/belmoussaoui/ReadItLater"))
+            .property("application-id", config::APP_ID)
+            .property("resource-base-path", "/com/belmoussaoui/ReadItLater")
             .build();
 
         app.run()
@@ -118,22 +110,24 @@ impl Application {
 
     fn do_action(&self, action: Action) -> glib::Continue {
         let imp = self.imp();
+        let window = imp.window.get().unwrap();
+        let sender = imp.sender.get().unwrap();
         match action {
             // Articles
             Action::Articles(article_action) => self.do_article_action(article_action),
             Action::SaveArticle(url) => self.save_article(url),
             Action::LoadArticles(articles) => self.load_articles(articles),
             // UI
-            Action::SetView(view) => imp.window.set_view(view),
-            Action::PreviousView => imp.window.previous_view(),
-            Action::Notify(err_msg) => imp.window.add_toast(adw::Toast::new(&err_msg)),
+            Action::SetView(view) => window.set_view(view),
+            Action::PreviousView => window.previous_view(),
+            Action::Notify(err_msg) => window.add_toast(adw::Toast::new(&err_msg)),
             // Auth
             Action::SetClientConfig(config) => self.set_client_config(config),
             Action::Sync => self.sync(),
             Action::Login => self.login(),
             Action::Logout => {
                 if self.logout().is_err() {
-                    send!(imp.sender, Action::Notify(gettext("Failed to logout")));
+                    send!(sender, Action::Notify(gettext("Failed to logout")));
                 }
             }
         };
@@ -142,9 +136,10 @@ impl Application {
 
     fn do_article_action(&self, action: Box<ArticleAction>) {
         let imp = self.imp();
+        let window = imp.window.get().unwrap();
         match *action {
             ArticleAction::Add(article) => self.add_article(article),
-            ArticleAction::Open(article) => imp.window.load_article(article),
+            ArticleAction::Open(article) => window.load_article(article),
             ArticleAction::Delete(article) => self.delete_article(article),
             ArticleAction::Archive(article) => self.archive_article(article),
             ArticleAction::Favorite(article) => self.favorite_article(article),
@@ -154,9 +149,9 @@ impl Application {
 
     fn setup_gactions(&self) {
         let imp = self.imp();
-        let window = imp.window.clone();
-        let sender = imp.sender.clone();
-        let client = imp.client.clone();
+        let window = imp.window.get().unwrap();
+        let sender = imp.sender.get().unwrap();
+        let client = imp.client.get().unwrap();
 
         // Quit
         action!(
@@ -233,23 +228,24 @@ impl Application {
     /// Auth
     fn init_client(&self) {
         let imp = self.imp();
+        let sender = imp.sender.get().unwrap();
 
         let username = SettingsManager::string(Key::Username);
         match SecretManager::is_logged(&username) {
             Ok(config) => {
-                send!(imp.sender, Action::SetView(View::Articles));
+                send!(sender, Action::SetView(View::Articles));
                 self.set_client_config(config);
             }
-            _ => send!(imp.sender, Action::SetView(View::Login)),
+            _ => send!(sender, Action::SetView(View::Login)),
         };
     }
 
     fn set_client_config(&self, config: Config) {
         let imp = self.imp();
-        let client = imp.client.clone();
-        let sender = imp.sender.clone();
+        let sender = imp.sender.get().unwrap().clone();
+        let client = imp.client.get().unwrap().clone();
 
-        send!(imp.sender, Action::SetView(View::Syncing(true)));
+        send!(sender, Action::SetView(View::Syncing(true)));
         let logged_username = SettingsManager::string(Key::Username);
 
         spawn!(async move {
@@ -280,29 +276,32 @@ impl Application {
 
     fn login(&self) {
         let imp = self.imp();
+        let sender = imp.sender.get().unwrap();
 
         self.sync();
-        send!(imp.sender, Action::SetView(View::Articles));
+        send!(sender, Action::SetView(View::Articles));
     }
 
     fn logout(&self) -> Result<()> {
         let imp = self.imp();
+        let window = imp.window.get().unwrap();
+        let sender = imp.sender.get().unwrap();
 
         let username = SettingsManager::string(Key::Username);
         database::wipe()?;
-        imp.window.articles_view().clear();
+        window.articles_view().clear();
         if SecretManager::logout(&username).is_ok() {
             SettingsManager::set_string(Key::Username, "".into());
             SettingsManager::set_integer(Key::LatestSync, 0);
         }
-        send!(imp.sender, Action::SetView(View::Login));
+        send!(sender, Action::SetView(View::Login));
         Ok(())
     }
 
     fn sync(&self) {
         let imp = self.imp();
-        let client = imp.client.clone();
-        let sender = imp.sender.clone();
+        let sender = imp.sender.get().unwrap().clone();
+        let client = imp.client.get().unwrap().clone();
 
         send!(sender, Action::SetView(View::Syncing(true)));
         let mut since = Utc.timestamp_opt(0, 0).unwrap();
@@ -331,12 +330,13 @@ impl Application {
 
     fn add_article(&self, article: Article) {
         let imp = self.imp();
-        imp.window.articles_view().add(&article);
+        let window = imp.window.get().unwrap();
+        window.articles_view().add(&article);
     }
 
     fn load_articles(&self, articles: Vec<Article>) {
         let imp = self.imp();
-        let sender = imp.sender.clone();
+        let sender = imp.sender.get().unwrap().clone();
 
         let pool = ThreadPool::new().expect("Failed to build pool");
         spawn!(async move {
@@ -360,13 +360,14 @@ impl Application {
 
     fn update_article(&self, article: Article) {
         let imp = self.imp();
-        imp.window.articles_view().update(&article);
+        let window = imp.window.get().unwrap();
+        window.articles_view().update(&article);
     }
 
     fn save_article(&self, url: Url) {
         let imp = self.imp();
-        let client = imp.client.clone();
-        let sender = imp.sender.clone();
+        let sender = imp.sender.get().unwrap().clone();
+        let client = imp.client.get().unwrap().clone();
 
         info!("Saving new article \"{:#?}\"", url);
         send!(sender, Action::PreviousView);
@@ -381,15 +382,16 @@ impl Application {
 
     fn archive_article(&self, article: Article) {
         let imp = self.imp();
-        let client = imp.client.clone();
-        let sender = imp.sender.clone();
+        let window = imp.window.get().unwrap();
+        let sender = imp.sender.get().unwrap().clone();
+        let client = imp.client.get().unwrap().clone();
 
         info!(
             "(Un)archiving the article \"{:#?}\" with ID: {}",
             article.title, article.id
         );
-        send!(imp.sender, Action::SetView(View::Syncing(true)));
-        imp.window.articles_view().archive(&article);
+        send!(sender, Action::SetView(View::Syncing(true)));
+        window.articles_view().archive(&article);
 
         spawn!(async move {
             let client = client.lock().await;
@@ -400,15 +402,16 @@ impl Application {
 
     fn favorite_article(&self, article: Article) {
         let imp = self.imp();
-        let client = imp.client.clone();
-        let sender = imp.sender.clone();
+        let window = imp.window.get().unwrap();
+        let sender = imp.sender.get().unwrap().clone();
+        let client = imp.client.get().unwrap().clone();
 
         info!(
             "(Un)favoriting the article \"{:#?}\" with ID: {}",
             article.title, article.id
         );
         send!(sender, Action::SetView(View::Syncing(true)));
-        imp.window.articles_view().favorite(&article);
+        window.articles_view().favorite(&article);
 
         spawn!(async move {
             let client = client.lock().await;
@@ -419,15 +422,16 @@ impl Application {
 
     fn delete_article(&self, article: Article) {
         let imp = self.imp();
-        let client = imp.client.clone();
-        let sender = imp.sender.clone();
+        let window = imp.window.get().unwrap();
+        let sender = imp.sender.get().unwrap().clone();
+        let client = imp.client.get().unwrap().clone();
 
         info!(
             "Deleting the article \"{:#?}\" with ID: {}",
             article.title, article.id
         );
         send!(sender, Action::SetView(View::Syncing(true)));
-        imp.window.articles_view().delete(&article);
+        window.articles_view().delete(&article);
 
         let article_id: i32 = article.id;
         spawn!(async move {
@@ -445,10 +449,10 @@ impl Application {
     fn show_about_dialog(parent: &impl IsA<gtk::Window>) {
         let dialog = adw::AboutWindow::builder()
             .application_name(glib::application_name().unwrap())
-            .application_icon(APP_ID)
+            .application_icon(config::APP_ID)
             .license_type(gtk::License::Gpl30)
             .website("https://gitlab.gnome.org/World/read-it-later/")
-            .version(VERSION)
+            .version(config::VERSION)
             .translator_credits(&gettext("translator-credits"))
             .developers(Self::authors())
             .artists(["Tobias Bernard"])
