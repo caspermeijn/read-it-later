@@ -11,7 +11,7 @@ webkit = { version = "0.1", package = "webkit6" }
 log = "0.4"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
 wallabag-api = "0.4"
-pretty_env_logger = "0.4"
+pretty_env_logger = "0.5"
 diesel = { version = "1", features = ["sqlite", "r2d2", "chrono"] }
 diesel_migrations = {  version = "1", features = ["sqlite"] }
 anyhow = "1"
@@ -21,7 +21,7 @@ regex = "1"
 secret-service = "2"
 chrono = "0.4"
 url = "2"
-strum = { version = "0.24", features = ["derive"] }
+strum = { version = "0.25", features = ["derive"] }
 rust-crypto = "0.2"
 async-std = "1"
 futures = { version = "0.3", features = [ "thread-pool" ] }
