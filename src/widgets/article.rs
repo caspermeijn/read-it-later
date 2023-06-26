@@ -62,11 +62,15 @@ mod imp {
             // Right/Left Click context menu
             let forbidden_actions = vec![
                 webkit::ContextMenuAction::OpenLink,
+                webkit::ContextMenuAction::OpenLinkInNewWindow,
+                webkit::ContextMenuAction::OpenImageInNewWindow,
                 webkit::ContextMenuAction::GoBack,
                 webkit::ContextMenuAction::GoForward,
                 webkit::ContextMenuAction::Stop,
                 webkit::ContextMenuAction::Reload,
                 webkit::ContextMenuAction::InspectElement,
+                webkit::ContextMenuAction::DownloadLinkToDisk,
+                webkit::ContextMenuAction::DownloadImageToDisk,
             ];
 
             for menu_item in context_menu.items() {
