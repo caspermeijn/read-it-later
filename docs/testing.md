@@ -7,7 +7,7 @@ You could start a test server using the instructions at https://github.com/caspe
 This server's `wallabag` account already contains a set of articles. When you restart this server, all changes are lost. So you can experiment as much as you like.
 
 ## Login
-During the first startup, the application opens the login page. The page welcomes the user and requests login information. 
+During the first startup, the application opens the login page. The page welcomes the user and requests login information.
 
 With the wrong credentials, the login button will inform the user that logging in failed.
 
@@ -40,6 +40,8 @@ In the title bar, the archive and favorite options are directly available. Click
 A menu option is available to `Open website...`. Choosing this option will open the web browser to the URL of the article.
 
 A menu option is available to `Delete article`. Choosing this option will remove the article from the server and the application.
+
+Right-click the article, most controls of the underlying webview are disabled. For example, you should not be able to navigate back and forwards.
 
 ## Preferences
 When the article list is visible, a menu option is available to `Preferences`. Choosing this option will open the preferences window. Some account information is shown in this window.

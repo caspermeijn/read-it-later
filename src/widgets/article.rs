@@ -58,12 +58,7 @@ mod imp {
     #[gtk::template_callbacks]
     impl ArticleWidget {
         #[template_callback]
-        fn modify_context_menu(
-            _: &WebView,
-            context_menu: &webkit::ContextMenu,
-            _: &glib::Value,
-            _: &webkit::HitTestResult,
-        ) -> bool {
+        fn modify_context_menu(_: &WebView, context_menu: &webkit::ContextMenu) -> bool {
             // Right/Left Click context menu
             let forbidden_actions = vec![
                 webkit::ContextMenuAction::OpenLink,
