@@ -43,6 +43,8 @@ A menu option is available to `Delete article`. Choosing this option will remove
 
 Right-click the article, most controls of the underlying webview are disabled. For example, you should not be able to navigate back and forwards.
 
+Click a link, the article webview doesn't navigate and the link is opened a browser.
+
 ## Preferences
 When the article list is visible, a menu option is available to `Preferences`. Choosing this option will open the preferences window. Some account information is shown in this window.
 

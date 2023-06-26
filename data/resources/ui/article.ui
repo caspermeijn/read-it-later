@@ -37,6 +37,7 @@
     <child>
       <object class="WebKitWebView" id="webview">
         <signal name="context-menu" handler="modify_context_menu" />
+        <signal name="decide-policy" handler="decide_policy" />
         <signal name="notify::estimated-load-progress" handler="update_load_progress" swapped="true" />
         <property name="settings">settings1</property>
         <property name="network-session">nework_session</property>

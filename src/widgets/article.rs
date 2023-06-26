@@ -85,6 +85,35 @@ mod imp {
         }
 
         #[template_callback]
+        fn decide_policy(
+            _: &webkit::WebView,
+            decision: &webkit::PolicyDecision,
+            decision_type: webkit::PolicyDecisionType,
+        ) -> bool {
+            if decision_type == webkit::PolicyDecisionType::NavigationAction {
+                if let Ok(navigation_decision) = decision
+                    .clone()
+                    .downcast::<webkit::NavigationPolicyDecision>()
+                {
+                    if let Some(mut navigation_action) = navigation_decision.navigation_action() {
+                        if let webkit::NavigationType::LinkClicked =
+                            navigation_action.navigation_type()
+                        {
+                            if let Some(request) = navigation_action.request() {
+                                if let Some(uri) = request.uri() {
+                                    // User clicked a link; cancel navigation and open in browser
+                                    decision.ignore();
+                                    open_uri_in_browser(uri);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            true
+        }
+
+        #[template_callback]
         fn update_load_progress(&self, _pspec: &glib::ParamSpec, webview: &WebView) {
             let progress = webview.estimated_load_progress();
             self.revealer.set_reveal_child(true);
@@ -125,19 +154,8 @@ impl ArticleWidget {
             "open",
             clone!(@strong self as aw => move |_, _| {
                 if let Some(article) = aw.imp().article.borrow().clone() {
-                let article_url = article.url.clone().unwrap();
-                    gtk::UriLauncher::builder()
-                        .uri(&article_url)
-                        .build()
-                        .launch(
-                            gtk::Window::NONE,
-                            gio::Cancellable::NONE,
-                            |result| {
-                                if let Err(error) = result {
-                                    log::error!("Failed to launch URI: {}", error)
-                                }
-                            }
-                        );
+                    let article_url = article.url.clone().unwrap();
+                    open_uri_in_browser(article_url);
                 }
             })
         );
@@ -227,4 +245,16 @@ pub fn load_resource(file: &str) -> Result<String> {
     ));
     let (bytes, _) = file.load_bytes(gio::Cancellable::NONE)?;
     String::from_utf8(bytes.to_vec()).map_err(From::from)
+}
+
+fn open_uri_in_browser(uri: impl Into<glib::GString>) {
+    gtk::UriLauncher::builder().uri(uri).build().launch(
+        gtk::Window::NONE,
+        gio::Cancellable::NONE,
+        |result| {
+            if let Err(error) = result {
+                log::error!("Failed to launch URI: {}", error)
+            }
+        },
+    );
 }

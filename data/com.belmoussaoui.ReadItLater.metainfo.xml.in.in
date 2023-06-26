@@ -38,6 +38,7 @@
     <release type="development" version="unreleased" date="2000-01-01">
       <description>
         <p>Fix crash when right-clicking the article</p>
+        <p>Open article links in the browser</p>
         <p>Update translations</p>
       </description>
     </release>
