@@ -4,7 +4,8 @@ use crate::models::ArticleObject;
 
 mod imp {
     use glib::{subclass::InitializingObject, ParamSpec, ParamSpecObject, Value};
-    use once_cell::sync::{Lazy, OnceCell};
+    use once_cell::sync::Lazy;
+    use std::cell::OnceCell;
 
     use super::*;
     use crate::widgets::articles::preview::ArticlePreview;

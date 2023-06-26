@@ -3,7 +3,7 @@ use gtk::{glib, prelude::*, subclass::prelude::*};
 use crate::models::Article;
 
 mod imp {
-    use once_cell::sync::OnceCell;
+    use std::cell::OnceCell;
 
     use super::*;
 

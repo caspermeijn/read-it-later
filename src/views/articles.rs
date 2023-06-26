@@ -7,7 +7,7 @@ use crate::models::{Article, ArticleAction, ArticleObject, ArticlesFilter};
 
 mod imp {
     use gtk::glib::subclass::InitializingObject;
-    use once_cell::sync::OnceCell;
+    use std::cell::OnceCell;
 
     use super::*;
     use crate::widgets::articles::ArticlesListWidget;

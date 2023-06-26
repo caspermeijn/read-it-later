@@ -5,13 +5,13 @@ use glib::{clone, Sender};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use gtk_macros::{action, get_action, send};
 use log::{error, info};
-use once_cell::sync::OnceCell;
 use webkit::{prelude::*, NetworkSession, Settings, WebView};
 
 use crate::models::{Article, ArticleAction};
 
 mod imp {
     use glib::subclass::InitializingObject;
+    use std::cell::OnceCell;
 
     use super::*;
 

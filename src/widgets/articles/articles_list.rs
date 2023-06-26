@@ -3,7 +3,6 @@ use glib::{clone, Sender};
 use gtk::{gio, glib, subclass::prelude::*};
 use gtk_macros::send;
 use log::error;
-use once_cell::sync::OnceCell;
 
 use crate::{
     models::{ArticleAction, ArticleObject},
@@ -14,6 +13,7 @@ mod imp {
     use glib::{subclass::InitializingObject, ParamSpec, ParamSpecString, Value};
     use gtk::prelude::*;
     use once_cell::sync::Lazy;
+    use std::cell::OnceCell;
 
     use super::*;
 
