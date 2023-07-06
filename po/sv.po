@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/"
 "issues\n"
-"POT-Creation-Date: 2023-03-13 12:41+0000\n"
-"PO-Revision-Date: 2023-03-13 21:52+0100\n"
+"POT-Creation-Date: 2023-04-25 18:08+0000\n"
+"PO-Revision-Date: 2023-04-25 20:36+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -21,70 +21,19 @@ msgstr ""
 "X-Generator: Poedit 3.2.2\n"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:6
 #: data/resources/ui/window.ui:66
 msgid "Read It Later"
 msgstr "Läs det senare"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-msgid "A Wallabag Client"
-msgstr "En Wallabag-klient"
-
-#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
-msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
-msgstr "Gnome;GTK;Wallabag;Webb;Artikel;Frånkopplat;Offline;"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
 msgid "Save and read web articles"
 msgstr "Spara och läs webbartiklar"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
-msgid ""
-"Read It Later, is a simple Wallabag client. It has the basic features to "
-"manage your articles."
-msgstr ""
-"Läs det senare, en enkel Wallabag-klient. Den har grundläggande "
-"funktionalitet för att hantera dina artiklar."
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
-msgid "Add new articles"
-msgstr "Lägg till nya artiklar"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
-msgid "Archive an article"
-msgstr "Arkivera en artikel"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
-msgid "Delete an article"
-msgstr "Ta bort en artikel"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
-msgid "Favorite an article"
-msgstr "Gör en artikel till favorit"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
-msgid ""
-"It also comes with a nice on eyes reader mode that supports code syntax "
-"highlighting and a dark mode."
-msgstr ""
-"Den kommer också med ett läsläge som är snällt mot ögonen och stöder "
-"syntaxmarkering av kod och ett mörkt läge."
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
-msgid "Main Window"
-msgstr "Huvudfönster"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
-msgid "Article View"
-msgstr "Artikelvy"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
-msgid "Adaptive view in dark mode"
-msgstr "Adaptiv vy i mörkt läge"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:71
-msgid "Bilal Elmoussaoui"
-msgstr "Bilal Elmoussaoui"
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
+msgid "GNOME;GTK;Wallabag;Web;Article;Offline;"
+msgstr "GNOME;GTK;Wallabag;Webb;Artikel;Frånkopplat;Offline;"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
 msgid "Default window width"
@@ -114,9 +63,73 @@ msgstr "Inloggat användarnamn"
 msgid "Latest successful sync in ms"
 msgstr "Senaste lyckad synkronisering i ms"
 
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:9
+msgid ""
+"Read It Later, is a simple Wallabag client. It has the basic features to "
+"manage your articles."
+msgstr ""
+"Läs det senare, en enkel Wallabag-klient. Den har grundläggande "
+"funktionalitet för att hantera dina artiklar."
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:11
+msgid "Add new articles"
+msgstr "Lägg till nya artiklar"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+msgid "Archive an article"
+msgstr "Arkivera en artikel"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+msgid "Delete an article"
+msgstr "Ta bort en artikel"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+msgid "Favorite an article"
+msgstr "Gör en artikel till favorit"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:16
+msgid ""
+"It also comes with a nice on eyes reader mode that supports code syntax "
+"highlighting and a dark mode."
+msgstr ""
+"Den kommer också med ett läsläge som är snällt mot ögonen och stöder "
+"syntaxmarkering av kod och ett mörkt läge."
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:74
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:78
+msgid "Main Window"
+msgstr "Huvudfönster"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:82
+msgid "Article View"
+msgstr "Artikelvy"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:86
+msgid "Adaptive view in dark mode"
+msgstr "Adaptiv vy i mörkt läge"
+
+#. Translators: This status is shown when the list of articles is empty
 #: data/resources/ui/articles_list.ui:34
 msgid "Pretty clean!"
 msgstr "Rent och fint!"
+
+#: data/resources/ui/articles.ui:14
+msgctxt "view switcher"
+msgid "Unread"
+msgstr "Olästa"
+
+#: data/resources/ui/articles.ui:26
+msgctxt "view switcher"
+msgid "Favorites"
+msgstr "Favoriter"
+
+#: data/resources/ui/articles.ui:38
+msgctxt "view switcher"
+msgid "Archive"
+msgstr "Arkiv"
 
 #: data/resources/ui/gtk/help-overlay.ui:12
 msgctxt "shortcut window"
@@ -255,10 +268,12 @@ msgid "About Read It Later"
 msgstr "Om Läs det senare"
 
 #: data/resources/ui/window.ui:104
+msgctxt "action button"
 msgid "Favorite"
 msgstr "Gör till favorit"
 
 #: data/resources/ui/window.ui:112
+msgctxt "action button"
 msgid "Archive"
 msgstr "Arkivera"
 
@@ -267,18 +282,19 @@ msgid "Paste the article URL here"
 msgstr "Klistra in artikel-URL här"
 
 #: data/resources/ui/window.ui:158
+msgctxt "action button"
 msgid "Save"
 msgstr "Spara"
 
-#: src/application.rs:105
+#: src/application.rs:104
 msgid "Failed to logout"
 msgstr "Misslyckades med att logga ut"
 
-#: src/application.rs:255 src/application.rs:260
+#: src/application.rs:243 src/application.rs:248
 msgid "Failed to log in"
 msgstr "Misslyckades med att logga in"
 
-#: src/application.rs:417
+#: src/application.rs:409
 msgid "translator-credits"
 msgstr ""
 "Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
@@ -286,9 +302,3 @@ msgstr ""
 "\n"
 "Skicka synpunkter på översättningen till\n"
 "<tp-sv@listor.tp-sv.se>"
-
-#~ msgid "A Wallabag Client."
-#~ msgstr "En Wallabag-klient."
-
-#~ msgid "No articles found"
-#~ msgstr "Inga artiklar hittades"
