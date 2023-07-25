@@ -7,83 +7,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-03-13 12:41+0000\n"
-"PO-Revision-Date: 2023-03-15 01:36+0100\n"
+"POT-Creation-Date: 2023-04-25 18:08+0000\n"
+"PO-Revision-Date: 2023-07-26 01:27+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
-"Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
+"Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:6
 #: data/resources/ui/window.ui:66
 msgid "Read It Later"
 msgstr "Későbbi olvasás"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-msgid "A Wallabag Client"
-msgstr "Egy Wallabag-ügyfélprogram"
-
-#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
-msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
-msgstr "Gnome;GTK;Wallabag;Web;Cikk;Offline;Kapcsolat nélkül;"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
-#| msgid "Favorite an article"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
 msgid "Save and read web articles"
 msgstr "Webes cikkek mentése és olvasása"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
-msgid ""
-"Read It Later, is a simple Wallabag client. It has the basic features to "
-"manage your articles."
-msgstr ""
-"A Későbbi olvasás egy egyszerű Wallabag-ügyfélprogram. Rendelkezik az "
-"alapvető funkciókkal a cikkek kezeléséhez."
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
-msgid "Add new articles"
-msgstr "Új cikkek hozzáadása"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
-msgid "Archive an article"
-msgstr "Egy cikk archiválása"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
-msgid "Delete an article"
-msgstr "Egy cikk törlése"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
-msgid "Favorite an article"
-msgstr "Egy cikk kedvencekhez adása"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
-msgid ""
-"It also comes with a nice on eyes reader mode that supports code syntax "
-"highlighting and a dark mode."
-msgstr ""
-"Emellett egy szemet gyönyörködtető olvasó móddal is rendelkezik, amely "
-"támogatja a kód szintaxiskiemelését és a sötét módot."
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
-msgid "Main Window"
-msgstr "Főablak"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
-msgid "Article View"
-msgstr "Cikk nézet"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
-msgid "Adaptive view in dark mode"
-msgstr "Alkalmazkodó nézet sötét módban"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:71
-msgid "Bilal Elmoussaoui"
-msgstr "Bilal Elmoussaoui"
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
+#| msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
+msgid "GNOME;GTK;Wallabag;Web;Article;Offline;"
+msgstr "GNOME;GTK;Wallabag;Web;Cikk;Offline;Kapcsolat nélkül;"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
 msgid "Default window width"
@@ -113,9 +62,75 @@ msgstr "Bejelentkezett felhasználó neve"
 msgid "Latest successful sync in ms"
 msgstr "Legutolsó sikeres szinkronizáció ezredmásodpercben"
 
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:9
+msgid ""
+"Read It Later, is a simple Wallabag client. It has the basic features to "
+"manage your articles."
+msgstr ""
+"A Későbbi olvasás egy egyszerű Wallabag-ügyfélprogram. Rendelkezik az "
+"alapvető funkciókkal a cikkek kezeléséhez."
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:11
+msgid "Add new articles"
+msgstr "Új cikkek hozzáadása"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+msgid "Archive an article"
+msgstr "Egy cikk archiválása"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+msgid "Delete an article"
+msgstr "Egy cikk törlése"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+msgid "Favorite an article"
+msgstr "Egy cikk kedvencekhez adása"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:16
+msgid ""
+"It also comes with a nice on eyes reader mode that supports code syntax "
+"highlighting and a dark mode."
+msgstr ""
+"Emellett egy szemet gyönyörködtető olvasó móddal is rendelkezik, amely "
+"támogatja a kód szintaxiskiemelését és a sötét módot."
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:74
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:78
+msgid "Main Window"
+msgstr "Főablak"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:82
+msgid "Article View"
+msgstr "Cikk nézet"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:86
+msgid "Adaptive view in dark mode"
+msgstr "Alkalmazkodó nézet sötét módban"
+
+#. Translators: This status is shown when the list of articles is empty
 #: data/resources/ui/articles_list.ui:34
 msgid "Pretty clean!"
 msgstr "Elég tiszta!"
+
+#: data/resources/ui/articles.ui:14
+msgctxt "view switcher"
+msgid "Unread"
+msgstr "Olvasatlan"
+
+#: data/resources/ui/articles.ui:26
+#| msgid "Favorite"
+msgctxt "view switcher"
+msgid "Favorites"
+msgstr "Kedvencek"
+
+#: data/resources/ui/articles.ui:38
+#| msgid "Archive"
+msgctxt "view switcher"
+msgid "Archive"
+msgstr "Archiválás"
 
 #: data/resources/ui/gtk/help-overlay.ui:12
 msgctxt "shortcut window"
@@ -254,10 +269,14 @@ msgid "About Read It Later"
 msgstr "A Későbbi olvasás névjegye"
 
 #: data/resources/ui/window.ui:104
+#| msgid "Favorite"
+msgctxt "action button"
 msgid "Favorite"
 msgstr "Kedvenc"
 
 #: data/resources/ui/window.ui:112
+#| msgid "Archive"
+msgctxt "action button"
 msgid "Archive"
 msgstr "Archiválás"
 
@@ -266,17 +285,19 @@ msgid "Paste the article URL here"
 msgstr "Illessze be ide a cikk URL-ét"
 
 #: data/resources/ui/window.ui:158
+#| msgid "Save"
+msgctxt "action button"
 msgid "Save"
 msgstr "Mentés"
 
-#: src/application.rs:105
+#: src/application.rs:104
 msgid "Failed to logout"
 msgstr "Nem sikerült kijelentkezni"
 
-#: src/application.rs:255 src/application.rs:260
+#: src/application.rs:243 src/application.rs:248
 msgid "Failed to log in"
 msgstr "Nem sikerült bejelentkezni"
 
-#: src/application.rs:417
+#: src/application.rs:409
 msgid "translator-credits"
 msgstr "Úr Balázs <ur dot balazs at fsf dot hu>, 2022, 2023."
