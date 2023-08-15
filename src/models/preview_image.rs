@@ -1,11 +1,11 @@
 use std::path::PathBuf;
 
 use anyhow::Result;
-use crypto::{digest::Digest, sha1::Sha1};
 use gtk::glib;
 use isahc::prelude::*;
 use log::info;
 use once_cell::sync::Lazy;
+use sha1::{Digest, Sha1};
 use url::Url;
 
 pub static CACHE_DIR: Lazy<PathBuf> = Lazy::new(|| glib::user_cache_dir().join("read-it-later"));
@@ -22,9 +22,9 @@ impl PreviewImage {
     }
 
     pub fn get_cache_of(path: &str) -> PathBuf {
-        let mut hasher = Sha1::new();
-        hasher.input_str(path);
-        let cache: PathBuf = CACHE_DIR.join(&hasher.result_str());
+        let hash = Sha1::digest(path);
+        let hex_hash = base16ct::lower::encode_string(&hash);
+        let cache: PathBuf = CACHE_DIR.join(&hex_hash);
         cache
     }
 
