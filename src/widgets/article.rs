@@ -10,8 +10,9 @@ use webkit::{prelude::*, NetworkSession, Settings, WebView};
 use crate::models::{Article, ArticleAction};
 
 mod imp {
-    use glib::subclass::InitializingObject;
     use std::cell::OnceCell;
+
+    use glib::subclass::InitializingObject;
 
     use super::*;
 

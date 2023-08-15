@@ -6,8 +6,9 @@ use log::error;
 use crate::models::{Article, ArticleAction, ArticleObject, ArticlesFilter};
 
 mod imp {
-    use gtk::glib::subclass::InitializingObject;
     use std::cell::OnceCell;
+
+    use gtk::glib::subclass::InitializingObject;
 
     use super::*;
     use crate::widgets::articles::ArticlesListWidget;

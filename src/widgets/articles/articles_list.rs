@@ -10,10 +10,11 @@ use crate::{
 };
 
 mod imp {
+    use std::cell::OnceCell;
+
     use glib::{subclass::InitializingObject, ParamSpec, ParamSpecString, Value};
     use gtk::prelude::*;
     use once_cell::sync::Lazy;
-    use std::cell::OnceCell;
 
     use super::*;
 

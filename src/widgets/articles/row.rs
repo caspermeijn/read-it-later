@@ -3,9 +3,10 @@ use gtk::{glib, prelude::*, subclass::prelude::*};
 use crate::models::ArticleObject;
 
 mod imp {
+    use std::cell::OnceCell;
+
     use glib::{subclass::InitializingObject, ParamSpec, ParamSpecObject, Value};
     use once_cell::sync::Lazy;
-    use std::cell::OnceCell;
 
     use super::*;
     use crate::widgets::articles::preview::ArticlePreview;

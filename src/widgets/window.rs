@@ -14,8 +14,9 @@ use crate::{
 };
 
 mod imp {
-    use glib::subclass::InitializingObject;
     use std::cell::OnceCell;
+
+    use glib::subclass::InitializingObject;
 
     use super::*;
 
