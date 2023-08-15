@@ -106,10 +106,11 @@ impl Window {
 
     pub fn load_article(&self, article: Article) {
         let article_widget = self.imp().article_widget.get();
-        let article_widget_actions = article_widget.get_actions();
-        gtk_macros::get_action!(article_widget_actions, @archive)
+        article_widget
+            .get_action("archive")
             .set_state(article.is_archived.into());
-        gtk_macros::get_action!(article_widget_actions, @favorite)
+        article_widget
+            .get_action("favorite")
             .set_state(article.is_starred.into());
         article_widget.load(article);
         self.set_view(View::Article);

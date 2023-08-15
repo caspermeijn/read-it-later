@@ -229,12 +229,19 @@ impl ArticleWidget {
         &self.imp().actions
     }
 
+    pub fn get_action(&self, name: &str) -> gio::SimpleAction {
+        self.get_actions()
+            .lookup_action(name)
+            .expect(&format!("Could not find action \"{}\"", name))
+            .downcast::<gio::SimpleAction>()
+            .unwrap()
+    }
+
     pub fn set_enable_actions(&self, state: bool) {
-        let action_group = self.get_actions();
-        gtk_macros::get_action!(action_group, @open).set_enabled(state);
-        gtk_macros::get_action!(action_group, @archive).set_enabled(state);
-        gtk_macros::get_action!(action_group, @delete).set_enabled(state);
-        gtk_macros::get_action!(action_group, @favorite).set_enabled(state);
+        self.get_action("open").set_enabled(state);
+        self.get_action("archive").set_enabled(state);
+        self.get_action("delete").set_enabled(state);
+        self.get_action("favorite").set_enabled(state);
     }
 }
 
