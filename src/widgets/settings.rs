@@ -84,7 +84,8 @@ impl SettingsWidget {
             }),
         );
 
-        gtk_macros::spawn!(async move {
+        let ctx = glib::MainContext::default();
+        ctx.spawn_local(async move {
             let client = client.lock().await;
             if let Ok(user) = client.fetch_user().await {
                 sender

@@ -249,7 +249,8 @@ impl Application {
         sender.send(Action::SetView(View::Syncing(true))).unwrap();
         let logged_username = SettingsManager::string(Key::Username);
 
-        gtk_macros::spawn!(async move {
+        let ctx = glib::MainContext::default();
+        ctx.spawn_local(async move {
             let mut client = client.lock().await;
             match client.set_config(config.clone()).await {
                 Ok(_) => {
@@ -317,7 +318,8 @@ impl Application {
         info!("Last sync was at {}", since);
 
         let now = Utc::now().timestamp();
-        gtk_macros::spawn!(async move {
+        let ctx = glib::MainContext::default();
+        ctx.spawn_local(async move {
             let client = client.lock().await;
             info!("Starting a new sync");
             match client.sync(since).await {
@@ -344,7 +346,8 @@ impl Application {
         let sender = imp.sender.get().unwrap().clone();
 
         let pool = ThreadPool::new().expect("Failed to build pool");
-        gtk_macros::spawn!(async move {
+        let ctx = glib::MainContext::default();
+        ctx.spawn_local(async move {
             let futures = async move {
                 articles.iter().for_each(|article| {
                     match article.insert() {
@@ -379,7 +382,8 @@ impl Application {
         info!("Saving new article \"{:#?}\"", url);
         sender.send(Action::PreviousView).unwrap();
         sender.send(Action::SetView(View::Syncing(true))).unwrap();
-        gtk_macros::spawn!(async move {
+        let ctx = glib::MainContext::default();
+        ctx.spawn_local(async move {
             let client = client.lock().await;
             client.save_url(url).await;
             sender.send(Action::SetView(View::Syncing(false))).unwrap();
@@ -400,7 +404,8 @@ impl Application {
         sender.send(Action::SetView(View::Syncing(true))).unwrap();
         window.articles_view().archive(&article);
 
-        gtk_macros::spawn!(async move {
+        let ctx = glib::MainContext::default();
+        ctx.spawn_local(async move {
             let client = client.lock().await;
             client.update_entry(article.id, article.get_patch()).await;
             sender.send(Action::SetView(View::Syncing(false))).unwrap();
@@ -420,7 +425,8 @@ impl Application {
         sender.send(Action::SetView(View::Syncing(true))).unwrap();
         window.articles_view().favorite(&article);
 
-        gtk_macros::spawn!(async move {
+        let ctx = glib::MainContext::default();
+        ctx.spawn_local(async move {
             let client = client.lock().await;
             client.update_entry(article.id, article.get_patch()).await;
             sender.send(Action::SetView(View::Syncing(false))).unwrap();
@@ -441,7 +447,8 @@ impl Application {
         window.articles_view().delete(&article);
 
         let article_id: i32 = article.id;
-        gtk_macros::spawn!(async move {
+        let ctx = glib::MainContext::default();
+        ctx.spawn_local(async move {
             let client = client.lock().await;
             client.delete_entry(article_id).await;
             sender.send(Action::SetView(View::Syncing(false))).unwrap();
