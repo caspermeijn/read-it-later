@@ -155,61 +155,59 @@ impl Application {
         let client = imp.client.get().unwrap();
 
         // Quit
-        gtk_macros::action!(
-            self,
-            "quit",
-            clone!(@strong self as app => move |_, _| {
-                app.quit();
-            })
-        );
+        let simple_action = gio::SimpleAction::new("quit", None);
+        simple_action.connect_activate(clone!(@strong self as app => move|_,_|{
+          app.quit();
+        }));
+        self.add_action(&simple_action);
+
         // Settings
-        gtk_macros::action!(
-            self,
-            "settings",
-            clone!(@strong window, @strong client =>  move |_, _| {
-                let settings_widget = SettingsWidget::new(client.clone());
-                settings_widget.set_transient_for(Some(&window));
-                settings_widget.present();
-            })
-        );
+        let simple_action = gio::SimpleAction::new("settings", None);
+        simple_action.connect_activate(clone!(@strong window, @strong client => move|_,_|{
+          let settings_widget = SettingsWidget::new(client.clone());
+          settings_widget.set_transient_for(Some(&window));
+          settings_widget.present();
+        }));
+        self.add_action(&simple_action);
+
         // About
-        gtk_macros::action!(
-            self,
-            "about",
-            clone!(@strong window => move |_, _| {
-                Application::show_about_dialog(&window);
-            })
-        );
-        gtk_macros::action!(
-            self,
-            "new-article",
-            clone!(@strong sender => move |_, _| {
-                sender.send(Action::SetView(View::NewArticle)).unwrap();
-            })
-        );
-        gtk_macros::action!(
-            self,
-            "logout",
-            clone!(@strong sender => move |_, _| {
-                sender.send(Action::Logout).unwrap();
-            })
-        );
-        gtk_macros::action!(
-            self,
-            "sync",
-            clone!(@strong sender => move |_, _| {
-                sender.send(Action::Sync).unwrap();
-            })
-        );
-        gtk_macros::action!(
-            self,
+        let simple_action = gio::SimpleAction::new("about", None);
+        simple_action.connect_activate(clone!(@strong window => move|_,_|{
+          Application::show_about_dialog(&window);
+        }));
+        self.add_action(&simple_action);
+
+        // New article
+        let simple_action = gio::SimpleAction::new("new-article", None);
+        simple_action.connect_activate(clone!(@strong sender => move|_,_|{
+          sender.send(Action::SetView(View::NewArticle)).unwrap();
+        }));
+        self.add_action(&simple_action);
+
+        // Log out
+        let simple_action = gio::SimpleAction::new("logout", None);
+        simple_action.connect_activate(clone!(@strong sender => move|_,_|{
+          sender.send(Action::Logout).unwrap();
+        }));
+        self.add_action(&simple_action);
+
+        // Sync
+        let simple_action = gio::SimpleAction::new("sync", None);
+        simple_action.connect_activate(clone!(@strong sender => move|_,_|{
+          sender.send(Action::Sync).unwrap();
+        }));
+        self.add_action(&simple_action);
+
+        // Login
+        let simple_action = gio::SimpleAction::new(
             "login",
             Some(&crate::models::Account::static_variant_type()),
-            clone!(@strong sender => move |_, parameter| {
-                let account: Account = parameter.unwrap().get().unwrap();
-                sender.send(Action::SetClientConfig(account.into())).unwrap();
-            })
         );
+        simple_action.connect_activate(clone!(@strong sender => move|_,parameter|{
+          let account:Account = parameter.unwrap().get().unwrap();
+          sender.send(Action::SetClientConfig(account.into())).unwrap();
+        }));
+        self.add_action(&simple_action);
 
         self.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
         self.set_accels_for_action("win.previous", &["Escape"]);

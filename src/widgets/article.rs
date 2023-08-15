@@ -138,27 +138,25 @@ impl ArticleWidget {
 
     fn setup_actions(&self) {
         let sender = self.imp().sender.get().unwrap();
+
         // Delete article
-        gtk_macros::action!(
-            self.imp().actions,
-            "delete",
-            clone!(@strong self as aw, @strong sender => move |_, _| {
-                if let Some(article) = aw.imp().article.borrow().clone() {
-                    sender.send(ArticleAction::Delete(article)).unwrap();
-                }
-            })
-        );
+        let simple_action = gio::SimpleAction::new("delete", None);
+        simple_action.connect_activate(clone!(@strong self as aw, @strong sender => move|_,_|{
+          if let Some(article) = aw.imp().article.borrow().clone(){
+            sender.send(ArticleAction::Delete(article)).unwrap();
+          }
+        }));
+        self.imp().actions.add_action(&simple_action);
+
         // Share article
-        gtk_macros::action!(
-            self.imp().actions,
-            "open",
-            clone!(@strong self as aw => move |_, _| {
-                if let Some(article) = aw.imp().article.borrow().clone() {
-                    let article_url = article.url.clone().unwrap();
-                    open_uri_in_browser(article_url);
-                }
-            })
-        );
+        let simple_action = gio::SimpleAction::new("open", None);
+        simple_action.connect_activate(clone!(@strong self as aw => move|_,_|{
+          if let Some(article) = aw.imp().article.borrow().clone(){
+            let article_url = article.url.clone().unwrap();
+            open_uri_in_browser(article_url);
+          }
+        }));
+        self.imp().actions.add_action(&simple_action);
 
         // Archive article
         let simple_action = gio::SimpleAction::new_stateful("archive", None, false.into());
