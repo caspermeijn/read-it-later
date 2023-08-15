@@ -76,7 +76,7 @@ impl SettingsWidget {
     }
 
     fn init(&self, client: Arc<Mutex<ClientManager>>) {
-        let (sender, receiver) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+        let (sender, receiver) = glib::MainContext::channel(Default::default());
         receiver.attach(
             None,
             glib::clone!(@strong self as window =>  move |action| {
@@ -100,7 +100,7 @@ impl SettingsWidget {
         });
     }
 
-    fn do_action(&self, action: SettingsAction) -> glib::Continue {
+    fn do_action(&self, action: SettingsAction) -> glib::ControlFlow {
         match action {
             SettingsAction::ClientInfoLoaded(client_info) => {
                 let imp = self.imp();
@@ -117,6 +117,6 @@ impl SettingsWidget {
             }
         }
 
-        glib::Continue(true)
+        glib::ControlFlow::Continue
     }
 }

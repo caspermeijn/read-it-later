@@ -166,7 +166,7 @@ impl ArticleWidget {
                     let state = action.state().unwrap();
                     let action_state: bool = state.get().unwrap();
                     let is_archived = !action_state;
-                    action.set_state(is_archived.into());
+                    action.set_state(&is_archived.into());
                     if let Some(article) = imp.article.borrow_mut().clone() {
                         sender.send(ArticleAction::Archive(article)).unwrap();
                     }
@@ -181,7 +181,7 @@ impl ArticleWidget {
                     let state = action.state().unwrap();
                     let action_state: bool = state.get().unwrap();
                     let is_starred = !action_state;
-                    action.set_state(is_starred.into());
+                    action.set_state(&is_starred.into());
 
                     if let Some(article) = imp.article.borrow_mut().clone() {
                         sender.send(ArticleAction::Favorite(article)).unwrap();

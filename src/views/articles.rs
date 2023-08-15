@@ -45,7 +45,7 @@ mod imp {
         fn constructed(&self) {
             self.parent_constructed();
 
-            let model = gio::ListStore::new(glib::types::Type::OBJECT);
+            let model = gio::ListStore::new::<glib::Object>();
 
             let filter: gtk::Filter = ArticlesFilter::favorites().into();
             let favorites_model = gtk::FilterListModel::new(Some(model.clone()), Some(filter));

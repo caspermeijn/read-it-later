@@ -108,10 +108,10 @@ impl Window {
         let article_widget = self.imp().article_widget.get();
         article_widget
             .get_action("archive")
-            .set_state(article.is_archived.into());
+            .set_state(&article.is_archived.into());
         article_widget
             .get_action("favorite")
-            .set_state(article.is_starred.into());
+            .set_state(&article.is_starred.into());
         article_widget.load(article);
         self.set_view(View::Article);
     }

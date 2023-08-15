@@ -25,7 +25,7 @@ pub struct ArticlesManager {
 
 impl ArticlesManager {
     pub fn new(main_sender: Sender<Action>) -> Rc<Self> {
-        let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+        let (sender, r) = glib::MainContext::channel(Default::default());
         let receiver = RefCell::new(Some(r));
 
         let manager = Rc::new(Self {
@@ -43,7 +43,7 @@ impl ArticlesManager {
         receiver.attach(None, move |action| manager.do_action(action));
     }
 
-    fn do_action(&self, action: ArticleAction) -> glib::Continue {
+    fn do_action(&self, action: ArticleAction) -> glib::ControlFlow {
         match action {
             ArticleAction::Delete(article) => self.delete(article),
             ArticleAction::Open(article) => self.open(article),
@@ -53,7 +53,7 @@ impl ArticlesManager {
             ArticleAction::Update(article) => self.update(article),
             ArticleAction::Add(article) => self.add(article),
         };
-        glib::Continue(true)
+        glib::ControlFlow::Continue
     }
 
     fn add(&self, article: Article) {

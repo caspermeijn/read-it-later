@@ -57,7 +57,7 @@ mod imp {
 
             let app = self.obj();
 
-            let (sender, receiver) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+            let (sender, receiver) = glib::MainContext::channel(Default::default());
             self.sender.set(sender.clone()).unwrap();
             receiver.attach(
                 None,
@@ -107,7 +107,7 @@ impl Application {
         app.run()
     }
 
-    fn do_action(&self, action: Action) -> glib::Continue {
+    fn do_action(&self, action: Action) -> glib::ControlFlow {
         let imp = self.imp();
         let window = imp.window.get().unwrap();
         let sender = imp.sender.get().unwrap();
@@ -132,7 +132,7 @@ impl Application {
                 }
             }
         };
-        glib::Continue(true)
+        glib::ControlFlow::Continue
     }
 
     fn do_article_action(&self, action: Box<ArticleAction>) {
