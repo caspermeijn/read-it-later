@@ -149,65 +149,69 @@ impl Application {
     }
 
     fn setup_gactions(&self) {
-        let imp = self.imp();
-        let window = imp.window.get().unwrap();
-        let sender = imp.sender.get().unwrap();
-        let client = imp.client.get().unwrap();
-
-        // Quit
-        let simple_action = gio::SimpleAction::new("quit", None);
-        simple_action.connect_activate(clone!(@strong self as app => move|_,_|{
-          app.quit();
-        }));
-        self.add_action(&simple_action);
-
-        // Settings
-        let simple_action = gio::SimpleAction::new("settings", None);
-        simple_action.connect_activate(clone!(@strong window, @strong client => move|_,_|{
-          let settings_widget = SettingsWidget::new(client.clone());
-          settings_widget.set_transient_for(Some(&window));
-          settings_widget.present();
-        }));
-        self.add_action(&simple_action);
-
-        // About
-        let simple_action = gio::SimpleAction::new("about", None);
-        simple_action.connect_activate(clone!(@strong window => move|_,_|{
-          Application::show_about_dialog(&window);
-        }));
-        self.add_action(&simple_action);
-
-        // New article
-        let simple_action = gio::SimpleAction::new("new-article", None);
-        simple_action.connect_activate(clone!(@strong sender => move|_,_|{
-          sender.send(Action::SetView(View::NewArticle)).unwrap();
-        }));
-        self.add_action(&simple_action);
-
-        // Log out
-        let simple_action = gio::SimpleAction::new("logout", None);
-        simple_action.connect_activate(clone!(@strong sender => move|_,_|{
-          sender.send(Action::Logout).unwrap();
-        }));
-        self.add_action(&simple_action);
-
-        // Sync
-        let simple_action = gio::SimpleAction::new("sync", None);
-        simple_action.connect_activate(clone!(@strong sender => move|_,_|{
-          sender.send(Action::Sync).unwrap();
-        }));
-        self.add_action(&simple_action);
-
-        // Login
-        let simple_action = gio::SimpleAction::new(
-            "login",
-            Some(&crate::models::Account::static_variant_type()),
-        );
-        simple_action.connect_activate(clone!(@strong sender => move|_,parameter|{
-          let account:Account = parameter.unwrap().get().unwrap();
-          sender.send(Action::SetClientConfig(account.into())).unwrap();
-        }));
-        self.add_action(&simple_action);
+        self.add_action_entries([
+            // Quit
+            gio::ActionEntry::builder("quit")
+                .activate(|app: &Application, _, _| {
+                    app.quit();
+                })
+                .build(),
+            // Settings
+            gio::ActionEntry::builder("settings")
+                .activate(|app: &Application, _, _| {
+                    let imp = app.imp();
+                    let window = imp.window.get().unwrap();
+                    let client = imp.client.get().unwrap();
+                    let settings_widget = SettingsWidget::new(client.clone());
+                    settings_widget.set_transient_for(Some(window));
+                    settings_widget.present();
+                })
+                .build(),
+            // About
+            gio::ActionEntry::builder("about")
+                .activate(|app: &Application, _, _| {
+                    let imp = app.imp();
+                    let window = imp.window.get().unwrap();
+                    Application::show_about_dialog(window);
+                })
+                .build(),
+            // New article
+            gio::ActionEntry::builder("new-article")
+                .activate(|app: &Application, _, _| {
+                    let imp = app.imp();
+                    let sender = imp.sender.get().unwrap();
+                    sender.send(Action::SetView(View::NewArticle)).unwrap();
+                })
+                .build(),
+            // Log out
+            gio::ActionEntry::builder("logout")
+                .activate(|app: &Application, _, _| {
+                    let imp = app.imp();
+                    let sender = imp.sender.get().unwrap();
+                    sender.send(Action::Logout).unwrap();
+                })
+                .build(),
+            // Sync
+            gio::ActionEntry::builder("sync")
+                .activate(|app: &Application, _, _| {
+                    let imp = app.imp();
+                    let sender = imp.sender.get().unwrap();
+                    sender.send(Action::Sync).unwrap();
+                })
+                .build(),
+            // Login
+            gio::ActionEntry::builder("login")
+                .parameter_type(Some(&crate::models::Account::static_variant_type()))
+                .activate(|app: &Application, _, parameter| {
+                    let imp = app.imp();
+                    let sender = imp.sender.get().unwrap();
+                    let account: Account = parameter.unwrap().get().unwrap();
+                    sender
+                        .send(Action::SetClientConfig(account.into()))
+                        .unwrap();
+                })
+                .build(),
+        ]);
 
         self.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
         self.set_accels_for_action("win.previous", &["Escape"]);
