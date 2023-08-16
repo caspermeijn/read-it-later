@@ -1,10 +1,10 @@
 use std::path::PathBuf;
 
 use anyhow::Result;
+use glib::once_cell::sync::Lazy;
 use gtk::glib;
 use isahc::prelude::*;
 use log::info;
-use once_cell::sync::Lazy;
 use sha1::{Digest, Sha1};
 use url::Url;
 

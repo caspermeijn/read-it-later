@@ -2370,7 +2370,6 @@ dependencies = [
  "isahc 1.7.2",
  "libadwaita",
  "log",
- "once_cell",
  "pretty_env_logger",
  "regex",
  "sanitize_html",

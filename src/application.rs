@@ -1,3 +1,5 @@
+use std::cell::OnceCell;
+
 use adw::{prelude::*, subclass::prelude::*};
 use anyhow::Result;
 use async_std::sync::{Arc, Mutex};
@@ -7,7 +9,6 @@ use gettextrs::gettext;
 use glib::{clone, Sender};
 use gtk::{gio, glib};
 use log::{error, info};
-use once_cell::sync::OnceCell;
 use url::Url;
 use wallabag_api::types::Config;
 

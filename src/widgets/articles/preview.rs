@@ -3,8 +3,8 @@ use gtk::{gdk_pixbuf::Pixbuf, glib, prelude::*, subclass::prelude::*};
 mod imp {
     use std::{cell::RefCell, str::FromStr};
 
+    use glib::once_cell::sync::Lazy;
     use gtk::glib::{clone, subclass::InitializingObject, ParamSpec, Value};
-    use once_cell::sync::Lazy;
     use url::Url;
 
     use super::*;

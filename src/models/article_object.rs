@@ -20,7 +20,7 @@ mod imp {
 
     impl ObjectImpl for ArticleObject {
         fn properties() -> &'static [glib::ParamSpec] {
-            use once_cell::sync::Lazy;
+            use glib::once_cell::sync::Lazy;
             static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
                 vec![
                     glib::ParamSpecString::builder("title").read_only().build(),
