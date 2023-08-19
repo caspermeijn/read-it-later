@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use secret_service::{EncryptionType, Error, SecretService};
+use secret_service::{blocking::SecretService, EncryptionType, Error};
 use wallabag_api::types::Config;
 
 pub struct SecretManager<'a> {
@@ -9,10 +9,12 @@ pub struct SecretManager<'a> {
 
 impl SecretManager<'_> {
     pub fn new() -> Result<Self, Error> {
-        let service = SecretService::new(EncryptionType::Dh)?;
-        let collection = service.get_default_collection()?;
-        if collection.is_locked()? {
-            collection.unlock()?;
+        let service = SecretService::connect(EncryptionType::Dh)?;
+        {
+            let collection = service.get_default_collection()?;
+            if collection.is_locked()? {
+                collection.unlock()?;
+            }
         }
         Ok(Self { service })
     }
@@ -71,10 +73,9 @@ impl SecretManager<'_> {
     }
 
     fn retrieve(&self, key: &str, attribute: &str) -> Result<String, Error> {
-        let items = self
-            .service
-            .search_items(vec![("wallabag_username", key), ("attr", attribute)])?;
-        if let Some(item) = items.get(0) {
+        let attributes = HashMap::from([("wallabag_username", key), ("attr", attribute)]);
+        let items = self.service.search_items(attributes)?;
+        if let Some(item) = items.unlocked.get(0) {
             let value = item.get_secret()?;
             return Ok(String::from_utf8(value).unwrap());
         }
