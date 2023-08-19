@@ -8,7 +8,7 @@ use wallabag_api::types::{Entry, PatchEntry};
 use crate::{database, models::ArticleObject, schema::articles};
 
 #[derive(Insertable, Queryable, Eq, PartialEq, Debug, Clone)]
-#[table_name = "articles"]
+#[diesel(table_name = articles)]
 pub struct Article {
     pub id: i32,
     pub title: Option<String>,
@@ -38,11 +38,11 @@ impl Article {
         use crate::schema::articles::dsl::*;
         let db = database::connection();
 
-        let conn = db.get()?;
+        let mut conn = db.get()?;
 
         articles
             .order(published_at.asc())
-            .get_results::<Article>(&conn)
+            .get_results::<Article>(&mut conn)
             .map_err(From::from)
     }
 
@@ -113,34 +113,34 @@ impl Article {
 
     pub fn insert(&self) -> Result<()> {
         let db = database::connection();
-        let conn = db.get()?;
+        let mut conn = db.get()?;
 
         diesel::insert_into(articles::table)
             .values(self)
-            .execute(&conn)?;
+            .execute(&mut conn)?;
 
         Ok(())
     }
 
     pub fn delete(&self) -> Result<()> {
         let db = database::connection();
-        let conn = db.get()?;
+        let mut conn = db.get()?;
         use crate::schema::articles::dsl::*;
 
-        diesel::delete(articles.filter(id.eq(&self.id))).execute(&conn)?;
+        diesel::delete(articles.filter(id.eq(&self.id))).execute(&mut conn)?;
 
         Ok(())
     }
 
     pub fn toggle_favorite(&mut self) -> Result<()> {
         let db = database::connection();
-        let conn = db.get()?;
+        let mut conn = db.get()?;
         use crate::schema::articles::dsl::*;
 
         let target = articles.filter(id.eq(&self.id));
         diesel::update(target)
             .set(is_starred.eq(!self.is_starred))
-            .execute(&conn)?;
+            .execute(&mut conn)?;
 
         self.is_starred = !self.is_starred;
         Ok(())
@@ -148,13 +148,13 @@ impl Article {
 
     pub fn toggle_archive(&mut self) -> Result<()> {
         let db = database::connection();
-        let conn = db.get()?;
+        let mut conn = db.get()?;
         use crate::schema::articles::dsl::*;
 
         let target = articles.filter(id.eq(&self.id));
         diesel::update(target)
             .set(is_archived.eq(!self.is_archived))
-            .execute(&conn)?;
+            .execute(&mut conn)?;
 
         self.is_archived = !self.is_archived;
         Ok(())
