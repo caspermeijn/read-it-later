@@ -2,40 +2,47 @@
 <interface>
   <template class="ArticlesListWidget" parent="GtkWidget">
     <property name="layout-manager">
-      <object class="AdwClampLayout">
-        <property name="maximum-size">800</property>
-      </object>
+      <object class="GtkBinLayout" />
     </property>
     <child>
-      <object class="GtkStack" id="stack">
-        <property name="hhomogeneous">False</property>
-        <property name="vhomogeneous">False</property>
-        <child>
-          <object class="GtkStackPage">
-            <property name="name">list</property>
-            <property name="child">
-              <object class="GtkListBox" id="articles_listbox">
-                <signal name="row-activated" handler="handle_row_activated" swapped="true" />
-                <property name="selection-mode">none</property>
-                <style>
-                  <class name="transparent" />
-                  <class name="articles-list" />
-                </style>
+      <object class="GtkScrolledWindow">
+        <property name="child">
+          <object class="AdwClamp" id="login">
+            <property name="maximum-size">800</property>
+            <child>
+              <object class="GtkStack" id="stack">
+                <property name="hhomogeneous">False</property>
+                <property name="vhomogeneous">False</property>
+                <child>
+                  <object class="GtkStackPage">
+                    <property name="name">list</property>
+                    <property name="child">
+                      <object class="GtkListBox" id="articles_listbox">
+                        <signal name="row-activated" handler="handle_row_activated" swapped="true" />
+                        <property name="selection-mode">none</property>
+                        <style>
+                          <class name="transparent" />
+                          <class name="articles-list" />
+                        </style>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkStackPage">
+                    <property name="name">empty</property>
+                    <property name="child">
+                      <object class="AdwStatusPage" id="empty_status">
+                        <property name="icon-name">dialog-missing-symbolic</property>
+                        <property name="title" translatable="yes" comments="Translators: This status is shown when the list of articles is empty">Pretty clean!</property>
+                      </object>
+                    </property>
+                  </object>
+                </child>
               </object>
-            </property>
+            </child>
           </object>
-        </child>
-        <child>
-          <object class="GtkStackPage">
-            <property name="name">empty</property>
-            <property name="child">
-              <object class="AdwStatusPage" id="empty_status">
-                <property name="icon-name">dialog-missing-symbolic</property>
-                <property name="title" translatable="yes" comments="Translators: This status is shown when the list of articles is empty">Pretty clean!</property>
-              </object>
-            </property>
-          </object>
-        </child>
+        </property>
       </object>
     </child>
   </template>
