@@ -5,90 +5,38 @@
 # Christian Kirbach <christian.kirbach@gmail.com>, 2020.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2020.
 # Jürgen Benvenuti <gastornis@posteo.org>, 2022,2023.
+# Philipp Kiemle <philipp.kiemle@gmail.com>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/"
 "issues\n"
-"POT-Creation-Date: 2023-03-13 12:41+0000\n"
-"PO-Revision-Date: 2023-03-14 09:21+0100\n"
-"Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
+"POT-Creation-Date: 2023-05-11 19:16+0000\n"
+"PO-Revision-Date: 2023-05-25 17:44+0200\n"
+"Last-Translator: Philipp Kiemle <philipp.kiemle@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:6
 #: data/resources/ui/window.ui:66
 msgid "Read It Later"
 msgstr "Read It Later"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-msgid "A Wallabag Client"
-msgstr "Eine Wallabag-Anwendung"
-
-#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
-msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
-msgstr "Gnome;GTK;Wallabag;Web;Article;Offline;Artikel;"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
 msgid "Save and read web articles"
 msgstr "Web-Artikel speichern und lesen"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
-msgid ""
-"Read It Later, is a simple Wallabag client. It has the basic features to "
-"manage your articles."
-msgstr ""
-"Read It Later ist eine einfache Wallabag-Anwendung. Sie besitzt alle "
-"wesentlichen Funktionen, um Ihre Artikel zu verwalten."
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
-msgid "Add new articles"
-msgstr "Neue Artikel hinzufügen"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
-msgid "Archive an article"
-msgstr "Einen Artikel archivieren"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
-msgid "Delete an article"
-msgstr "Einen Artikel löschen"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
-msgid "Favorite an article"
-msgstr "Einen Artikel favorisieren"
-
-# Das »It« bezieht sich auf »Wallabag Client« auf der Infoseite von GNOME Software.
-# »Wallabag Client« wird dort mit »Wallabag-Anwendung« übersetzt, daher »Sie«. - jb
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
-msgid ""
-"It also comes with a nice on eyes reader mode that supports code syntax "
-"highlighting and a dark mode."
-msgstr ""
-"Sie hat außerdem einen augenfreundlichen Lesemodus, der Code-Hervorhebung "
-"und den dunklen Modus unterstützt."
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
-msgid "Main Window"
-msgstr "Hauptfenster"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
-msgid "Article View"
-msgstr "Artikelansicht"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
-msgid "Adaptive view in dark mode"
-msgstr "Anpassungsfähige Ansicht im dunklen Modus"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:71
-msgid "Bilal Elmoussaoui"
-msgstr "Bilal Elmoussaoui"
+#: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
+msgid "GNOME;GTK;Wallabag;Web;Article;Offline;"
+msgstr "GNOME;GTK;Wallabag;Web;Article;Offline;Artikel;"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
 msgid "Default window width"
@@ -118,9 +66,76 @@ msgstr "Benutzername des angemeldeten Benutzers"
 msgid "Latest successful sync in ms"
 msgstr "Letzter erfolgreicher Abgleich in ms"
 
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:9
+msgid ""
+"Read It Later, is a simple Wallabag client. It has the basic features to "
+"manage your articles."
+msgstr ""
+"Read It Later ist eine einfache Wallabag-Anwendung. Sie besitzt alle "
+"wesentlichen Funktionen, um Ihre Artikel zu verwalten."
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:11
+msgid "Add new articles"
+msgstr "Neue Artikel hinzufügen"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+msgid "Archive an article"
+msgstr "Einen Artikel archivieren"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+msgid "Delete an article"
+msgstr "Einen Artikel löschen"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+msgid "Favorite an article"
+msgstr "Einen Artikel favorisieren"
+
+# Das »It« bezieht sich auf »Wallabag Client« auf der Infoseite von GNOME Software.
+# »Wallabag Client« wird dort mit »Wallabag-Anwendung« übersetzt, daher »Sie«. - jb
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:16
+msgid ""
+"It also comes with a nice on eyes reader mode that supports code syntax "
+"highlighting and a dark mode."
+msgstr ""
+"Sie hat außerdem einen augenfreundlichen Lesemodus, der Code-Hervorhebung "
+"und den dunklen Modus unterstützt."
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:74
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:78
+msgid "Main Window"
+msgstr "Hauptfenster"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:82
+msgid "Article View"
+msgstr "Artikelansicht"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:86
+msgid "Adaptive view in dark mode"
+msgstr "Anpassungsfähige Ansicht im dunklen Modus"
+
+#. Translators: This status is shown when the list of articles is empty
 #: data/resources/ui/articles_list.ui:34
 msgid "Pretty clean!"
 msgstr "Ziemlich sauber!"
+
+#: data/resources/ui/articles.ui:14
+msgctxt "view switcher"
+msgid "Unread"
+msgstr "Ungelesen"
+
+#: data/resources/ui/articles.ui:26
+msgctxt "view switcher"
+msgid "Favorites"
+msgstr "Favoriten"
+
+# Ist das hier ein Nomen oder Verb? Dem Kontext nach geht es hier um eine Ansicht, also eher ein Nomen. - pk
+#: data/resources/ui/articles.ui:38
+msgctxt "view switcher"
+msgid "Archive"
+msgstr "Archiv"
 
 #: data/resources/ui/gtk/help-overlay.ui:12
 msgctxt "shortcut window"
@@ -259,10 +274,12 @@ msgid "About Read It Later"
 msgstr "Info zu Read It Later"
 
 #: data/resources/ui/window.ui:104
+msgctxt "action button"
 msgid "Favorite"
 msgstr "Favorisieren"
 
 #: data/resources/ui/window.ui:112
+msgctxt "action button"
 msgid "Archive"
 msgstr "Archivieren"
 
@@ -271,23 +288,27 @@ msgid "Paste the article URL here"
 msgstr "Adresse des Artikels hier einfügen"
 
 #: data/resources/ui/window.ui:158
+msgctxt "action button"
 msgid "Save"
 msgstr "Speichern"
 
-#: src/application.rs:105
+#: src/application.rs:104
 msgid "Failed to logout"
 msgstr "Abmelden fehlgeschlagen"
 
-#: src/application.rs:255 src/application.rs:260
+#: src/application.rs:243 src/application.rs:248
 msgid "Failed to log in"
 msgstr "Anmelden fehlgeschlagen"
 
-#: src/application.rs:417
+#: src/application.rs:409
 msgid "translator-credits"
 msgstr ""
 "Sven Fischer <l10n.gnome.org@linux4tw.de>, 2020\n"
 "Christian Kirbach <christian.kirbach@gmail.com>, 2020\n"
 "Jürgen Benvenuti <gastornis@posteo.org>, 2022, 2023"
+
+#~ msgid "A Wallabag Client"
+#~ msgstr "Eine Wallabag-Anwendung"
 
 #~ msgid "A Wallabag Client."
 #~ msgstr "Eine Wallabag-Anwendung."
