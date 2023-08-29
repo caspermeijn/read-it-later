@@ -4,7 +4,7 @@
     <child>
       <object class="AdwPreferencesPage">
         <property name="icon-name">user-info-symbolic</property>
-        <property name="title">Account</property>
+        <property name="title" translatable="yes">Account</property>
         <child>
           <object class="AdwPreferencesGroup">
             <property name="title" translatable="yes">Account Information</property>
