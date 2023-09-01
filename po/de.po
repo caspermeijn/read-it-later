@@ -12,16 +12,16 @@ msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/"
 "issues\n"
-"POT-Creation-Date: 2023-05-11 19:16+0000\n"
-"PO-Revision-Date: 2023-05-25 17:44+0200\n"
-"Last-Translator: Philipp Kiemle <philipp.kiemle@gmail.com>\n"
+"POT-Creation-Date: 2023-08-30 06:37+0000\n"
+"PO-Revision-Date: 2023-09-01 19:17+0200\n"
+"Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:6
@@ -100,19 +100,19 @@ msgstr ""
 "Sie hat außerdem einen augenfreundlichen Lesemodus, der Code-Hervorhebung "
 "und den dunklen Modus unterstützt."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:74
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:81
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:78
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:85
 msgid "Main Window"
 msgstr "Hauptfenster"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:82
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:89
 msgid "Article View"
 msgstr "Artikelansicht"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:86
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:93
 msgid "Adaptive view in dark mode"
 msgstr "Anpassungsfähige Ansicht im dunklen Modus"
 
@@ -229,6 +229,10 @@ msgstr "Passwort"
 msgid "Log In"
 msgstr "Anmelden"
 
+#: data/resources/ui/settings.ui:7
+msgid "Account"
+msgstr "Konto"
+
 #: data/resources/ui/settings.ui:10
 msgid "Account Information"
 msgstr "Konto-Information"
@@ -292,15 +296,15 @@ msgctxt "action button"
 msgid "Save"
 msgstr "Speichern"
 
-#: src/application.rs:104
+#: src/application.rs:131
 msgid "Failed to logout"
 msgstr "Abmelden fehlgeschlagen"
 
-#: src/application.rs:243 src/application.rs:248
+#: src/application.rs:270 src/application.rs:277
 msgid "Failed to log in"
 msgstr "Anmelden fehlgeschlagen"
 
-#: src/application.rs:409
+#: src/application.rs:473
 msgid "translator-credits"
 msgstr ""
 "Sven Fischer <l10n.gnome.org@linux4tw.de>, 2020\n"
