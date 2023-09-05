@@ -9,10 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-01-28 18:39+0000\n"
-"PO-Revision-Date: 2023-02-12 17:30+0100\n"
+"POT-Creation-Date: 2023-08-30 06:37+0000\n"
+"PO-Revision-Date: 2023-09-05 22:30+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
-"Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
+"Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups."
+"com>\n"
 "Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,73 +21,24 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:6
 #: data/resources/ui/window.ui:66
 msgid "Read It Later"
 msgstr "Preberi pozneje"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-msgid "A Wallabag Client"
-msgstr "Odjemalec Wallabag"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+msgid "Save and read web articles"
+msgstr "Shranjujte in berite spletne članke"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
-msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
-msgstr "Gnome;GTK;Wallabag;Web;Article;Offline;Splet;Članek;prispevek;"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
-msgid "A Wallabag Client."
-msgstr "Odjemalec Wallabag."
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
-msgid ""
-"Read It Later, is a simple Wallabag client. It has the basic features to "
-"manage your articles"
+msgid "GNOME;GTK;Wallabag;Web;Article;Offline;"
 msgstr ""
-"Preberi pozneje je preprost odjemalec Wallabag. Ima osnovne funkcije za "
-"upravljanje vaših prispevkov"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
-msgid "Add new articles"
-msgstr "Dodaj nov prispevek"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
-msgid "Archive an article"
-msgstr "Arhiviraj prispevek"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
-msgid "Delete an article"
-msgstr "Izbriši prispevek"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
-msgid "Favorite an article"
-msgstr "Postavite prispevek med priljubljene"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
-msgid ""
-"It also comes with a nice on eyes reader mode that supports code syntax "
-"highlighting and a dark mode"
-msgstr ""
-"Na voljo je tudi z za oči lepim načinom bralnika, ki podpira označevanje "
-"skladnje kode in temni način"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
-msgid "Main Window"
-msgstr "Glavno okno"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
-msgid "Article View"
-msgstr "Pogled prispevka"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
-msgid "Adaptive view in dark mode"
-msgstr "Prilagodljiv pogled v temnem načinu"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
-msgid "Bilal Elmoussaoui"
-msgstr "Bilal Elmoussaoui"
+"Gnome;GTK;Wallabag;Web;splet;članek;nepovezani;nepovezano;prispevek;"
+"prispevki;članku;"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
 msgid "Default window width"
@@ -116,9 +68,73 @@ msgstr "Prijavljeno uporabniško ime"
 msgid "Latest successful sync in ms"
 msgstr "Najnovejša uspešna uskladitev v ms"
 
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:9
+msgid ""
+"Read It Later, is a simple Wallabag client. It has the basic features to "
+"manage your articles."
+msgstr ""
+"Preberi pozneje je preprost odjemalec Wallabag. Ima osnovne funkcije za "
+"upravljanje vaših člankov oz. prispevkov."
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:11
+msgid "Add new articles"
+msgstr "Dodaj nov prispevek"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+msgid "Archive an article"
+msgstr "Arhiviraj prispevek"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+msgid "Delete an article"
+msgstr "Izbriši prispevek"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+msgid "Favorite an article"
+msgstr "Postavite prispevek med priljubljene"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:16
+msgid ""
+"It also comes with a nice on eyes reader mode that supports code syntax "
+"highlighting and a dark mode."
+msgstr ""
+"Na voljo je tudi z očem prijaznim načinom bralnika, ki podpira označevanje "
+"skladnje kode in temni način."
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:81
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:85
+msgid "Main Window"
+msgstr "Glavno okno"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:89
+msgid "Article View"
+msgstr "Pogled prispevka"
+
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:93
+msgid "Adaptive view in dark mode"
+msgstr "Prilagodljiv pogled v temnem načinu"
+
+#. Translators: This status is shown when the list of articles is empty
 #: data/resources/ui/articles_list.ui:34
 msgid "Pretty clean!"
 msgstr "Precej čisto!"
+
+#: data/resources/ui/articles.ui:14
+msgctxt "view switcher"
+msgid "Unread"
+msgstr "Neprebrano"
+
+#: data/resources/ui/articles.ui:26
+msgctxt "view switcher"
+msgid "Favorites"
+msgstr "Priljubljeni"
+
+#: data/resources/ui/articles.ui:38
+msgctxt "view switcher"
+msgid "Archive"
+msgstr "Arhiviraj"
 
 #: data/resources/ui/gtk/help-overlay.ui:12
 msgctxt "shortcut window"
@@ -212,6 +228,10 @@ msgstr "Geslo"
 msgid "Log In"
 msgstr "Prijavi se"
 
+#: data/resources/ui/settings.ui:7
+msgid "Account"
+msgstr "Račun"
+
 #: data/resources/ui/settings.ui:10
 msgid "Account Information"
 msgstr "Podatki o računu"
@@ -257,10 +277,12 @@ msgid "About Read It Later"
 msgstr "O programu Preberi pozneje"
 
 #: data/resources/ui/window.ui:104
+msgctxt "action button"
 msgid "Favorite"
-msgstr "Priljubljeno"
+msgstr "Priljubljeni"
 
 #: data/resources/ui/window.ui:112
+msgctxt "action button"
 msgid "Archive"
 msgstr "Arhiviraj"
 
@@ -269,18 +291,19 @@ msgid "Paste the article URL here"
 msgstr "Prilepite URL prispevka tukaj"
 
 #: data/resources/ui/window.ui:158
+msgctxt "action button"
 msgid "Save"
 msgstr "Shrani"
 
-#: src/application.rs:105
+#: src/application.rs:131
 msgid "Failed to logout"
 msgstr "Odjava ni uspela"
 
-#: src/application.rs:255 src/application.rs:260
+#: src/application.rs:270 src/application.rs:277
 msgid "Failed to log in"
 msgstr "Prijava ni uspela"
 
-#: src/application.rs:417
+#: src/application.rs:473
 msgid "translator-credits"
 msgstr ""
 "Matej Urbančič <mateju@svn.gnome.org>\n"
