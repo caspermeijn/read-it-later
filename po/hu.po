@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-04-25 18:08+0000\n"
-"PO-Revision-Date: 2023-07-26 01:27+0200\n"
+"POT-Creation-Date: 2023-08-30 06:37+0000\n"
+"PO-Revision-Date: 2023-09-05 20:02+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:6
@@ -30,7 +30,6 @@ msgid "Save and read web articles"
 msgstr "Webes cikkek mentése és olvasása"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
-#| msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
 msgid "GNOME;GTK;Wallabag;Web;Article;Offline;"
 msgstr "GNOME;GTK;Wallabag;Web;Cikk;Offline;Kapcsolat nélkül;"
 
@@ -94,19 +93,19 @@ msgstr ""
 "Emellett egy szemet gyönyörködtető olvasó móddal is rendelkezik, amely "
 "támogatja a kód szintaxiskiemelését és a sötét módot."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:74
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:81
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:78
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:85
 msgid "Main Window"
 msgstr "Főablak"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:82
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:89
 msgid "Article View"
 msgstr "Cikk nézet"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:86
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:93
 msgid "Adaptive view in dark mode"
 msgstr "Alkalmazkodó nézet sötét módban"
 
@@ -121,13 +120,11 @@ msgid "Unread"
 msgstr "Olvasatlan"
 
 #: data/resources/ui/articles.ui:26
-#| msgid "Favorite"
 msgctxt "view switcher"
 msgid "Favorites"
 msgstr "Kedvencek"
 
 #: data/resources/ui/articles.ui:38
-#| msgid "Archive"
 msgctxt "view switcher"
 msgid "Archive"
 msgstr "Archiválás"
@@ -224,6 +221,10 @@ msgstr "Jelszó"
 msgid "Log In"
 msgstr "Bejelentkezés"
 
+#: data/resources/ui/settings.ui:7
+msgid "Account"
+msgstr "Fiók"
+
 #: data/resources/ui/settings.ui:10
 msgid "Account Information"
 msgstr "Fiókinformációk"
@@ -269,13 +270,11 @@ msgid "About Read It Later"
 msgstr "A Későbbi olvasás névjegye"
 
 #: data/resources/ui/window.ui:104
-#| msgid "Favorite"
 msgctxt "action button"
 msgid "Favorite"
 msgstr "Kedvenc"
 
 #: data/resources/ui/window.ui:112
-#| msgid "Archive"
 msgctxt "action button"
 msgid "Archive"
 msgstr "Archiválás"
@@ -285,19 +284,18 @@ msgid "Paste the article URL here"
 msgstr "Illessze be ide a cikk URL-ét"
 
 #: data/resources/ui/window.ui:158
-#| msgid "Save"
 msgctxt "action button"
 msgid "Save"
 msgstr "Mentés"
 
-#: src/application.rs:104
+#: src/application.rs:131
 msgid "Failed to logout"
 msgstr "Nem sikerült kijelentkezni"
 
-#: src/application.rs:243 src/application.rs:248
+#: src/application.rs:270 src/application.rs:277
 msgid "Failed to log in"
 msgstr "Nem sikerült bejelentkezni"
 
-#: src/application.rs:409
+#: src/application.rs:473
 msgid "translator-credits"
 msgstr "Úr Balázs <ur dot balazs at fsf dot hu>, 2022, 2023."
