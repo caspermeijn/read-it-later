@@ -28,6 +28,8 @@ mod imp {
         #[template_child]
         pub archive_view: TemplateChild<ArticlesListWidget>,
         #[template_child]
+        pub revealer: TemplateChild<gtk::Revealer>,
+        #[template_child]
         pub progress_bar: TemplateChild<gtk::ProgressBar>,
 
         pub model: OnceCell<gio::ListStore>,
@@ -160,18 +162,18 @@ impl ArticlesView {
 
     pub fn set_progress_bar_pulsing(&self, state: bool) {
         let imp = self.imp();
-        imp.progress_bar.set_visible(state);
         if !state {
             if let Some(timeout) = imp.progress_bar_timeout.replace(None) {
                 timeout.remove();
             }
-            // If we hide the progress bar
-            imp.progress_bar.set_fraction(0.0); // Reset the fraction
+            imp.revealer.set_reveal_child(false);
         } else {
+            // Reset the progress bar position
+            imp.progress_bar.set_fraction(0.0);
             let timeout = glib::timeout_add_local(
                 std::time::Duration::from_millis(100),
                 clone!(@weak imp => @default-return glib::ControlFlow::Break, move || {
-                    imp.progress_bar.set_visible(true);
+                    imp.revealer.set_reveal_child(true);
                     imp.progress_bar.pulse();
                     glib::ControlFlow::Continue
                 }),

@@ -7,10 +7,15 @@
       </object>
     </property>
     <child>
-      <object class="GtkProgressBar" id="progress_bar">
-        <style>
-          <class name="loading-progress" />
-        </style>
+      <object class="GtkRevealer" id="revealer">
+        <property name="transition-duration">100</property>
+        <property name="child">
+          <object class="GtkProgressBar" id="progress_bar">
+            <style>
+              <class name="loading-progress" />
+            </style>
+          </object>
+        </property>
       </object>
     </child>
     <child>
