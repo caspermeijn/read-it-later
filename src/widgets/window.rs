@@ -12,7 +12,7 @@ use crate::{
 };
 
 mod imp {
-    use std::cell::OnceCell;
+    use std::cell::{OnceCell, RefCell};
 
     use glib::subclass::InitializingObject;
 
@@ -46,6 +46,7 @@ mod imp {
 
         pub sender: OnceCell<Sender<Action>>,
         pub actions: gio::SimpleActionGroup,
+        pub loading_progress_timeout: RefCell<Option<glib::source::SourceId>>,
     }
 
     #[glib::object_subclass]
@@ -145,19 +146,23 @@ impl Window {
             View::Syncing(state) => {
                 imp.loading_progress.set_visible(state);
                 if !state {
+                    if let Some(timeout) = imp.loading_progress_timeout.replace(None) {
+                        timeout.remove();
+                    }
                     // If we hide the progress bar
                     imp.loading_progress.set_fraction(0.0); // Reset the fraction
                 } else {
-                    let main_context = MainContext::default();
-
-                    imp.loading_progress.pulse();
-
-                    let future = clone!(@weak imp => async move {
-                        timeout_future_seconds(1).await;
-                        imp.loading_progress.pulse();
-                    });
-
-                    main_context.spawn_local(future);
+                    let timeout = glib::timeout_add_local(
+                        std::time::Duration::from_millis(100),
+                        clone!(@weak imp => @default-return glib::ControlFlow::Break, move || {
+                            imp.loading_progress.set_visible(true);
+                            imp.loading_progress.pulse();
+                            glib::ControlFlow::Continue
+                        }),
+                    );
+                    if let Some(old_timeout) = imp.loading_progress_timeout.replace(Some(timeout)) {
+                        old_timeout.remove();
+                    }
                 }
             }
             View::NewArticle => {

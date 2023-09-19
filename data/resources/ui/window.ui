@@ -168,7 +168,6 @@
         <child>
           <object class="GtkProgressBar" id="loading_progress">
             <property name="visible">False</property>
-            <property name="pulse-step">0.25</property>
             <style>
               <class name="loading-progress" />
             </style>
