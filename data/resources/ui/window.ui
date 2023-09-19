@@ -166,14 +166,6 @@
           </object>
         </child>
         <child>
-          <object class="GtkProgressBar" id="loading_progress">
-            <property name="visible">False</property>
-            <style>
-              <class name="loading-progress" />
-            </style>
-          </object>
-        </child>
-        <child>
           <object class="AdwToastOverlay" id="toast_overlay">
             <property name="child">
               <object class="GtkStack" id="main_stack">

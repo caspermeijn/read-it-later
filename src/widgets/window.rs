@@ -1,5 +1,5 @@
 use adw::{prelude::*, subclass::prelude::*};
-use glib::{clone, timeout_future_seconds, MainContext, Object, Sender};
+use glib::{clone, Object, Sender};
 use gtk::{gio, glib};
 use url::Url;
 
@@ -12,7 +12,7 @@ use crate::{
 };
 
 mod imp {
-    use std::cell::{OnceCell, RefCell};
+    use std::cell::OnceCell;
 
     use glib::subclass::InitializingObject;
 
@@ -27,8 +27,7 @@ mod imp {
         pub main_stack: TemplateChild<gtk::Stack>,
         #[template_child]
         pub headerbar_stack: TemplateChild<gtk::Stack>,
-        #[template_child]
-        pub loading_progress: TemplateChild<gtk::ProgressBar>,
+
         #[template_child]
         pub article_url_entry: TemplateChild<gtk::Entry>,
         #[template_child]
@@ -46,7 +45,6 @@ mod imp {
 
         pub sender: OnceCell<Sender<Action>>,
         pub actions: gio::SimpleActionGroup,
-        pub loading_progress_timeout: RefCell<Option<glib::source::SourceId>>,
     }
 
     #[glib::object_subclass]
@@ -143,28 +141,7 @@ impl Window {
 
                 self.set_default_widget(Some(imp.login_view.get_login_button()));
             }
-            View::Syncing(state) => {
-                imp.loading_progress.set_visible(state);
-                if !state {
-                    if let Some(timeout) = imp.loading_progress_timeout.replace(None) {
-                        timeout.remove();
-                    }
-                    // If we hide the progress bar
-                    imp.loading_progress.set_fraction(0.0); // Reset the fraction
-                } else {
-                    let timeout = glib::timeout_add_local(
-                        std::time::Duration::from_millis(100),
-                        clone!(@weak imp => @default-return glib::ControlFlow::Break, move || {
-                            imp.loading_progress.set_visible(true);
-                            imp.loading_progress.pulse();
-                            glib::ControlFlow::Continue
-                        }),
-                    );
-                    if let Some(old_timeout) = imp.loading_progress_timeout.replace(Some(timeout)) {
-                        old_timeout.remove();
-                    }
-                }
-            }
+            View::Syncing(state) => imp.articles_view.set_progress_bar_pulsing(state),
             View::NewArticle => {
                 imp.headerbar_stack.set_visible_child_name("new-article");
                 imp.article_url_entry.grab_focus_without_selecting();

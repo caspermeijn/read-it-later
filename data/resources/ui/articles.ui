@@ -2,12 +2,21 @@
 <interface>
   <template class="ArticlesView" parent="GtkWidget">
     <property name="layout-manager">
-      <object class="GtkBinLayout" />
+      <object class="GtkBoxLayout">
+        <property name="orientation">vertical</property>
+      </object>
     </property>
     <child>
+      <object class="GtkProgressBar" id="progress_bar">
+        <style>
+          <class name="loading-progress" />
+        </style>
+      </object>
+    </child>
+    <child>
       <object class="AdwViewStack" id="stack">
-        <property name="hhomogeneous">False</property>
-        <property name="vhomogeneous">False</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
         <child>
           <object class="AdwViewStackPage">
             <property name="name">unread</property>

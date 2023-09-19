@@ -1,10 +1,15 @@
 use futures::executor::ThreadPool;
-use gtk::{gio, glib, glib::Sender, prelude::*, subclass::prelude::*};
+use gtk::{
+    gio, glib,
+    glib::{clone, Sender},
+    prelude::*,
+    subclass::prelude::*,
+};
 
 use crate::models::{Article, ArticleAction, ArticleObject, ArticlesFilter};
 
 mod imp {
-    use std::cell::OnceCell;
+    use std::cell::{OnceCell, RefCell};
 
     use gtk::glib::subclass::InitializingObject;
 
@@ -22,8 +27,11 @@ mod imp {
         pub favorites_view: TemplateChild<ArticlesListWidget>,
         #[template_child]
         pub archive_view: TemplateChild<ArticlesListWidget>,
+        #[template_child]
+        pub progress_bar: TemplateChild<gtk::ProgressBar>,
 
         pub model: OnceCell<gio::ListStore>,
+        pub progress_bar_timeout: RefCell<Option<glib::source::SourceId>>,
     }
 
     #[glib::object_subclass]
@@ -148,5 +156,29 @@ impl ArticlesView {
 
     pub fn get_stack(&self) -> &adw::ViewStack {
         &self.imp().stack
+    }
+
+    pub fn set_progress_bar_pulsing(&self, state: bool) {
+        let imp = self.imp();
+        imp.progress_bar.set_visible(state);
+        if !state {
+            if let Some(timeout) = imp.progress_bar_timeout.replace(None) {
+                timeout.remove();
+            }
+            // If we hide the progress bar
+            imp.progress_bar.set_fraction(0.0); // Reset the fraction
+        } else {
+            let timeout = glib::timeout_add_local(
+                std::time::Duration::from_millis(100),
+                clone!(@weak imp => @default-return glib::ControlFlow::Break, move || {
+                    imp.progress_bar.set_visible(true);
+                    imp.progress_bar.pulse();
+                    glib::ControlFlow::Continue
+                }),
+            );
+            if let Some(old_timeout) = imp.progress_bar_timeout.replace(Some(timeout)) {
+                old_timeout.remove();
+            }
+        }
     }
 }
