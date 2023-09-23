@@ -35,7 +35,7 @@ mod imp {
         #[template_child]
         pub view_switcher_bar: TemplateChild<adw::ViewSwitcherBar>,
         #[template_child]
-        pub view_switcher_title: TemplateChild<adw::ViewSwitcherTitle>,
+        pub view_switcher_title: TemplateChild<adw::ViewSwitcher>,
         #[template_child]
         pub login_view: TemplateChild<Login>,
         #[template_child]
