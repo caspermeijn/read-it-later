@@ -5,24 +5,24 @@ authors = ["Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>", "Casper Meijn <caspe
 edition = "2021"
 
 [dependencies]
-gtk = {version = "0.7.2", package = "gtk4", features = ["gnome_45"]}
-adw = { version = "0.5.2", package = "libadwaita", features = ["v1_4"] }
+gtk = {version = "0.7.3", package = "gtk4", features = ["gnome_45"]}
+adw = { version = "0.5.3", package = "libadwaita", features = ["v1_4"] }
 webkit = { version = "0.2", package = "webkit6" }
 log = "0.4"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
 wallabag-api = "0.4"
 pretty_env_logger = "0.5"
-diesel = { version = "2.1.0", features = ["sqlite", "r2d2", "chrono"] }
+diesel = { version = "2.1.1", features = ["sqlite", "r2d2", "chrono"] }
 diesel_migrations = {  version = "2.1.0", features = ["sqlite"] }
 anyhow = "1"
 isahc = "1"
-sanitize_html = "0.7"
+sanitize_html = "0.8.0"
 regex = "1"
 secret-service = { version = "3.0.1", features = ["rt-async-io-crypto-openssl"] }
 chrono = "0.4"
 url = "2"
 strum = { version = "0.25", features = ["derive"] }
-sha1 = "0.10.5"
+sha1 = "0.10.6"
 base16ct = { version = "0.2.0", features = [ "alloc" ] }
 async-std = "1"
 futures = { version = "0.3", features = [ "thread-pool" ] }
