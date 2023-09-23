@@ -1,10 +1,13 @@
-use gtk::{gdk_pixbuf::Pixbuf, glib, prelude::*, subclass::prelude::*};
+use gtk::{glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use std::{cell::RefCell, str::FromStr};
 
     use glib::once_cell::sync::Lazy;
-    use gtk::glib::{clone, subclass::InitializingObject, ParamSpec, Value};
+    use gtk::{
+        gdk::Texture,
+        glib::{clone, subclass::InitializingObject, ParamSpec, Value},
+    };
     use url::Url;
 
     use super::*;
@@ -60,7 +63,7 @@ mod imp {
                     ctx.spawn_local(
                         clone!(@weak self as article_preview => async move {
                             match article_preview.get_preview_picture().await {
-                                Some(pixbuf) => article_preview.set_pixbuf(&pixbuf),_ => article_preview.obj().set_visible(false),
+                                Some(texture) => article_preview.set_texture(&texture),_ => article_preview.obj().set_visible(false),
                             };
                         }
                     ));
@@ -77,7 +80,7 @@ mod imp {
     impl WidgetImpl for ArticlePreview {}
 
     impl ArticlePreview {
-        pub async fn get_preview_picture(&self) -> Option<Pixbuf> {
+        pub async fn get_preview_picture(&self) -> Option<Texture> {
             let url = self.url.borrow().clone();
             match url {
                 Some(preview_picture) => {
@@ -86,14 +89,14 @@ mod imp {
                         preview_image.download().await.ok()?;
                     }
 
-                    Pixbuf::from_file(&preview_image.cache).ok()
+                    Texture::from_filename(&preview_image.cache).ok()
                 }
                 None => None,
             }
         }
 
-        pub fn set_pixbuf(&self, pixbuf: &Pixbuf) {
-            self.image.set_pixbuf(Some(pixbuf));
+        pub fn set_texture(&self, texture: &Texture) {
+            self.image.set_paintable(Some(texture));
             self.image.set_visible(true);
             self.spinner.set_visible(false);
         }
