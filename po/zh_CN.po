@@ -3,82 +3,37 @@
 # This file is distributed under the same license as the read-it-later package.
 # Damned <damnedlies@163.com>, 2020.
 # Dingzhong Chen <wsxy162@gmail.com>, 2021.
+# lumingzh <lumingzh@qq.com>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2020-09-06 11:48+0000\n"
-"PO-Revision-Date: 2021-05-29 23:54+0800\n"
-"Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
+"POT-Creation-Date: 2023-08-30 06:37+0000\n"
+"PO-Revision-Date: 2023-10-25 08:07+0800\n"
+"Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 40.0\n"
+"X-Generator: Gtranslator 45.2\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:6
+#: data/resources/ui/window.ui:66
 msgid "Read It Later"
 msgstr "稍后阅读"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
-msgid "A Wallabag Client."
-msgstr "Wallabag 客户端。"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
-msgid ""
-"Read It Later, is a simple Wallabag client. It has the basic features to "
-"manage your articles"
-msgstr "稍后阅读，是一个简单的 Wallabag 客户端。具有管理您的文章的基本功能"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
-msgid "Add new articles"
-msgstr "新添文章"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
-msgid "Archive an article"
-msgstr "归档文章"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
-msgid "Delete an article"
-msgstr "删除文章"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
-msgid "Favorite an article"
-msgstr "收藏文章"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
-msgid ""
-"It also comes with a nice on eyes reader mode that supports code syntax "
-"highlighting and a dark mode"
-msgstr "它还配有对眼睛友好的阅读器模式，支持代码语法高亮和深色模式"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
-msgid "Main Window"
-msgstr "主窗口"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
-msgid "Article View"
-msgstr "文章视图"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
-msgid "Adaptive view in dark mode"
-msgstr "深色模式中的自适应视图"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
-msgid "Bilal Elmoussaoui"
-msgstr "Bilal Elmoussaoui"
-
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-msgid "A Wallabag Client"
-msgstr "Wallabag 客户端"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+msgid "Save and read web articles"
+msgstr "保存和阅读网络文章"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
-msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
-msgstr "Gnome;GTK;Wallabag;Web;Article;Offline;文章;离线;"
+msgid "GNOME;GTK;Wallabag;Web;Article;Offline;"
+msgstr "GNOME;GTK;Wallabag;Web;Article;Offline;网络;书签;文章;离线;"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
 msgid "Default window width"
@@ -97,157 +52,274 @@ msgid "Default window y position"
 msgstr "默认窗口 y 位置"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
-msgid "Default window maximized behaviour"
+msgid "Default window maximized behavior"
 msgstr "默认窗口最大化行为"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
-msgid "Logged in username"
+msgid "Logged in user name"
 msgstr "登录的用户名"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
 msgid "Latest successful sync in ms"
 msgstr "最新成功同步（毫秒）"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:34
-msgid "Whether we should use a dark theme or not"
-msgstr "是否应使用深色主题"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:9
+msgid ""
+"Read It Later, is a simple Wallabag client. It has the basic features to "
+"manage your articles."
+msgstr "稍后阅读，是一个简单的 Wallabag 客户端。具有管理您的文章的基本功能"
 
-#: data/resources/ui/about_dialog.ui.in:13
-msgid "translator-credits"
-msgstr "Damned <damnedlies@163.com>, 2020."
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:11
+msgid "Add new articles"
+msgstr "添加新文章"
 
-#: data/resources/ui/articles_list.ui:59
-msgid "No articles found"
-msgstr "未找到文章"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+msgid "Archive an article"
+msgstr "归档文章"
 
-#: data/resources/ui/menu.ui:19
-msgid "Add Article..."
-msgstr "添加文章…"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+msgid "Delete an article"
+msgstr "删除文章"
 
-#: data/resources/ui/menu.ui:44
-msgid "Settings"
-msgstr "设置"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+msgid "Favorite an article"
+msgstr "收藏文章"
 
-#: data/resources/ui/menu.ui:58
-msgid "Logout"
-msgstr "注销"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:16
+msgid ""
+"It also comes with a nice on eyes reader mode that supports code syntax "
+"highlighting and a dark mode."
+msgstr "它还配有对眼睛友好并支持代码语法高亮和深色模式的阅读器模式。"
 
-#: data/resources/ui/menu.ui:83
-msgid "Keyboard Shortcuts"
-msgstr "快捷键"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:81
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/menu.ui:97
-msgid "About Read It Later"
-msgstr "关于稍后阅读"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:85
+msgid "Main Window"
+msgstr "主窗口"
 
-#: data/resources/ui/settings.ui:15
-msgid "Appearance"
-msgstr "外观"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:89
+msgid "Article View"
+msgstr "文章视图"
 
-#: data/resources/ui/settings.ui:19
-msgid "Enable dark mode"
-msgstr "启用深色模式"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:93
+msgid "Adaptive view in dark mode"
+msgstr "深色模式中的自适应视图"
 
-#: data/resources/ui/settings.ui:41
-msgid "Account Settings"
-msgstr "帐户设置"
+#. Translators: This status is shown when the list of articles is empty
+#: data/resources/ui/articles_list.ui:34
+msgid "Pretty clean!"
+msgstr "相当干净！"
 
-#: data/resources/ui/settings.ui:45
-msgid "Username"
-msgstr "用户名"
+#: data/resources/ui/articles.ui:14
+msgctxt "view switcher"
+msgid "Unread"
+msgstr "未读"
 
-#: data/resources/ui/settings.ui:59
-msgid "Email"
-msgstr "电子邮件"
+#: data/resources/ui/articles.ui:26
+msgctxt "view switcher"
+msgid "Favorites"
+msgstr "收藏"
 
-#: data/resources/ui/settings.ui:73
-msgid "Created At"
-msgstr "创建于"
+#: data/resources/ui/articles.ui:38
+msgctxt "view switcher"
+msgid "Archive"
+msgstr "归档"
 
-#: data/resources/ui/settings.ui:87
-msgid "Updated At"
-msgstr "更新于"
-
-#: data/resources/ui/shortcuts.ui:13
+#: data/resources/ui/gtk/help-overlay.ui:12
 msgctxt "shortcut window"
 msgid "General"
 msgstr "常规"
 
-#: data/resources/ui/shortcuts.ui:17
+#: data/resources/ui/gtk/help-overlay.ui:15
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "显示快捷键"
 
-#: data/resources/ui/shortcuts.ui:24
+#: data/resources/ui/gtk/help-overlay.ui:21
 msgctxt "shortcut window"
 msgid "Preferences"
 msgstr "首选项"
 
-#: data/resources/ui/shortcuts.ui:31
+#: data/resources/ui/gtk/help-overlay.ui:27
 msgctxt "shortcut window"
 msgid "Back"
 msgstr "后退"
 
-#: data/resources/ui/shortcuts.ui:38
+#: data/resources/ui/gtk/help-overlay.ui:33
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "退出"
 
-#: data/resources/ui/shortcuts.ui:47
+#: data/resources/ui/gtk/help-overlay.ui:41
 msgctxt "shortcut window"
 msgid "Articles"
 msgstr "文章"
 
-#: data/resources/ui/shortcuts.ui:51
+#: data/resources/ui/gtk/help-overlay.ui:44
 msgctxt "shortcut window"
 msgid "Synchronize"
 msgstr "同步"
 
-#: data/resources/ui/shortcuts.ui:58
+#: data/resources/ui/gtk/help-overlay.ui:50
 msgctxt "shortcut window"
 msgid "New Article"
-msgstr "新添文章"
+msgstr "添加新文章"
 
-#: data/resources/ui/shortcuts.ui:65
+#: data/resources/ui/gtk/help-overlay.ui:56
 msgctxt "shortcut window"
 msgid "Delete Article"
 msgstr "删除文章"
 
-#: data/resources/ui/shortcuts.ui:72
+#: data/resources/ui/gtk/help-overlay.ui:62
 msgctxt "shortcut window"
 msgid "Favorite Article"
 msgstr "收藏文章"
 
-#: data/resources/ui/shortcuts.ui:79
+#: data/resources/ui/gtk/help-overlay.ui:68
 msgctxt "shortcut window"
 msgid "Archive Article"
 msgstr "归档文章"
 
-#: data/resources/ui/shortcuts.ui:86
+#: data/resources/ui/gtk/help-overlay.ui:74
 msgctxt "shortcut window"
-msgid "Open Article In Browser"
+msgid "Open Article in Browser"
 msgstr "在浏览器中打开文章"
 
-#: data/resources/ui/window.ui.in:25
+#: data/resources/ui/login.ui:32
+msgid "Welcome to Read It Later"
+msgstr "欢迎使用稍后阅读"
+
+#: data/resources/ui/login.ui:42
+msgid "Please sign in using your Wallabag instance information"
+msgstr "请使用您的 Wallabag 实例信息登录"
+
+#: data/resources/ui/login.ui:57
+msgid "Instance URL"
+msgstr "实例 URL"
+
+#: data/resources/ui/login.ui:63
+msgid "Client ID"
+msgstr "客户端标识"
+
+#: data/resources/ui/login.ui:69
+msgid "Client Secret"
+msgstr "客户端保密"
+
+#: data/resources/ui/login.ui:75 data/resources/ui/settings.ui:13
+msgid "User Name"
+msgstr "用户名"
+
+#: data/resources/ui/login.ui:81
+msgid "Password"
+msgstr "密码"
+
+#: data/resources/ui/login.ui:91
+msgid "Log In"
+msgstr "登录"
+
+#: data/resources/ui/settings.ui:7
+msgid "Account"
+msgstr "账户"
+
+#: data/resources/ui/settings.ui:10
+msgid "Account Information"
+msgstr "账户信息"
+
+#: data/resources/ui/settings.ui:21
+msgid "Email"
+msgstr "电子邮件"
+
+#: data/resources/ui/settings.ui:29
+msgid "Created At"
+msgstr "创建于"
+
+#: data/resources/ui/settings.ui:37
+msgid "Updated At"
+msgstr "更新于"
+
+#: data/resources/ui/window.ui:6
 msgid "Open Website"
 msgstr "打开网站"
 
-#: data/resources/ui/window.ui.in:50
+#: data/resources/ui/window.ui:12
 msgid "Delete Article"
 msgstr "删除文章"
 
-#: data/resources/ui/window.ui.in:181
+#: data/resources/ui/window.ui:20
+msgid "Add Article…"
+msgstr "添加文章…"
+
+#: data/resources/ui/window.ui:26
+msgid "Preferences"
+msgstr "首选项"
+
+#: data/resources/ui/window.ui:30
+msgid "Log Out"
+msgstr "登出"
+
+#: data/resources/ui/window.ui:36
+msgid "Keyboard Shortcuts"
+msgstr "键盘快捷键"
+
+#: data/resources/ui/window.ui:40
+msgid "About Read It Later"
+msgstr "关于稍后阅读"
+
+#: data/resources/ui/window.ui:104
+msgctxt "action button"
 msgid "Favorite"
 msgstr "收藏"
 
-#: data/resources/ui/window.ui.in:201
+#: data/resources/ui/window.ui:112
+msgctxt "action button"
 msgid "Archive"
 msgstr "归档"
 
-#: data/resources/ui/window.ui.in:273
-msgid "Paste the article url here"
-msgstr "在此处粘贴文章 url"
+#: data/resources/ui/window.ui:151
+msgid "Paste the article URL here"
+msgstr "在此处粘贴文章 URL"
 
-#: data/resources/ui/window.ui.in:283
+#: data/resources/ui/window.ui:158
+msgctxt "action button"
 msgid "Save"
 msgstr "保存"
+
+#: src/application.rs:131
+msgid "Failed to logout"
+msgstr "登出失败"
+
+#: src/application.rs:270 src/application.rs:277
+msgid "Failed to log in"
+msgstr "登录失败"
+
+#: src/application.rs:473
+msgid "translator-credits"
+msgstr ""
+"Damned <damnedlies@163.com>, 2020.\n"
+"lumingzh <lumingzh@qq.com>, 2023."
+
+#~ msgid "A Wallabag Client."
+#~ msgstr "Wallabag 客户端。"
+
+#~ msgid "A Wallabag Client"
+#~ msgstr "Wallabag 客户端"
+
+#~ msgid "Whether we should use a dark theme or not"
+#~ msgstr "是否应使用深色主题"
+
+#~ msgid "No articles found"
+#~ msgstr "未找到文章"
+
+#~ msgid "Settings"
+#~ msgstr "设置"
+
+#~ msgid "Logout"
+#~ msgstr "注销"
+
+#~ msgid "Appearance"
+#~ msgstr "外观"
+
+#~ msgid "Enable dark mode"
+#~ msgstr "启用深色模式"
