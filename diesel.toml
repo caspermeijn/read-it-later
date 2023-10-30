@@ -1,3 +1,7 @@
+# Copyright 2019 Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 # For documentation on how to configure this file,
 # see diesel.rs/guides/configuring-diesel-cli
 

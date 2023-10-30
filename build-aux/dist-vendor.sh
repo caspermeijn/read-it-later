@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# Copyright 2019 Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 export DIST="$1"
 export SOURCE_ROOT="$2"
 

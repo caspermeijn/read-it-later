@@ -1,3 +1,9 @@
+# Copyright 2019 Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>
+# Copyright 2021 Alistair Francis <alistair@alistair23.me>
+# Copyright 2022 Casper Meijn <casper@meijn.net>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 global_conf = configuration_data()
 global_conf.set_quoted('APP_ID', application_id)
 global_conf.set_quoted('PKGDATADIR', pkgdatadir)
