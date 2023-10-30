@@ -1,3 +1,6 @@
+<!-- SPDX-License-Identifier: CC-BY-SA-4.0 -->
+<!-- Copyright 2023 Casper Meijn <casper@meijn.net> -->
+
 # Recreating screenshots
 This document contains advice on recreating the screenshots in this repo.
 

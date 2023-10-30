@@ -1,3 +1,8 @@
+<!-- Copyright 2019 Bilal Elmoussaoui <bil.elmoussaoui@gmail.com> -->
+<!-- Copyright 2020 Thibault Martin <mail@thibaultmart.in> -->
+<!-- Copyright 2022 Casper Meijn <casper@meijn.net> -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+
 <a href="https://flathub.org/apps/details/com.belmoussaoui.ReadItLater">
 <img src="https://flathub.org/assets/badges/flathub-badge-i-en.png" width="190px" />
 </a>

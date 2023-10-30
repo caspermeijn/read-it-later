@@ -1,3 +1,6 @@
+<!-- SPDX-License-Identifier: CC-BY-SA-4.0 -->
+<!-- Copyright 2023 Casper Meijn <casper@meijn.net> -->
+
 # Manual testing
 This chapter contains instructions for manually testing Read It Later. Following these steps, you will have seen the different views of the application and executed all actions. This document is more a guideline than a strict instruction. Feel free to deviate from the steps.
 
