@@ -1,3 +1,10 @@
+// Copyright 2019 Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>
+// Copyright 2020 Julian Hofer <julian.git@mailbox.org>
+// Copyright 2021 Alistair Francis <alistair@alistair23.me>
+// Copyright 2022 Casper Meijn <casper@meijn.net>
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #[macro_use]
 extern crate diesel_migrations;
 #[macro_use]

@@ -1,3 +1,9 @@
+// Copyright 2019 Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>
+// Copyright 2021 Alistair Francis <alistair@alistair23.me>
+// Copyright 2022 Casper Meijn <casper@meijn.net>
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 use adw::subclass::prelude::*;
 use async_std::sync::{Arc, Mutex};
 use gtk::glib;

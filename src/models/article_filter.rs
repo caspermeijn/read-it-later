@@ -1,3 +1,9 @@
+// Copyright 2019 Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>
+// Copyright 2020 thibaultamartin <mail@thibaultmart.in>
+// Copyright 2022 Casper Meijn <casper@meijn.net>
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 use glib::Cast;
 use gtk::glib;
 

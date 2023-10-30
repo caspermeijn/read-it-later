@@ -1,3 +1,10 @@
+// Copyright 2019 Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>
+// Copyright 2020 Florian Müllner <fmuellner@gnome.org>
+// Copyright 2021 Alistair Francis <alistair@alistair23.me>
+// Copyright 2022 Casper Meijn <casper@meijn.net>
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 use adw::{prelude::*, subclass::prelude::*};
 use glib::{clone, Object, Sender};
 use gtk::{gio, glib};
