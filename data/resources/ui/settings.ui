@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2019 Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>
+Copyright 2021 Alistair Francis <alistair@alistair23.me>
+Copyright 2022 Casper Meijn <casper@meijn.net>
+Copyright 2022 Piotr Drąg <piotrdrag@gmail.com>
+Copyright 2023 Sabri Ünal <libreajans@gmail.com>
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
 <interface>
   <template class="SettingsWidget" parent="AdwPreferencesWindow">
     <child>

@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2019 Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>
+Copyright 2022 Casper Meijn <casper@meijn.net>
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
 <gresources>
   <gresource prefix="/com/belmoussaoui/ReadItLater">
     <file compressed="true" preprocess="xml-stripblanks" alias="article_preview.ui">ui/article_preview.ui</file>

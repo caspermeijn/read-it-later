@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2023 Casper Meijn <casper@meijn.net>
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
 <interface>
   <template class="ArticlesView" parent="GtkWidget">
     <property name="layout-manager">

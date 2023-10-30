@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2020 Baptiste Mille-Mathias <baptiste.millemathias@gmail.com>
+Copyright 2020 Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>
+Copyright 2021 Alistair Francis <alistair@alistair23.me>
+Copyright 2022 Casper Meijn <casper@meijn.net>
+Copyright 2022 Piotr Drąg <piotrdrag@gmail.com>
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
 <interface>
   <template class="Login" parent="GtkWidget">
     <property name="layout-manager">
