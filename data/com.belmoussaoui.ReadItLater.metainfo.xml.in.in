@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Bilal Elmoussaoui 2019 <bilal.elmoussaoui@gnome.org> -->
+<!--
+Copyright 2019 Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>
+Copyright 2020 Adrien Plazas <kekun.plazas@laposte.net>
+Copyright 2020 Moul <moul@moul.re>
+Copyright 2020 Thibault Martin <mail@thibaultmart.in>
+Copyright 2022 Casper Meijn <casper@meijn.net>
+
+SPDX-License-Identifier: CC0-1.0
+-->
 <component type="desktop-application">
   <id>@app-id@</id>
   <metadata_license>CC0-1.0</metadata_license>

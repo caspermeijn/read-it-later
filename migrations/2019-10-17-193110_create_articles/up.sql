@@ -1,4 +1,6 @@
--- Your SQL goes here
+-- Copyright 2019 Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>
+--
+-- SPDX-License-Identifier: GPL-3.0-or-later
 
 CREATE TABLE `articles` (
     `id` INTEGER NOT NULL UNIQUE,

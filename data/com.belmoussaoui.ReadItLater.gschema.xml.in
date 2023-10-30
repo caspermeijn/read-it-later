@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2019 Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>
+Copyright 2022 Casper Meijn <casper@meijn.net>
+Copyright 2022 Piotr Drąg <piotrdrag@gmail.com>
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
 <schemalist>
   <schema path="/com/belmoussaoui/ReadItLater/" id="@app-id@" gettext-domain="@gettext-package@">
     <key name="window-width" type="i">
