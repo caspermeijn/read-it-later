@@ -39,7 +39,6 @@ SPDX-License-Identifier: CC0-1.0
   </keywords>
   <url type="homepage">https://gitlab.gnome.org/World/read-it-later</url>
   <url type="bugtracker">https://gitlab.gnome.org/World/read-it-later/issues</url>
-  <url type="donation">https://liberapay.com/bielmoussaoui</url>
   <url type="translate">https://l10n.gnome.org/module/read-it-later/</url>
   <launchable type="desktop-id">@app-id@.desktop</launchable>
   <releases>
