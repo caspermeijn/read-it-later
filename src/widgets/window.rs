@@ -138,15 +138,17 @@ impl Window {
         match view {
             View::Article => {
                 imp.main_stack.set_visible_child_name("article");
+                imp.headerbar_stack.set_visible(true);
                 imp.headerbar_stack.set_visible_child_name("article");
             }
             View::Articles => {
                 imp.main_stack.set_visible_child_name("articles");
+                imp.headerbar_stack.set_visible(true);
                 imp.headerbar_stack.set_visible_child_name("articles");
             }
             View::Login => {
                 imp.main_stack.set_visible_child_name("login");
-                imp.headerbar_stack.set_visible_child_name("login");
+                imp.headerbar_stack.set_visible(false);
 
                 self.set_default_widget(Some(imp.login_view.get_login_button()));
             }

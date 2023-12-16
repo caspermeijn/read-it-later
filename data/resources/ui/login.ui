@@ -11,10 +11,18 @@ SPDX-License-Identifier: GPL-3.0-or-later
 <interface>
   <template class="Login" parent="GtkWidget">
     <property name="layout-manager">
-      <object class="GtkBinLayout" />
+      <object class="GtkBoxLayout">
+        <property name="orientation">vertical</property>
+      </object>
     </property>
     <child>
+      <object class="AdwHeaderBar" id="login_header_bar">
+        <property name="show-end-title-buttons">True</property>
+      </object>
+    </child>
+    <child>
       <object class="GtkScrolledWindow">
+        <property name="vexpand">True</property>
         <property name="child">
           <object class="AdwClamp" id="login">
             <property name="maximum-size">450</property>
