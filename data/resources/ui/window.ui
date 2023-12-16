@@ -9,20 +9,6 @@ Copyright 2022 Piotr Drąg <piotrdrag@gmail.com>
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
 <interface>
-  <menu id="article-menu">
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">Open Website</attribute>
-        <attribute name="action">article.open</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">Delete Article</attribute>
-        <attribute name="action">article.delete</attribute>
-      </item>
-    </section>
-  </menu>
   <menu id="app-menu">
     <section>
       <item>
@@ -88,46 +74,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
                         <property name="receives-default">True</property>
                         <property name="menu-model">app-menu</property>
                         <property name="icon-name">open-menu-symbolic</property>
-                      </object>
-                    </child>
-                  </object>
-                </property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkStackPage">
-                <property name="name">article</property>
-                <property name="child">
-                  <object class="AdwHeaderBar">
-                    <property name="show-end-title-buttons">True</property>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="receives-default">True</property>
-                        <property name="action-name">win.previous</property>
-                        <property name="icon-name">go-previous-symbolic</property>
-                      </object>
-                    </child>
-                    <child type="end">
-                      <object class="GtkMenuButton" id="articlemenu_button">
-                        <property name="receives-default">True</property>
-                        <property name="menu-model">article-menu</property>
-                        <property name="icon-name">view-more-symbolic</property>
-                      </object>
-                    </child>
-                    <child type="end">
-                      <object class="GtkToggleButton" id="favorite_togglebtn">
-                        <property name="receives-default">True</property>
-                        <property name="action-name">article.favorite</property>
-                        <property name="tooltip-text" translatable="yes" context="action button">Favorite</property>
-                        <property name="icon-name">favorites-symbolic</property>
-                      </object>
-                    </child>
-                    <child type="end">
-                      <object class="GtkToggleButton" id="archive_togglebtn">
-                        <property name="receives-default">True</property>
-                        <property name="action-name">article.archive</property>
-                        <property name="tooltip-text" translatable="yes" context="action button">Archive</property>
-                        <property name="icon-name">archive-symbolic</property>
                       </object>
                     </child>
                   </object>

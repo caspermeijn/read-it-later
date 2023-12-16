@@ -138,8 +138,7 @@ impl Window {
         match view {
             View::Article => {
                 imp.main_stack.set_visible_child_name("article");
-                imp.headerbar_stack.set_visible(true);
-                imp.headerbar_stack.set_visible_child_name("article");
+                imp.headerbar_stack.set_visible(false);
             }
             View::Articles => {
                 imp.main_stack.set_visible_child_name("articles");
