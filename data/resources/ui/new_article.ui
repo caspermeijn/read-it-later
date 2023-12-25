@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2023 Casper Meijn <casper@meijn.net>
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+<interface>
+  <template class="NewArticle" parent="AdwWindow">
+    <property name="default-width">750</property>
+    <property name="modal">True</property>
+    <property name="title" translatable="yes" context="window title">Add article</property>
+    <property name="default-widget">save_article_btn</property>
+    <property name="content">
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="GtkHeaderBar">
+            <property name="show-title-buttons">False</property>
+            <child>
+              <object class="GtkButton">
+                <property name="use-underline">True</property>
+                <property name="action-name">window.close</property>
+                <property name="label" translatable="yes" context="action button">Cancel</property>
+              </object>
+            </child>
+            <child type="end">
+              <object class="GtkButton" id="save_article_btn">
+                <property name="label" translatable="yes" context="action button">Add</property>
+                <property name="use-underline">True</property>
+                <property name="action-name">win.accept</property>
+                <style>
+                  <class name="suggested-action" />
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
+        <property name="content">
+          <object class="GtkEntry" id="article_url_entry">
+            <signal name="changed" handler="on_article_url_changed" swapped="true" />
+            <property name="activates-default">True</property>
+            <property name="input-purpose">url</property>
+            <property name="placeholder-text" translatable="yes">Paste the article URL here</property>
+            <property name="margin-start">8</property>
+            <property name="margin-end">8</property>
+            <property name="margin-top">8</property>
+            <property name="margin-bottom">8</property>
+          </object>
+        </property>
+      </object>
+    </property>
+  </template>
+</interface>

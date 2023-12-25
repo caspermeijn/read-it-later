@@ -55,7 +55,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">New Article</property>
-                <property name="action-name">app.new-article</property>
+                <property name="action-name">win.new-article</property>
               </object>
             </child>
             <child>

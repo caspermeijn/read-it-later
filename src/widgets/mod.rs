@@ -5,6 +5,7 @@
 
 mod article;
 pub mod articles;
+mod new_article;
 mod settings;
 mod window;
 

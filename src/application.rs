@@ -183,14 +183,6 @@ impl Application {
                     Application::show_about_dialog(window);
                 })
                 .build(),
-            // New article
-            gio::ActionEntry::builder("new-article")
-                .activate(|app: &Application, _, _| {
-                    let imp = app.imp();
-                    let sender = imp.sender.get().unwrap();
-                    sender.send(Action::SetView(View::NewArticle)).unwrap();
-                })
-                .build(),
             // Log out
             gio::ActionEntry::builder("logout")
                 .activate(|app: &Application, _, _| {
@@ -226,7 +218,7 @@ impl Application {
 
         self.set_accels_for_action("app.quit", &["<primary>q"]);
         self.set_accels_for_action("app.settings", &["<primary>comma"]);
-        self.set_accels_for_action("app.new-article", &["<primary>N"]);
+        self.set_accels_for_action("win.new-article", &["<primary>N"]);
         self.set_accels_for_action("app.sync", &["F5"]);
         // Articles
         self.set_accels_for_action("article.delete", &["Delete"]);

@@ -8,7 +8,6 @@
 use adw::{prelude::*, subclass::prelude::*};
 use glib::{clone, Object, Sender};
 use gtk::{gio, glib};
-use url::Url;
 
 use crate::{
     application::Action,
@@ -24,6 +23,7 @@ mod imp {
     use glib::subclass::InitializingObject;
 
     use super::*;
+    use crate::widgets::new_article::NewArticle;
 
     #[derive(gtk::CompositeTemplate, Default)]
     #[template(resource = "/com/belmoussaoui/ReadItLater/window.ui")]
@@ -35,10 +35,6 @@ mod imp {
         #[template_child]
         pub headerbar_stack: TemplateChild<gtk::Stack>,
 
-        #[template_child]
-        pub article_url_entry: TemplateChild<gtk::Entry>,
-        #[template_child]
-        pub save_article_btn: TemplateChild<gtk::Button>,
         #[template_child]
         pub view_switcher_bar: TemplateChild<adw::ViewSwitcherBar>,
         #[template_child]
@@ -66,6 +62,13 @@ mod imp {
             klass.install_action("win.previous", None, move |window, _, _| {
                 let sender = window.imp().sender.get().unwrap();
                 sender.send(Action::PreviousView).unwrap();
+            });
+
+            klass.install_action("win.new-article", None, move |window, _, _| {
+                let sender = window.imp().sender.get().unwrap().clone();
+                let dialog = NewArticle::new(sender);
+                dialog.set_transient_for(Some(window));
+                dialog.present();
             });
         }
 
@@ -100,7 +103,6 @@ pub enum View {
     Login,         // Sign in
     Articles,      // Unread articles
     Syncing(bool), // During sync
-    NewArticle,    // New Article
 }
 
 impl Window {
@@ -149,11 +151,6 @@ impl Window {
                 self.set_default_widget(Some(imp.login_view.get_login_button()));
             }
             View::Syncing(state) => imp.articles_view.set_progress_bar_pulsing(state),
-            View::NewArticle => {
-                imp.headerbar_stack.set_visible_child_name("new-article");
-                imp.article_url_entry.grab_focus_without_selecting();
-                self.set_default_widget(Some(&imp.save_article_btn.get()));
-            }
         }
     }
 
@@ -205,15 +202,6 @@ impl Window {
                 }
             }),
         );
-
-        let sender = imp.sender.get().unwrap();
-        imp.save_article_btn
-            .connect_clicked(clone!(@weak imp, @strong sender => move |_| {
-                if let Ok(url) = Url::parse(&imp.article_url_entry.text()) {
-                    sender.send(Action::SaveArticle(url)).unwrap();
-                    imp.article_url_entry.set_text("");
-                }
-            }));
 
         self.set_view(View::Login);
     }
