@@ -165,17 +165,17 @@ SPDX-License-Identifier: GPL-3.0-or-later
                 </child>
                 <child>
                   <object class="GtkStackPage">
-                    <property name="name">article</property>
+                    <property name="name">articles</property>
                     <property name="child">
-                      <object class="ArticleWidget" id="article_widget" />
+                      <object class="ArticlesView" id="articles_view" />
                     </property>
                   </object>
                 </child>
                 <child>
                   <object class="GtkStackPage">
-                    <property name="name">articles</property>
+                    <property name="name">article</property>
                     <property name="child">
-                      <object class="ArticlesView" id="articles_view" />
+                      <object class="ArticleWidget" id="article_widget" />
                     </property>
                   </object>
                 </child>
