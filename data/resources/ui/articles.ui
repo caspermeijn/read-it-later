@@ -5,65 +5,126 @@ Copyright 2023 Casper Meijn <casper@meijn.net>
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
 <interface>
-  <template class="ArticlesView" parent="GtkWidget">
-    <property name="layout-manager">
-      <object class="GtkBoxLayout">
+  <menu id="app-menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Add Article…</attribute>
+        <attribute name="action">win.new-article</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Preferences</attribute>
+        <attribute name="action">app.settings</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Log Out</attribute>
+        <attribute name="action">app.logout</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Keyboard Shortcuts</attribute>
+        <attribute name="action">win.show-help-overlay</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">About Read It Later</attribute>
+        <attribute name="action">app.about</attribute>
+      </item>
+    </section>
+  </menu>
+  <template class="ArticlesView" parent="AdwBreakpointBin">
+    <property name="width-request">150</property>
+    <property name="height-request">150</property>
+    <child>
+      <object class="AdwBreakpoint">
+        <condition>max-width: 550sp</condition>
+        <setter object="header_bar" property="title-widget" />
+        <setter object="switcher_bar" property="reveal">True</setter>
+      </object>
+    </child>
+    <property name="child">
+      <object class="GtkBox">
         <property name="orientation">vertical</property>
+        <child>
+          <object class="AdwHeaderBar" id="header_bar">
+            <property name="show-end-title-buttons">True</property>
+            <property name="centering-policy">strict</property>
+            <child type="title">
+              <object class="AdwViewSwitcher" id="view_switcher_title">
+                <property name="stack">stack</property>
+                <property name="policy">wide</property>
+              </object>
+            </child>
+            <child type="end">
+              <object class="GtkMenuButton" id="appmenu_button">
+                <property name="receives-default">True</property>
+                <property name="menu-model">app-menu</property>
+                <property name="icon-name">open-menu-symbolic</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkRevealer" id="revealer">
+            <property name="transition-duration">100</property>
+            <property name="child">
+              <object class="GtkProgressBar" id="progress_bar">
+                <style>
+                  <class name="loading-progress" />
+                </style>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwViewStack" id="stack">
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="name">unread</property>
+                <property name="title" translatable="yes" context="view switcher">Unread</property>
+                <property name="icon-name">unread-symbolic</property>
+                <property name="child">
+                  <object class="ArticlesListWidget" id="unread_view">
+                    <property name="placeholder-icon-name">unread-symbolic</property>
+                  </object>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="name">favorites</property>
+                <property name="title" translatable="yes" context="view switcher">Favorites</property>
+                <property name="icon-name">favorites-symbolic</property>
+                <property name="child">
+                  <object class="ArticlesListWidget" id="favorites_view">
+                    <property name="placeholder-icon-name">favorites-symbolic</property>
+                  </object>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="name">archive</property>
+                <property name="title" translatable="yes" context="view switcher">Archive</property>
+                <property name="icon-name">archive-symbolic</property>
+                <property name="child">
+                  <object class="ArticlesListWidget" id="archive_view">
+                    <property name="placeholder-icon-name">archive-symbolic</property>
+                  </object>
+                </property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwViewSwitcherBar" id="switcher_bar">
+            <property name="stack">stack</property>
+          </object>
+        </child>
       </object>
     </property>
-    <child>
-      <object class="GtkRevealer" id="revealer">
-        <property name="transition-duration">100</property>
-        <property name="child">
-          <object class="GtkProgressBar" id="progress_bar">
-            <style>
-              <class name="loading-progress" />
-            </style>
-          </object>
-        </property>
-      </object>
-    </child>
-    <child>
-      <object class="AdwViewStack" id="stack">
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
-        <child>
-          <object class="AdwViewStackPage">
-            <property name="name">unread</property>
-            <property name="title" translatable="yes" context="view switcher">Unread</property>
-            <property name="icon-name">unread-symbolic</property>
-            <property name="child">
-              <object class="ArticlesListWidget" id="unread_view">
-                <property name="placeholder-icon-name">unread-symbolic</property>
-              </object>
-            </property>
-          </object>
-        </child>
-        <child>
-          <object class="AdwViewStackPage">
-            <property name="name">favorites</property>
-            <property name="title" translatable="yes" context="view switcher">Favorites</property>
-            <property name="icon-name">favorites-symbolic</property>
-            <property name="child">
-              <object class="ArticlesListWidget" id="favorites_view">
-                <property name="placeholder-icon-name">favorites-symbolic</property>
-              </object>
-            </property>
-          </object>
-        </child>
-        <child>
-          <object class="AdwViewStackPage">
-            <property name="name">archive</property>
-            <property name="title" translatable="yes" context="view switcher">Archive</property>
-            <property name="icon-name">archive-symbolic</property>
-            <property name="child">
-              <object class="ArticlesListWidget" id="archive_view">
-                <property name="placeholder-icon-name">archive-symbolic</property>
-              </object>
-            </property>
-          </object>
-        </child>
-      </object>
-    </child>
   </template>
 </interface>

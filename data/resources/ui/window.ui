@@ -9,79 +9,14 @@ Copyright 2022 Piotr Drąg <piotrdrag@gmail.com>
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
 <interface>
-  <menu id="app-menu">
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">Add Article…</attribute>
-        <attribute name="action">win.new-article</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">Preferences</attribute>
-        <attribute name="action">app.settings</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Log Out</attribute>
-        <attribute name="action">app.logout</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">Keyboard Shortcuts</attribute>
-        <attribute name="action">win.show-help-overlay</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">About Read It Later</attribute>
-        <attribute name="action">app.about</attribute>
-      </item>
-    </section>
-  </menu>
   <template class="Window" parent="AdwApplicationWindow">
     <property name="default-width">960</property>
     <property name="default-height">720</property>
     <property name="width-request">340</property>
     <property name="height-request">322</property>
-    <child>
-      <object class="AdwBreakpoint">
-        <condition>max-width: 550sp</condition>
-        <setter object="articles_header_bar" property="title-widget"/>
-        <setter object="view_switcher_bar" property="reveal">True</setter>
-      </object>
-    </child>
     <property name="content">
       <object class="GtkBox">
         <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkStack" id="headerbar_stack">
-            <property name="hexpand">True</property>
-            <property name="hhomogeneous">False</property>
-            <property name="vhomogeneous">False</property>
-            <child>
-              <object class="GtkStackPage">
-                <property name="name">articles</property>
-                <property name="child">
-                  <object class="AdwHeaderBar" id="articles_header_bar">
-                    <property name="show-end-title-buttons">True</property>
-                    <property name="centering-policy">strict</property>
-                    <child type="title">
-                      <object class="AdwViewSwitcher" id="view_switcher_title">
-                        <property name="policy">wide</property>
-                      </object>
-                    </child>
-                    <child type="end">
-                      <object class="GtkMenuButton" id="appmenu_button">
-                        <property name="receives-default">True</property>
-                        <property name="menu-model">app-menu</property>
-                        <property name="icon-name">open-menu-symbolic</property>
-                      </object>
-                    </child>
-                  </object>
-                </property>
-              </object>
-            </child>
-          </object>
-        </child>
         <child>
           <object class="AdwToastOverlay" id="toast_overlay">
             <property name="child">
@@ -117,10 +52,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
                 </child>
               </object>
             </property>
-          </object>
-        </child>
-        <child>
-          <object class="AdwViewSwitcherBar" id="view_switcher_bar">
           </object>
         </child>
       </object>

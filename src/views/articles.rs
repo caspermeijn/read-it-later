@@ -3,12 +3,12 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+use adw::subclass::prelude::*;
 use futures::executor::ThreadPool;
 use gtk::{
     gio, glib,
     glib::{clone, Sender},
     prelude::*,
-    subclass::prelude::*,
 };
 
 use crate::models::{Article, ArticleAction, ArticleObject, ArticlesFilter};
@@ -45,7 +45,7 @@ mod imp {
     impl ObjectSubclass for ArticlesView {
         const NAME: &'static str = "ArticlesView";
         type Type = super::ArticlesView;
-        type ParentType = gtk::Widget;
+        type ParentType = adw::BreakpointBin;
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -83,6 +83,8 @@ mod imp {
     }
 
     impl WidgetImpl for ArticlesView {}
+
+    impl BreakpointBinImpl for ArticlesView {}
 }
 
 glib::wrapper! {

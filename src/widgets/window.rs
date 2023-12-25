@@ -32,13 +32,7 @@ mod imp {
         pub toast_overlay: TemplateChild<adw::ToastOverlay>,
         #[template_child]
         pub main_stack: TemplateChild<gtk::Stack>,
-        #[template_child]
-        pub headerbar_stack: TemplateChild<gtk::Stack>,
 
-        #[template_child]
-        pub view_switcher_bar: TemplateChild<adw::ViewSwitcherBar>,
-        #[template_child]
-        pub view_switcher_title: TemplateChild<adw::ViewSwitcher>,
         #[template_child]
         pub login_view: TemplateChild<Login>,
         #[template_child]
@@ -138,16 +132,12 @@ impl Window {
         match view {
             View::Article => {
                 imp.main_stack.set_visible_child_name("article");
-                imp.headerbar_stack.set_visible(false);
             }
             View::Articles => {
                 imp.main_stack.set_visible_child_name("articles");
-                imp.headerbar_stack.set_visible(true);
-                imp.headerbar_stack.set_visible_child_name("articles");
             }
             View::Login => {
                 imp.main_stack.set_visible_child_name("login");
-                imp.headerbar_stack.set_visible(false);
 
                 self.set_default_widget(Some(imp.login_view.get_login_button()));
             }
@@ -171,26 +161,11 @@ impl Window {
         imp.articles_view
             .set_sender(articles_manager.sender.clone());
 
-        imp.headerbar_stack.connect_visible_child_name_notify(
-            clone!(@weak imp => move |headerbar_stack| {
-                let visible_headerbar_stack = headerbar_stack.visible_child_name().unwrap();
-                imp.view_switcher_bar
-                    .set_visible(visible_headerbar_stack == "articles");
-            }),
-        );
-
         self.init_views();
     }
 
     fn init_views(&self) {
         let imp = self.imp();
-
-        // Articles
-        let articles_view = imp.articles_view.get();
-        imp.view_switcher_title
-            .set_stack(Some(articles_view.get_stack()));
-        imp.view_switcher_bar
-            .set_stack(Some(articles_view.get_stack()));
 
         // Article View
         let article_widget = imp.article_widget.get();
