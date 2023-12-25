@@ -31,7 +31,7 @@ impl PreviewImage {
     pub fn get_cache_of(path: &str) -> PathBuf {
         let hash = Sha1::digest(path);
         let hex_hash = base16ct::lower::encode_string(&hash);
-        let cache: PathBuf = CACHE_DIR.join(&hex_hash);
+        let cache: PathBuf = CACHE_DIR.join(hex_hash);
         cache
     }
 

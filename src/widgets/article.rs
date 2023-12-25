@@ -65,7 +65,7 @@ mod imp {
         #[template_callback]
         fn modify_context_menu(_: &WebView, context_menu: &webkit::ContextMenu) -> bool {
             // Right/Left Click context menu
-            let forbidden_actions = vec![
+            let forbidden_actions = [
                 webkit::ContextMenuAction::OpenLink,
                 webkit::ContextMenuAction::OpenLinkInNewWindow,
                 webkit::ContextMenuAction::OpenImageInNewWindow,
@@ -236,7 +236,7 @@ impl ArticleWidget {
     pub fn get_action(&self, name: &str) -> gio::SimpleAction {
         self.get_actions()
             .lookup_action(name)
-            .expect(&format!("Could not find action \"{}\"", name))
+            .unwrap_or_else(|| panic!("Could not find action \"{}\"", name))
             .downcast::<gio::SimpleAction>()
             .unwrap()
     }

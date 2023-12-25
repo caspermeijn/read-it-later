@@ -467,7 +467,7 @@ impl Application {
     }
 
     fn authors() -> Vec<&'static str> {
-        env!("CARGO_PKG_AUTHORS").split(":").collect()
+        env!("CARGO_PKG_AUTHORS").split(':').collect()
     }
 
     fn show_about_dialog(parent: &impl IsA<gtk::Window>) {
@@ -477,7 +477,7 @@ impl Application {
             .license_type(gtk::License::Gpl30)
             .website("https://gitlab.gnome.org/World/read-it-later/")
             .version(config::VERSION)
-            .translator_credits(&gettext("translator-credits"))
+            .translator_credits(gettext("translator-credits"))
             .developers(Self::authors())
             .artists(["Tobias Bernard"])
             .transient_for(parent)
