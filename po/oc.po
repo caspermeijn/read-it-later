@@ -6,82 +6,31 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/"
-"issues\n"
-"POT-Creation-Date: 2021-08-24 18:46+0000\n"
-"PO-Revision-Date: 2021-10-09 09:51+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
+"POT-Creation-Date: 2023-08-30 06:37+0000\n"
+"PO-Revision-Date: 2024-01-07 18:34+0100\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Occitan <totenoc@gmail.com>\n"
 "Language: oc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.4.2\n"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:6
+#: data/resources/ui/window.ui:66
 msgid "Read It Later"
 msgstr "Legir mai tard"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:8
-msgid "A Wallabag Client."
-msgstr "Un client Wallabag."
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:10
-msgid ""
-"Read It Later, is a simple Wallabag client. It has the basic features to "
-"manage your articles"
-msgstr ""
-"Read It Later, es un client Wallabag simple. A de foncionalitats basicas "
-"per gerir vòstres articles"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
-msgid "Add new articles"
-msgstr "Apondre un article novèl"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
-msgid "Archive an article"
-msgstr "Archivar un article"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
-msgid "Delete an article"
-msgstr "Suprimir un article"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
-msgid "Favorite an article"
-msgstr "Metre en favorit"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
-msgid ""
-"It also comes with a nice on eyes reader mode that supports code syntax "
-"highlighting and a dark mode"
-msgstr ""
-"Prepausa tanben amb un mòde de lectura agradiu als uèlhs que pren en "
-"cargar la sintaxi de còdi e lo mòde escur"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
-msgid "Main Window"
-msgstr "Fenèstra principala"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:26
-msgid "Article View"
-msgstr "Vista article"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:30
-msgid "Adaptive view in dark mode"
-msgstr "Vista adaptativa en mòde escur"
-
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:58
-msgid "Bilal Elmoussaoui"
-msgstr "Bilal Elmoussaoui"
-
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-msgid "A Wallabag Client"
-msgstr "Un client Wallabah"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+msgid "Save and read web articles"
+msgstr "Enregistrar e legir d’articles del web"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:9
-msgid "Gnome;GTK;Wallabag;Web;Article;Offline;"
-msgstr "Gnome;GTK;Wallabag;Web;Article;Fòra linha;lectura;"
+msgid "GNOME;GTK;Wallabag;Web;Article;Offline;"
+msgstr "GNOME;GTK;Wallabag;Web;Article;Fòra linha;lectura;"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
 msgid "Default window width"
@@ -100,157 +49,278 @@ msgid "Default window y position"
 msgstr "Posicion y de la fenèstra per defaut"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
-msgid "Default window maximized behaviour"
+msgid "Default window maximized behavior"
 msgstr "Compòrtament per defaut de la fenèstra maximizada"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
-msgid "Logged in username"
+msgid "Logged in user name"
 msgstr "Nom d’utilizaire connectat"
 
 #: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
 msgid "Latest successful sync in ms"
 msgstr "Darrièra sincronizacion reüssida en ms"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:34
-msgid "Whether we should use a dark theme or not"
-msgstr "Indica se cal utilizar lo mòde escur o non"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:9
+msgid ""
+"Read It Later, is a simple Wallabag client. It has the basic features to "
+"manage your articles."
+msgstr ""
+"Read It Later, es un client Wallabag simple. A de foncionalitats basicas per "
+"gerir vòstres articles."
 
-#: data/resources/ui/about_dialog.ui.in:13
-msgid "translator-credits"
-msgstr "Quentin PAGÈS"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:11
+msgid "Add new articles"
+msgstr "Apondre un article novèl"
 
-#: data/resources/ui/articles_list.ui:59
-msgid "No articles found"
-msgstr "Cap d'article pas trobat"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+msgid "Archive an article"
+msgstr "Archivar un article"
 
-#: data/resources/ui/menu.ui:19
-msgid "Add Article..."
-msgstr "Apondre article..."
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+msgid "Delete an article"
+msgstr "Suprimir un article"
 
-#: data/resources/ui/menu.ui:44
-msgid "Settings"
-msgstr "Paramètres"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+msgid "Favorite an article"
+msgstr "Metre en favorit"
 
-#: data/resources/ui/menu.ui:58
-msgid "Logout"
-msgstr "Desconnexion"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:16
+msgid ""
+"It also comes with a nice on eyes reader mode that supports code syntax "
+"highlighting and a dark mode."
+msgstr ""
+"Prepausa tanben amb un mòde de lectura agradiu als uèlhs que pren en cargar "
+"la sintaxi de còdi e lo mòde escur."
 
-#: data/resources/ui/menu.ui:83
-msgid "Keyboard Shortcuts"
-msgstr "Acorchis de clavièr"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:81
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/menu.ui:97
-msgid "About Read It Later"
-msgstr "A prepaus de Read It Later"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:85
+msgid "Main Window"
+msgstr "Fenèstra principala"
 
-#: data/resources/ui/settings.ui:15
-msgid "Appearance"
-msgstr "Aparéncia"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:89
+msgid "Article View"
+msgstr "Vista article"
 
-#: data/resources/ui/settings.ui:19
-msgid "Enable dark mode"
-msgstr "Activar lo mòde escur"
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:93
+msgid "Adaptive view in dark mode"
+msgstr "Vista adaptativa en mòde escur"
 
-#: data/resources/ui/settings.ui:41
-msgid "Account Settings"
-msgstr "Paramètres del compte"
+#. Translators: This status is shown when the list of articles is empty
+#: data/resources/ui/articles_list.ui:34
+msgid "Pretty clean!"
+msgstr "Pro ben !"
 
-#: data/resources/ui/settings.ui:45
-msgid "Username"
-msgstr "Nom d’utilizaire"
+#: data/resources/ui/articles.ui:14
+msgctxt "view switcher"
+msgid "Unread"
+msgstr "Non legit"
 
-#: data/resources/ui/settings.ui:59
-msgid "Email"
-msgstr "Corrièl"
+#: data/resources/ui/articles.ui:26
+msgctxt "view switcher"
+msgid "Favorites"
+msgstr "Favorits"
 
-#: data/resources/ui/settings.ui:73
-msgid "Created At"
-msgstr "Creat lo"
+#: data/resources/ui/articles.ui:38
+msgctxt "view switcher"
+msgid "Archive"
+msgstr "Archivar"
 
-#: data/resources/ui/settings.ui:87
-msgid "Updated At"
-msgstr "Mes a jorn lo"
-
-#: data/resources/ui/shortcuts.ui:13
+#: data/resources/ui/gtk/help-overlay.ui:12
 msgctxt "shortcut window"
 msgid "General"
 msgstr "General"
 
-#: data/resources/ui/shortcuts.ui:17
+#: data/resources/ui/gtk/help-overlay.ui:15
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "Afichar los acorchis"
 
-#: data/resources/ui/shortcuts.ui:24
+#: data/resources/ui/gtk/help-overlay.ui:21
 msgctxt "shortcut window"
 msgid "Preferences"
 msgstr "Preferéncias"
 
-#: data/resources/ui/shortcuts.ui:31
+#: data/resources/ui/gtk/help-overlay.ui:27
 msgctxt "shortcut window"
 msgid "Back"
 msgstr "Tornar"
 
-#: data/resources/ui/shortcuts.ui:38
+#: data/resources/ui/gtk/help-overlay.ui:33
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Quitar"
 
-#: data/resources/ui/shortcuts.ui:47
+#: data/resources/ui/gtk/help-overlay.ui:41
 msgctxt "shortcut window"
 msgid "Articles"
 msgstr "Articles"
 
-#: data/resources/ui/shortcuts.ui:51
+#: data/resources/ui/gtk/help-overlay.ui:44
 msgctxt "shortcut window"
 msgid "Synchronize"
 msgstr "Sincronizar"
 
-#: data/resources/ui/shortcuts.ui:58
+#: data/resources/ui/gtk/help-overlay.ui:50
 msgctxt "shortcut window"
 msgid "New Article"
 msgstr "Article novèl"
 
-#: data/resources/ui/shortcuts.ui:65
+#: data/resources/ui/gtk/help-overlay.ui:56
 msgctxt "shortcut window"
 msgid "Delete Article"
 msgstr "Suprimir l’article"
 
-#: data/resources/ui/shortcuts.ui:72
+#: data/resources/ui/gtk/help-overlay.ui:62
 msgctxt "shortcut window"
 msgid "Favorite Article"
 msgstr "Metre en favorit"
 
-#: data/resources/ui/shortcuts.ui:79
+#: data/resources/ui/gtk/help-overlay.ui:68
 msgctxt "shortcut window"
 msgid "Archive Article"
 msgstr "Archivar"
 
-#: data/resources/ui/shortcuts.ui:86
+#: data/resources/ui/gtk/help-overlay.ui:74
 msgctxt "shortcut window"
-msgid "Open Article In Browser"
+msgid "Open Article in Browser"
 msgstr "Dobrir l’article dins lo navigador"
 
-#: data/resources/ui/window.ui.in:25
+#: data/resources/ui/login.ui:32
+msgid "Welcome to Read It Later"
+msgstr "La benvenguda dins Read It Later"
+
+#: data/resources/ui/login.ui:42
+msgid "Please sign in using your Wallabag instance information"
+msgstr ""
+"Mercés de vos autentificar en utilizant las informacions de l'instància "
+"Wallabag"
+
+#: data/resources/ui/login.ui:57
+msgid "Instance URL"
+msgstr "URL de l’instància"
+
+#: data/resources/ui/login.ui:63
+msgid "Client ID"
+msgstr "ID client"
+
+#: data/resources/ui/login.ui:69
+msgid "Client Secret"
+msgstr "Secret client"
+
+#: data/resources/ui/login.ui:75 data/resources/ui/settings.ui:13
+msgid "User Name"
+msgstr "Nom d’utilizaire"
+
+#: data/resources/ui/login.ui:81
+msgid "Password"
+msgstr "Senhal"
+
+#: data/resources/ui/login.ui:91
+msgid "Log In"
+msgstr "Connexion"
+
+#: data/resources/ui/settings.ui:7
+msgid "Account"
+msgstr "Compte"
+
+#: data/resources/ui/settings.ui:10
+msgid "Account Information"
+msgstr "Informacions del compte"
+
+#: data/resources/ui/settings.ui:21
+msgid "Email"
+msgstr "Corrièl"
+
+#: data/resources/ui/settings.ui:29
+msgid "Created At"
+msgstr "Creat lo"
+
+#: data/resources/ui/settings.ui:37
+msgid "Updated At"
+msgstr "Mes a jorn lo"
+
+#: data/resources/ui/window.ui:6
 msgid "Open Website"
 msgstr "Dobrir lo site web"
 
-#: data/resources/ui/window.ui.in:50
+#: data/resources/ui/window.ui:12
 msgid "Delete Article"
 msgstr "Suprimir l’article"
 
-#: data/resources/ui/window.ui.in:181
+#: data/resources/ui/window.ui:20
+msgid "Add Article…"
+msgstr "Apondre article…"
+
+#: data/resources/ui/window.ui:26
+msgid "Preferences"
+msgstr "Preferéncias"
+
+#: data/resources/ui/window.ui:30
+msgid "Log Out"
+msgstr "Desconnexion"
+
+#: data/resources/ui/window.ui:36
+msgid "Keyboard Shortcuts"
+msgstr "Acorchis de clavièr"
+
+#: data/resources/ui/window.ui:40
+msgid "About Read It Later"
+msgstr "A prepaus de Read It Later"
+
+#: data/resources/ui/window.ui:104
+msgctxt "action button"
 msgid "Favorite"
 msgstr "Metre en favorit"
 
-#: data/resources/ui/window.ui.in:201
+#: data/resources/ui/window.ui:112
+msgctxt "action button"
 msgid "Archive"
 msgstr "Archivar"
 
-#: data/resources/ui/window.ui.in:273
-msgid "Paste the article url here"
-msgstr "Pegar l’url de l’article aquí"
+#: data/resources/ui/window.ui:151
+msgid "Paste the article URL here"
+msgstr "Pegatz l’URL de l’article aquí"
 
-#: data/resources/ui/window.ui.in:283
+#: data/resources/ui/window.ui:158
+msgctxt "action button"
 msgid "Save"
 msgstr "Salvagardar"
+
+#: src/application.rs:131
+msgid "Failed to logout"
+msgstr "Fracàs de la desconnexion"
+
+#: src/application.rs:270 src/application.rs:277
+msgid "Failed to log in"
+msgstr "Fracàs de la connexion"
+
+#: src/application.rs:473
+msgid "translator-credits"
+msgstr "Quentin PAGÈS"
+
+#~ msgid "A Wallabag Client."
+#~ msgstr "Un client Wallabag."
+
+#~ msgid "A Wallabag Client"
+#~ msgstr "Un client Wallabah"
+
+#~ msgid "Whether we should use a dark theme or not"
+#~ msgstr "Indica se cal utilizar lo mòde escur o non"
+
+#~ msgid "No articles found"
+#~ msgstr "Cap d'article pas trobat"
+
+#~ msgid "Settings"
+#~ msgstr "Paramètres"
+
+#~ msgid "Logout"
+#~ msgstr "Desconnexion"
+
+#~ msgid "Appearance"
+#~ msgstr "Aparéncia"
+
+#~ msgid "Enable dark mode"
+#~ msgstr "Activar lo mòde escur"
