@@ -9,16 +9,20 @@
         ".flatpak/**": true,
         "_build/**": true
     },
-    "mesonbuild.configureOnOpen": false,
-    "mesonbuild.buildFolder": "_build",
-    "mesonbuild.mesonPath": "${workspaceFolder}/.flatpak/meson.sh",
     "rust-analyzer.server.path": "${workspaceFolder}/.flatpak/rust-analyzer.sh",
     "rust-analyzer.runnables.command": "${workspaceFolder}/.flatpak/cargo.sh",
     "rust-analyzer.files.excludeDirs": [
-        ".flatpak"
+        ".flatpak",
+        ".flatpak-builder",
+        "_build",
+        "build",
+        "builddir"
     ],
     "xml.format.emptyElements": "collapse",
     "xml.format.enforceQuoteStyle": "preferred",
     "xml.format.joinContentLines": true,
     "xml.format.maxLineWidth": 0,
+    "mesonbuild.configureOnOpen": false,
+    "mesonbuild.buildFolder": "_build",
+    "mesonbuild.mesonPath": "${workspaceFolder}/.flatpak/meson.sh",
 }
