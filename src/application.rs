@@ -298,10 +298,9 @@ impl Application {
         let username = SettingsManager::string(Key::Username);
         database::wipe()?;
         window.articles_view().clear();
-        if SecretManager::logout(&username).is_ok() {
-            SettingsManager::set_string(Key::Username, "".into());
-            SettingsManager::set_integer(Key::LatestSync, 0);
-        }
+        SecretManager::logout(&username)?;
+        SettingsManager::set_string(Key::Username, "".into());
+        SettingsManager::set_integer(Key::LatestSync, 0);
         sender.send(Action::SetView(View::Login)).unwrap();
         Ok(())
     }
