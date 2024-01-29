@@ -6,8 +6,8 @@ Copyright 2022 Casper Meijn <casper@meijn.net>
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
 <interface>
-  <template class="ArticleRow" parent="GtkListBoxRow">
-    <child>
+  <template class="GtkListItem">
+    <property name="child">
       <object class="GtkBox" id="article_container">
         <property name="spacing">12</property>
         <child>
@@ -24,7 +24,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
                 <property name="yalign">0</property>
                 <binding name="label">
                   <lookup name="title" type="ArticleObject">
-                    <lookup type="ArticleRow" name="article" />
+                    <lookup name="item">GtkListItem</lookup>
                   </lookup>
                 </binding>
                 <style>
@@ -41,7 +41,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
                 <property name="yalign">0</property>
                 <binding name="label">
                   <lookup name="description" type="ArticleObject">
-                    <lookup type="ArticleRow" name="article" />
+                    <lookup name="item">GtkListItem</lookup>
                   </lookup>
                 </binding>
                 <style>
@@ -59,7 +59,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
                 <property name="yalign">0</property>
                 <binding name="label">
                   <lookup name="preview-text" type="ArticleObject">
-                    <lookup type="ArticleRow" name="article" />
+                    <lookup name="item">GtkListItem</lookup>
                   </lookup>
                 </binding>
                 <style>
@@ -73,15 +73,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <object class="ArticlePreview" id="preview_image">
             <binding name="url">
               <lookup name="cover-picture-url" type="ArticleObject">
-                <lookup type="ArticleRow" name="article" />
+                <lookup name="item">GtkListItem</lookup>
               </lookup>
             </binding>
           </object>
         </child>
       </object>
-    </child>
-    <style>
-      <class name="article-row" />
-    </style>
+    </property>
   </template>
 </interface>

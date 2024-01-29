@@ -41,8 +41,10 @@ mod imp {
         type ParentType = gtk::Widget;
 
         fn class_init(klass: &mut Self::Class) {
+            use crate::widgets::articles::ArticlePreview;
             Settings::ensure_type();
             NetworkSession::ensure_type();
+            ArticlePreview::ensure_type();
             klass.bind_template();
             klass.bind_template_callbacks();
         }

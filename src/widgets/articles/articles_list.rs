@@ -8,10 +8,7 @@ use gio::prelude::*;
 use glib::{clone, Sender};
 use gtk::{gio, glib, subclass::prelude::*};
 
-use crate::{
-    models::{ArticleAction, ArticleObject},
-    widgets::articles::ArticleRow,
-};
+use crate::models::{ArticleAction, ArticleObject};
 
 mod imp {
     use std::cell::OnceCell;
@@ -31,7 +28,7 @@ mod imp {
         #[template_child]
         pub stack: TemplateChild<gtk::Stack>,
         #[template_child]
-        pub articles_listbox: TemplateChild<gtk::ListBox>,
+        pub selection_model: TemplateChild<gtk::NoSelection>,
         pub sender: OnceCell<Sender<ArticleAction>>,
     }
     #[glib::object_subclass]
@@ -84,11 +81,11 @@ mod imp {
     #[gtk::template_callbacks]
     impl ArticlesListWidget {
         #[template_callback]
-        fn handle_row_activated(&self, article_row: &ArticleRow, _list_box: &gtk::ListBox) {
+        fn handle_row_activate(&self, position: u32, list_view: gtk::ListView) {
+            let item = list_view.model().unwrap().item(position).unwrap();
+            let article = item.downcast_ref::<ArticleObject>().unwrap().article();
             let sender = self.sender.get().unwrap();
-            sender
-                .send(ArticleAction::Open(article_row.article().article().clone()))
-                .unwrap();
+            sender.send(ArticleAction::Open(article.clone())).unwrap();
         }
     }
 }
@@ -115,13 +112,7 @@ impl ArticlesListWidget {
             }),
         );
 
-        self.imp()
-            .articles_listbox
-            .bind_model(Some(model), move |article| {
-                let article = article.downcast_ref::<ArticleObject>().unwrap();
-                let row = ArticleRow::new(article.clone());
-                row.upcast::<gtk::Widget>()
-            });
+        self.imp().selection_model.set_model(Some(model));
     }
 
     pub fn set_sender(&self, sender: Sender<ArticleAction>) {
