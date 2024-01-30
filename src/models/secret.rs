@@ -80,7 +80,7 @@ impl SecretManager<'_> {
     fn retrieve(&self, key: &str, attribute: &str) -> Result<String, Error> {
         let attributes = HashMap::from([("wallabag_username", key), ("attr", attribute)]);
         let items = self.service.search_items(attributes)?;
-        if let Some(item) = items.unlocked.get(0) {
+        if let Some(item) = items.unlocked.first() {
             let value = item.get_secret()?;
             return Ok(String::from_utf8(value).unwrap());
         }
