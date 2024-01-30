@@ -2,7 +2,7 @@
 <!-- Copyright 2023 Casper Meijn <casper@meijn.net> -->
 
 # Manual testing
-This chapter contains instructions for manually testing Read It Later. Following these steps, you will have seen the different views of the application and executed all actions. This document is more a guideline than a strict instruction. Feel free to deviate from the steps.
+This chapter contains instructions for manually testing of Read It Later. Following these steps, you will have seen the different views of the application and executed all actions. This document is more a guideline than a strict instruction. Feel free to deviate from the steps.
 
 ## Server
 You could start a test server using the instructions at https://github.com/caspermeijn/wallabag-test-server
@@ -46,7 +46,7 @@ A menu option is available to `Delete article`. Choosing this option will remove
 
 Right-click the article, most controls of the underlying webview are disabled. For example, you should not be able to navigate back and forwards.
 
-Click a link, the article webview doesn't navigate and the link is opened a browser.
+Click a link, the article webview doesn't navigate, and the link is opened in a browser.
 
 ## Preferences
 When the article list is visible, a menu option is available to `Preferences`. Choosing this option will open the preferences window. Some account information is shown in this window.
