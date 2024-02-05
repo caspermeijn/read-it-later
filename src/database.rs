@@ -7,7 +7,7 @@
 
 use std::{fs, fs::File, path::PathBuf};
 
-use anyhow::Result;
+use anyhow::{Ok, Result};
 use diesel::{migration::MigrationVersion, prelude::*, r2d2, r2d2::ConnectionManager};
 use diesel_migrations::EmbeddedMigrations;
 use glib::once_cell::sync::Lazy;
@@ -35,6 +35,29 @@ fn run_migration_on(connection: &mut SqliteConnection) -> Result<Vec<MigrationVe
         .map_err(|e| anyhow::anyhow!(e))
 }
 
+fn run_preview_migration_on(connection: &mut SqliteConnection) -> Result<()> {
+    use crate::{models::Article, schema::articles::dsl::*};
+    dbg!("Starting preview migration...");
+
+    let to_be_processed: Vec<Article> = articles
+        .filter(preview_text.is_null())
+        .get_results::<Article>(connection)?;
+
+    if !to_be_processed.is_empty() {
+        info!("Running preview migration...");
+
+        for article in to_be_processed {
+            let new_preview_text = Article::calculate_preview(&article.content.unwrap_or_default());
+            let target = articles.filter(id.eq(&article.id));
+            diesel::update(target)
+                .set(preview_text.eq(new_preview_text))
+                .execute(connection)?;
+        }
+    }
+
+    Ok(())
+}
+
 fn init_pool() -> Result<Pool> {
     fs::create_dir_all(&*DB_PATH)?;
     let db_path = DB_PATH.join("articles.db");
@@ -48,6 +71,7 @@ fn init_pool() -> Result<Pool> {
     {
         let mut db = pool.get()?;
         run_migration_on(&mut db)?;
+        run_preview_migration_on(&mut db)?;
     }
     info!("Database pool initialized.");
     Ok(pool)

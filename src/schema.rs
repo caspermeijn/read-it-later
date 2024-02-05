@@ -18,5 +18,6 @@ table! {
         reading_time -> Integer,
         base_url -> Nullable<Text>,
         url -> Nullable<Text>,
+        preview_text -> Nullable<Text>,
     }
 }

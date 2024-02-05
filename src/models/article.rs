@@ -29,6 +29,7 @@ pub struct Article {
     pub reading_time: i32,
     pub base_url: Option<String>,
     pub url: Option<String>,
+    pub preview_text: Option<String>,
 }
 
 impl Article {
@@ -68,6 +69,7 @@ impl Article {
             reading_time: entry.reading_time as i32,
             base_url: entry.domain_name.clone(),
             url: entry.url,
+            preview_text: entry.content.as_deref().map(Self::calculate_preview),
         }
     }
 
@@ -158,36 +160,36 @@ impl Article {
     }
 
     pub fn get_preview(&self) -> Option<String> {
-        match &self.content {
-            Some(content) => {
-                // Regex to remove duplicate spaces
-                let re = regex::Regex::new(r"\s+").ok()?;
+        self.preview_text.clone()
+    }
 
-                let rules = sanitize_html::rules::Rules::new()
-                    .delete("br")
-                    .delete("img")
-                    .delete("figcaption")
-                    .allow_comments(false);
+    pub fn calculate_preview(content: &str) -> String {
+        let rules = sanitize_html::rules::Rules::new()
+            .delete("br")
+            .delete("img")
+            .delete("figcaption")
+            .allow_comments(false);
 
-                let preview = sanitize_str(&rules, content).ok()?.trim().to_string();
-                let mut preview_content = Vec::new();
-                let mut counter = 0;
-                for line in preview.lines() {
-                    if line.len() > 50 {
-                        // Ignore small lines
-                        preview_content.push(line);
-                        counter += 1;
-                    }
-                    if counter == 1 {
-                        // Two lines length for the preview
-                        break;
-                    }
-                }
-                let preview = re.replace_all(&preview_content.concat(), " ").to_string(); // Remove duplicate space
-
-                Some(preview)
+        let preview = sanitize_str(&rules, content)
+            .unwrap_or_default()
+            .trim()
+            .to_string();
+        let mut preview_content = Vec::new();
+        let mut counter = 0;
+        for line in preview.lines() {
+            if line.len() > 50 {
+                // Ignore small lines
+                preview_content.push(line);
+                counter += 1;
             }
-            None => None,
+            if counter == 1 {
+                // Two lines length for the preview
+                break;
+            }
         }
+        // Remove duplicate space
+        let re = regex::Regex::new(r"\s+").unwrap();
+        let preview = re.replace_all(&preview_content.concat(), " ").to_string();
+        preview
     }
 }
