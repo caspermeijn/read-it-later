@@ -19,7 +19,7 @@ mod imp {
     use gtk::glib::subclass::InitializingObject;
 
     use super::*;
-    use crate::widgets::articles::ArticlesListWidget;
+    use crate::{models::ArticleSorter, widgets::articles::ArticlesListWidget};
 
     #[derive(gtk::CompositeTemplate, Default)]
     #[template(resource = "/com/belmoussaoui/ReadItLater/articles.ui")]
@@ -62,16 +62,19 @@ mod imp {
 
             let model = gio::ListStore::new::<glib::Object>();
 
+            let sorter: gtk::Sorter = ArticleSorter::default().into();
+            let sort_model = gtk::SortListModel::new(Some(model.clone()), Some(sorter));
+
             let filter: gtk::Filter = ArticlesFilter::favorites().into();
-            let favorites_model = gtk::FilterListModel::new(Some(model.clone()), Some(filter));
+            let favorites_model = gtk::FilterListModel::new(Some(sort_model.clone()), Some(filter));
             self.favorites_view.bind_model(&favorites_model);
 
             let filter: gtk::Filter = ArticlesFilter::archive().into();
-            let archive_model = gtk::FilterListModel::new(Some(model.clone()), Some(filter));
+            let archive_model = gtk::FilterListModel::new(Some(sort_model.clone()), Some(filter));
             self.archive_view.bind_model(&archive_model);
 
             let filter: gtk::Filter = ArticlesFilter::unread().into();
-            let unread_model = gtk::FilterListModel::new(Some(model.clone()), Some(filter));
+            let unread_model = gtk::FilterListModel::new(Some(sort_model.clone()), Some(filter));
             self.unread_view.bind_model(&unread_model);
 
             self.model.set(model).unwrap();
@@ -118,7 +121,7 @@ impl ArticlesView {
         let model = imp.model.get().unwrap();
         if self.index(article).is_none() {
             let object = ArticleObject::new(article.clone());
-            model.insert_sorted(&object, Article::compare);
+            model.append(&object);
         }
     }
 

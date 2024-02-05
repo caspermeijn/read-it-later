@@ -7,12 +7,10 @@
 
 use anyhow::Result;
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
-use glib::Cast;
-use gtk::glib;
 use sanitize_html::sanitize_str;
 use wallabag_api::types::{Entry, PatchEntry};
 
-use crate::{database, models::ArticleObject, schema::articles};
+use crate::{database, schema::articles};
 
 #[derive(Insertable, Queryable, Eq, PartialEq, Debug, Clone)]
 #[diesel(table_name = articles)]
@@ -34,13 +32,6 @@ pub struct Article {
 }
 
 impl Article {
-    pub fn compare(a: &glib::Object, b: &glib::Object) -> std::cmp::Ordering {
-        let article_a = a.downcast_ref::<ArticleObject>().unwrap().article();
-        let article_b = b.downcast_ref::<ArticleObject>().unwrap().article();
-
-        article_b.published_at.cmp(&article_a.published_at)
-    }
-
     pub fn load() -> Result<Vec<Self>> {
         use crate::schema::articles::dsl::*;
         let db = database::connection();
@@ -48,7 +39,6 @@ impl Article {
         let mut conn = db.get()?;
 
         articles
-            .order(published_at.asc())
             .get_results::<Article>(&mut conn)
             .map_err(From::from)
     }
