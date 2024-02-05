@@ -15,6 +15,7 @@ use crate::application::Action;
 #[derive(Debug, Eq, PartialEq, Clone)]
 pub enum ArticleAction {
     Add(Article),
+    AddMultiple(Vec<Article>),
     Delete(Article),
     Archive(Article),
     Favorite(Article),
@@ -57,6 +58,7 @@ impl ArticlesManager {
             // Update article values by their ID.
             ArticleAction::Update(article) => self.update(article),
             ArticleAction::Add(article) => self.add(article),
+            ArticleAction::AddMultiple(articles) => self.add_multiple(articles),
         };
         glib::ControlFlow::Continue
     }
@@ -64,6 +66,14 @@ impl ArticlesManager {
     fn add(&self, article: Article) {
         self.main_sender
             .send(Action::Articles(Box::new(ArticleAction::Add(article))))
+            .unwrap();
+    }
+
+    fn add_multiple(&self, articles: Vec<Article>) {
+        self.main_sender
+            .send(Action::Articles(Box::new(ArticleAction::AddMultiple(
+                articles,
+            ))))
             .unwrap();
     }
 

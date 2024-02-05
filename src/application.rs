@@ -148,6 +148,7 @@ impl Application {
         let window = imp.window.get().unwrap();
         match *action {
             ArticleAction::Add(article) => self.add_article(article),
+            ArticleAction::AddMultiple(articles) => self.add_multiple_articles(articles),
             ArticleAction::Open(article) => window.load_article(article),
             ArticleAction::Delete(article) => self.delete_article(article),
             ArticleAction::Archive(article) => self.archive_article(article),
@@ -335,11 +336,16 @@ impl Application {
     }
 
     ///   Articles
-
     fn add_article(&self, article: Article) {
         let imp = self.imp();
         let window = imp.window.get().unwrap();
         window.articles_view().add(&article);
+    }
+
+    fn add_multiple_articles(&self, articles: Vec<Article>) {
+        let imp = self.imp();
+        let window = imp.window.get().unwrap();
+        window.articles_view().add_multiple(articles);
     }
 
     fn load_articles(&self, articles: Vec<Article>) {

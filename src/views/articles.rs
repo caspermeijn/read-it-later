@@ -4,7 +4,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use adw::subclass::prelude::*;
-use futures::executor::ThreadPool;
 use gtk::{
     gio, glib,
     glib::{clone, Sender},
@@ -103,26 +102,22 @@ impl ArticlesView {
         imp.unread_view.set_sender(sender.clone());
 
         let articles = Article::load().unwrap();
-        let pool = ThreadPool::new().expect("Failed to build pool");
-
-        let ctx = glib::MainContext::default();
-        ctx.spawn(async move {
-            let futures = async move {
-                articles.into_iter().for_each(|article| {
-                    sender.send(ArticleAction::Add(article)).unwrap();
-                })
-            };
-            pool.spawn_ok(futures);
-        });
+        sender.send(ArticleAction::AddMultiple(articles)).unwrap();
     }
 
     pub fn add(&self, article: &Article) {
+        self.add_multiple(vec![article.clone()])
+    }
+
+    pub fn add_multiple(&self, articles: Vec<Article>) {
         let imp = self.imp();
         let model = imp.model.get().unwrap();
-        if self.index(article).is_none() {
-            let object = ArticleObject::new(article.clone());
-            model.append(&object);
-        }
+        let additions = articles
+            .into_iter()
+            .filter(|article| self.index(article).is_none())
+            .map(|article| ArticleObject::new(article))
+            .collect::<Vec<_>>();
+        model.extend_from_slice(&additions);
     }
 
     pub fn clear(&self) {
