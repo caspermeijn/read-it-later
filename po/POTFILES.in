@@ -10,6 +10,7 @@ data/resources/ui/articles_list.ui
 data/resources/ui/articles.ui
 data/resources/ui/gtk/help-overlay.ui
 data/resources/ui/login.ui
+data/resources/ui/new_article.ui
 data/resources/ui/settings.ui
 data/resources/ui/window.ui
 src/application.rs
