@@ -13,9 +13,9 @@ authors = ["Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>", "Casper Meijn <caspe
 edition = "2021"
 
 [dependencies]
-gtk = {version = "0.7.3", package = "gtk4", features = ["gnome_45"]}
-adw = { version = "0.5.3", package = "libadwaita", features = ["v1_4"] }
-webkit = { version = "0.2", package = "webkit6" }
+gtk = {version = "0.8.0", package = "gtk4", features = ["gnome_46"]}
+adw = { version = "0.6.0", package = "libadwaita", features = ["v1_5"] }
+webkit = { version = "0.3.0", package = "webkit6" }
 log = "0.4"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
 wallabag-api = "0.4"

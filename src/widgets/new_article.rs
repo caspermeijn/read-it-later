@@ -45,7 +45,7 @@ mod imp {
                 window.close();
             });
 
-            klass.add_binding_action(Key::Escape, ModifierType::empty(), "window.close", None)
+            klass.add_binding_action(Key::Escape, ModifierType::empty(), "window.close")
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {

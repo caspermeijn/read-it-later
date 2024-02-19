@@ -49,6 +49,7 @@ SPDX-License-Identifier: CC0-1.0
         <p>Speed up startup for accounts with large number of articles</p>
         <p>Fixed page transition animation</p>
         <p>Update translations</p>
+        <p>Update to GNOME 46 runtime</p>
       </description>
     </release>
     <release version="0.5.0" date="2023-10-30">
