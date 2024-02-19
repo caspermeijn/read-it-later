@@ -4,8 +4,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use glib::Cast;
-use gtk::glib;
+use gtk::prelude::*;
 
 use crate::models::ArticleObject;
 
