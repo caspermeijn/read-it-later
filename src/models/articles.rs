@@ -5,7 +5,7 @@
 
 use std::{cell::RefCell, rc::Rc};
 
-use glib::{Receiver, Sender};
+use async_std::channel::{Receiver, Sender};
 use gtk::glib;
 use log::error;
 
@@ -31,7 +31,7 @@ pub struct ArticlesManager {
 
 impl ArticlesManager {
     pub fn new(main_sender: Sender<Action>) -> Rc<Self> {
-        let (sender, r) = glib::MainContext::channel(Default::default());
+        let (sender, r) = async_std::channel::unbounded();
         let receiver = RefCell::new(Some(r));
 
         let manager = Rc::new(Self {
@@ -46,74 +46,86 @@ impl ArticlesManager {
 
     fn init(&self, manager: Rc<Self>) {
         let receiver = self.receiver.borrow_mut().take().unwrap();
-        receiver.attach(None, move |action| manager.do_action(action));
+
+        let ctx = glib::MainContext::default();
+        ctx.spawn_local(glib::clone!(@strong manager =>  async move {
+            while let Ok(action) = receiver.recv().await {
+                manager.do_action(action).await;
+            }
+        }));
     }
 
-    fn do_action(&self, action: ArticleAction) -> glib::ControlFlow {
+    async fn do_action(&self, action: ArticleAction) {
         match action {
-            ArticleAction::Delete(article) => self.delete(article),
-            ArticleAction::Open(article) => self.open(article),
-            ArticleAction::Archive(article) => self.archive(article),
-            ArticleAction::Favorite(article) => self.favorite(article),
+            ArticleAction::Delete(article) => self.delete(article).await,
+            ArticleAction::Open(article) => self.open(article).await,
+            ArticleAction::Archive(article) => self.archive(article).await,
+            ArticleAction::Favorite(article) => self.favorite(article).await,
             // Update article values by their ID.
-            ArticleAction::Update(article) => self.update(article),
-            ArticleAction::Add(article) => self.add(article),
-            ArticleAction::AddMultiple(articles) => self.add_multiple(articles),
+            ArticleAction::Update(article) => self.update(article).await,
+            ArticleAction::Add(article) => self.add(article).await,
+            ArticleAction::AddMultiple(articles) => self.add_multiple(articles).await,
         };
-        glib::ControlFlow::Continue
     }
 
-    fn add(&self, article: Article) {
+    async fn add(&self, article: Article) {
         self.main_sender
             .send(Action::Articles(Box::new(ArticleAction::Add(article))))
+            .await
             .unwrap();
     }
 
-    fn add_multiple(&self, articles: Vec<Article>) {
+    async fn add_multiple(&self, articles: Vec<Article>) {
         self.main_sender
             .send(Action::Articles(Box::new(ArticleAction::AddMultiple(
                 articles,
             ))))
+            .await
             .unwrap();
     }
 
-    fn open(&self, article: Article) {
+    async fn open(&self, article: Article) {
         self.main_sender
             .send(Action::Articles(Box::new(ArticleAction::Open(article))))
+            .await
             .unwrap();
     }
 
-    fn update(&self, article: Article) {
+    async fn update(&self, article: Article) {
         self.main_sender
             .send(Action::Articles(Box::new(ArticleAction::Update(article))))
+            .await
             .unwrap();
     }
 
-    fn archive(&self, mut article: Article) {
+    async fn archive(&self, mut article: Article) {
         match article.toggle_archive() {
             Ok(_) => self
                 .main_sender
                 .send(Action::Articles(Box::new(ArticleAction::Archive(article))))
+                .await
                 .unwrap(),
             Err(err) => error!("Failed to (un)archive the article {}", err),
         }
     }
 
-    fn favorite(&self, mut article: Article) {
+    async fn favorite(&self, mut article: Article) {
         match article.toggle_favorite() {
             Ok(_) => self
                 .main_sender
                 .send(Action::Articles(Box::new(ArticleAction::Favorite(article))))
+                .await
                 .unwrap(),
             Err(err) => error!("Failed to (un)favorite the article {}", err),
         }
     }
 
-    fn delete(&self, article: Article) {
+    async fn delete(&self, article: Article) {
         match article.delete() {
             Ok(_) => self
                 .main_sender
                 .send(Action::Articles(Box::new(ArticleAction::Delete(article))))
+                .await
                 .unwrap(),
             Err(err) => error!("Failed to delete the article {}", err),
         }

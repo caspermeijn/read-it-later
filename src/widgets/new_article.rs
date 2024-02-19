@@ -3,7 +3,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use adw::{prelude::*, subclass::prelude::*};
-use glib::{Object, Sender};
+use async_std::channel::Sender;
+use glib::Object;
 use gtk::glib;
 use url::Url;
 
@@ -40,7 +41,7 @@ mod imp {
                 let imp = window.imp();
                 let url = Url::parse(&imp.article_url_entry.text()).unwrap();
                 let sender = imp.sender.get().unwrap();
-                sender.send(Action::SaveArticle(url)).unwrap();
+                sender.send_blocking(Action::SaveArticle(url)).unwrap();
                 window.close();
             });
 

@@ -9,11 +9,13 @@ use std::cell::OnceCell;
 
 use adw::{prelude::*, subclass::prelude::*};
 use anyhow::Result;
-use async_std::sync::{Arc, Mutex};
+use async_std::{
+    channel::Sender,
+    sync::{Arc, Mutex},
+};
 use chrono::{TimeZone, Utc};
 use futures::executor::ThreadPool;
 use gettextrs::gettext;
-use glib::{clone, Sender};
 use gtk::{gio, glib};
 use log::{error, info};
 use url::Url;
@@ -65,12 +67,15 @@ mod imp {
 
             let app = self.obj();
 
-            let (sender, receiver) = glib::MainContext::channel(Default::default());
+            let (sender, receiver) = async_std::channel::unbounded();
             self.sender.set(sender.clone()).unwrap();
-            receiver.attach(
-                None,
-                clone!(@strong app => move |action| app.do_action(action)),
-            );
+
+            let ctx = glib::MainContext::default();
+            ctx.spawn_local(glib::clone!(@strong app =>  async move {
+                while let Ok(action) = receiver.recv().await {
+                    app.do_action(action).await;
+                }
+            }));
 
             let client = Arc::new(Mutex::new(ClientManager::new(sender.clone())));
             self.client.set(client).unwrap();
@@ -113,14 +118,14 @@ impl Application {
         app.run()
     }
 
-    fn do_action(&self, action: Action) -> glib::ControlFlow {
+    async fn do_action(&self, action: Action) -> glib::ControlFlow {
         let imp = self.imp();
         let window = imp.window.get().unwrap();
         let sender = imp.sender.get().unwrap();
         match action {
             // Articles
-            Action::Articles(article_action) => self.do_article_action(article_action),
-            Action::SaveArticle(url) => self.save_article(url),
+            Action::Articles(article_action) => self.do_article_action(article_action).await,
+            Action::SaveArticle(url) => self.save_article(url).await,
             Action::LoadArticles(articles) => self.load_articles(articles),
             // UI
             Action::SetView(view) => window.set_view(view),
@@ -128,12 +133,13 @@ impl Application {
             Action::Notify(err_msg) => window.add_toast(adw::Toast::new(&err_msg)),
             // Auth
             Action::SetClientConfig(config) => self.set_client_config(config),
-            Action::Sync => self.sync(),
-            Action::Login => self.login(),
+            Action::Sync => self.sync().await,
+            Action::Login => self.login().await,
             Action::Logout => {
-                if self.logout().is_err() {
+                if self.logout().await.is_err() {
                     sender
                         .send(Action::Notify(gettext("Failed to logout")))
+                        .await
                         .unwrap();
                 }
             }
@@ -141,16 +147,16 @@ impl Application {
         glib::ControlFlow::Continue
     }
 
-    fn do_article_action(&self, action: Box<ArticleAction>) {
+    async fn do_article_action(&self, action: Box<ArticleAction>) {
         let imp = self.imp();
         let window = imp.window.get().unwrap();
         match *action {
             ArticleAction::Add(article) => self.add_article(article),
             ArticleAction::AddMultiple(articles) => self.add_multiple_articles(articles),
             ArticleAction::Open(article) => window.load_article(article),
-            ArticleAction::Delete(article) => self.delete_article(article),
-            ArticleAction::Archive(article) => self.archive_article(article),
-            ArticleAction::Favorite(article) => self.favorite_article(article),
+            ArticleAction::Delete(article) => self.delete_article(article).await,
+            ArticleAction::Archive(article) => self.archive_article(article).await,
+            ArticleAction::Favorite(article) => self.favorite_article(article).await,
             ArticleAction::Update(article) => self.update_article(article),
         };
     }
@@ -187,7 +193,7 @@ impl Application {
                 .activate(|app: &Application, _, _| {
                     let imp = app.imp();
                     let sender = imp.sender.get().unwrap();
-                    sender.send(Action::Logout).unwrap();
+                    sender.send_blocking(Action::Logout).unwrap();
                 })
                 .build(),
             // Sync
@@ -195,7 +201,7 @@ impl Application {
                 .activate(|app: &Application, _, _| {
                     let imp = app.imp();
                     let sender = imp.sender.get().unwrap();
-                    sender.send(Action::Sync).unwrap();
+                    sender.send_blocking(Action::Sync).unwrap();
                 })
                 .build(),
             // Login
@@ -206,7 +212,7 @@ impl Application {
                     let sender = imp.sender.get().unwrap();
                     let account: Account = parameter.unwrap().get().unwrap();
                     sender
-                        .send(Action::SetClientConfig(account.into()))
+                        .send_blocking(Action::SetClientConfig(account.into()))
                         .unwrap();
                 })
                 .build(),
@@ -235,10 +241,12 @@ impl Application {
         let username = SettingsManager::string(Key::Username);
         match SecretManager::is_logged(&username) {
             Ok(config) => {
-                sender.send(Action::SetView(View::Articles)).unwrap();
+                sender
+                    .send_blocking(Action::SetView(View::Articles))
+                    .unwrap();
                 self.set_client_config(config);
             }
-            _ => sender.send(Action::SetView(View::Login)).unwrap(),
+            _ => sender.send_blocking(Action::SetView(View::Login)).unwrap(),
         };
     }
 
@@ -247,11 +255,14 @@ impl Application {
         let sender = imp.sender.get().unwrap().clone();
         let client = imp.client.get().unwrap().clone();
 
-        sender.send(Action::SetView(View::Syncing(true))).unwrap();
-        let logged_username = SettingsManager::string(Key::Username);
-
         let ctx = glib::MainContext::default();
         ctx.spawn_local(async move {
+            sender
+                .send(Action::SetView(View::Syncing(true)))
+                .await
+                .unwrap();
+            let logged_username = SettingsManager::string(Key::Username);
+
             let mut client = client.lock().await;
             match client.set_config(config.clone()).await {
                 Ok(_) => {
@@ -262,34 +273,42 @@ impl Application {
                         if let Err(err) = SecretManager::store_from_config(config) {
                             error!("Failed to store credentials {}", err);
                         }
-                        sender.send(Action::Login).unwrap();
+                        sender.send(Action::Login).await.unwrap();
                     } else {
                         sender
                             .send(Action::Notify(gettext("Failed to log in")))
+                            .await
                             .unwrap();
-                        sender.send(Action::SetView(View::Syncing(false))).unwrap();
+                        sender
+                            .send(Action::SetView(View::Syncing(false)))
+                            .await
+                            .unwrap();
                     }
                 }
                 Err(err) => {
                     sender
                         .send(Action::Notify(gettext("Failed to log in")))
+                        .await
                         .unwrap();
-                    sender.send(Action::SetView(View::Syncing(false))).unwrap();
+                    sender
+                        .send(Action::SetView(View::Syncing(false)))
+                        .await
+                        .unwrap();
                     error!("Failed to setup a new client from current config: {}", err);
                 }
             }
         });
     }
 
-    fn login(&self) {
+    async fn login(&self) {
         let imp = self.imp();
         let sender = imp.sender.get().unwrap();
 
-        self.sync();
-        sender.send(Action::SetView(View::Articles)).unwrap();
+        self.sync().await;
+        sender.send(Action::SetView(View::Articles)).await.unwrap();
     }
 
-    fn logout(&self) -> Result<()> {
+    async fn logout(&self) -> Result<()> {
         let imp = self.imp();
         let window = imp.window.get().unwrap();
         let sender = imp.sender.get().unwrap();
@@ -300,16 +319,19 @@ impl Application {
         SecretManager::logout(&username)?;
         SettingsManager::set_string(Key::Username, "".into());
         SettingsManager::set_integer(Key::LatestSync, 0);
-        sender.send(Action::SetView(View::Login)).unwrap();
+        sender.send(Action::SetView(View::Login)).await.unwrap();
         Ok(())
     }
 
-    fn sync(&self) {
+    async fn sync(&self) {
         let imp = self.imp();
         let sender = imp.sender.get().unwrap().clone();
         let client = imp.client.get().unwrap().clone();
 
-        sender.send(Action::SetView(View::Syncing(true))).unwrap();
+        sender
+            .send(Action::SetView(View::Syncing(true)))
+            .await
+            .unwrap();
         let mut since = Utc.timestamp_opt(0, 0).unwrap();
         let last_sync = SettingsManager::integer(Key::LatestSync);
         if last_sync != 0 {
@@ -324,12 +346,15 @@ impl Application {
             info!("Starting a new sync");
             match client.sync(since).await {
                 Ok(articles) => {
-                    sender.send(Action::LoadArticles(articles)).unwrap();
+                    sender.send(Action::LoadArticles(articles)).await.unwrap();
                     SettingsManager::set_integer(Key::LatestSync, now as i32);
                 }
                 Err(err) => error!("Failed to sync {:#?}", err),
             };
-            sender.send(Action::SetView(View::Syncing(false))).unwrap();
+            sender
+                .send(Action::SetView(View::Syncing(false)))
+                .await
+                .unwrap();
         });
     }
 
@@ -351,25 +376,25 @@ impl Application {
         let sender = imp.sender.get().unwrap().clone();
 
         let pool = ThreadPool::new().expect("Failed to build pool");
-        let ctx = glib::MainContext::default();
-        ctx.spawn_local(async move {
-            let futures = async move {
-                articles.iter().for_each(|article| {
-                    match article.insert() {
-                        Ok(_) => sender
-                            .send(Action::Articles(Box::new(ArticleAction::Add(
-                                article.clone(),
-                            ))))
-                            .unwrap(),
-                        Err(_) => sender
-                            .send(Action::Articles(Box::new(ArticleAction::Update(
-                                article.clone(),
-                            ))))
-                            .unwrap(),
-                    };
-                })
-            };
-            pool.spawn_ok(futures);
+        articles.iter().for_each(|article| {
+            let article = article.clone();
+            let sender = sender.clone();
+            pool.spawn_ok(async move {
+                match article.insert() {
+                    Ok(_) => sender
+                        .send(Action::Articles(Box::new(ArticleAction::Add(
+                            article.clone(),
+                        ))))
+                        .await
+                        .unwrap(),
+                    Err(_) => sender
+                        .send(Action::Articles(Box::new(ArticleAction::Update(
+                            article.clone(),
+                        ))))
+                        .await
+                        .unwrap(),
+                };
+            });
         });
     }
 
@@ -379,24 +404,30 @@ impl Application {
         window.articles_view().update(&article);
     }
 
-    fn save_article(&self, url: Url) {
+    async fn save_article(&self, url: Url) {
         let imp = self.imp();
         let sender = imp.sender.get().unwrap().clone();
         let client = imp.client.get().unwrap().clone();
 
         info!("Saving new article \"{:#?}\"", url);
-        sender.send(Action::PreviousView).unwrap();
-        sender.send(Action::SetView(View::Syncing(true))).unwrap();
+        sender.send(Action::PreviousView).await.unwrap();
+        sender
+            .send(Action::SetView(View::Syncing(true)))
+            .await
+            .unwrap();
         let ctx = glib::MainContext::default();
         ctx.spawn_local(async move {
             let client = client.lock().await;
             client.save_url(url).await;
-            sender.send(Action::SetView(View::Syncing(false))).unwrap();
-            sender.send(Action::Sync).unwrap();
+            sender
+                .send(Action::SetView(View::Syncing(false)))
+                .await
+                .unwrap();
+            sender.send(Action::Sync).await.unwrap();
         });
     }
 
-    fn archive_article(&self, article: Article) {
+    async fn archive_article(&self, article: Article) {
         let imp = self.imp();
         let window = imp.window.get().unwrap();
         let sender = imp.sender.get().unwrap().clone();
@@ -406,18 +437,24 @@ impl Application {
             "(Un)archiving the article \"{:#?}\" with ID: {}",
             article.title, article.id
         );
-        sender.send(Action::SetView(View::Syncing(true))).unwrap();
+        sender
+            .send(Action::SetView(View::Syncing(true)))
+            .await
+            .unwrap();
         window.articles_view().archive(&article);
 
         let ctx = glib::MainContext::default();
         ctx.spawn_local(async move {
             let client = client.lock().await;
             client.update_entry(article.id, article.get_patch()).await;
-            sender.send(Action::SetView(View::Syncing(false))).unwrap();
+            sender
+                .send(Action::SetView(View::Syncing(false)))
+                .await
+                .unwrap();
         });
     }
 
-    fn favorite_article(&self, article: Article) {
+    async fn favorite_article(&self, article: Article) {
         let imp = self.imp();
         let window = imp.window.get().unwrap();
         let sender = imp.sender.get().unwrap().clone();
@@ -427,18 +464,24 @@ impl Application {
             "(Un)favoriting the article \"{:#?}\" with ID: {}",
             article.title, article.id
         );
-        sender.send(Action::SetView(View::Syncing(true))).unwrap();
+        sender
+            .send(Action::SetView(View::Syncing(true)))
+            .await
+            .unwrap();
         window.articles_view().favorite(&article);
 
         let ctx = glib::MainContext::default();
         ctx.spawn_local(async move {
             let client = client.lock().await;
             client.update_entry(article.id, article.get_patch()).await;
-            sender.send(Action::SetView(View::Syncing(false))).unwrap();
+            sender
+                .send(Action::SetView(View::Syncing(false)))
+                .await
+                .unwrap();
         });
     }
 
-    fn delete_article(&self, article: Article) {
+    async fn delete_article(&self, article: Article) {
         let imp = self.imp();
         let window = imp.window.get().unwrap();
         let sender = imp.sender.get().unwrap().clone();
@@ -448,7 +491,10 @@ impl Application {
             "Deleting the article \"{:#?}\" with ID: {}",
             article.title, article.id
         );
-        sender.send(Action::SetView(View::Syncing(true))).unwrap();
+        sender
+            .send(Action::SetView(View::Syncing(true)))
+            .await
+            .unwrap();
         window.articles_view().delete(&article);
 
         let article_id: i32 = article.id;
@@ -456,8 +502,11 @@ impl Application {
         ctx.spawn_local(async move {
             let client = client.lock().await;
             client.delete_entry(article_id).await;
-            sender.send(Action::SetView(View::Syncing(false))).unwrap();
-            sender.send(Action::PreviousView).unwrap();
+            sender
+                .send(Action::SetView(View::Syncing(false)))
+                .await
+                .unwrap();
+            sender.send(Action::PreviousView).await.unwrap();
         });
     }
 

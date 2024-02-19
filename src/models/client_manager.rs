@@ -6,9 +6,11 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use anyhow::{bail, Result};
-use async_std::sync::{Arc, Mutex};
+use async_std::{
+    channel::Sender,
+    sync::{Arc, Mutex},
+};
 use chrono::DateTime;
-use gtk::glib::Sender;
 use log::{debug, warn};
 use url::Url;
 use wallabag_api::{
@@ -69,6 +71,7 @@ impl ClientManager {
                 let article = Article::from(entry);
                 self.sender
                     .send(Action::Articles(Box::new(ArticleAction::Add(article))))
+                    .await
                     .unwrap();
             }
         }

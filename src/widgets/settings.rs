@@ -82,15 +82,15 @@ impl SettingsWidget {
     }
 
     fn init(&self, client: Arc<Mutex<ClientManager>>) {
-        let (sender, receiver) = glib::MainContext::channel(Default::default());
-        receiver.attach(
-            None,
-            glib::clone!(@strong self as window =>  move |action| {
-                    window.do_action(action)
-            }),
-        );
-
+        let (sender, receiver) = async_std::channel::unbounded();
         let ctx = glib::MainContext::default();
+
+        ctx.spawn_local(glib::clone!(@strong self as window =>  async move {
+            while let Ok(action) = receiver.recv().await {
+                window.do_action(action);
+            }
+        }));
+
         ctx.spawn_local(async move {
             let client = client.lock().await;
             if let Ok(user) = client.fetch_user().await {
@@ -101,6 +101,7 @@ impl SettingsWidget {
                         created_at: user.created_at,
                         updated_at: user.updated_at,
                     }))
+                    .await
                     .unwrap();
             }
         });

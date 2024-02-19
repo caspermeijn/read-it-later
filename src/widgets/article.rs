@@ -6,7 +6,8 @@
 use std::cell::RefCell;
 
 use anyhow::Result;
-use glib::{clone, Sender};
+use async_std::channel::Sender;
+use glib::clone;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use log::{error, info};
 use webkit::{prelude::*, NetworkSession, Settings, WebView};
@@ -151,7 +152,7 @@ impl ArticleWidget {
                   let imp = aw.imp();
                   let sender = imp.sender.get().unwrap();
                   if let Some(article) = imp.article.borrow().clone(){
-                    sender.send(ArticleAction::Delete(article)).unwrap();
+                    sender.send_blocking(ArticleAction::Delete(article)).unwrap();
                   }
                 }))
                 .build(),
@@ -175,7 +176,7 @@ impl ArticleWidget {
                     let is_archived = !action_state;
                     action.set_state(&is_archived.into());
                     if let Some(article) = imp.article.borrow_mut().clone() {
-                        sender.send(ArticleAction::Archive(article)).unwrap();
+                        sender.send_blocking(ArticleAction::Archive(article)).unwrap();
                     }
                 }))
                 .build(),
@@ -191,7 +192,7 @@ impl ArticleWidget {
                     action.set_state(&is_starred.into());
 
                     if let Some(article) = imp.article.borrow_mut().clone() {
-                        sender.send(ArticleAction::Favorite(article)).unwrap();
+                        sender.send_blocking(ArticleAction::Favorite(article)).unwrap();
                     }
                 }))
                 .build(),

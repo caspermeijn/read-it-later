@@ -4,8 +4,9 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+use async_std::channel::Sender;
 use gio::prelude::*;
-use glib::{clone, Sender};
+use glib::clone;
 use gtk::{gio, glib, subclass::prelude::*};
 
 use crate::models::{ArticleAction, ArticleObject};
@@ -79,11 +80,14 @@ mod imp {
     #[gtk::template_callbacks]
     impl ArticlesListWidget {
         #[template_callback]
-        fn handle_row_activate(&self, position: u32, list_view: gtk::ListView) {
+        async fn handle_row_activate(&self, position: u32, list_view: gtk::ListView) {
             let item = list_view.model().unwrap().item(position).unwrap();
             let article = item.downcast_ref::<ArticleObject>().unwrap().article();
             let sender = self.sender.get().unwrap();
-            sender.send(ArticleAction::Open(article.clone())).unwrap();
+            sender
+                .send(ArticleAction::Open(article.clone()))
+                .await
+                .unwrap();
         }
     }
 }

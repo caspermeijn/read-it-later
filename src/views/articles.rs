@@ -4,11 +4,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use adw::subclass::prelude::*;
-use gtk::{
-    gio, glib,
-    glib::{clone, Sender},
-    prelude::*,
-};
+use async_std::channel::Sender;
+use gtk::{gio, glib, glib::clone, prelude::*};
 
 use crate::models::{Article, ArticleAction, ArticleObject, ArticlesFilter};
 
@@ -102,7 +99,9 @@ impl ArticlesView {
         imp.unread_view.set_sender(sender.clone());
 
         let articles = Article::load().unwrap();
-        sender.send(ArticleAction::AddMultiple(articles)).unwrap();
+        sender
+            .send_blocking(ArticleAction::AddMultiple(articles))
+            .unwrap();
     }
 
     pub fn add(&self, article: &Article) {

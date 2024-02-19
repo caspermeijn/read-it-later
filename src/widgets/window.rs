@@ -6,7 +6,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use adw::{prelude::*, subclass::prelude::*};
-use glib::{clone, Object, Sender};
+use async_std::channel::Sender;
+use glib::{clone, Object};
 use gtk::{gio, glib};
 
 use crate::{
@@ -55,7 +56,7 @@ mod imp {
 
             klass.install_action("win.previous", None, move |window, _, _| {
                 let sender = window.imp().sender.get().unwrap();
-                sender.send(Action::PreviousView).unwrap();
+                sender.send_blocking(Action::PreviousView).unwrap();
             });
 
             klass.install_action("win.new-article", None, move |window, _, _| {
