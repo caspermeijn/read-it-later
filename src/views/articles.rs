@@ -115,7 +115,7 @@ impl ArticlesView {
         let additions = articles
             .into_iter()
             .filter(|article| self.index(article).is_none())
-            .map(|article| ArticleObject::new(article))
+            .map(ArticleObject::new)
             .collect::<Vec<_>>();
         model.extend_from_slice(&additions);
     }
