@@ -7,5 +7,7 @@
         "mesonbuild.mesonbuild",
         "redhat.vscode-xml",
         "rust-lang.rust-analyzer",
+        "serayuzgur.crates",
+        "tamasfe.even-better-toml",
     ]
 }
