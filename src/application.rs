@@ -21,7 +21,7 @@ use wallabag_api::types::Config;
 
 use crate::{
     config, database,
-    models::{Account, Article, ArticleAction, ClientManager, SecretManager, CACHE_DIR},
+    models::{Account, Article, ArticleAction, ClientManager, SecretManager},
     settings::{Key, SettingsManager},
     widgets::{SettingsWidget, View, Window},
 };
@@ -104,8 +104,6 @@ impl Application {
         info!("Read It Later ({})", config::APP_ID);
         info!("Version: {} ({})", config::VERSION, config::PROFILE);
         info!("Datadir: {}", config::PKGDATADIR);
-
-        std::fs::create_dir_all(&*CACHE_DIR).unwrap();
 
         let app = glib::Object::builder::<Application>()
             .property("application-id", config::APP_ID)

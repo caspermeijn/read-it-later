@@ -7,9 +7,8 @@
 use gtk::{glib, prelude::*, subclass::prelude::*};
 
 mod imp {
-    use std::{cell::RefCell, str::FromStr};
+    use std::{cell::RefCell, str::FromStr, sync::OnceLock};
 
-    use glib::once_cell::sync::Lazy;
     use gtk::{
         gdk::Texture,
         glib::{clone, subclass::InitializingObject, ParamSpec, Value},
@@ -47,9 +46,8 @@ mod imp {
 
     impl ObjectImpl for ArticlePreview {
         fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> =
-                Lazy::new(|| vec![glib::ParamSpecString::builder("url").build()]);
-            PROPERTIES.as_ref()
+            static PROPERTIES: OnceLock<Vec<ParamSpec>> = OnceLock::new();
+            PROPERTIES.get_or_init(|| vec![glib::ParamSpecString::builder("url").build()])
         }
 
         fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {

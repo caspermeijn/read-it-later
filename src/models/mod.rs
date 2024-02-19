@@ -20,5 +20,5 @@ pub use article_object::ArticleObject;
 pub use article_sorter::ArticleSorter;
 pub use articles::{ArticleAction, ArticlesManager};
 pub use client_manager::ClientManager;
-pub use preview_image::{PreviewImage, CACHE_DIR};
+pub use preview_image::PreviewImage;
 pub use secret::SecretManager;

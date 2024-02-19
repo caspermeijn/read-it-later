@@ -5,17 +5,23 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use std::path::PathBuf;
+use std::{path::PathBuf, sync::OnceLock};
 
 use anyhow::Result;
-use glib::once_cell::sync::Lazy;
 use gtk::glib;
 use isahc::prelude::*;
 use log::info;
 use sha1::{Digest, Sha1};
 use url::Url;
 
-pub static CACHE_DIR: Lazy<PathBuf> = Lazy::new(|| glib::user_cache_dir().join("read-it-later"));
+fn cache_dir() -> &'static PathBuf {
+    static CACHE_DIR: OnceLock<PathBuf> = OnceLock::new();
+    CACHE_DIR.get_or_init(|| {
+        let cache_dir = glib::user_cache_dir().join("read-it-later");
+        std::fs::create_dir_all(&cache_dir).unwrap();
+        cache_dir
+    })
+}
 
 pub struct PreviewImage {
     pub url: Url,
@@ -31,7 +37,7 @@ impl PreviewImage {
     pub fn get_cache_of(path: &str) -> PathBuf {
         let hash = Sha1::digest(path);
         let hex_hash = base16ct::lower::encode_string(&hash);
-        let cache: PathBuf = CACHE_DIR.join(hex_hash);
+        let cache: PathBuf = cache_dir().join(hex_hash);
         cache
     }
 

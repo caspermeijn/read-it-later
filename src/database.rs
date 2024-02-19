@@ -5,12 +5,14 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use std::{fs, fs::File, path::PathBuf};
+use std::{
+    fs::{self, File},
+    sync::OnceLock,
+};
 
 use anyhow::{Ok, Result};
 use diesel::{migration::MigrationVersion, prelude::*, r2d2, r2d2::ConnectionManager};
 use diesel_migrations::EmbeddedMigrations;
-use glib::once_cell::sync::Lazy;
 use gtk::glib;
 use log::info;
 
@@ -18,13 +20,11 @@ use crate::diesel_migrations::MigrationHarness;
 
 type Pool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 
-static DB_PATH: Lazy<PathBuf> = Lazy::new(|| glib::user_data_dir().join("read-it-later"));
-static POOL: Lazy<Pool> = Lazy::new(|| init_pool().expect("Failed to create a Pool"));
-
 pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!("migrations/");
 
-pub(crate) fn connection() -> Pool {
-    POOL.clone()
+pub(crate) fn connection() -> &'static Pool {
+    static POOL: OnceLock<Pool> = OnceLock::new();
+    POOL.get_or_init(|| init_pool().expect("Failed to create a Pool"))
 }
 
 fn run_migration_on(connection: &mut SqliteConnection) -> Result<Vec<MigrationVersion<'_>>> {
@@ -59,8 +59,9 @@ fn run_preview_migration_on(connection: &mut SqliteConnection) -> Result<()> {
 }
 
 fn init_pool() -> Result<Pool> {
-    fs::create_dir_all(&*DB_PATH)?;
-    let db_path = DB_PATH.join("articles.db");
+    let db_directory = glib::user_data_dir().join("read-it-later");
+    fs::create_dir_all(&db_directory)?;
+    let db_path = db_directory.join("articles.db");
 
     if !db_path.exists() {
         File::create(&db_path)?;

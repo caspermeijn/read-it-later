@@ -11,11 +11,9 @@ use gtk::{gio, glib, subclass::prelude::*};
 use crate::models::{ArticleAction, ArticleObject};
 
 mod imp {
-    use std::cell::OnceCell;
+    use std::{cell::OnceCell, sync::OnceLock};
 
-    use glib::{
-        once_cell::sync::Lazy, subclass::InitializingObject, ParamSpec, ParamSpecString, Value,
-    };
+    use glib::{subclass::InitializingObject, ParamSpec, ParamSpecString, Value};
     use gtk::prelude::*;
 
     use super::*;
@@ -49,9 +47,9 @@ mod imp {
 
     impl ObjectImpl for ArticlesListWidget {
         fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> =
-                Lazy::new(|| vec![ParamSpecString::builder("placeholder-icon-name").build()]);
-            PROPERTIES.as_ref()
+            static PROPERTIES: OnceLock<Vec<ParamSpec>> = OnceLock::new();
+            PROPERTIES
+                .get_or_init(|| vec![ParamSpecString::builder("placeholder-icon-name").build()])
         }
 
         fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {

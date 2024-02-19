@@ -8,7 +8,7 @@ use gtk::{glib, prelude::*, subclass::prelude::*};
 use crate::models::Article;
 
 mod imp {
-    use std::cell::OnceCell;
+    use std::{cell::OnceCell, sync::OnceLock};
 
     use super::*;
 
@@ -25,8 +25,8 @@ mod imp {
 
     impl ObjectImpl for ArticleObject {
         fn properties() -> &'static [glib::ParamSpec] {
-            use glib::once_cell::sync::Lazy;
-            static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
+            static PROPERTIES: OnceLock<Vec<glib::ParamSpec>> = OnceLock::new();
+            PROPERTIES.get_or_init(|| {
                 vec![
                     glib::ParamSpecString::builder("title").read_only().build(),
                     glib::ParamSpecString::builder("preview-text")
@@ -39,9 +39,7 @@ mod imp {
                         .read_only()
                         .build(),
                 ]
-            });
-
-            PROPERTIES.as_ref()
+            })
         }
 
         fn property(&self, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
