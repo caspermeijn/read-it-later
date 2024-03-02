@@ -76,7 +76,7 @@ SPDX-License-Identifier: CC0-1.0
     <binary>read-it-later</binary>
   </provides>
   <requires>
-    <display_length compare="ge">small</display_length>
+    <display_length compare="ge">360</display_length>
     <internet>first-run</internet>
   </requires>
   <recommends>
