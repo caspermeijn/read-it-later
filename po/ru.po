@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-08-30 06:37+0000\n"
-"PO-Revision-Date: 2023-08-31 22:29+1000\n"
+"POT-Creation-Date: 2024-02-11 18:35+0000\n"
+"PO-Revision-Date: 2024-02-16 21:27+1000\n"
 "Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -21,13 +21,12 @@ msgstr ""
 "X-Generator: Poedit 3.0.1\n"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:6
-#: data/resources/ui/window.ui:66
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
 msgid "Read It Later"
 msgstr "Прочтите позже"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
 msgid "Save and read web articles"
 msgstr "Сохраняйте и читайте статьи из интернета"
 
@@ -35,35 +34,35 @@ msgstr "Сохраняйте и читайте статьи из интерне�
 msgid "GNOME;GTK;Wallabag;Web;Article;Offline;"
 msgstr "GNOME;GTK;Wallabag;Web;Article;Offline;Веб;Статьи;Оффлайн;"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:13
 msgid "Default window width"
 msgstr "Ширина окна по умолчанию"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:10
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:17
 msgid "Default window height"
 msgstr "Высота окна по умолчанию"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:21
 msgid "Default window x position"
 msgstr "Расположение окна (x) по умолчанию"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:25
 msgid "Default window y position"
 msgstr "Расположение окна (y) по умолчанию"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:29
 msgid "Default window maximized behavior"
 msgstr "Поведение по умолчанию для развёрнутого окна"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:33
 msgid "Logged in user name"
 msgstr "Вы вошли под именем пользователя"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:37
 msgid "Latest successful sync in ms"
 msgstr "Время последнем успешной синхронизации в мс"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:9
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
 msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
 "manage your articles."
@@ -71,23 +70,23 @@ msgstr ""
 "Прочтите позже - это простой графический клиент для Wallabag. В нём "
 "присутствуют базовые функции для управления вашими сохранёнными статьями."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:11
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:19
 msgid "Add new articles"
 msgstr "Добавить новые статьи"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:20
 msgid "Archive an article"
 msgstr "Архивировать статью"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:21
 msgid "Delete an article"
 msgstr "Удалить статью"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
 msgid "Favorite an article"
 msgstr "Добавить статью в избранное"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:16
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:24
 msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
 "highlighting and a dark mode."
@@ -95,204 +94,214 @@ msgstr ""
 "Он также содержит приятный для глаз режим чтения, который поддерживает "
 "подсветку синтаксиса кода и тёмный режим."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:81
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:89
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:85
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:93
 msgid "Main Window"
 msgstr "Главное окно"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:89
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:97
 msgid "Article View"
 msgstr "Просмотр статьи"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:93
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:101
 msgid "Adaptive view in dark mode"
 msgstr "Адаптивный просмотр в тёмном режиме"
 
+#: data/resources/ui/article.ui:12
+msgid "Open Website"
+msgstr "Открыть веб-сайт"
+
+#: data/resources/ui/article.ui:18
+msgid "Delete Article"
+msgstr "Удалить статью"
+
+#: data/resources/ui/article.ui:50
+msgctxt "action button"
+msgid "Favorite"
+msgstr "Избранное"
+
+#: data/resources/ui/article.ui:58
+msgctxt "action button"
+msgid "Archive"
+msgstr "Архив"
+
 #. Translators: This status is shown when the list of articles is empty
-#: data/resources/ui/articles_list.ui:34
+#: data/resources/ui/articles_list.ui:54
 msgid "Pretty clean!"
 msgstr "Достаточно чисто!"
 
-#: data/resources/ui/articles.ui:14
+#: data/resources/ui/articles.ui:11
+msgid "Add Article…"
+msgstr "Добавить статью…"
+
+#: data/resources/ui/articles.ui:17
+msgid "Preferences"
+msgstr "Параметры"
+
+#: data/resources/ui/articles.ui:21
+msgid "Log Out"
+msgstr "Выйти"
+
+#: data/resources/ui/articles.ui:27
+msgid "Keyboard Shortcuts"
+msgstr "Комбинации клавиш"
+
+#: data/resources/ui/articles.ui:31
+msgid "About Read It Later"
+msgstr "О приложении"
+
+#: data/resources/ui/articles.ui:87
 msgctxt "view switcher"
 msgid "Unread"
 msgstr "Непрочитанное"
 
-#: data/resources/ui/articles.ui:26
+#: data/resources/ui/articles.ui:99
 msgctxt "view switcher"
 msgid "Favorites"
 msgstr "Избранное"
 
-#: data/resources/ui/articles.ui:38
+#: data/resources/ui/articles.ui:111
 msgctxt "view switcher"
 msgid "Archive"
 msgstr "Архив"
 
-#: data/resources/ui/gtk/help-overlay.ui:12
+#: data/resources/ui/gtk/help-overlay.ui:19
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Общие"
 
-#: data/resources/ui/gtk/help-overlay.ui:15
+#: data/resources/ui/gtk/help-overlay.ui:22
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "Показать комбинации клавиш"
 
-#: data/resources/ui/gtk/help-overlay.ui:21
+#: data/resources/ui/gtk/help-overlay.ui:28
 msgctxt "shortcut window"
 msgid "Preferences"
 msgstr "Параметры"
 
-#: data/resources/ui/gtk/help-overlay.ui:27
+#: data/resources/ui/gtk/help-overlay.ui:34
 msgctxt "shortcut window"
 msgid "Back"
 msgstr "Назад"
 
-#: data/resources/ui/gtk/help-overlay.ui:33
+#: data/resources/ui/gtk/help-overlay.ui:40
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Закрыть"
 
-#: data/resources/ui/gtk/help-overlay.ui:41
+#: data/resources/ui/gtk/help-overlay.ui:48
 msgctxt "shortcut window"
 msgid "Articles"
 msgstr "Статьи"
 
-#: data/resources/ui/gtk/help-overlay.ui:44
+#: data/resources/ui/gtk/help-overlay.ui:51
 msgctxt "shortcut window"
 msgid "Synchronize"
 msgstr "Синхронизировать"
 
-#: data/resources/ui/gtk/help-overlay.ui:50
+#: data/resources/ui/gtk/help-overlay.ui:57
 msgctxt "shortcut window"
 msgid "New Article"
 msgstr "Добавить статью"
 
-#: data/resources/ui/gtk/help-overlay.ui:56
+#: data/resources/ui/gtk/help-overlay.ui:63
 msgctxt "shortcut window"
 msgid "Delete Article"
 msgstr "Удалить статью"
 
-#: data/resources/ui/gtk/help-overlay.ui:62
+#: data/resources/ui/gtk/help-overlay.ui:69
 msgctxt "shortcut window"
 msgid "Favorite Article"
 msgstr "Добавить статью в избранное"
 
-#: data/resources/ui/gtk/help-overlay.ui:68
+#: data/resources/ui/gtk/help-overlay.ui:75
 msgctxt "shortcut window"
 msgid "Archive Article"
 msgstr "Архивировать статью"
 
-#: data/resources/ui/gtk/help-overlay.ui:74
+#: data/resources/ui/gtk/help-overlay.ui:81
 msgctxt "shortcut window"
 msgid "Open Article in Browser"
 msgstr "Открыть статью в браузере"
 
-#: data/resources/ui/login.ui:32
+#: data/resources/ui/login.ui:51
 msgid "Welcome to Read It Later"
 msgstr "Добро пожаловать в приложение «Прочтите позже»"
 
-#: data/resources/ui/login.ui:42
+#: data/resources/ui/login.ui:61
 msgid "Please sign in using your Wallabag instance information"
 msgstr ""
 "Пожалуйста, войдите в систему с использованием информации о вашем экземпляре "
 "Wallabag"
 
-#: data/resources/ui/login.ui:57
+#: data/resources/ui/login.ui:76
 msgid "Instance URL"
 msgstr "URL экземпляра"
 
-#: data/resources/ui/login.ui:63
+#: data/resources/ui/login.ui:82
 msgid "Client ID"
 msgstr "ID клиента"
 
-#: data/resources/ui/login.ui:69
+#: data/resources/ui/login.ui:88
 msgid "Client Secret"
 msgstr "Ключ клиента"
 
-#: data/resources/ui/login.ui:75 data/resources/ui/settings.ui:13
+#: data/resources/ui/login.ui:94 data/resources/ui/settings.ui:22
 msgid "User Name"
 msgstr "Имя пользователя"
 
-#: data/resources/ui/login.ui:81
+#: data/resources/ui/login.ui:100
 msgid "Password"
 msgstr "Пароль"
 
-#: data/resources/ui/login.ui:91
+#: data/resources/ui/login.ui:110
 msgid "Log In"
 msgstr "Войти"
 
-#: data/resources/ui/settings.ui:7
-msgid "Account"
-msgstr "Учётная запись"
+#: data/resources/ui/new_article.ui:11
+msgctxt "window title"
+msgid "Add article"
+msgstr "Добавить статью"
 
-#: data/resources/ui/settings.ui:10
-msgid "Account Information"
-msgstr "Информация об учётной записи"
-
-#: data/resources/ui/settings.ui:21
-msgid "Email"
-msgstr "Электронная почта"
-
-#: data/resources/ui/settings.ui:29
-msgid "Created At"
-msgstr "Создано"
-
-#: data/resources/ui/settings.ui:37
-msgid "Updated At"
-msgstr "Обновлено"
-
-#: data/resources/ui/window.ui:6
-msgid "Open Website"
-msgstr "Открыть веб-сайт"
-
-#: data/resources/ui/window.ui:12
-msgid "Delete Article"
-msgstr "Удалить статью"
-
-#: data/resources/ui/window.ui:20
-msgid "Add Article…"
-msgstr "Добавить статью…"
-
-#: data/resources/ui/window.ui:26
-msgid "Preferences"
-msgstr "Параметры"
-
-#: data/resources/ui/window.ui:30
-msgid "Log Out"
-msgstr "Выйти"
-
-#: data/resources/ui/window.ui:36
-msgid "Keyboard Shortcuts"
-msgstr "Комбинации клавиш"
-
-#: data/resources/ui/window.ui:40
-msgid "About Read It Later"
-msgstr "О приложении"
-
-#: data/resources/ui/window.ui:104
+#: data/resources/ui/new_article.ui:22
 msgctxt "action button"
-msgid "Favorite"
-msgstr "Избранное"
+msgid "Cancel"
+msgstr "Отменить"
 
-#: data/resources/ui/window.ui:112
+#: data/resources/ui/new_article.ui:27
 msgctxt "action button"
-msgid "Archive"
-msgstr "Архив"
+msgid "Add"
+msgstr "Добавить"
 
-#: data/resources/ui/window.ui:151
+#: data/resources/ui/new_article.ui:42
 msgid "Paste the article URL here"
 msgstr "Вставьте сюда URL статьи"
 
-#: data/resources/ui/window.ui:158
-msgctxt "action button"
-msgid "Save"
-msgstr "Сохранить"
+#: data/resources/ui/settings.ui:16
+msgid "Account"
+msgstr "Учётная запись"
 
-#: src/application.rs:131
+#: data/resources/ui/settings.ui:19
+msgid "Account Information"
+msgstr "Информация об учётной записи"
+
+#: data/resources/ui/settings.ui:30
+msgid "Email"
+msgstr "Электронная почта"
+
+#: data/resources/ui/settings.ui:38
+msgid "Created At"
+msgstr "Создано"
+
+#: data/resources/ui/settings.ui:46
+msgid "Updated At"
+msgstr "Обновлено"
+
+#: src/application.rs:138
 msgid "Failed to logout"
 msgstr "Не удалось выйти"
 
@@ -300,9 +309,13 @@ msgstr "Не удалось выйти"
 msgid "Failed to log in"
 msgstr "Не удалось войти"
 
-#: src/application.rs:473
+#: src/application.rs:477
 msgid "translator-credits"
 msgstr "Артемий Судаков <finziyr@yandex.ru>, 2020"
+
+#~ msgctxt "action button"
+#~ msgid "Save"
+#~ msgstr "Сохранить"
 
 #~ msgid "A Wallabag Client"
 #~ msgstr "Графический клиент для Wallabag"
