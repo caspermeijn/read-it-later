@@ -29,7 +29,9 @@ Each article shows the title, article information, summary, and an optional pict
 When a list is empty, a placeholder is shown with the text `Pretty clean!`.
 
 ## Add a new article
-When the article list is visible, a menu option is available to `Add Article...`. Choosing this option will replace the menu bar with a URL input. You can leave this using the back button or enter a URL and press `Save`. The article is downloaded and added to the `Unread` article list.
+When the article list is visible, a menu option is available to `Add Article...`. Choosing this option will open a popup with a URL input. You can leave this using the back button or enter a URL and press `Add`. The article is downloaded and added to the `Unread` article list.
+
+When an valid URL is on the clipboard, it is automatically pasted in the entry box. With other text on the clipboard, the entry box is empty and ready to be typed into.
 
 Example URL:
 - https://blog.gtk.org/2023/02/09/updates-from-inside-gtk/
