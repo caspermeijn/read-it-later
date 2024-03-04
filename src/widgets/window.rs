@@ -124,7 +124,10 @@ impl Window {
     }
 
     pub fn previous_view(&self) {
-        self.set_view(View::Articles);
+        let current_view = self.imp().main_stack.visible_child_name().unwrap();
+        if current_view == "article" {
+            self.set_view(View::Articles)
+        }
     }
 
     pub fn set_view(&self, view: View) {
