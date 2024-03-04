@@ -44,7 +44,10 @@ SPDX-License-Identifier: CC0-1.0
   <releases>
     <release version="unpublished" date="2024-01-01">
       <description>
+        <p>Redesigned new article UI</p>
         <p>Automatically paste into new article entry, when an URL is on the clipboard</p>
+        <p>Speed up startup for accounts with large number of articles</p>
+        <p>Fixed page transition animation</p>
         <p>Update translations</p>
       </description>
     </release>
