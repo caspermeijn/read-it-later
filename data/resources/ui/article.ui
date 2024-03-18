@@ -22,82 +22,89 @@ SPDX-License-Identifier: GPL-3.0-or-later
   </menu>
   <template class="ArticleWidget" parent="GtkWidget">
     <property name="layout-manager">
-      <object class="GtkBoxLayout">
-        <property name="orientation">vertical</property>
-      </object>
+      <object class="GtkBinLayout" />
     </property>
     <child>
-      <object class="AdwHeaderBar">
-        <property name="show-end-title-buttons">True</property>
-        <child>
-          <object class="GtkButton">
-            <property name="receives-default">True</property>
-            <property name="action-name">win.previous</property>
-            <property name="icon-name">go-previous-symbolic</property>
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="AdwHeaderBar">
+            <property name="show-end-title-buttons">True</property>
+            <child>
+              <object class="GtkButton">
+                <property name="receives-default">True</property>
+                <property name="action-name">win.previous</property>
+                <property name="icon-name">go-previous-symbolic</property>
+              </object>
+            </child>
+            <child type="end">
+              <object class="GtkMenuButton" id="articlemenu_button">
+                <property name="receives-default">True</property>
+                <property name="menu-model">article-menu</property>
+                <property name="icon-name">view-more-symbolic</property>
+              </object>
+            </child>
+            <child type="end">
+              <object class="GtkToggleButton" id="favorite_togglebtn">
+                <property name="receives-default">True</property>
+                <property name="action-name">article.favorite</property>
+                <property name="tooltip-text" translatable="yes" context="action button">Favorite</property>
+                <property name="icon-name">favorites-symbolic</property>
+              </object>
+            </child>
+            <child type="end">
+              <object class="GtkToggleButton" id="archive_togglebtn">
+                <property name="receives-default">True</property>
+                <property name="action-name">article.archive</property>
+                <property name="tooltip-text" translatable="yes" context="action button">Archive</property>
+                <property name="icon-name">archive-symbolic</property>
+              </object>
+            </child>
           </object>
         </child>
-        <child type="end">
-          <object class="GtkMenuButton" id="articlemenu_button">
-            <property name="receives-default">True</property>
-            <property name="menu-model">article-menu</property>
-            <property name="icon-name">view-more-symbolic</property>
-          </object>
-        </child>
-        <child type="end">
-          <object class="GtkToggleButton" id="favorite_togglebtn">
-            <property name="receives-default">True</property>
-            <property name="action-name">article.favorite</property>
-            <property name="tooltip-text" translatable="yes" context="action button">Favorite</property>
-            <property name="icon-name">favorites-symbolic</property>
-          </object>
-        </child>
-        <child type="end">
-          <object class="GtkToggleButton" id="archive_togglebtn">
-            <property name="receives-default">True</property>
-            <property name="action-name">article.archive</property>
-            <property name="tooltip-text" translatable="yes" context="action button">Archive</property>
-            <property name="icon-name">archive-symbolic</property>
-          </object>
-        </child>
-      </object>
-    </child>
-    <child>
-      <object class="WebKitSettings" id="settings1">
-        <property name="enable-html5-local-storage">False</property>
-        <property name="enable-html5-database">False</property>
-        <property name="default-charset">UTF-8</property>
-        <property name="enable-resizable-text-areas">False</property>
-        <property name="enable-page-cache">False</property>
-        <property name="user-agent">Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15</property>
-      </object>
-    </child>
-    <child>
-      <object class="WebKitNetworkSession" id="nework_session">
-        <property name="is-ephemeral">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkRevealer" id="revealer">
-        <property name="valign">start</property>
-        <property name="transition-duration">100</property>
-        <property name="child">
-          <object class="GtkProgressBar" id="progressbar">
-            <style>
-              <class name="loading-progress" />
-            </style>
+        <property name="content">
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="WebKitSettings" id="settings1">
+                <property name="enable-html5-local-storage">False</property>
+                <property name="enable-html5-database">False</property>
+                <property name="default-charset">UTF-8</property>
+                <property name="enable-resizable-text-areas">False</property>
+                <property name="enable-page-cache">False</property>
+                <property name="user-agent">Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15</property>
+              </object>
+            </child>
+            <child>
+              <object class="WebKitNetworkSession" id="nework_session">
+                <property name="is-ephemeral">True</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkRevealer" id="revealer">
+                <property name="valign">start</property>
+                <property name="transition-duration">100</property>
+                <property name="child">
+                  <object class="GtkProgressBar" id="progressbar">
+                    <style>
+                      <class name="loading-progress" />
+                    </style>
+                  </object>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="WebKitWebView" id="webview">
+                <signal name="context-menu" handler="modify_context_menu" />
+                <signal name="decide-policy" handler="decide_policy" />
+                <signal name="notify::estimated-load-progress" handler="update_load_progress" swapped="true" />
+                <property name="settings">settings1</property>
+                <property name="network-session">nework_session</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+              </object>
+            </child>
           </object>
         </property>
-      </object>
-    </child>
-    <child>
-      <object class="WebKitWebView" id="webview">
-        <signal name="context-menu" handler="modify_context_menu" />
-        <signal name="decide-policy" handler="decide_policy" />
-        <signal name="notify::estimated-load-progress" handler="update_load_progress" swapped="true" />
-        <property name="settings">settings1</property>
-        <property name="network-session">nework_session</property>
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
       </object>
     </child>
     <style>
