@@ -511,8 +511,8 @@ impl Application {
         env!("CARGO_PKG_AUTHORS").split(':').collect()
     }
 
-    fn show_about_dialog(parent: &impl IsA<gtk::Window>) {
-        let dialog = adw::AboutWindow::builder()
+    fn show_about_dialog(parent: &impl IsA<gtk::Widget>) {
+        let dialog = adw::AboutDialog::builder()
             .application_name(glib::application_name().unwrap())
             .application_icon(config::APP_ID)
             .license_type(gtk::License::Gpl30)
@@ -521,9 +521,8 @@ impl Application {
             .translator_credits(gettext("translator-credits"))
             .developers(Self::authors())
             .artists(["Tobias Bernard"])
-            .transient_for(parent)
             .build();
 
-        dialog.present();
+        dialog.present(parent);
     }
 }
