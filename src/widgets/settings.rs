@@ -32,7 +32,7 @@ mod imp {
     impl ObjectSubclass for SettingsWidget {
         const NAME: &'static str = "SettingsWidget";
         type Type = super::SettingsWidget;
-        type ParentType = adw::PreferencesWindow;
+        type ParentType = adw::PreferencesDialog;
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -53,14 +53,14 @@ mod imp {
 
     impl WindowImpl for SettingsWidget {}
 
-    impl AdwWindowImpl for SettingsWidget {}
+    impl AdwDialogImpl for SettingsWidget {}
 
-    impl PreferencesWindowImpl for SettingsWidget {}
+    impl PreferencesDialogImpl for SettingsWidget {}
 }
 
 glib::wrapper! {
     pub struct SettingsWidget(ObjectSubclass<imp::SettingsWidget>)
-        @extends gtk::Widget, gtk::Window, adw::Window, adw::PreferencesWindow;
+        @extends gtk::Widget, gtk::Window, adw::Dialog, adw::PreferencesDialog;
 }
 
 struct ClientInfo {

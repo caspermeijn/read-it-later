@@ -9,7 +9,7 @@ Copyright 2023 Sabri Ünal <libreajans@gmail.com>
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
 <interface>
-  <template class="SettingsWidget" parent="AdwPreferencesWindow">
+  <template class="SettingsWidget" parent="AdwPreferencesDialog">
     <child>
       <object class="AdwPreferencesPage">
         <property name="icon-name">user-info-symbolic</property>

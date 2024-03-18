@@ -174,8 +174,7 @@ impl Application {
                     let window = imp.window.get().unwrap();
                     let client = imp.client.get().unwrap();
                     let settings_widget = SettingsWidget::new(client.clone());
-                    settings_widget.set_transient_for(Some(window));
-                    settings_widget.present();
+                    AdwDialogExt::present(&settings_widget, window);
                 })
                 .build(),
             // About
