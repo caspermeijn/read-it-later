@@ -57,8 +57,7 @@ mod imp {
             klass.install_action("win.new-article", None, move |window, _, _| {
                 let sender = window.imp().sender.get().unwrap().clone();
                 let dialog = NewArticle::new(sender);
-                dialog.set_transient_for(Some(window));
-                dialog.present();
+                dialog.present(window);
             });
         }
 

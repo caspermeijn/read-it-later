@@ -14,7 +14,6 @@ mod imp {
     use std::cell::OnceCell;
 
     use glib::subclass::InitializingObject;
-    use gtk::gdk::{Key, ModifierType};
 
     use super::*;
 
@@ -22,7 +21,7 @@ mod imp {
     #[template(resource = "/com/belmoussaoui/ReadItLater/new_article.ui")]
     pub struct NewArticle {
         #[template_child]
-        pub article_url_entry: TemplateChild<gtk::Entry>,
+        pub article_url_entry: TemplateChild<adw::EntryRow>,
 
         pub sender: OnceCell<Sender<Action>>,
     }
@@ -31,7 +30,7 @@ mod imp {
     impl ObjectSubclass for NewArticle {
         const NAME: &'static str = "NewArticle";
         type Type = super::NewArticle;
-        type ParentType = adw::Window;
+        type ParentType = adw::Dialog;
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -44,8 +43,6 @@ mod imp {
                 sender.send_blocking(Action::SaveArticle(url)).unwrap();
                 window.close();
             });
-
-            klass.add_binding_action(Key::Escape, ModifierType::empty(), "window.close")
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {
@@ -61,14 +58,12 @@ mod imp {
 
     impl WidgetImpl for NewArticle {}
 
-    impl WindowImpl for NewArticle {}
-
-    impl AdwWindowImpl for NewArticle {}
+    impl AdwDialogImpl for NewArticle {}
 }
 
 glib::wrapper! {
     pub struct NewArticle(ObjectSubclass<imp::NewArticle>)
-    @extends gtk::Window, gtk::Widget;
+    @extends adw::Dialog, gtk::Widget;
 }
 
 #[gtk::template_callbacks]
@@ -97,7 +92,7 @@ impl NewArticle {
     }
 
     #[template_callback]
-    fn on_article_url_changed(&self, entry: &gtk::Entry) {
+    fn on_article_url_changed(&self, entry: &adw::EntryRow) {
         let url: Result<Url, url::ParseError> = Url::parse(&entry.text());
         if url.is_err() {
             entry.add_css_class("error");
