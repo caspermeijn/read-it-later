@@ -32,7 +32,6 @@ pub enum Action {
     Articles(Box<ArticleAction>),
     SaveArticle(Url), // Save the pasted url
     SetView(View),
-    PreviousView,
     Notify(String), // Notification message?
     SetClientConfig(Config),
     LoadArticles(Vec<Article>), // Post sync action
@@ -129,7 +128,6 @@ impl Application {
             Action::LoadArticles(articles) => self.load_articles(articles),
             // UI
             Action::SetView(view) => window.set_view(view),
-            Action::PreviousView => window.previous_view(),
             Action::Notify(err_msg) => window.add_toast(adw::Toast::new(&err_msg)),
             // Auth
             Action::SetClientConfig(config) => self.set_client_config(config),
@@ -219,7 +217,6 @@ impl Application {
         ]);
 
         self.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
-        self.set_accels_for_action("win.previous", &["Escape"]);
 
         self.set_accels_for_action("app.quit", &["<primary>q"]);
         self.set_accels_for_action("app.settings", &["<primary>comma"]);
@@ -410,7 +407,7 @@ impl Application {
         let client = imp.client.get().unwrap().clone();
 
         info!("Saving new article \"{:#?}\"", url);
-        sender.send(Action::PreviousView).await.unwrap();
+        sender.send(Action::SetView(View::Articles)).await.unwrap();
         sender
             .send(Action::SetView(View::Syncing(true)))
             .await
@@ -506,7 +503,7 @@ impl Application {
                 .send(Action::SetView(View::Syncing(false)))
                 .await
                 .unwrap();
-            sender.send(Action::PreviousView).await.unwrap();
+            sender.send(Action::SetView(View::Articles)).await.unwrap();
         });
     }
 

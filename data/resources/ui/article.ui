@@ -29,13 +29,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <child type="top">
           <object class="AdwHeaderBar">
             <property name="show-end-title-buttons">True</property>
-            <child>
-              <object class="GtkButton">
-                <property name="receives-default">True</property>
-                <property name="action-name">win.previous</property>
-                <property name="icon-name">go-previous-symbolic</property>
-              </object>
-            </child>
             <child type="end">
               <object class="GtkMenuButton" id="articlemenu_button">
                 <property name="receives-default">True</property>

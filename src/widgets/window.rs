@@ -32,7 +32,7 @@ mod imp {
         #[template_child]
         pub toast_overlay: TemplateChild<adw::ToastOverlay>,
         #[template_child]
-        pub main_stack: TemplateChild<gtk::Stack>,
+        pub main_stack: TemplateChild<adw::NavigationView>,
 
         #[template_child]
         pub login_view: TemplateChild<Login>,
@@ -53,11 +53,6 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
-
-            klass.install_action("win.previous", None, move |window, _, _| {
-                let sender = window.imp().sender.get().unwrap();
-                sender.send_blocking(Action::PreviousView).unwrap();
-            });
 
             klass.install_action("win.new-article", None, move |window, _, _| {
                 let sender = window.imp().sender.get().unwrap().clone();
@@ -123,11 +118,12 @@ impl Window {
         self.imp().toast_overlay.add_toast(toast);
     }
 
-    pub fn previous_view(&self) {
-        let current_view = self.imp().main_stack.visible_child_name().unwrap();
-        if current_view == "article" {
-            self.set_view(View::Articles)
-        }
+    fn navigation_stack_has_page_tag(&self, tag: &str) -> bool {
+        self.imp()
+            .main_stack
+            .navigation_stack()
+            .iter::<adw::NavigationPage>()
+            .any(|page| page.unwrap().tag().unwrap() == tag)
     }
 
     pub fn set_view(&self, view: View) {
@@ -135,13 +131,17 @@ impl Window {
         self.set_default_widget(gtk::Widget::NONE);
         match view {
             View::Article => {
-                imp.main_stack.set_visible_child_name("article");
+                imp.main_stack.push_by_tag("article");
             }
             View::Articles => {
-                imp.main_stack.set_visible_child_name("articles");
+                if self.navigation_stack_has_page_tag("articles") {
+                    imp.main_stack.pop_to_tag("articles");
+                } else {
+                    imp.main_stack.replace_with_tags(&["articles"]);
+                }
             }
             View::Login => {
-                imp.main_stack.set_visible_child_name("login");
+                imp.main_stack.replace_with_tags(&["login"]);
 
                 self.set_default_widget(Some(imp.login_view.get_login_button()));
             }
@@ -175,13 +175,14 @@ impl Window {
         let article_widget = imp.article_widget.get();
         self.insert_action_group("article", Some(article_widget.get_actions()));
 
-        imp.main_stack.connect_visible_child_name_notify(
-            clone!(@strong article_widget => move |stack| {
-                if let Some(view_name) = stack.visible_child_name() {
-                    article_widget.set_enable_actions(view_name == "article");
+        imp.main_stack
+            .connect_visible_page_notify(clone!(@strong article_widget => move |stack| {
+                if let Some(page) = stack.visible_page() {
+                    if let Some(view_name) = page.tag() {
+                        article_widget.set_enable_actions(view_name == "article");
+                    }
                 }
-            }),
-        );
+            }));
 
         self.set_view(View::Login);
     }
