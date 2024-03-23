@@ -24,6 +24,17 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <property name="layout-manager">
       <object class="GtkBinLayout" />
     </property>
+    <object class="WebKitSettings" id="settings1">
+      <property name="enable-html5-local-storage">False</property>
+      <property name="enable-html5-database">False</property>
+      <property name="default-charset">UTF-8</property>
+      <property name="enable-resizable-text-areas">False</property>
+      <property name="enable-page-cache">False</property>
+      <property name="user-agent">Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15</property>
+    </object>
+    <object class="WebKitNetworkSession" id="nework_session">
+      <property name="is-ephemeral">True</property>
+    </object>
     <child>
       <object class="AdwToolbarView">
         <child type="top">
@@ -57,21 +68,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <property name="content">
           <object class="GtkBox">
             <property name="orientation">vertical</property>
-            <child>
-              <object class="WebKitSettings" id="settings1">
-                <property name="enable-html5-local-storage">False</property>
-                <property name="enable-html5-database">False</property>
-                <property name="default-charset">UTF-8</property>
-                <property name="enable-resizable-text-areas">False</property>
-                <property name="enable-page-cache">False</property>
-                <property name="user-agent">Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15</property>
-              </object>
-            </child>
-            <child>
-              <object class="WebKitNetworkSession" id="nework_session">
-                <property name="is-ephemeral">True</property>
-              </object>
-            </child>
             <child>
               <object class="GtkRevealer" id="revealer">
                 <property name="valign">start</property>
