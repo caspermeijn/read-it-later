@@ -2,14 +2,15 @@
 # Copyright (C) 2020 read-it-later's COPYRIGHT HOLDER
 # This file is distributed under the same license as the read-it-later package.
 # scootergrisen, 2020.
-# Alan Mortensen <alanmortensen.am@gmail.com>, 2023.
+# Alan Mortensen <alanmortensen.am@gmail.com>, 2023-24.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-08-30 06:37+0000\n"
-"PO-Revision-Date: 2023-10-12 07:40+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/"
+"issues\n"
+"POT-Creation-Date: 2024-02-11 18:35+0000\n"
+"PO-Revision-Date: 2024-03-16 16:55+0100\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -20,13 +21,12 @@ msgstr ""
 "X-Generator: Poedit 3.0.1\n"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:6
-#: data/resources/ui/window.ui:66
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
 msgid "Read It Later"
 msgstr "Read It Later"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
 msgid "Save and read web articles"
 msgstr "Gem og læs webartikler"
 
@@ -34,35 +34,35 @@ msgstr "Gem og læs webartikler"
 msgid "GNOME;GTK;Wallabag;Web;Article;Offline;"
 msgstr "Gnome;GTK;Wallabag;Web;Artikel;Offline;"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:13
 msgid "Default window width"
 msgstr "Standardbredde for vindue"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:10
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:17
 msgid "Default window height"
 msgstr "Standardhøjde for vindue"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:21
 msgid "Default window x position"
 msgstr "Standard x-placering af vindue"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:25
 msgid "Default window y position"
 msgstr "Standard y-placering af vindue"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:29
 msgid "Default window maximized behavior"
 msgstr "Standardopførsel for maksimeret vindue"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:33
 msgid "Logged in user name"
 msgstr "Brugernavn ved login"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:37
 msgid "Latest successful sync in ms"
 msgstr "Seneste synkronisering der lykkedes, i ms"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:9
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
 msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
 "manage your articles."
@@ -70,23 +70,23 @@ msgstr ""
 "Read It Later er en simpel Wallabag-klient. Den har de grundlæggende "
 "funktioner til at håndtere dine artikler."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:11
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:19
 msgid "Add new articles"
 msgstr "Tilføj nye artikler"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:20
 msgid "Archive an article"
 msgstr "Arkivér en artikel"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:21
 msgid "Delete an article"
 msgstr "Slet en artikel"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
 msgid "Favorite an article"
 msgstr "Tilføj artikel som favorit"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:16
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:24
 msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
 "highlighting and a dark mode."
@@ -94,202 +94,212 @@ msgstr ""
 "Den kommer også med en læsertilstand, der er rar for øjnene, som "
 "understøtter syntaksfremhævning af kode og en mørk tilstand."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:81
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:89
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:85
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:93
 msgid "Main Window"
 msgstr "Hovedvindue"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:89
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:97
 msgid "Article View"
 msgstr "Artikelvisning"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:93
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:101
 msgid "Adaptive view in dark mode"
 msgstr "Adaptiv visning i mørk tilstand"
 
-#. Translators: This status is shown when the list of articles is empty
-#: data/resources/ui/articles_list.ui:34
-msgid "Pretty clean!"
-msgstr "Rimelig godt!"
-
-#: data/resources/ui/articles.ui:14
-msgctxt "view switcher"
-msgid "Unread"
-msgstr "Ulæste"
-
-#: data/resources/ui/articles.ui:26
-msgctxt "view switcher"
-msgid "Favorites"
-msgstr "Favoritter"
-
-#: data/resources/ui/articles.ui:38
-msgctxt "view switcher"
-msgid "Archive"
-msgstr "Arkiv"
-
-#: data/resources/ui/gtk/help-overlay.ui:12
-msgctxt "shortcut window"
-msgid "General"
-msgstr "Generelt"
-
-#: data/resources/ui/gtk/help-overlay.ui:15
-msgctxt "shortcut window"
-msgid "Show Shortcuts"
-msgstr "Vis genveje"
-
-#: data/resources/ui/gtk/help-overlay.ui:21
-msgctxt "shortcut window"
-msgid "Preferences"
-msgstr "Indstillinger"
-
-#: data/resources/ui/gtk/help-overlay.ui:27
-msgctxt "shortcut window"
-msgid "Back"
-msgstr "Tilbage"
-
-#: data/resources/ui/gtk/help-overlay.ui:33
-msgctxt "shortcut window"
-msgid "Quit"
-msgstr "Afslut"
-
-#: data/resources/ui/gtk/help-overlay.ui:41
-msgctxt "shortcut window"
-msgid "Articles"
-msgstr "Artikler"
-
-#: data/resources/ui/gtk/help-overlay.ui:44
-msgctxt "shortcut window"
-msgid "Synchronize"
-msgstr "Synkroniser"
-
-#: data/resources/ui/gtk/help-overlay.ui:50
-msgctxt "shortcut window"
-msgid "New Article"
-msgstr "Ny artikel"
-
-#: data/resources/ui/gtk/help-overlay.ui:56
-msgctxt "shortcut window"
-msgid "Delete Article"
-msgstr "Slet artikel"
-
-#: data/resources/ui/gtk/help-overlay.ui:62
-msgctxt "shortcut window"
-msgid "Favorite Article"
-msgstr "Tilføj artikel som favorit"
-
-#: data/resources/ui/gtk/help-overlay.ui:68
-msgctxt "shortcut window"
-msgid "Archive Article"
-msgstr "Arkivér artikel"
-
-#: data/resources/ui/gtk/help-overlay.ui:74
-msgctxt "shortcut window"
-msgid "Open Article in Browser"
-msgstr "Åbn artikel i browser"
-
-#: data/resources/ui/login.ui:32
-msgid "Welcome to Read It Later"
-msgstr "Velkommen til Read It Later"
-
-#: data/resources/ui/login.ui:42
-msgid "Please sign in using your Wallabag instance information"
-msgstr "Log på med information fra din Wallabag-instans"
-
-#: data/resources/ui/login.ui:57
-msgid "Instance URL"
-msgstr "Instans-URL"
-
-#: data/resources/ui/login.ui:63
-msgid "Client ID"
-msgstr "Klient-ID"
-
-#: data/resources/ui/login.ui:69
-msgid "Client Secret"
-msgstr "Klienthemmelighed"
-
-#: data/resources/ui/login.ui:75 data/resources/ui/settings.ui:13
-msgid "User Name"
-msgstr "Brugernavn"
-
-#: data/resources/ui/login.ui:81
-msgid "Password"
-msgstr "Adgangskode"
-
-#: data/resources/ui/login.ui:91
-msgid "Log In"
-msgstr "Log ind"
-
-#: data/resources/ui/settings.ui:7
-msgid "Account"
-msgstr "Konto"
-
-#: data/resources/ui/settings.ui:10
-msgid "Account Information"
-msgstr "Kontooplysninger"
-
-#: data/resources/ui/settings.ui:21
-msgid "Email"
-msgstr "E-mail"
-
-#: data/resources/ui/settings.ui:29
-msgid "Created At"
-msgstr "Oprettet"
-
-#: data/resources/ui/settings.ui:37
-msgid "Updated At"
-msgstr "Opdateret"
-
-#: data/resources/ui/window.ui:6
+#: data/resources/ui/article.ui:12
 msgid "Open Website"
 msgstr "Åbn websted"
 
-#: data/resources/ui/window.ui:12
+#: data/resources/ui/article.ui:18
 msgid "Delete Article"
 msgstr "Slet artikel"
 
-#: data/resources/ui/window.ui:20
-msgid "Add Article…"
-msgstr "Tilføj artikel …"
-
-#: data/resources/ui/window.ui:26
-msgid "Preferences"
-msgstr "Indstillinger"
-
-#: data/resources/ui/window.ui:30
-msgid "Log Out"
-msgstr "Log ud"
-
-#: data/resources/ui/window.ui:36
-msgid "Keyboard Shortcuts"
-msgstr "Tastaturgenveje"
-
-#: data/resources/ui/window.ui:40
-msgid "About Read It Later"
-msgstr "Om Read It Later"
-
-#: data/resources/ui/window.ui:104
+#: data/resources/ui/article.ui:50
 msgctxt "action button"
 msgid "Favorite"
 msgstr "Favorit"
 
-#: data/resources/ui/window.ui:112
+#: data/resources/ui/article.ui:58
 msgctxt "action button"
 msgid "Archive"
 msgstr "Arkivér"
 
-#: data/resources/ui/window.ui:151
+#. Translators: This status is shown when the list of articles is empty
+#: data/resources/ui/articles_list.ui:54
+msgid "Pretty clean!"
+msgstr "Rimelig godt!"
+
+#: data/resources/ui/articles.ui:11
+msgid "Add Article…"
+msgstr "Tilføj artikel …"
+
+#: data/resources/ui/articles.ui:17
+msgid "Preferences"
+msgstr "Indstillinger"
+
+#: data/resources/ui/articles.ui:21
+msgid "Log Out"
+msgstr "Log ud"
+
+#: data/resources/ui/articles.ui:27
+msgid "Keyboard Shortcuts"
+msgstr "Tastaturgenveje"
+
+#: data/resources/ui/articles.ui:31
+msgid "About Read It Later"
+msgstr "Om Read It Later"
+
+#: data/resources/ui/articles.ui:87
+msgctxt "view switcher"
+msgid "Unread"
+msgstr "Ulæste"
+
+#: data/resources/ui/articles.ui:99
+msgctxt "view switcher"
+msgid "Favorites"
+msgstr "Favoritter"
+
+#: data/resources/ui/articles.ui:111
+msgctxt "view switcher"
+msgid "Archive"
+msgstr "Arkiv"
+
+#: data/resources/ui/gtk/help-overlay.ui:19
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Generelt"
+
+#: data/resources/ui/gtk/help-overlay.ui:22
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Vis genveje"
+
+#: data/resources/ui/gtk/help-overlay.ui:28
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "Indstillinger"
+
+#: data/resources/ui/gtk/help-overlay.ui:34
+msgctxt "shortcut window"
+msgid "Back"
+msgstr "Tilbage"
+
+#: data/resources/ui/gtk/help-overlay.ui:40
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Afslut"
+
+#: data/resources/ui/gtk/help-overlay.ui:48
+msgctxt "shortcut window"
+msgid "Articles"
+msgstr "Artikler"
+
+#: data/resources/ui/gtk/help-overlay.ui:51
+msgctxt "shortcut window"
+msgid "Synchronize"
+msgstr "Synkroniser"
+
+#: data/resources/ui/gtk/help-overlay.ui:57
+msgctxt "shortcut window"
+msgid "New Article"
+msgstr "Ny artikel"
+
+#: data/resources/ui/gtk/help-overlay.ui:63
+msgctxt "shortcut window"
+msgid "Delete Article"
+msgstr "Slet artikel"
+
+#: data/resources/ui/gtk/help-overlay.ui:69
+msgctxt "shortcut window"
+msgid "Favorite Article"
+msgstr "Tilføj artikel som favorit"
+
+#: data/resources/ui/gtk/help-overlay.ui:75
+msgctxt "shortcut window"
+msgid "Archive Article"
+msgstr "Arkivér artikel"
+
+#: data/resources/ui/gtk/help-overlay.ui:81
+msgctxt "shortcut window"
+msgid "Open Article in Browser"
+msgstr "Åbn artikel i browser"
+
+#: data/resources/ui/login.ui:51
+msgid "Welcome to Read It Later"
+msgstr "Velkommen til Read It Later"
+
+#: data/resources/ui/login.ui:61
+msgid "Please sign in using your Wallabag instance information"
+msgstr "Log på med information fra din Wallabag-instans"
+
+#: data/resources/ui/login.ui:76
+msgid "Instance URL"
+msgstr "Instans-URL"
+
+#: data/resources/ui/login.ui:82
+msgid "Client ID"
+msgstr "Klient-ID"
+
+#: data/resources/ui/login.ui:88
+msgid "Client Secret"
+msgstr "Klienthemmelighed"
+
+#: data/resources/ui/login.ui:94 data/resources/ui/settings.ui:22
+msgid "User Name"
+msgstr "Brugernavn"
+
+#: data/resources/ui/login.ui:100
+msgid "Password"
+msgstr "Adgangskode"
+
+#: data/resources/ui/login.ui:110
+msgid "Log In"
+msgstr "Log ind"
+
+#: data/resources/ui/new_article.ui:11
+msgctxt "window title"
+msgid "Add article"
+msgstr "Tilføj artikel"
+
+#: data/resources/ui/new_article.ui:22
+msgctxt "action button"
+msgid "Cancel"
+msgstr "Annullér"
+
+#: data/resources/ui/new_article.ui:27
+msgctxt "action button"
+msgid "Add"
+msgstr "Tilføj"
+
+#: data/resources/ui/new_article.ui:42
 msgid "Paste the article URL here"
 msgstr "Indsæt artiklens URL her"
 
-#: data/resources/ui/window.ui:158
-msgctxt "action button"
-msgid "Save"
-msgstr "Gem"
+#: data/resources/ui/settings.ui:16
+msgid "Account"
+msgstr "Konto"
 
-#: src/application.rs:131
+#: data/resources/ui/settings.ui:19
+msgid "Account Information"
+msgstr "Kontooplysninger"
+
+#: data/resources/ui/settings.ui:30
+msgid "Email"
+msgstr "E-mail"
+
+#: data/resources/ui/settings.ui:38
+msgid "Created At"
+msgstr "Oprettet"
+
+#: data/resources/ui/settings.ui:46
+msgid "Updated At"
+msgstr "Opdateret"
+
+#: src/application.rs:138
 msgid "Failed to logout"
 msgstr "Kunne ikke logge ud"
 
@@ -297,9 +307,13 @@ msgstr "Kunne ikke logge ud"
 msgid "Failed to log in"
 msgstr "Kunne ikke logge ind"
 
-#: src/application.rs:473
+#: src/application.rs:477
 msgid "translator-credits"
 msgstr "scootergrisen"
+
+#~ msgctxt "action button"
+#~ msgid "Save"
+#~ msgstr "Gem"
 
 #~ msgid "A Wallabag Client"
 #~ msgstr "En Wallabag-klient"
