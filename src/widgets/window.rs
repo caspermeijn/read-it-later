@@ -144,7 +144,10 @@ impl Window {
 
                 self.set_default_widget(Some(imp.login_view.get_login_button()));
             }
-            View::Syncing(state) => imp.articles_view.set_progress_bar_pulsing(state),
+            View::Syncing(state) => {
+                imp.articles_view.set_progress_bar_pulsing(state);
+                imp.article_widget.set_progress_bar_pulsing(state);
+            }
         }
     }
 

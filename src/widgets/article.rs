@@ -29,10 +29,12 @@ mod imp {
         #[template_child]
         pub revealer: TemplateChild<gtk::Revealer>,
         #[template_child]
-        pub progressbar: TemplateChild<gtk::ProgressBar>,
+        pub progress_bar: TemplateChild<gtk::ProgressBar>,
+
         pub sender: OnceCell<Sender<ArticleAction>>,
         pub actions: gio::SimpleActionGroup,
         pub article: RefCell<Option<Article>>,
+        pub progress_bar_timeout: RefCell<Option<glib::source::SourceId>>,
     }
 
     #[glib::object_subclass]
@@ -125,7 +127,7 @@ mod imp {
         fn update_load_progress(&self, _pspec: &glib::ParamSpec, webview: &WebView) {
             let progress = webview.estimated_load_progress();
             self.revealer.set_reveal_child(true);
-            self.progressbar.set_fraction(progress);
+            self.progress_bar.set_fraction(progress);
             if (progress - 1.0).abs() < f64::EPSILON {
                 self.revealer.set_reveal_child(false);
             }
@@ -249,6 +251,30 @@ impl ArticleWidget {
         self.get_action("archive").set_enabled(state);
         self.get_action("delete").set_enabled(state);
         self.get_action("favorite").set_enabled(state);
+    }
+
+    pub fn set_progress_bar_pulsing(&self, state: bool) {
+        let imp = self.imp();
+        if !state {
+            if let Some(timeout) = imp.progress_bar_timeout.replace(None) {
+                timeout.remove();
+            }
+            imp.revealer.set_reveal_child(false);
+        } else {
+            // Reset the progress bar position
+            imp.progress_bar.set_fraction(0.0);
+            let timeout = glib::timeout_add_local(
+                std::time::Duration::from_millis(100),
+                clone!(@weak imp => @default-return glib::ControlFlow::Break, move || {
+                    imp.revealer.set_reveal_child(true);
+                    imp.progress_bar.pulse();
+                    glib::ControlFlow::Continue
+                }),
+            );
+            if let Some(old_timeout) = imp.progress_bar_timeout.replace(Some(timeout)) {
+                old_timeout.remove();
+            }
+        }
     }
 }
 
