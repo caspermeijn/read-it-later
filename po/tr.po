@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2024-02-11 18:35+0000\n"
-"PO-Revision-Date: 2024-02-13 13:42+0300\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"POT-Creation-Date: 2024-03-23 20:52+0000\n"
+"PO-Revision-Date: 2024-03-25 19:15+0300\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,8 @@ msgstr ""
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+#: data/resources/ui/window.ui:27 data/resources/ui/window.ui:36
+#: data/resources/ui/window.ui:45
 msgid "Read It Later"
 msgstr "Read It Later"
 
@@ -95,19 +97,20 @@ msgstr ""
 "Ayrıca, kod söz dizimi vurgulamayı ve karanlık kipi destekleyen, göze hoş "
 "gelen okuyucu kipi ile birlikte gelir."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:89
+#. developer_name tag deprecated with Appstream 1.0
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:100
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:93
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:107
 msgid "Main Window"
 msgstr "Ana Pencere"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:97
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:111
 msgid "Article View"
 msgstr "Makale Görünümü"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:101
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:115
 msgid "Adaptive view in dark mode"
 msgstr "Karanlık kipte uyarlanabilir görünüm"
 
@@ -119,12 +122,12 @@ msgstr "Web Sitesini Aç"
 msgid "Delete Article"
 msgstr "Makaleyi Sil"
 
-#: data/resources/ui/article.ui:50
+#: data/resources/ui/article.ui:43
 msgctxt "action button"
 msgid "Favorite"
 msgstr "Gözde"
 
-#: data/resources/ui/article.ui:58
+#: data/resources/ui/article.ui:51
 msgctxt "action button"
 msgid "Archive"
 msgstr "Arşivle"
@@ -154,17 +157,17 @@ msgstr "Klavye Kısayolları"
 msgid "About Read It Later"
 msgstr "Read It Later Hakkında"
 
-#: data/resources/ui/articles.ui:87
+#: data/resources/ui/articles.ui:89
 msgctxt "view switcher"
 msgid "Unread"
 msgstr "Okunmamış"
 
-#: data/resources/ui/articles.ui:99
+#: data/resources/ui/articles.ui:101
 msgctxt "view switcher"
 msgid "Favorites"
 msgstr "Gözdeler"
 
-#: data/resources/ui/articles.ui:111
+#: data/resources/ui/articles.ui:113
 msgctxt "view switcher"
 msgid "Archive"
 msgstr "Arşiv"
@@ -186,45 +189,40 @@ msgstr "Tercihler"
 
 #: data/resources/ui/gtk/help-overlay.ui:34
 msgctxt "shortcut window"
-msgid "Back"
-msgstr "Geri"
-
-#: data/resources/ui/gtk/help-overlay.ui:40
-msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Çık"
 
-#: data/resources/ui/gtk/help-overlay.ui:48
+#: data/resources/ui/gtk/help-overlay.ui:42
 msgctxt "shortcut window"
 msgid "Articles"
 msgstr "Makaleler"
 
-#: data/resources/ui/gtk/help-overlay.ui:51
+#: data/resources/ui/gtk/help-overlay.ui:45
 msgctxt "shortcut window"
 msgid "Synchronize"
 msgstr "Eşzamanla"
 
-#: data/resources/ui/gtk/help-overlay.ui:57
+#: data/resources/ui/gtk/help-overlay.ui:51
 msgctxt "shortcut window"
 msgid "New Article"
 msgstr "Yeni Makale"
 
-#: data/resources/ui/gtk/help-overlay.ui:63
+#: data/resources/ui/gtk/help-overlay.ui:57
 msgctxt "shortcut window"
 msgid "Delete Article"
 msgstr "Makaleyi Sil"
 
-#: data/resources/ui/gtk/help-overlay.ui:69
+#: data/resources/ui/gtk/help-overlay.ui:63
 msgctxt "shortcut window"
 msgid "Favorite Article"
 msgstr "Gözde Makale"
 
-#: data/resources/ui/gtk/help-overlay.ui:75
+#: data/resources/ui/gtk/help-overlay.ui:69
 msgctxt "shortcut window"
 msgid "Archive Article"
 msgstr "Makaleyi Arşivle"
 
-#: data/resources/ui/gtk/help-overlay.ui:81
+#: data/resources/ui/gtk/help-overlay.ui:75
 msgctxt "shortcut window"
 msgid "Open Article in Browser"
 msgstr "Makaleyi Tarayıcıda Aç"
@@ -261,24 +259,22 @@ msgstr "Parola"
 msgid "Log In"
 msgstr "Oturum Aç"
 
-#: data/resources/ui/new_article.ui:11
-msgctxt "window title"
-msgid "Add article"
+#: data/resources/ui/new_article.ui:29
+msgid "Add an article"
 msgstr "Makale ekle"
 
-#: data/resources/ui/new_article.ui:22
-msgctxt "action button"
-msgid "Cancel"
-msgstr "İptal"
+#: data/resources/ui/new_article.ui:39
+msgid "Enter the URL of the article"
+msgstr "Makalenin URLʼsini girin"
 
-#: data/resources/ui/new_article.ui:27
+#: data/resources/ui/new_article.ui:55
+msgid "Article URL"
+msgstr "Makale URLʼsi"
+
+#: data/resources/ui/new_article.ui:63
 msgctxt "action button"
 msgid "Add"
 msgstr "Ekle"
-
-#: data/resources/ui/new_article.ui:42
-msgid "Paste the article URL here"
-msgstr "Makale adresini buraya yapıştır"
 
 #: data/resources/ui/settings.ui:16
 msgid "Account"
@@ -300,17 +296,28 @@ msgstr "Oluşturulma:"
 msgid "Updated At"
 msgstr "Güncellenme:"
 
-#: src/application.rs:138
+#: src/application.rs:139
 msgid "Failed to logout"
 msgstr "Oturum kapatılamadı"
 
-#: src/application.rs:270 src/application.rs:277
+#: src/application.rs:275 src/application.rs:286
 msgid "Failed to log in"
 msgstr "Oturum açılamadı"
 
-#: src/application.rs:477
+#: src/application.rs:520
 msgid "translator-credits"
 msgstr "Muhammet Kara <muhammetk@gmail.com>"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Back"
+#~ msgstr "Geri"
+
+#~ msgctxt "action button"
+#~ msgid "Cancel"
+#~ msgstr "İptal"
+
+#~ msgid "Paste the article URL here"
+#~ msgstr "Makale adresini buraya yapıştır"
 
 #~ msgctxt "action button"
 #~ msgid "Save"
