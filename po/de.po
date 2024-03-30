@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/"
 "issues\n"
-"POT-Creation-Date: 2024-02-11 18:35+0000\n"
-"PO-Revision-Date: 2024-02-27 11:08+0100\n"
+"POT-Creation-Date: 2024-03-23 20:52+0000\n"
+"PO-Revision-Date: 2024-03-29 21:35+0100\n"
 "Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -25,6 +25,8 @@ msgstr ""
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+#: data/resources/ui/window.ui:27 data/resources/ui/window.ui:36
+#: data/resources/ui/window.ui:45
 msgid "Read It Later"
 msgstr "Read It Later"
 
@@ -99,19 +101,20 @@ msgstr ""
 "Sie hat außerdem einen augenfreundlichen Lesemodus, der Code-Hervorhebung "
 "und den dunklen Modus unterstützt."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:89
+#. developer_name tag deprecated with Appstream 1.0
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:100
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:93
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:107
 msgid "Main Window"
 msgstr "Hauptfenster"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:97
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:111
 msgid "Article View"
 msgstr "Artikelansicht"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:101
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:115
 msgid "Adaptive view in dark mode"
 msgstr "Anpassungsfähige Ansicht im dunklen Modus"
 
@@ -123,12 +126,12 @@ msgstr "Internetseite öffnen"
 msgid "Delete Article"
 msgstr "Artikel löschen"
 
-#: data/resources/ui/article.ui:50
+#: data/resources/ui/article.ui:43
 msgctxt "action button"
 msgid "Favorite"
 msgstr "Favorisieren"
 
-#: data/resources/ui/article.ui:58
+#: data/resources/ui/article.ui:51
 msgctxt "action button"
 msgid "Archive"
 msgstr "Archivieren"
@@ -152,24 +155,24 @@ msgstr "Abmelden"
 
 #: data/resources/ui/articles.ui:27
 msgid "Keyboard Shortcuts"
-msgstr "Tastaturkürzel"
+msgstr "Tastenkürzel"
 
 #: data/resources/ui/articles.ui:31
 msgid "About Read It Later"
 msgstr "Info zu Read It Later"
 
-#: data/resources/ui/articles.ui:87
+#: data/resources/ui/articles.ui:89
 msgctxt "view switcher"
 msgid "Unread"
 msgstr "Ungelesen"
 
-#: data/resources/ui/articles.ui:99
+#: data/resources/ui/articles.ui:101
 msgctxt "view switcher"
 msgid "Favorites"
 msgstr "Favoriten"
 
 # Ist das hier ein Nomen oder Verb? Dem Kontext nach geht es hier um eine Ansicht, also eher ein Nomen. - pk
-#: data/resources/ui/articles.ui:111
+#: data/resources/ui/articles.ui:113
 msgctxt "view switcher"
 msgid "Archive"
 msgstr "Archiv"
@@ -182,7 +185,7 @@ msgstr "Allgemein"
 #: data/resources/ui/gtk/help-overlay.ui:22
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Tastaturkürzel zeigen"
+msgstr "Tastenkürzel anzeigen"
 
 #: data/resources/ui/gtk/help-overlay.ui:28
 msgctxt "shortcut window"
@@ -191,45 +194,40 @@ msgstr "Einstellungen"
 
 #: data/resources/ui/gtk/help-overlay.ui:34
 msgctxt "shortcut window"
-msgid "Back"
-msgstr "Zurück"
-
-#: data/resources/ui/gtk/help-overlay.ui:40
-msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Beenden"
 
-#: data/resources/ui/gtk/help-overlay.ui:48
+#: data/resources/ui/gtk/help-overlay.ui:42
 msgctxt "shortcut window"
 msgid "Articles"
 msgstr "Artikel"
 
-#: data/resources/ui/gtk/help-overlay.ui:51
+#: data/resources/ui/gtk/help-overlay.ui:45
 msgctxt "shortcut window"
 msgid "Synchronize"
 msgstr "Abgleichen"
 
-#: data/resources/ui/gtk/help-overlay.ui:57
+#: data/resources/ui/gtk/help-overlay.ui:51
 msgctxt "shortcut window"
 msgid "New Article"
 msgstr "Neuer Artikel"
 
-#: data/resources/ui/gtk/help-overlay.ui:63
+#: data/resources/ui/gtk/help-overlay.ui:57
 msgctxt "shortcut window"
 msgid "Delete Article"
 msgstr "Artikel löschen"
 
-#: data/resources/ui/gtk/help-overlay.ui:69
+#: data/resources/ui/gtk/help-overlay.ui:63
 msgctxt "shortcut window"
 msgid "Favorite Article"
 msgstr "Artikel favorisieren"
 
-#: data/resources/ui/gtk/help-overlay.ui:75
+#: data/resources/ui/gtk/help-overlay.ui:69
 msgctxt "shortcut window"
 msgid "Archive Article"
 msgstr "Artikel archivieren"
 
-#: data/resources/ui/gtk/help-overlay.ui:81
+#: data/resources/ui/gtk/help-overlay.ui:75
 msgctxt "shortcut window"
 msgid "Open Article in Browser"
 msgstr "Artikel im Browser öffnen"
@@ -248,7 +246,7 @@ msgstr "Instanz-Adresse"
 
 #: data/resources/ui/login.ui:82
 msgid "Client ID"
-msgstr "Client-ID"
+msgstr "Client-Kennung"
 
 #: data/resources/ui/login.ui:88
 msgid "Client Secret"
@@ -266,24 +264,22 @@ msgstr "Passwort"
 msgid "Log In"
 msgstr "Anmelden"
 
-#: data/resources/ui/new_article.ui:11
-msgctxt "window title"
-msgid "Add article"
-msgstr "Artikel hinzufügen"
+#: data/resources/ui/new_article.ui:29
+msgid "Add an article"
+msgstr "Einen Artikel hinzufügen"
 
-#: data/resources/ui/new_article.ui:22
-msgctxt "action button"
-msgid "Cancel"
-msgstr "Abbrechen"
+#: data/resources/ui/new_article.ui:39
+msgid "Enter the URL of the article"
+msgstr "Die Adresse des Artikels eingeben"
 
-#: data/resources/ui/new_article.ui:27
+#: data/resources/ui/new_article.ui:55
+msgid "Article URL"
+msgstr "Artikel-Adresse"
+
+#: data/resources/ui/new_article.ui:63
 msgctxt "action button"
 msgid "Add"
 msgstr "Hinzufügen"
-
-#: data/resources/ui/new_article.ui:42
-msgid "Paste the article URL here"
-msgstr "Adresse des Artikels hier einfügen"
 
 #: data/resources/ui/settings.ui:16
 msgid "Account"
@@ -305,20 +301,31 @@ msgstr "Erstellt am"
 msgid "Updated At"
 msgstr "Aktualisiert am"
 
-#: src/application.rs:138
+#: src/application.rs:139
 msgid "Failed to logout"
 msgstr "Abmelden fehlgeschlagen"
 
-#: src/application.rs:270 src/application.rs:277
+#: src/application.rs:275 src/application.rs:286
 msgid "Failed to log in"
 msgstr "Anmelden fehlgeschlagen"
 
-#: src/application.rs:477
+#: src/application.rs:520
 msgid "translator-credits"
 msgstr ""
 "Sven Fischer <l10n.gnome.org@linux4tw.de>, 2020\n"
 "Christian Kirbach <christian.kirbach@gmail.com>, 2020\n"
 "Jürgen Benvenuti <gastornis@posteo.org>, 2022-2024"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Back"
+#~ msgstr "Zurück"
+
+#~ msgctxt "action button"
+#~ msgid "Cancel"
+#~ msgstr "Abbrechen"
+
+#~ msgid "Paste the article URL here"
+#~ msgstr "Adresse des Artikels hier einfügen"
 
 #~ msgctxt "action button"
 #~ msgid "Save"
