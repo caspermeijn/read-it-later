@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/issues\n"
-"POT-Creation-Date: 2023-08-30 06:37+0000\n"
-"PO-Revision-Date: 2023-09-05 22:30+0200\n"
+"POT-Creation-Date: 2024-03-23 20:52+0000\n"
+"PO-Revision-Date: 2024-03-30 22:02+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups."
 "com>\n"
@@ -24,13 +24,14 @@ msgstr ""
 "X-Generator: Poedit 2.2.1\n"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:6
-#: data/resources/ui/window.ui:66
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+#: data/resources/ui/window.ui:27 data/resources/ui/window.ui:36
+#: data/resources/ui/window.ui:45
 msgid "Read It Later"
 msgstr "Preberi pozneje"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:4
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:7
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:15
 msgid "Save and read web articles"
 msgstr "Shranjujte in berite spletne članke"
 
@@ -38,37 +39,37 @@ msgstr "Shranjujte in berite spletne članke"
 msgid "GNOME;GTK;Wallabag;Web;Article;Offline;"
 msgstr ""
 "Gnome;GTK;Wallabag;Web;splet;članek;nepovezani;nepovezano;prispevek;"
-"prispevki;članku;"
+"prispevki;članki;novice;"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:6
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:13
 msgid "Default window width"
 msgstr "Privzeta širina okna"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:10
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:17
 msgid "Default window height"
 msgstr "Privzeta višina okna"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:14
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:21
 msgid "Default window x position"
 msgstr "Privzeti položaj okna x"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:18
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:25
 msgid "Default window y position"
 msgstr "Privzeti položaj okna y"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:22
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:29
 msgid "Default window maximized behavior"
 msgstr "Privzeto vedenje razpetega okna"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:26
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:33
 msgid "Logged in user name"
 msgstr "Prijavljeno uporabniško ime"
 
-#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:30
+#: data/com.belmoussaoui.ReadItLater.gschema.xml.in:37
 msgid "Latest successful sync in ms"
 msgstr "Najnovejša uspešna uskladitev v ms"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:9
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:17
 msgid ""
 "Read It Later, is a simple Wallabag client. It has the basic features to "
 "manage your articles."
@@ -76,23 +77,23 @@ msgstr ""
 "Preberi pozneje je preprost odjemalec Wallabag. Ima osnovne funkcije za "
 "upravljanje vaših člankov oz. prispevkov."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:11
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:19
 msgid "Add new articles"
 msgstr "Dodaj nov prispevek"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:12
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:20
 msgid "Archive an article"
 msgstr "Arhiviraj prispevek"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:13
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:21
 msgid "Delete an article"
 msgstr "Izbriši prispevek"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:22
 msgid "Favorite an article"
 msgstr "Postavite prispevek med priljubljene"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:16
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:24
 msgid ""
 "It also comes with a nice on eyes reader mode that supports code syntax "
 "highlighting and a dark mode."
@@ -100,210 +101,214 @@ msgstr ""
 "Na voljo je tudi z očem prijaznim načinom bralnika, ki podpira označevanje "
 "skladnje kode in temni način."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:81
+#. developer_name tag deprecated with Appstream 1.0
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:100
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:85
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:107
 msgid "Main Window"
 msgstr "Glavno okno"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:89
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:111
 msgid "Article View"
 msgstr "Pogled prispevka"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:93
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:115
 msgid "Adaptive view in dark mode"
 msgstr "Prilagodljiv pogled v temnem načinu"
 
-#. Translators: This status is shown when the list of articles is empty
-#: data/resources/ui/articles_list.ui:34
-msgid "Pretty clean!"
-msgstr "Precej čisto!"
-
-#: data/resources/ui/articles.ui:14
-msgctxt "view switcher"
-msgid "Unread"
-msgstr "Neprebrano"
-
-#: data/resources/ui/articles.ui:26
-msgctxt "view switcher"
-msgid "Favorites"
-msgstr "Priljubljeni"
-
-#: data/resources/ui/articles.ui:38
-msgctxt "view switcher"
-msgid "Archive"
-msgstr "Arhiviraj"
-
-#: data/resources/ui/gtk/help-overlay.ui:12
-msgctxt "shortcut window"
-msgid "General"
-msgstr "Splošno"
-
-#: data/resources/ui/gtk/help-overlay.ui:15
-msgctxt "shortcut window"
-msgid "Show Shortcuts"
-msgstr "Pokaže tipkovne bližnjice"
-
-#: data/resources/ui/gtk/help-overlay.ui:21
-msgctxt "shortcut window"
-msgid "Preferences"
-msgstr "Možnosti"
-
-#: data/resources/ui/gtk/help-overlay.ui:27
-msgctxt "shortcut window"
-msgid "Back"
-msgstr "Skoči nazaj"
-
-#: data/resources/ui/gtk/help-overlay.ui:33
-msgctxt "shortcut window"
-msgid "Quit"
-msgstr "Konča program"
-
-#: data/resources/ui/gtk/help-overlay.ui:41
-msgctxt "shortcut window"
-msgid "Articles"
-msgstr "Prispevki"
-
-#: data/resources/ui/gtk/help-overlay.ui:44
-msgctxt "shortcut window"
-msgid "Synchronize"
-msgstr "Uskladi"
-
-#: data/resources/ui/gtk/help-overlay.ui:50
-msgctxt "shortcut window"
-msgid "New Article"
-msgstr "Ustvari nov prispevek"
-
-#: data/resources/ui/gtk/help-overlay.ui:56
-msgctxt "shortcut window"
-msgid "Delete Article"
-msgstr "Izbriše prispevek"
-
-#: data/resources/ui/gtk/help-overlay.ui:62
-msgctxt "shortcut window"
-msgid "Favorite Article"
-msgstr "Označi kot priljubljeno"
-
-#: data/resources/ui/gtk/help-overlay.ui:68
-msgctxt "shortcut window"
-msgid "Archive Article"
-msgstr "Arhivira prispevek"
-
-#: data/resources/ui/gtk/help-overlay.ui:74
-msgctxt "shortcut window"
-msgid "Open Article in Browser"
-msgstr "Odpri prispevek v brskalniku"
-
-#: data/resources/ui/login.ui:32
-msgid "Welcome to Read It Later"
-msgstr "Dobrodošli v Preberi pozneje"
-
-#: data/resources/ui/login.ui:42
-msgid "Please sign in using your Wallabag instance information"
-msgstr "Vpišite se s podatki vašega primerka Wallabag"
-
-#: data/resources/ui/login.ui:57
-msgid "Instance URL"
-msgstr "URL primerka"
-
-#: data/resources/ui/login.ui:63
-msgid "Client ID"
-msgstr "ID odjemalca"
-
-#: data/resources/ui/login.ui:69
-msgid "Client Secret"
-msgstr "Skrivnostni ključ odjemalca"
-
-#: data/resources/ui/login.ui:75 data/resources/ui/settings.ui:13
-msgid "User Name"
-msgstr "Uporabniško ime"
-
-#: data/resources/ui/login.ui:81
-msgid "Password"
-msgstr "Geslo"
-
-#: data/resources/ui/login.ui:91
-msgid "Log In"
-msgstr "Prijavi se"
-
-#: data/resources/ui/settings.ui:7
-msgid "Account"
-msgstr "Račun"
-
-#: data/resources/ui/settings.ui:10
-msgid "Account Information"
-msgstr "Podatki o računu"
-
-#: data/resources/ui/settings.ui:21
-msgid "Email"
-msgstr "Elektronska pošta"
-
-#: data/resources/ui/settings.ui:29
-msgid "Created At"
-msgstr "Ustvarjeno"
-
-#: data/resources/ui/settings.ui:37
-msgid "Updated At"
-msgstr "Posodobljeno"
-
-#: data/resources/ui/window.ui:6
+#: data/resources/ui/article.ui:12
 msgid "Open Website"
 msgstr "Odpri spletišče"
 
-#: data/resources/ui/window.ui:12
+#: data/resources/ui/article.ui:18
 msgid "Delete Article"
 msgstr "Izbriši prispevek"
 
-#: data/resources/ui/window.ui:20
-msgid "Add Article…"
-msgstr "Dodaj prispevek ..."
-
-#: data/resources/ui/window.ui:26
-msgid "Preferences"
-msgstr "Možnosti"
-
-#: data/resources/ui/window.ui:30
-msgid "Log Out"
-msgstr "Odjavi"
-
-#: data/resources/ui/window.ui:36
-msgid "Keyboard Shortcuts"
-msgstr "Tipkovne bližnjice\t"
-
-#: data/resources/ui/window.ui:40
-msgid "About Read It Later"
-msgstr "O programu Preberi pozneje"
-
-#: data/resources/ui/window.ui:104
+#: data/resources/ui/article.ui:43
 msgctxt "action button"
 msgid "Favorite"
 msgstr "Priljubljeni"
 
-#: data/resources/ui/window.ui:112
+#: data/resources/ui/article.ui:51
 msgctxt "action button"
 msgid "Archive"
 msgstr "Arhiviraj"
 
-#: data/resources/ui/window.ui:151
-msgid "Paste the article URL here"
-msgstr "Prilepite URL prispevka tukaj"
+#. Translators: This status is shown when the list of articles is empty
+#: data/resources/ui/articles_list.ui:54
+msgid "Pretty clean!"
+msgstr "Precej čisto!"
 
-#: data/resources/ui/window.ui:158
+#: data/resources/ui/articles.ui:11
+msgid "Add Article…"
+msgstr "Dodaj prispevek ..."
+
+#: data/resources/ui/articles.ui:17
+msgid "Preferences"
+msgstr "Možnosti"
+
+#: data/resources/ui/articles.ui:21
+msgid "Log Out"
+msgstr "Odjavi"
+
+#: data/resources/ui/articles.ui:27
+msgid "Keyboard Shortcuts"
+msgstr "Tipkovne bližnjice\t"
+
+#: data/resources/ui/articles.ui:31
+msgid "About Read It Later"
+msgstr "O programu Preberi pozneje"
+
+#: data/resources/ui/articles.ui:89
+msgctxt "view switcher"
+msgid "Unread"
+msgstr "Neprebrano"
+
+#: data/resources/ui/articles.ui:101
+msgctxt "view switcher"
+msgid "Favorites"
+msgstr "Priljubljeni"
+
+#: data/resources/ui/articles.ui:113
+msgctxt "view switcher"
+msgid "Archive"
+msgstr "Arhiviraj"
+
+#: data/resources/ui/gtk/help-overlay.ui:19
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Splošno"
+
+#: data/resources/ui/gtk/help-overlay.ui:22
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Pokaže tipkovne bližnjice"
+
+#: data/resources/ui/gtk/help-overlay.ui:28
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "Možnosti"
+
+#: data/resources/ui/gtk/help-overlay.ui:34
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Konča program"
+
+#: data/resources/ui/gtk/help-overlay.ui:42
+msgctxt "shortcut window"
+msgid "Articles"
+msgstr "Prispevki"
+
+#: data/resources/ui/gtk/help-overlay.ui:45
+msgctxt "shortcut window"
+msgid "Synchronize"
+msgstr "Uskladi"
+
+#: data/resources/ui/gtk/help-overlay.ui:51
+msgctxt "shortcut window"
+msgid "New Article"
+msgstr "Ustvari nov prispevek"
+
+#: data/resources/ui/gtk/help-overlay.ui:57
+msgctxt "shortcut window"
+msgid "Delete Article"
+msgstr "Izbriše prispevek"
+
+#: data/resources/ui/gtk/help-overlay.ui:63
+msgctxt "shortcut window"
+msgid "Favorite Article"
+msgstr "Označi kot priljubljeno"
+
+#: data/resources/ui/gtk/help-overlay.ui:69
+msgctxt "shortcut window"
+msgid "Archive Article"
+msgstr "Arhivira prispevek"
+
+#: data/resources/ui/gtk/help-overlay.ui:75
+msgctxt "shortcut window"
+msgid "Open Article in Browser"
+msgstr "Odpri prispevek v brskalniku"
+
+#: data/resources/ui/login.ui:51
+msgid "Welcome to Read It Later"
+msgstr "Dobrodošli v Preberi pozneje"
+
+#: data/resources/ui/login.ui:61
+msgid "Please sign in using your Wallabag instance information"
+msgstr "Vpišite se s podatki vašega primerka Wallabag"
+
+#: data/resources/ui/login.ui:76
+msgid "Instance URL"
+msgstr "URL primerka"
+
+#: data/resources/ui/login.ui:82
+msgid "Client ID"
+msgstr "ID odjemalca"
+
+#: data/resources/ui/login.ui:88
+msgid "Client Secret"
+msgstr "Skrivnostni ključ odjemalca"
+
+#: data/resources/ui/login.ui:94 data/resources/ui/settings.ui:22
+msgid "User Name"
+msgstr "Uporabniško ime"
+
+#: data/resources/ui/login.ui:100
+msgid "Password"
+msgstr "Geslo"
+
+#: data/resources/ui/login.ui:110
+msgid "Log In"
+msgstr "Prijavi se"
+
+#: data/resources/ui/new_article.ui:29
+msgid "Add an article"
+msgstr "Dodajte prispevek"
+
+#: data/resources/ui/new_article.ui:39
+msgid "Enter the URL of the article"
+msgstr "Vnesite URL članka"
+
+#: data/resources/ui/new_article.ui:55
+msgid "Article URL"
+msgstr "URL članka"
+
+#: data/resources/ui/new_article.ui:63
 msgctxt "action button"
-msgid "Save"
-msgstr "Shrani"
+msgid "Add"
+msgstr "Dodaj"
 
-#: src/application.rs:131
+#: data/resources/ui/settings.ui:16
+msgid "Account"
+msgstr "Račun"
+
+#: data/resources/ui/settings.ui:19
+msgid "Account Information"
+msgstr "Podatki o računu"
+
+#: data/resources/ui/settings.ui:30
+msgid "Email"
+msgstr "Elektronska pošta"
+
+#: data/resources/ui/settings.ui:38
+msgid "Created At"
+msgstr "Ustvarjeno"
+
+#: data/resources/ui/settings.ui:46
+msgid "Updated At"
+msgstr "Posodobljeno"
+
+#: src/application.rs:139
 msgid "Failed to logout"
 msgstr "Odjava ni uspela"
 
-#: src/application.rs:270 src/application.rs:277
+#: src/application.rs:275 src/application.rs:286
 msgid "Failed to log in"
 msgstr "Prijava ni uspela"
 
-#: src/application.rs:473
+#: src/application.rs:520
 msgid "translator-credits"
 msgstr ""
 "Matej Urbančič <mateju@svn.gnome.org>\n"
