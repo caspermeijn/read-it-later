@@ -13,14 +13,14 @@ authors = ["Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>", "Casper Meijn <caspe
 edition = "2021"
 
 [dependencies]
-gtk = {version = "0.8.0", package = "gtk4", features = ["gnome_46"]}
+gtk = {version = "0.8.1", package = "gtk4", features = ["gnome_46"]}
 adw = { version = "0.6.0", package = "libadwaita", features = ["v1_5"] }
 webkit = { version = "0.3.0", package = "webkit6" }
 log = "0.4"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
 wallabag-api = "0.4"
 pretty_env_logger = "0.5"
-diesel = { version = "2.1.3", features = ["sqlite", "r2d2", "chrono"] }
+diesel = { version = "2.1.5", features = ["sqlite", "r2d2", "chrono"] }
 diesel_migrations = {  version = "2.1.0", features = ["sqlite"] }
 anyhow = "1"
 isahc = "1"
@@ -29,7 +29,7 @@ regex = "1"
 secret-service = { version = "3.0.1", features = ["rt-async-io-crypto-openssl"] }
 chrono = "0.4"
 url = "2"
-strum = { version = "0.25", features = ["derive"] }
+strum = { version = "0.26", features = ["derive"] }
 sha1 = "0.10.6"
 base16ct = { version = "0.2.0", features = [ "alloc" ] }
 async-std = "1"
