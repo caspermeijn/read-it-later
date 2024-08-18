@@ -86,9 +86,3 @@ pub fn wipe() -> Result<()> {
     diesel::delete(articles).execute(&mut conn)?;
     Ok(())
 }
-
-pub trait Insert<T> {
-    type Error;
-
-    fn insert(&self) -> Result<T, Self::Error>;
-}

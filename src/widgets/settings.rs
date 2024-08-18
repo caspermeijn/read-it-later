@@ -85,11 +85,15 @@ impl SettingsWidget {
         let (sender, receiver) = async_std::channel::unbounded();
         let ctx = glib::MainContext::default();
 
-        ctx.spawn_local(glib::clone!(@strong self as window =>  async move {
-            while let Ok(action) = receiver.recv().await {
-                window.do_action(action);
+        ctx.spawn_local(glib::clone!(
+            #[strong(rename_to = window)]
+            self,
+            async move {
+                while let Ok(action) = receiver.recv().await {
+                    window.do_action(action);
+                }
             }
-        }));
+        ));
 
         ctx.spawn_local(async move {
             let client = client.lock().await;

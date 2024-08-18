@@ -80,15 +80,19 @@ impl NewArticle {
         self.action_set_enabled("win.accept", false);
 
         let ctx = glib::MainContext::default();
-        ctx.spawn_local(glib::clone!(@strong self as widget =>  async move {
-            let clipboard_content = widget.clipboard().read_text_future().await;
-            if let Ok(Some(text)) = clipboard_content {
-                if let Ok(url) = Url::parse(&text) {
-                    let entry = &widget.imp().article_url_entry;
-                    entry.set_text(url.as_str());
+        ctx.spawn_local(glib::clone!(
+            #[strong(rename_to = widget)]
+            self,
+            async move {
+                let clipboard_content = widget.clipboard().read_text_future().await;
+                if let Ok(Some(text)) = clipboard_content {
+                    if let Ok(url) = Url::parse(&text) {
+                        let entry = &widget.imp().article_url_entry;
+                        entry.set_text(url.as_str());
+                    }
                 }
             }
-        }));
+        ));
     }
 
     #[template_callback]

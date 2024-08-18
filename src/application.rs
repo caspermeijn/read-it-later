@@ -70,11 +70,15 @@ mod imp {
             self.sender.set(sender.clone()).unwrap();
 
             let ctx = glib::MainContext::default();
-            ctx.spawn_local(glib::clone!(@strong app =>  async move {
-                while let Ok(action) = receiver.recv().await {
-                    app.do_action(action).await;
+            ctx.spawn_local(glib::clone!(
+                #[strong]
+                app,
+                async move {
+                    while let Ok(action) = receiver.recv().await {
+                        app.do_action(action).await;
+                    }
                 }
-            }));
+            ));
 
             let client = Arc::new(Mutex::new(ClientManager::new(sender.clone())));
             self.client.set(client).unwrap();
@@ -174,7 +178,7 @@ impl Application {
                     let window = imp.window.get().unwrap();
                     let client = imp.client.get().unwrap();
                     let settings_widget = SettingsWidget::new(client.clone());
-                    AdwDialogExt::present(&settings_widget, window);
+                    AdwDialogExt::present(&settings_widget, Some(window));
                 })
                 .build(),
             // About
@@ -522,6 +526,6 @@ impl Application {
             .artists(["Tobias Bernard"])
             .build();
 
-        dialog.present(parent);
+        dialog.present(Some(parent));
     }
 }

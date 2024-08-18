@@ -176,11 +176,17 @@ impl ArticlesView {
             imp.progress_bar.set_fraction(0.0);
             let timeout = glib::timeout_add_local(
                 std::time::Duration::from_millis(100),
-                clone!(@weak imp => @default-return glib::ControlFlow::Break, move || {
-                    imp.revealer.set_reveal_child(true);
-                    imp.progress_bar.pulse();
-                    glib::ControlFlow::Continue
-                }),
+                clone!(
+                    #[weak]
+                    imp,
+                    #[upgrade_or]
+                    glib::ControlFlow::Break,
+                    move || {
+                        imp.revealer.set_reveal_child(true);
+                        imp.progress_bar.pulse();
+                        glib::ControlFlow::Continue
+                    }
+                ),
             );
             if let Some(old_timeout) = imp.progress_bar_timeout.replace(Some(timeout)) {
                 old_timeout.remove();

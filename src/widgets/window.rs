@@ -57,7 +57,7 @@ mod imp {
             klass.install_action("win.new-article", None, move |window, _, _| {
                 let sender = window.imp().sender.get().unwrap().clone();
                 let dialog = NewArticle::new(sender);
-                dialog.present(window);
+                dialog.present(Some(window));
             });
         }
 
@@ -177,14 +177,17 @@ impl Window {
         let article_widget = imp.article_widget.get();
         self.insert_action_group("article", Some(article_widget.get_actions()));
 
-        imp.main_stack
-            .connect_visible_page_notify(clone!(@strong article_widget => move |stack| {
+        imp.main_stack.connect_visible_page_notify(clone!(
+            #[strong]
+            article_widget,
+            move |stack| {
                 if let Some(page) = stack.visible_page() {
                     if let Some(view_name) = page.tag() {
                         article_widget.set_enable_actions(view_name == "article");
                     }
                 }
-            }));
+            }
+        ));
 
         self.set_view(View::Login);
     }

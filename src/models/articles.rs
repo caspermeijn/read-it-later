@@ -48,11 +48,15 @@ impl ArticlesManager {
         let receiver = self.receiver.borrow_mut().take().unwrap();
 
         let ctx = glib::MainContext::default();
-        ctx.spawn_local(glib::clone!(@strong manager =>  async move {
-            while let Ok(action) = receiver.recv().await {
-                manager.do_action(action).await;
+        ctx.spawn_local(glib::clone!(
+            #[strong]
+            manager,
+            async move {
+                while let Ok(action) = receiver.recv().await {
+                    manager.do_action(action).await;
+                }
             }
-        }));
+        ));
     }
 
     async fn do_action(&self, action: ArticleAction) {

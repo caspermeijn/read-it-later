@@ -150,53 +150,75 @@ impl ArticleWidget {
         self.imp().actions.add_action_entries([
             // Delete article
             gio::ActionEntry::builder("delete")
-                .activate(clone!(@strong self as aw => move|_, _, _|{
-                  let imp = aw.imp();
-                  let sender = imp.sender.get().unwrap();
-                  if let Some(article) = imp.article.borrow().clone(){
-                    sender.send_blocking(ArticleAction::Delete(article)).unwrap();
-                  }
-                }))
+                .activate(clone!(
+                    #[strong(rename_to = aw)]
+                    self,
+                    move |_, _, _| {
+                        let imp = aw.imp();
+                        let sender = imp.sender.get().unwrap();
+                        if let Some(article) = imp.article.borrow().clone() {
+                            sender
+                                .send_blocking(ArticleAction::Delete(article))
+                                .unwrap();
+                        }
+                    }
+                ))
                 .build(),
             // Share article
             gio::ActionEntry::builder("open")
-                .activate(clone!(@strong self as aw => move|_, _, _|{
-                  if let Some(article) = aw.imp().article.borrow().clone(){
-                    let article_url = article.url.clone().unwrap();
-                    open_uri_in_browser(article_url);
-                  }
-                }))
+                .activate(clone!(
+                    #[strong(rename_to = aw)]
+                    self,
+                    move |_, _, _| {
+                        if let Some(article) = aw.imp().article.borrow().clone() {
+                            let article_url = article.url.clone().unwrap();
+                            open_uri_in_browser(article_url);
+                        }
+                    }
+                ))
                 .build(),
             // Archive article
             gio::ActionEntry::builder("archive")
                 .state(false.into())
-                .activate(clone!(@strong self as aw => move |_, action, _|{
-                    let imp = aw.imp();
-                    let sender = imp.sender.get().unwrap();
-                    let state = action.state().unwrap();
-                    let action_state: bool = state.get().unwrap();
-                    let is_archived = !action_state;
-                    action.set_state(&is_archived.into());
-                    if let Some(article) = imp.article.borrow_mut().clone() {
-                        sender.send_blocking(ArticleAction::Archive(article)).unwrap();
+                .activate(clone!(
+                    #[strong(rename_to = aw)]
+                    self,
+                    move |_, action, _| {
+                        let imp = aw.imp();
+                        let sender = imp.sender.get().unwrap();
+                        let state = action.state().unwrap();
+                        let action_state: bool = state.get().unwrap();
+                        let is_archived = !action_state;
+                        action.set_state(&is_archived.into());
+                        if let Some(article) = imp.article.borrow_mut().clone() {
+                            sender
+                                .send_blocking(ArticleAction::Archive(article))
+                                .unwrap();
+                        }
                     }
-                }))
+                ))
                 .build(),
             // Favorite article
             gio::ActionEntry::builder("favorite")
                 .state(false.into())
-                .activate(clone!(@strong self as aw => move |_, action, _|{
-                    let imp = aw.imp();
-                    let sender = imp.sender.get().unwrap();
-                    let state = action.state().unwrap();
-                    let action_state: bool = state.get().unwrap();
-                    let is_starred = !action_state;
-                    action.set_state(&is_starred.into());
+                .activate(clone!(
+                    #[strong(rename_to = aw)]
+                    self,
+                    move |_, action, _| {
+                        let imp = aw.imp();
+                        let sender = imp.sender.get().unwrap();
+                        let state = action.state().unwrap();
+                        let action_state: bool = state.get().unwrap();
+                        let is_starred = !action_state;
+                        action.set_state(&is_starred.into());
 
-                    if let Some(article) = imp.article.borrow_mut().clone() {
-                        sender.send_blocking(ArticleAction::Favorite(article)).unwrap();
+                        if let Some(article) = imp.article.borrow_mut().clone() {
+                            sender
+                                .send_blocking(ArticleAction::Favorite(article))
+                                .unwrap();
+                        }
                     }
-                }))
+                ))
                 .build(),
         ]);
     }
@@ -265,11 +287,17 @@ impl ArticleWidget {
             imp.progress_bar.set_fraction(0.0);
             let timeout = glib::timeout_add_local(
                 std::time::Duration::from_millis(100),
-                clone!(@weak imp => @default-return glib::ControlFlow::Break, move || {
-                    imp.revealer.set_reveal_child(true);
-                    imp.progress_bar.pulse();
-                    glib::ControlFlow::Continue
-                }),
+                clone!(
+                    #[weak]
+                    imp,
+                    #[upgrade_or]
+                    glib::ControlFlow::Break,
+                    move || {
+                        imp.revealer.set_reveal_child(true);
+                        imp.progress_bar.pulse();
+                        glib::ControlFlow::Continue
+                    }
+                ),
             );
             if let Some(old_timeout) = imp.progress_bar_timeout.replace(Some(timeout)) {
                 old_timeout.remove();

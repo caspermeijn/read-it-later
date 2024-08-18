@@ -108,11 +108,13 @@ impl ArticlesListWidget {
 
     pub fn bind_model(&self, model: &impl IsA<gio::ListModel>) {
         self.update_model_empty(model);
-        model.connect_items_changed(
-            clone!(@strong self as list_widget => move |model, _, _, _| {
+        model.connect_items_changed(clone!(
+            #[strong(rename_to = list_widget)]
+            self,
+            move |model, _, _, _| {
                 list_widget.update_model_empty(model);
-            }),
-        );
+            }
+        ));
 
         self.imp().selection_model.set_model(Some(model));
     }

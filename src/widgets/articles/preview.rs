@@ -64,10 +64,13 @@ mod imp {
                     self.url.replace(url);
 
                     let ctx = glib::MainContext::default();
-                    ctx.spawn_local(
-                        clone!(@weak self as article_preview => async move {
+                    ctx.spawn_local(clone!(
+                        #[weak(rename_to = article_preview)]
+                        self,
+                        async move {
                             match article_preview.get_preview_picture().await {
-                                Some(texture) => article_preview.set_texture(&texture),_ => article_preview.obj().set_visible(false),
+                                Some(texture) => article_preview.set_texture(&texture),
+                                _ => article_preview.obj().set_visible(false),
                             };
                         }
                     ));
