@@ -42,6 +42,12 @@ SPDX-License-Identifier: CC0-1.0
   <url type="translate">https://l10n.gnome.org/module/read-it-later/</url>
   <launchable type="desktop-id">@app-id@.desktop</launchable>
   <releases>
+    <release version="0.6.1" date="2024-07-06">
+      <description>
+        <p>Update translations</p>
+        <p>Update to GNOME 47 runtime</p>
+      </description>
+    </release>
     <release version="0.6.0" date="2024-07-06">
       <description>
         <p>Redesigned new article UI</p>
