@@ -66,6 +66,11 @@ mod imp {
 
             let app = self.obj();
 
+            if let Some(window) = self.window.get() {
+                window.present();
+                return;
+            }
+
             let (sender, receiver) = async_std::channel::unbounded();
             self.sender.set(sender.clone()).unwrap();
 
