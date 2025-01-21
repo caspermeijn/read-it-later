@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: read-it-later master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/read-it-later/"
 "issues\n"
-"POT-Creation-Date: 2024-02-11 18:35+0000\n"
-"PO-Revision-Date: 2024-03-16 16:55+0100\n"
+"POT-Creation-Date: 2024-03-23 20:52+0000\n"
+"PO-Revision-Date: 2024-09-24 19:36+0200\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -18,10 +18,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: data/com.belmoussaoui.ReadItLater.desktop.in.in:3
 #: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:14
+#: data/resources/ui/window.ui:27 data/resources/ui/window.ui:36
+#: data/resources/ui/window.ui:45
 msgid "Read It Later"
 msgstr "Read It Later"
 
@@ -94,19 +96,20 @@ msgstr ""
 "Den kommer også med en læsertilstand, der er rar for øjnene, som "
 "understøtter syntaksfremhævning af kode og en mørk tilstand."
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:89
+#. developer_name tag deprecated with Appstream 1.0
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:100
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:93
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:107
 msgid "Main Window"
 msgstr "Hovedvindue"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:97
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:111
 msgid "Article View"
 msgstr "Artikelvisning"
 
-#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:101
+#: data/com.belmoussaoui.ReadItLater.metainfo.xml.in.in:115
 msgid "Adaptive view in dark mode"
 msgstr "Adaptiv visning i mørk tilstand"
 
@@ -118,12 +121,12 @@ msgstr "Åbn websted"
 msgid "Delete Article"
 msgstr "Slet artikel"
 
-#: data/resources/ui/article.ui:50
+#: data/resources/ui/article.ui:43
 msgctxt "action button"
 msgid "Favorite"
 msgstr "Favorit"
 
-#: data/resources/ui/article.ui:58
+#: data/resources/ui/article.ui:51
 msgctxt "action button"
 msgid "Archive"
 msgstr "Arkivér"
@@ -153,17 +156,17 @@ msgstr "Tastaturgenveje"
 msgid "About Read It Later"
 msgstr "Om Read It Later"
 
-#: data/resources/ui/articles.ui:87
+#: data/resources/ui/articles.ui:89
 msgctxt "view switcher"
 msgid "Unread"
 msgstr "Ulæste"
 
-#: data/resources/ui/articles.ui:99
+#: data/resources/ui/articles.ui:101
 msgctxt "view switcher"
 msgid "Favorites"
 msgstr "Favoritter"
 
-#: data/resources/ui/articles.ui:111
+#: data/resources/ui/articles.ui:113
 msgctxt "view switcher"
 msgid "Archive"
 msgstr "Arkiv"
@@ -185,45 +188,40 @@ msgstr "Indstillinger"
 
 #: data/resources/ui/gtk/help-overlay.ui:34
 msgctxt "shortcut window"
-msgid "Back"
-msgstr "Tilbage"
-
-#: data/resources/ui/gtk/help-overlay.ui:40
-msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Afslut"
 
-#: data/resources/ui/gtk/help-overlay.ui:48
+#: data/resources/ui/gtk/help-overlay.ui:42
 msgctxt "shortcut window"
 msgid "Articles"
 msgstr "Artikler"
 
-#: data/resources/ui/gtk/help-overlay.ui:51
+#: data/resources/ui/gtk/help-overlay.ui:45
 msgctxt "shortcut window"
 msgid "Synchronize"
 msgstr "Synkroniser"
 
-#: data/resources/ui/gtk/help-overlay.ui:57
+#: data/resources/ui/gtk/help-overlay.ui:51
 msgctxt "shortcut window"
 msgid "New Article"
 msgstr "Ny artikel"
 
-#: data/resources/ui/gtk/help-overlay.ui:63
+#: data/resources/ui/gtk/help-overlay.ui:57
 msgctxt "shortcut window"
 msgid "Delete Article"
 msgstr "Slet artikel"
 
-#: data/resources/ui/gtk/help-overlay.ui:69
+#: data/resources/ui/gtk/help-overlay.ui:63
 msgctxt "shortcut window"
 msgid "Favorite Article"
 msgstr "Tilføj artikel som favorit"
 
-#: data/resources/ui/gtk/help-overlay.ui:75
+#: data/resources/ui/gtk/help-overlay.ui:69
 msgctxt "shortcut window"
 msgid "Archive Article"
 msgstr "Arkivér artikel"
 
-#: data/resources/ui/gtk/help-overlay.ui:81
+#: data/resources/ui/gtk/help-overlay.ui:75
 msgctxt "shortcut window"
 msgid "Open Article in Browser"
 msgstr "Åbn artikel i browser"
@@ -260,24 +258,22 @@ msgstr "Adgangskode"
 msgid "Log In"
 msgstr "Log ind"
 
-#: data/resources/ui/new_article.ui:11
-msgctxt "window title"
-msgid "Add article"
-msgstr "Tilføj artikel"
+#: data/resources/ui/new_article.ui:29
+msgid "Add an article"
+msgstr "Tilføj en artikel"
 
-#: data/resources/ui/new_article.ui:22
-msgctxt "action button"
-msgid "Cancel"
-msgstr "Annullér"
+#: data/resources/ui/new_article.ui:39
+msgid "Enter the URL of the article"
+msgstr "Indtast artiklens URL"
 
-#: data/resources/ui/new_article.ui:27
+#: data/resources/ui/new_article.ui:55
+msgid "Article URL"
+msgstr "Artikel-URL"
+
+#: data/resources/ui/new_article.ui:63
 msgctxt "action button"
 msgid "Add"
 msgstr "Tilføj"
-
-#: data/resources/ui/new_article.ui:42
-msgid "Paste the article URL here"
-msgstr "Indsæt artiklens URL her"
 
 #: data/resources/ui/settings.ui:16
 msgid "Account"
@@ -299,17 +295,28 @@ msgstr "Oprettet"
 msgid "Updated At"
 msgstr "Opdateret"
 
-#: src/application.rs:138
+#: src/application.rs:139
 msgid "Failed to logout"
 msgstr "Kunne ikke logge ud"
 
-#: src/application.rs:270 src/application.rs:277
+#: src/application.rs:275 src/application.rs:286
 msgid "Failed to log in"
 msgstr "Kunne ikke logge ind"
 
-#: src/application.rs:477
+#: src/application.rs:520
 msgid "translator-credits"
 msgstr "scootergrisen"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Back"
+#~ msgstr "Tilbage"
+
+#~ msgctxt "action button"
+#~ msgid "Cancel"
+#~ msgstr "Annullér"
+
+#~ msgid "Paste the article URL here"
+#~ msgstr "Indsæt artiklens URL her"
 
 #~ msgctxt "action button"
 #~ msgid "Save"
