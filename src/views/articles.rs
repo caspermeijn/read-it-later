@@ -88,7 +88,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct ArticlesView(ObjectSubclass<imp::ArticlesView>)
-        @extends gtk::Widget;
+        @extends adw::BreakpointBin, gtk::Widget;
 }
 
 impl ArticlesView {
