@@ -7,7 +7,7 @@
 project(
   'read-it-later',
   'rust',
-  version: '0.6.1',
+  version: '0.6.2',
   meson_version: '>= 0.59',
   license: 'GPL3'
 )
