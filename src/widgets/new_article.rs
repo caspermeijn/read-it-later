@@ -63,7 +63,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct NewArticle(ObjectSubclass<imp::NewArticle>)
-    @extends adw::Dialog, gtk::Widget;
+    @extends adw::Dialog, gtk::Widget,
+    @implements gtk::ConstraintTarget, gtk::Buildable, gtk::Accessible;
 }
 
 #[gtk::template_callbacks]

@@ -72,7 +72,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct Login(ObjectSubclass<imp::Login>)
-        @extends gtk::Widget;
+        @extends gtk::Widget,
+        @implements gtk::ConstraintTarget, gtk::Buildable, gtk::Accessible;
 }
 
 #[gtk::template_callbacks]

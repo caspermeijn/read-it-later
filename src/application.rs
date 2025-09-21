@@ -109,7 +109,7 @@ mod imp {
 glib::wrapper! {
     pub struct Application(ObjectSubclass<imp::Application>)
         @extends gtk::Widget, gio::Application, gtk::Application, adw::Application,
-        @implements gio::ActionMap, gio::ActionGroup;
+        @implements gio::ActionMap, gio::ActionGroup, gtk::ConstraintTarget, gtk::Buildable, gtk::Accessible;
 }
 
 impl Application {

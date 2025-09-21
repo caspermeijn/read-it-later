@@ -60,7 +60,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct SettingsWidget(ObjectSubclass<imp::SettingsWidget>)
-        @extends gtk::Widget, gtk::Window, adw::Dialog, adw::PreferencesDialog;
+        @extends gtk::Widget, gtk::Window, adw::Dialog, adw::PreferencesDialog,
+        @implements gtk::ConstraintTarget, gtk::Buildable, gtk::Accessible, gtk::Native, gtk::Root, gtk::ShortcutManager;
 }
 
 struct ClientInfo {

@@ -112,5 +112,6 @@ mod imp {
 
 glib::wrapper! {
     pub struct ArticlePreview(ObjectSubclass<imp::ArticlePreview>)
-        @extends gtk::Widget;
+        @extends gtk::Widget,
+        @implements gtk::ConstraintTarget, gtk::Buildable, gtk::Accessible;
 }

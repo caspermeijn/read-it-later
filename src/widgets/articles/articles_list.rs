@@ -94,7 +94,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct ArticlesListWidget(ObjectSubclass<imp::ArticlesListWidget>)
-        @extends gtk::Widget;
+        @extends gtk::Widget,
+        @implements gtk::ConstraintTarget, gtk::Buildable, gtk::Accessible;
 }
 
 impl ArticlesListWidget {
