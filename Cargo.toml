@@ -26,7 +26,7 @@ anyhow = "1"
 isahc = "1"
 sanitize_html = "0.9"
 regex = "1"
-secret-service = { version = "4", features = ["rt-async-io-crypto-openssl"] }
+secret-service = { version = "5", features = ["rt-async-io-crypto-openssl"] }
 chrono = "0.4"
 url = "2"
 strum = { version = "0.27", features = ["derive"] }
