@@ -10,7 +10,7 @@ include:
     file: 'flatpak/flatpak_ci_initiative.yml'
 
 .vars-devel:
-  image: 'quay.io/gnome_infrastructure/gnome-runtime-images:gnome-48'
+  image: 'quay.io/gnome_infrastructure/gnome-runtime-images:gnome-49'
   variables:
     BUNDLE: "read-it-later-nightly.flatpak"
     MANIFEST_PATH: "build-aux/com.belmoussaoui.ReadItLater.Devel.json"

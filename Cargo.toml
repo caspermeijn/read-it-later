@@ -13,8 +13,8 @@ authors = ["Bilal Elmoussaoui <bil.elmoussaoui@gmail.com>", "Casper Meijn <caspe
 edition = "2021"
 
 [dependencies]
-gtk = {version = "0.10", package = "gtk4", features = ["gnome_47"]}
-adw = { version = "0.8", package = "libadwaita", features = ["v1_6"] }
+gtk = {version = "0.10", package = "gtk4", features = ["gnome_48"]}
+adw = { version = "0.8", package = "libadwaita", features = ["v1_8"] }
 webkit = { version = "0.5", package = "webkit6" }
 log = "0.4"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
